@@ -26,7 +26,7 @@ stm32flash: $(OBJS) $(LIBOBJS)
 	$(CC) $(LDFLAGS) -o $@ $(OBJS) $(LIBOBJS)
 
 clean:
-	rm -f $(OBJS) stm32flash
+	rm -f $(OBJS)
 	cd parsers && $(MAKE) $@
 
 install: all
