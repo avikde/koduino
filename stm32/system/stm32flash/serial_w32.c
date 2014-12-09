@@ -43,7 +43,7 @@ static serial_t *serial_open(const char *device)
 	char *devName;
 
 	/* timeout in ms */
-	COMMTIMEOUTS timeouts = {MAXDWORD, MAXDWORD, 500, 0, 0};
+	COMMTIMEOUTS timeouts = {MAXDWORD, MAXDWORD, 5000, 0, 0};
 
 	/* Fix the device name if required */
 	if (strlen(device) > 4 && device[0] != '\\') {

@@ -76,6 +76,7 @@ char		*filename;
 char		*gpio_seq	= NULL;
 uint32_t	start_addr	= 0;
 uint32_t	readwrite_len	= 0;
+char		verbose		= 0;
 
 /* functions */
 int  parse_options(int argc, char *argv[]);
@@ -120,8 +121,8 @@ int main(int argc, char* argv[]) {
 	parser_err_t perr;
 	FILE *diag = stdout;
 
-	fprintf(diag, "stm32flash " VERSION "\n\n");
-	fprintf(diag, "http://stm32flash.googlecode.com/\n\n");
+	// fprintf(diag, "stm32flash " VERSION "\n\n");
+	// fprintf(diag, "http://stm32flash.googlecode.com/\n\n");
 	if (parse_options(argc, argv) != 0)
 		goto close;
 
@@ -165,7 +166,7 @@ int main(int argc, char* argv[]) {
 			}
 		}
 
-		fprintf(diag, "Using Parser : %s\n", parser->name);
+		if (verbose) fprintf(diag, "Using Parser : %s\n", parser->name);
 	} else {
 		parser = &PARSER_BINARY;
 		p_st = parser->init();
@@ -180,23 +181,25 @@ int main(int argc, char* argv[]) {
 		goto close;
 	}
 
-	fprintf(diag, "Interface %s: %s\n", port->name, port->get_cfg_str(port));
+	if (verbose) fprintf(diag, "Interface %s: %s\n", port->name, port->get_cfg_str(port));
 	if (init_flag && init_bl_entry(port, gpio_seq) == 0)
 		goto close;
 	stm = stm32_init(port, init_flag);
 	if (!stm)
 		goto close;
 
-	fprintf(diag, "Version      : 0x%02x\n", stm->bl_version);
-	if (port->flags & PORT_GVR_ETX) {
-		fprintf(diag, "Option 1     : 0x%02x\n", stm->option1);
-		fprintf(diag, "Option 2     : 0x%02x\n", stm->option2);
+	if (verbose) {
+		fprintf(diag, "Version      : 0x%02x\n", stm->bl_version);
+		if (port->flags & PORT_GVR_ETX) {
+			fprintf(diag, "Option 1     : 0x%02x\n", stm->option1);
+			fprintf(diag, "Option 2     : 0x%02x\n", stm->option2);
+		}
+		fprintf(diag, "Device ID    : 0x%04x (%s)\n", stm->pid, stm->dev->name);
+		fprintf(diag, "- RAM        : %dKiB  (%db reserved by bootloader)\n", (stm->dev->ram_end - 0x20000000) / 1024, stm->dev->ram_start - 0x20000000);
+		fprintf(diag, "- Flash      : %dKiB (sector size: %dx%d)\n", (stm->dev->fl_end - stm->dev->fl_start ) / 1024, stm->dev->fl_pps, stm->dev->fl_ps);
+		fprintf(diag, "- Option RAM : %db\n", stm->dev->opt_end - stm->dev->opt_start + 1);
+		fprintf(diag, "- System RAM : %dKiB\n", (stm->dev->mem_end - stm->dev->mem_start) / 1024);
 	}
-	fprintf(diag, "Device ID    : 0x%04x (%s)\n", stm->pid, stm->dev->name);
-	fprintf(diag, "- RAM        : %dKiB  (%db reserved by bootloader)\n", (stm->dev->ram_end - 0x20000000) / 1024, stm->dev->ram_start - 0x20000000);
-	fprintf(diag, "- Flash      : %dKiB (sector size: %dx%d)\n", (stm->dev->fl_end - stm->dev->fl_start ) / 1024, stm->dev->fl_pps, stm->dev->fl_ps);
-	fprintf(diag, "- Option RAM : %db\n", stm->dev->opt_end - stm->dev->opt_start + 1);
-	fprintf(diag, "- System RAM : %dKiB\n", (stm->dev->mem_end - stm->dev->mem_start) / 1024);
 
 	uint8_t		buffer[256];
 	uint32_t	addr, start, end;
@@ -367,7 +370,8 @@ int main(int argc, char* argv[]) {
 		// TODO: If writes are not page aligned, we should probably read out existing flash
 		//       contents first, so it can be preserved and combined with new data
 		if (!no_erase && num_pages) {
-			fprintf(diag, "Erasing memory\n");
+			if (verbose)
+				fprintf(diag, "Erasing memory\n");
 			s_err = stm32_erase_memory(stm, first_page, num_pages);
 			if (s_err != STM32_ERR_OK) {
 				fprintf(stderr, "Failed to erase memory\n");
@@ -437,17 +441,19 @@ int main(int argc, char* argv[]) {
 			addr	+= len;
 			offset	+= len;
 
-			fprintf(diag,
-				"\rWrote %saddress 0x%08x (%.2f%%) ",
-				verify ? "and verified " : "",
-				addr,
-				(100.0f / size) * offset
-			);
-			fflush(diag);
-
+			if (verbose) {
+				fprintf(diag,
+					"\rWrote %saddress 0x%08x (%.2f%%) ",
+					verify ? "and verified " : "",
+					addr,
+					(100.0f / size) * offset
+				);
+				fflush(diag);				
+			}
 		}
 
-		fprintf(diag,	"Done.\n");
+		if (verbose)
+			fprintf(diag,	"Done.\n");
 		ret = 0;
 		goto close;
 	} else if (crc) {
@@ -472,7 +478,7 @@ close:
 		if (execute == 0)
 			execute = stm->dev->fl_start;
 
-		fprintf(diag, "\nStarting execution at address 0x%08x... ", execute);
+		fprintf(diag, "Starting execution at address 0x%08x... ", execute);
 		fflush(diag);
 		if (stm32_go(stm, execute) == STM32_ERR_OK) {
 			reset_flag = 0;
@@ -482,7 +488,7 @@ close:
 	}
 
 	if (stm && reset_flag) {
-		fprintf(diag, "\nResetting device... ");
+		fprintf(diag, "Resetting device... ");
 		fflush(diag);
 		if (init_bl_exit(stm, port, gpio_seq))
 			fprintf(diag, "done.\n");
@@ -503,7 +509,7 @@ int parse_options(int argc, char *argv[])
 	int c;
 	char *pLen;
 
-	while ((c = getopt(argc, argv, "a:b:m:r:w:e:vn:g:jkfcChuos:S:F:i:R")) != -1) {
+	while ((c = getopt(argc, argv, "a:b:m:r:w:e:vn:g:jkfcChuosV:S:F:i:R")) != -1) {
 		switch(c) {
 			case 'a':
 				port_opts.bus_addr = strtoul(optarg, NULL, 0);
@@ -669,6 +675,10 @@ int parse_options(int argc, char *argv[])
 			case 'h':
 				show_help(argv[0]);
 				exit(0);
+
+			case 'V':
+				verbose = 1;
+				break;
 
 			case 'i':
 				gpio_seq = optarg;
