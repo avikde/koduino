@@ -108,9 +108,9 @@ recipe.size.regex=\.text\s+([0-9]+).*
 # Serial
 tools.stm32flash.cmd=stm32flash
 tools.stm32flash.cmd.windows=stm32flash.exe
-tools.stm32flash.path={runtime.ide.path}/hardware/tools/stm32flash
+tools.stm32flash.path={runtime.ide.path}/hardware/koduino/stm32/system/stm32flash
 
-tools.stm32flash.upload.params.verbose=
+tools.stm32flash.upload.params.verbose=-V
 tools.stm32flash.upload.params.quiet=
 tools.stm32flash.upload.pattern="{path}/{cmd}" -i {upload.sequence} -w "{build.path}/{build.project_name}.bin" -R -b {upload.baud} -n 10000 {serial.port}
 

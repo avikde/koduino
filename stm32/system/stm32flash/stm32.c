@@ -288,38 +288,46 @@ static stm32_err_t stm32_send_init_seq(const stm32_t *stm)
 	struct port_interface *port = stm->port;
 	port_err_t p_err;
 	uint8_t byte, cmd = STM32_CMD_INIT;
+	uint8_t retries;
 
-	p_err = port->write(port, &cmd, 1);
-	if (p_err != PORT_ERR_OK) {
-		fprintf(stderr, "Failed to send init to device\n");
-		return STM32_ERR_UNKNOWN;
-	}
-	p_err = port->read(port, &byte, 1);
-	if (p_err == PORT_ERR_OK && byte == STM32_ACK)
-		return STM32_ERR_OK;
-	if (p_err == PORT_ERR_OK && byte == STM32_NACK) {
-		/* We could get error later, but let's continue, for now. */
-		fprintf(stderr,
-			"Warning: the interface was not closed properly.\n");
-		return STM32_ERR_OK;
-	}
-	if (p_err != PORT_ERR_TIMEDOUT) {
-		fprintf(stderr, "Failed to init device.\n");
-		return STM32_ERR_UNKNOWN;
+	for (retries = 0; retries < 100; ++retries) {
+		p_err = port->write(port, &cmd, 1);
+		if (p_err != PORT_ERR_OK) {
+			fprintf(stderr, "Failed to send init to device\n");
+			// return STM32_ERR_UNKNOWN;
+			continue;
+		}
+		p_err = port->read(port, &byte, 1);
+		if (p_err == PORT_ERR_OK && byte == STM32_ACK)
+			return STM32_ERR_OK;
+		if (p_err == PORT_ERR_OK && byte == STM32_NACK) {
+			/* We could get error later, but let's continue, for now. */
+			fprintf(stderr,
+				"Warning: the interface was not closed properly.\n");
+			return STM32_ERR_OK;
+		}
+		if (p_err != PORT_ERR_TIMEDOUT) {
+			fprintf(stderr, "Failed to init device.\n");
+			// return STM32_ERR_UNKNOWN;
+			continue;
+		}
+
+		/*
+		 * Check if previous STM32_CMD_INIT was taken as first byte
+		 * of a command. Send a new byte, we should get back a NACK.
+		 */
+		p_err = port->write(port, &cmd, 1);
+		if (p_err != PORT_ERR_OK) {
+			fprintf(stderr, "Failed to send init to device\n");
+			// return STM32_ERR_UNKNOWN;
+			continue;
+		}
+		p_err = port->read(port, &byte, 1);
+		if (p_err == PORT_ERR_OK && byte == STM32_NACK)
+			return STM32_ERR_OK;
 	}
 
-	/*
-	 * Check if previous STM32_CMD_INIT was taken as first byte
-	 * of a command. Send a new byte, we should get back a NACK.
-	 */
-	p_err = port->write(port, &cmd, 1);
-	if (p_err != PORT_ERR_OK) {
-		fprintf(stderr, "Failed to send init to device\n");
-		return STM32_ERR_UNKNOWN;
-	}
-	p_err = port->read(port, &byte, 1);
-	if (p_err == PORT_ERR_OK && byte == STM32_NACK)
-		return STM32_ERR_OK;
+	// Could not init even after all the retries
 	fprintf(stderr, "Failed to init device.\n");
 	return STM32_ERR_UNKNOWN;
 }
