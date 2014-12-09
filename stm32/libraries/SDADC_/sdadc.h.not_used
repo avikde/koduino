@@ -1,0 +1,35 @@
+
+#ifndef _sdadc_h_
+#define _sdadc_h_
+
+// #include "board.h"
+#include "adc.h"
+
+//Macro to convert a 16-bit SDADC to a float from 0 to 1
+#define SDADC_TO_FLOAT(i) ((i)/((float)(1<<16)))
+
+
+// Specifically, this module sets up some of the following specific pin sets for software-triggered conversion. The mode can be single-ended (only the "plus" pin is used) or differential
+
+typedef enum {
+  SIGMADELTA_SE, SIGMADELTA_DIFF
+} SigmaDeltaMode;
+
+typedef enum {
+  SDCH_B2_B1 = 0, SDCH_E8_E9 = 1, SDCH_B14_B15 = 2
+} SigmaDeltaChannel;
+
+// Init specified channels
+uint8_t sigmaDeltaInit(ADCTriggerType trig, SigmaDeltaMode mode, int numChannels, const SigmaDeltaChannel *channels);
+
+// Software start, blocking, or in continuous mode returns immediately with latest conversion value
+int16_t sigmaDeltaRead(SigmaDeltaChannel ch);
+
+// This is meant to run fast, i.e. it expects the channels to be set properly. ai are allowed to be NULL, in which case it is ignored
+// void sigmaDeltaReadBatch(int16_t *a1, int16_t *a2, int16_t *a3);
+
+// Non-blocking software start. It takes ~67us between BeginRead and EndRead. EndRead will block till the conversion is done.
+void sigmaDeltaBeginReadNB(int numChannels, const SigmaDeltaChannel *channels);
+void sigmaDeltaEndReadNB(int numChannels, const SigmaDeltaChannel *channels, int16_t *out);
+
+#endif

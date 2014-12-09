@@ -1,0 +1,49 @@
+
+menu.hse=HSE
+menu.bootloader=Bootloader
+
+f37xcc.name=f37xcc
+f37xcc.build.mcu=STM32F37x
+f37xcc.build.series=STM32F37x
+f37xcc.build.f_cpu=72000000L
+# f37xcc.build.usb_product="M4"
+# f37xcc.build.board=f37xcc
+f37xcc.build.core=arduino
+f37xcc.build.extra_flags=
+f37xcc.build.ldscript=STM32F373VC_FLASH.ld
+f37xcc.build.variant=f37xcc
+f37xcc.build.variant_system_lib=libm4duino_f37xcc.a
+
+# HSE choices
+f37xcc.build.hse_value=16000000UL
+f37xcc.build.hse_clock=0
+
+# f37xcc.menu.hse.8mhz=8MHz clock
+# f37xcc.menu.hse.8mhz.build.hse_value=8000000UL
+# f37xcc.menu.hse.8mhz.build.hse_clock=1
+
+# f37xcc.menu.hse.16mhz=16MHz
+# f37xcc.menu.hse.16mhz.build.hse_value=16000000UL
+# f37xcc.menu.hse.16mhz.build.hse_clock=0
+
+# f37xcc.menu.hse.24mhz=24MHz clock
+# f37xcc.menu.hse.24mhz.build.hse_value=24000000UL
+# f37xcc.menu.hse.24mhz.build.hse_clock=1
+
+# Upload choices
+f37xcc.upload.tool=stm32flash
+f37xcc.upload.protocol=serial
+f37xcc.upload.sequence=-rts,-dtr,dtr:rts,-dtr,dtr
+f37xcc.upload.baud=230400
+f37xcc.upload.maximum_size=262144
+# f37xcc.menu.bootloader.serial=Serial
+# f37xcc.menu.bootloader.serial.upload.tool=stm32loader
+# f37xcc.menu.bootloader.serial.upload.protocol=serial
+
+# f37xcc.menu.bootloader.dfu_util=DFU
+# f37xcc.menu.bootloader.dfu_util.upload.tool=dfu_util
+# f37xcc.menu.bootloader.dfu_util.upload.protocol=dfu
+
+# f37xcc.build.vid=0x2341
+# f37xcc.build.pid=0x003e
+
