@@ -1,0 +1,221 @@
+#ifndef _motor_controller_h_
+#define _motor_controller_h_
+
+#include "board.h"
+#include "util.h"
+#include "system_clock.h"
+
+
+typedef struct {
+  float velSmooth;
+  float updateRate;
+} MotorControllerParams;
+extern MotorControllerParams motorControllerParams;
+
+// ===============================================================================
+// Navigation function for a simple barrier 
+// In header file because it may be useful to call from user code
+// ===============================================================================
+
+typedef struct {
+  float ll, ul;
+} BarrierLimits;
+
+// Returns torque = function(pos) that tries to push inwards, with a saturation constant maxVal that prevents infinity. In the simple setting this should be added to whatever other open loop value
+static inline float motorSimpleBarrier(float pos, const BarrierLimits *lim, float maxVal)
+{
+  float barrier = - (1.0/(lim->ul - pos) - 1.0/(pos - lim->ll));
+  if (pos > lim->ul)
+    barrier = -maxVal;
+  if (pos < lim->ll)
+    barrier = maxVal;
+  return barrier;
+}
+
+
+// ===============================================================================
+// Motor controller
+// A high-level motor controller library, which uses lower-level PWM/DIR or center-aligned PWM commands, agnostic of brushless or brushed.
+// ===============================================================================
+
+typedef enum {
+  ESCON_50_5, POLOLU_HP, BLCON3, BLCON3_4
+} DriverType;
+
+typedef enum {
+  ARM_PID, SMOOTHED_VEL_PD
+} PDType;
+
+typedef enum {
+  FB_PWM, FB_ANALOG, FB_PWM_10_90
+} FeedbackType;
+
+typedef enum {
+  MCM_OPEN_LOOP, MCM_POSITION
+} MotorControlMode;
+
+typedef struct {
+  DriverType driverType;
+  PDType pdType;
+  FeedbackType fbType;
+
+  // Communication interface -----------------------------------------------
+  // A particular controller may use one or more of these / use them differently (eg. pwm vs analog position), or UART
+  PinName enPin, pwmPin, dirPin, dPin, posPin, rstPin;
+  int seriali;
+  uint8_t enableFlag;// Needed to enforce disable state for BLCon v3.4
+
+  // Settings --------------------------------------------------------------
+  // Defaults: 0, 1, 1
+  float zero;
+  // +/-1. relates what the user wants to be forward with the encoder
+  int8_t direction;
+  // +/-1. Relates encoder forward with LOW dirPin or +ve PWM drive signal
+  int8_t driverDirection;
+  // TWO_PI usually, but 300 degrees for RX-24F etc.
+  float fbFullRange;
+
+  // PD controller (is the arm_pid OK for noisy position feedback?)----------
+  arm_pid_instance_f32 pid;
+  PDInstance pd;
+  // Default: SMOOTHED_VEL_PD
+
+  // Controller state ----------------------------------------------
+  MotorControlMode mode;
+  // in [-1, 1], 0 being stopped, before being corrected for direction or driverDirection
+  float val, correctedVal;
+  // A position setpoint
+  float setpoint;
+  // Position barrier? (eg. tail)
+  uint8_t useBarrier;
+  BarrierLimits barrierLimits;
+
+  // FOR DEBUG (unequal left/right motors). In [0,1], 1 is default. 
+  float valScale;
+} MotorInstance;
+
+//Init------------------------------------
+
+// Procedure for figuring out driverDirection: run motorSetOpenLoop(, 0.1) or something small and check if encoder values are increasing. If not, flip sign of driverDirection.
+
+void motorInitEscon(MotorInstance *M, PinName pwmPin, PinName enPin, int8_t driverDirection);
+void motorInitPololu(MotorInstance *M, PinName pwmPin, PinName dirPin, PinName rstPin, int8_t driverDirection);
+void motorInitBLCon3(MotorInstance *M, PinName pwmPin, PinName dPin, PinName posPin);
+void motorInitBLCon34(MotorInstance *M, PinName pwmPin, PinName posPin);
+
+// This changes the pd type and should be called early
+void motorSetPDType(MotorInstance *M, PDType pdType);
+void motorSetProperties(MotorInstance *M, float zero, int8_t direction);
+// For boards other than BLCon3, choice of position feedback is flexible. Not necessary to call for BLCon3. fullRange is in radians (300 degrees for RX-24F etc.)
+void motorSetFeedback(MotorInstance *M, PinName posPin, FeedbackType fbType, float fullRange);
+// Use a barrier?
+void motorSetBarrier(MotorInstance *M, float ll, float ul);
+
+void motorSetPGain(MotorInstance *M, float Kp);
+
+//Enable/disable------------------------------------------
+
+void motorEnable(MotorInstance *M, uint8_t enable);
+
+//Feedback (measured and calculated)----------------------
+
+float motorGetPosition(MotorInstance *M);
+float motorGetVelocity(MotorInstance *M);
+
+//Set motor move commands (but they are sent by motorUpdate())------------
+
+// "val" is in fraction of the max and signed [-1, 1]. +1 => forward direction. Should be interpreted as voltage, or torque for the ESCONs
+void motorSetOpenLoop(MotorInstance *M, float val);
+// setpoint is in radians
+void motorSetPosition(MotorInstance *M, float setpoint);
+
+// Update (updates PD controller, and sends commands)----------------
+
+// This should be called at a more or less fixed rate (once per iteration)
+void motorUpdate(MotorInstance *M);
+
+
+// ===============================================================================
+// Motor pair library
+// e.g. (left/right leg or left/right tail)
+// Need to set directions correctly for legs or tail. Each MotorInstance has a direction. 
+// This objection exposes mean/difference coordinates and allows controlling in those coordinates rather than individual motors. E.g. for sagittal behaviors, there could be a PD control acting on the "difference" coordinates and torque control on the "mean" coordinates.
+// ===============================================================================
+
+typedef enum {
+  PCM_INDEPENDENT, PCM_MEAN_DIFF, PCM_MASTER_SLAVE
+} PairControlMode;
+
+typedef struct {
+  MotorInstance left, right;
+
+  // PD controllers for the mean/diff ------------------------------
+  PDType pdType;
+  arm_pid_instance_f32 meanPID, diffPID;
+  PDInstance meanPD, diffPD;
+
+  // Controller state ----------------------------------------------
+  // Affects what motorPairUpdate(.) does
+  PairControlMode pairControlMode;
+
+  MotorControlMode meanMode, diffMode;
+  // in [-1, 1], 0 being stopped, before being corrected for direction or driverDirection
+  float meanVal, diffVal;
+  // A position setpoint
+  float meanSetpoint, diffSetpoint;
+  // Position barrier? (eg. tail)
+  uint8_t useMeanBarrier, useDiffBarrier;
+  BarrierLimits meanBarrierLimits, diffBarrierLimits;
+} MotorPair;
+
+//Init--------------------------------------------------
+
+void motorPairInit(MotorPair *S);
+void motorPairSetPDType(MotorPair *S, PDType pdType);
+void motorPairSetPDGains(MotorPair *S, float indP, float indD, float meanP, float meanD, float diffP, float diffD);
+// motorInit*() should be used to to initialize "left" and "right"
+// motorSetProperties and motorSetFeedback should be used
+void motorPairSetMode(MotorPair *S, PairControlMode pairControlMode);
+// Set all the D-gains to 0, all P-gains to this value. Mostly a shortcut function.
+void motorPairSetAllPGains(MotorPair *S, float Kp);
+void motorPairSetDiffGain(MotorPair *S, float diffP);
+void motorPairSetMeanGain(MotorPair *S, float meanP);
+// Use a barrier?
+void motorPairSetMeanBarrier(MotorPair *S, float ll, float ul);
+void motorPairSetDiffBarrier(MotorPair *S, float ll, float ul);
+
+//Enable/disable------------------------------------------
+
+void motorPairEnable(MotorPair *S, uint8_t enable);
+
+//Feedback (measured and calculated)----------------------
+
+// Returns mean position (pass NULL if you don't need the outputs)
+float motorPairGetPosition(MotorPair *S, float *meanPosOut, float *diffPosOut);
+float motorPairGetVelocity(MotorPair *S, float *meanVelOut, float *diffVelOut);
+float motorPairGetVoltage(MotorPair *S, float *meanValOut, float *diffValOut);
+
+//Set motor move commands (but they are sent by motorPairUpdate())---------
+
+// For PCM_MEAN_DIFF
+
+// Moves the motors together smoothly (including a potential function to bring them together). All of these try to make the "difference" (i.e. tail yaw or leg splay) go to diff*, and the mean (i.e. tail pitch or leg position)
+void motorPairSetMeanOpenLoop(MotorPair *S, float val);
+void motorPairSetMeanPosition(MotorPair *S, float setpoint);
+void motorPairSetDiffOpenLoop(MotorPair *S, float val);
+void motorPairSetDiffPosition(MotorPair *S, float setpoint);
+
+// For PCM_MASTER_SLAVE
+void motorPairSetOpenLoop(MotorPair *S, float val);
+void motorPairSetPosition(MotorPair *S, float setpoint);
+
+// Update (updates PD controller, and sends commands)----------------
+
+// This should be called at a more or less fixed rate (once per iteration)
+void motorPairUpdate(MotorPair *S);
+
+
+
+
+
+#endif

@@ -1,0 +1,218 @@
+
+#include <stdint.h>
+#include "sdadc.h"
+#include "system_clock.h"
+#include "gpio.h"
+#include "rcc_nvic.h"
+
+#define SDADC_INIT_TIMEOUT   30
+#define SDADC_CAL_TIMEOUT    4*30720
+
+// IDEA: use timer triggering (injected conversion), and use the ISR's to store the data in a local buffer, and just sample the local buffer. Use the example
+volatile int16_t sigmaDeltaBuffer[3] = {0,0,0};
+ADCTriggerType sigmaDeltaTrigger = SOFTWARE_START;
+
+// Info for each SDADC
+typedef struct {
+  uint32_t pwr, rcc;
+  SDADC_TypeDef *SDADCx;
+  uint8_t irq;
+  uint32_t channel;
+  PinName p, m;
+} SigmaDeltaInfo;
+
+const SigmaDeltaInfo sdinfo[] = {
+  {
+    .pwr = PWR_SDADCAnalog_1,
+    .rcc = RCC_APB2Periph_SDADC1,
+    .SDADCx = SDADC1,
+    .irq = SDADC1_IRQn,
+    .channel = SDADC_Channel_6,
+    .p = PB2,
+    .m = PB1
+  },
+  {
+    .pwr = PWR_SDADCAnalog_2,
+    .rcc = RCC_APB2Periph_SDADC2,
+    .SDADCx = SDADC2,
+    .irq = SDADC2_IRQn,
+    .channel = SDADC_Channel_8,
+    .p = PE8,
+    .m = PE9
+  },
+  {
+    .pwr = PWR_SDADCAnalog_3,
+    .rcc = RCC_APB2Periph_SDADC3,
+    .SDADCx = SDADC3,
+    .irq = SDADC3_IRQn,
+    .channel = SDADC_Channel_8,
+    .p = PB14,
+    .m = PB15
+  }
+};
+
+// Just do all of these? it's just 3
+//B1,B2 ->SDADC1_AIN6M/P
+//E8,E9 ->SDADC2_AIN8P/M
+//B14,B15 ->SDADC3_AIN8P/M
+
+uint8_t sigmaDeltaInitChannel(SigmaDeltaMode mode, const SigmaDeltaInfo *S)
+{
+  SDADC_InitTypeDef SDADC_InitStructure;
+  SDADC_AINStructTypeDef SDADC_AINStructure;
+  uint32_t SDADCTimeout = 0;
+
+  RCC_APB2PeriphClockCmd(S->rcc, ENABLE);
+  PWR_SDADCAnalogCmd(S->pwr, ENABLE);
+
+  // 6 MHz
+  RCC_SDADCCLKConfig(RCC_SDADCCLK_SYSCLK_Div12);
+
+  SDADC_VREFSelect(SDADC_VREF_Ext);
+
+  // From ST example
+  delay(5);
+
+  SDADC_Cmd(S->SDADCx, ENABLE);
+
+  // Init
+  SDADC_InitModeCmd(S->SDADCx, ENABLE);
+  SDADCTimeout = SDADC_INIT_TIMEOUT;
+  while ((SDADC_GetFlagStatus(S->SDADCx, SDADC_FLAG_INITRDY) == RESET) && (--SDADCTimeout != 0));
+  if(SDADCTimeout == 0)
+    return 0;
+
+  if (mode == SIGMADELTA_SE)
+    SDADC_AINStructure.SDADC_InputMode = SDADC_InputMode_SEZeroReference;
+  else
+    SDADC_AINStructure.SDADC_InputMode = SDADC_InputMode_Diff;
+  SDADC_AINStructure.SDADC_Gain = SDADC_Gain_1;
+  SDADC_AINStructure.SDADC_CommonMode = SDADC_CommonMode_VSSA;
+  SDADC_AINStructure.SDADC_Offset = 0;
+  SDADC_AINInit(S->SDADCx, SDADC_Conf_0, &SDADC_AINStructure);
+
+  // Channel config
+  pinMode(S->p, INPUT_ANALOG);
+  if (mode == SIGMADELTA_DIFF)
+    pinMode(S->m, INPUT_ANALOG);
+
+  SDADC_ChannelConfig(S->SDADCx, S->channel, SDADC_Conf_0);
+
+  if (sigmaDeltaTrigger == SOFTWARE_START || sigmaDeltaTrigger == CONTINUOUS)
+  {
+    // Regular channel config
+    SDADC_InitStructure.SDADC_Channel = S->channel;
+    SDADC_InitStructure.SDADC_ContinuousConvMode = DISABLE;
+    SDADC_InitStructure.SDADC_FastConversionMode = DISABLE;
+    SDADC_Init(S->SDADCx, &SDADC_InitStructure);
+  }
+  // else if (sigmaDeltaTrigger == TIMER_TRIGGERED_START)
+  // {
+  //   // Injected channel config
+  //   SDADC_InjectedChannelSelect(S->SDADCx, S->channel);
+  //   SDADC_ExternalTrigInjectedConvConfig(S->SDADCx, SDADC_ExternalTrigInjecConv_T19_CC2);
+  //   SDADC_ExternalTrigInjectedConvEdgeConfig(S->SDADCx, SDADC_ExternalTrigInjecConvEdge_Rising);
+  // }
+
+  // Exit init mode
+  SDADC_InitModeCmd(S->SDADCx, DISABLE);
+
+  // Calibration
+  SDADC_CalibrationSequenceConfig(S->SDADCx, SDADC_CalibrationSequence_1);
+  SDADC_StartCalibration(S->SDADCx);
+  // Set calibration timeout: 5.12 ms at 6 MHz in a single calibration sequence
+  SDADCTimeout = SDADC_CAL_TIMEOUT;
+  while ((SDADC_GetFlagStatus(S->SDADCx, SDADC_FLAG_EOCAL) == RESET) && (--SDADCTimeout != 0));
+  if(SDADCTimeout == 0)
+    return 0;
+  
+  if (sigmaDeltaTrigger == CONTINUOUS)
+  {
+    // Regular channel, enable iterrupts
+    SDADC_ContinuousModeCmd(S->SDADCx, ENABLE);
+    SDADC_ITConfig(S->SDADCx, SDADC_IT_REOC, ENABLE);
+    interruptEnable(S->irq, 0);
+  }
+
+  return 1;
+}
+
+
+uint8_t sigmaDeltaInit(ADCTriggerType trig, SigmaDeltaMode mode, int numChannels, const SigmaDeltaChannel *channels)
+{
+  sigmaDeltaTrigger = trig;
+  // For powering each SDADC
+  RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR, ENABLE);
+
+  for (uint8_t i=0; i<numChannels; ++i)
+    sigmaDeltaInitChannel(mode, &sdinfo[channels[i]]);
+
+  return 1;
+}
+
+// Software start
+void sigmaDeltaBeginReadNB(int numChannels, const SigmaDeltaChannel *channels)
+{
+  for (int i=0; i<numChannels; ++i)
+    SDADC_SoftwareStartConv(sdinfo[channels[i]].SDADCx);
+}
+
+void sigmaDeltaEndReadNB(int numChannels, const SigmaDeltaChannel *channels, int16_t *out)
+{
+  for (int i=0; i<numChannels; ++i)
+  {
+    const SigmaDeltaInfo *S = &sdinfo[channels[i]];
+    // wait for conversion to finish
+    while (SDADC_GetFlagStatus(S->SDADCx, SDADC_FLAG_REOC) == RESET);
+    out[i] = SDADC_GetConversionValue(S->SDADCx);
+  }
+}
+
+// For continuous or blocking software start
+int16_t sigmaDeltaRead(SigmaDeltaChannel ch)
+{
+  if (sigmaDeltaTrigger == SOFTWARE_START)
+  {
+    // Regular channels
+    const SigmaDeltaInfo *S = &sdinfo[ch];
+    SDADC_SoftwareStartConv(S->SDADCx);
+    while (SDADC_GetFlagStatus(S->SDADCx, SDADC_FLAG_REOC) == RESET);
+    return SDADC_GetConversionValue(S->SDADCx);
+  }
+  else
+  {
+    return sigmaDeltaBuffer[ch];
+  }
+}
+
+// ISR ==========================================================================
+
+void wirishSigmaDeltaHandler(SigmaDeltaChannel ch)
+{
+  const SigmaDeltaInfo *S = &sdinfo[ch];
+  // uint32_t dummy;
+  // if (sigmaDeltaTrigger == TIMER_TRIGGERED_START && SDADC_GetFlagStatus(S->SDADCx, SDADC_FLAG_JEOC) != RESET)
+  // {
+  //   sigmaDeltaBuffer[ch] = SDADC_GetInjectedConversionValue(S->SDADCx, &dummy);
+  // }
+  if (sigmaDeltaTrigger == CONTINUOUS && SDADC_GetFlagStatus(S->SDADCx, SDADC_FLAG_REOC) != RESET)
+  {
+    sigmaDeltaBuffer[ch] = SDADC_GetConversionValue(S->SDADCx);
+  } 
+}
+
+// STM32 ISR's ==================================================================
+
+void SDADC1_IRQHandler()
+{
+  wirishSigmaDeltaHandler(0);
+}
+void SDADC2_IRQHandler()
+{
+  wirishSigmaDeltaHandler(1);
+}
+void SDADC3_IRQHandler()
+{
+  wirishSigmaDeltaHandler(2);
+}
+

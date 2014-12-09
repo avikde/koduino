@@ -1,0 +1,10 @@
+syntax: glob
+
+.DS_Store
+*.o
+*.bin
+*.elf
+*.map
+*/build/*
+*.pyc
+

@@ -1,0 +1,10 @@
+
+UPLOAD_METHOD						= SERIAL
+UPLOAD_BAUD							= 500000
+
+# EEPROM_NUMBER_VALUES 		= 2
+LIBRARIES = EEPROM Encoder
+
+include $(STM32DIR)/project.mk
+
+
