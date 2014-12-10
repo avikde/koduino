@@ -61,6 +61,9 @@ typedef struct TimerInfo {
   TIM_TypeDef * const TIMx;
   const IRQn_Type IRQn;
   // non-constant
+  // frequency
+  int freqHz;
+  // how many times rolled over (for pulseIn)
   volatile uint32_t numRollovers;
   // variable number of channels; assigned in variant.cpp
   TimerChannelData *channelData;

@@ -25,6 +25,11 @@ void timerInitHelper(uint8_t timer, uint16_t prescaler, uint32_t period) {
   TIM_TimeBaseInit(TIMER_MAP[timer].TIMx, &TIM_TimeBaseStructure);
 }
 
+
+void analogWriteFrequency(uint8_t pin, int freqHz) {
+  TIMER_MAP[ PIN_MAP[pin].timer ].freqHz = freqHz;
+}
+
 void timerInit(uint8_t timer, int freqHz) {
   // Enable interrupts for the timer (but not any of the timer updates yet)
   nvicEnable(TIMER_MAP[timer].IRQn, 0);
@@ -32,6 +37,16 @@ void timerInit(uint8_t timer, int freqHz) {
   timerInitHelper(timer, 1, TIMER_PERIOD(freqHz));
   TIM_Cmd(TIMER_MAP[timer].TIMx, ENABLE);
 }
+
+
+void pinTimerInit(uint8_t pin) {
+  uint8_t timer = PIN_MAP[pin].timer;
+  nvicEnable(TIMER_MAP[timer].IRQn, 0);
+  // Use the frequency set using analogWriteFrequency
+  timerInitHelper(timer, 1, TIMER_PERIOD(TIMER_MAP[timer].freqHz));
+  TIM_Cmd(TIMER_MAP[timer].TIMx, ENABLE);
+}
+
 
 void analogWrite(uint8_t name, float duty) {
   TIM_TypeDef *TIMx = TIMER_MAP[ PIN_MAP[name].timer ].TIMx;

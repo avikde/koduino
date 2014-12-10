@@ -112,7 +112,7 @@ endif
 
 $(BUILDDIR)/$(PROJNAME).bin: $(OBJS)
 	@echo "[LD] $(@F)"
-	@$(LD) $(LDFLAGS) $(OBJS) $(VARIANT_DIR)/libm4duino_$(VARIANT).a -o $(BUILDDIR)/$(PROJNAME).elf -larm_cortexM4lf_math
+	@$(LD) $(LDFLAGS) $(OBJS) $(KODUINO_DIR)/system/lib$(SERIES).a -o $(BUILDDIR)/$(PROJNAME).elf -larm_cortexM4lf_math
 	@arm-none-eabi-objcopy --output-target=binary $(BUILDDIR)/$(PROJNAME).elf $(BUILDDIR)/$(PROJNAME).bin
 	@$(SZ) $(BUILDDIR)/$(PROJNAME).elf | tail -n 1 | awk '{print "Flash:\t", $$1+$$2, "\t[",($$1+$$2)*100/(256*1024),"% ]", "\nRAM:\t", $$2+$$3, "\t[",($$2+$$3)*100/(32*1024),"% ]"}'
 

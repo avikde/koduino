@@ -67,12 +67,16 @@ extern "C"{
 
 // cldoc:begin-category(PWM)
 
+void analogWriteFrequency(uint8_t pin, int freqHz);
+
 // Setup PWM on TIMx (tested on TIM3, which has 4 channels)
 // * see pin functions on datasheet tables 11-17 to know which pins can 
 //   be used with which timer
 // * before this command, configure those pins for the right AF using
 //   GPIO_PinAFConfig (Section 13.2.7.1 of peripheral guide)
 void timerInit(uint8_t timer, int freqHz);
+
+void pinTimerInit(uint8_t pin);
 
 // typedef enum TimerPinMode {
 //   PWM, PULSE_IN
