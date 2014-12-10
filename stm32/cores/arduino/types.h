@@ -77,6 +77,11 @@ typedef enum WiringPinMode {
   PULSE_IN
 } WiringPinMode;
 
+// Logic levels
+typedef enum LogicValue {
+  LOW = 0, HIGH = 1, TOGGLE = 2
+} LogicValue;
+
 // General prototype for a user callback (like from timer or external interrupts)
 typedef void (*ISRType)(void);
 
