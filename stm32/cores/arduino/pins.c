@@ -15,6 +15,9 @@ void pinRemap(uint8_t pin, uint8_t altFunc, uint8_t timer, uint8_t channel) {
 void pinMode(uint8_t pin, WiringPinMode wiringMode) {
   // Timer setup
   if (wiringMode == PWM || wiringMode == PULSE_IN) {
+    // NEW: start the timer automatically
+    pinTimerInit(pin);
+
     // Set pin to AF
     uint8_t timer = PIN_MAP[pin].timer;
     uint8_t channel = PIN_MAP[pin].channel;
