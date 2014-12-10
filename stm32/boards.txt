@@ -12,7 +12,6 @@ f37xcc.build.core=arduino
 f37xcc.build.extra_flags=
 f37xcc.build.ldscript=STM32F373VC_FLASH.ld
 f37xcc.build.variant=f37xcc
-f37xcc.build.variant_system_lib=libm4duino_f37xcc.a
 
 # HSE choices
 f37xcc.build.hse_value=16000000UL

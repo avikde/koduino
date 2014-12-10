@@ -1,7 +1,7 @@
 
 # Options that are required
-ifndef M4DUINO_DIR
-$(error M4DUINO_DIR is not defined!)
+ifndef KODUINO_DIR
+$(error KODUINO_DIR is not defined!)
 endif
 ifndef HSE_VALUE
 $(error HSE_VALUE is not defined!)
@@ -20,15 +20,15 @@ endif
 
 ######################################################################################
 
-VARIANT_DIR = $(M4DUINO_DIR)/variants/$(VARIANT)
+VARIANT_DIR = $(KODUINO_DIR)/variants/$(VARIANT)
 
 # Load variant options
 include $(VARIANT_DIR)/variant.mk
 
 # Default options
-STD_PERIPH_DIR = $(M4DUINO_DIR)/system/$(SERIES)_StdPeriph_Driver
-CMSIS_DIR = $(M4DUINO_DIR)/system/CMSIS
-CORE_DIR = $(M4DUINO_DIR)/cores/arduino
+STD_PERIPH_DIR = $(KODUINO_DIR)/system/$(SERIES)_StdPeriph_Driver
+CMSIS_DIR = $(KODUINO_DIR)/system/CMSIS
+CORE_DIR = $(KODUINO_DIR)/cores/arduino
 LDSCRIPT = $(wildcard $(VARIANT_DIR)/*.ld)
 ARCH = arm-none-eabi
 CC = $(ARCH)-gcc
@@ -53,7 +53,7 @@ else
 endif
 
 # Libraries
-EXTRA_LIB_INCS = $(patsubst %,-I$(PREF)$(M4DUINO_DIR)/libraries/%,$(LIBRARIES))
+EXTRA_LIB_INCS = $(patsubst %,-I$(PREF)$(KODUINO_DIR)/libraries/%,$(LIBRARIES))
 
 # Compile and link flags
 BFLAGS = -O3 -Os -Wall -Werror-implicit-function-declaration -Wno-sign-compare -Wno-strict-aliasing -Wdouble-promotion \
@@ -69,15 +69,15 @@ CXXFLAGS = -std=c++0x -felide-constructors -fno-rtti $(BFLAGS) $(INCFLAGS)
 
 LDFLAGS = $(BFLAGS)  -L$(CMSIS_DIR)/Lib/GCC --static -Wl,--gc-sections -T$(LDSCRIPT) --specs=nano.specs -lnosys -lstdc++ -lm -u _printf_float
 
-STD_PERIPH_SRCS = $(patsubst %,$(STD_PERIPH_DIR)/src/stm32f37x_%.c,$(STD_PERIPH_MODULES))
+STD_PERIPH_SRCS = $(patsubst %,$(STD_PERIPH_DIR)/src/$(STD_PERIPH_PREFIX)_%.c,$(STD_PERIPH_MODULES))
 # $(wildcard $(STD_PERIPH_DIR)/src/*.c)
 
 VARIANT_C_SRCS = $(wildcard $(VARIANT_DIR)/*.c)
 VARIANT_CXX_SRCS = $(wildcard $(VARIANT_DIR)/*.cpp)
 CORE_C_SRCS = $(wildcard $(CORE_DIR)/*.c)
 CORE_CXX_SRCS = $(wildcard $(CORE_DIR)/*.cpp)
-LIBRARY_C_SRCS = $(foreach dir,$(LIBRARIES),$(wildcard $(M4DUINO_DIR)/libraries/$(dir)/*.c))
-LIBRARY_CXX_SRCS = $(foreach dir,$(LIBRARIES),$(wildcard $(M4DUINO_DIR)/libraries/$(dir)/*.cpp))
+LIBRARY_C_SRCS = $(foreach dir,$(LIBRARIES),$(wildcard $(KODUINO_DIR)/libraries/$(dir)/*.c))
+LIBRARY_CXX_SRCS = $(foreach dir,$(LIBRARIES),$(wildcard $(KODUINO_DIR)/libraries/$(dir)/*.cpp))
 
 C_SRCS = $(VARIANT_C_SRCS) $(CORE_C_SRCS) $(LIBRARY_C_SRCS)
 CXX_SRCS = $(VARIANT_CXX_SRCS) $(CORE_CXX_SRCS) $(LIBRARY_CXX_SRCS)
@@ -100,8 +100,8 @@ all: flash
 
 flash: $(BUILDDIR)/$(PROJNAME).bin
 ifeq ($(UPLOAD_METHOD), SERIAL)
-	@python $(M4DUINO_DIR)/system/stm32loader.py -b $(UPLOAD_BAUD) -ew $<
-	# $(M4DUINO_DIR)/system/stm32flash/stm32flash -i -rts,-dtr,dtr:rts,-dtr,dtr -w $< -R -b $(UPLOAD_BAUD) -n 1000
+	@python $(KODUINO_DIR)/system/stm32loader.py -b $(UPLOAD_BAUD) -ew $<
+	# $(KODUINO_DIR)/system/stm32flash/stm32flash -i -rts,-dtr,dtr:rts,-dtr,dtr -w $< -R -b $(UPLOAD_BAUD) -n 1000
 else
 ifeq ($(UNAME),Linux)
 	@sudo dfu-util -d 0483:df11 -a 0 -s 0x08000000 -D $<
@@ -120,11 +120,14 @@ disassemble: $(BUILDDIR)/$(PROJNAME).bin
 	@$(OBJDMP) -x --syms $(PREF)$< > $(BUILDDIR)/$(PROJNAME).dmp
 	@$(OBJDMP) -dS $(PREF)$< > $(BUILDDIR)/$(PROJNAME).dis
 
+# $(info $(STD_PERIPH_OBJS))
+
 # Make a static lib to use with the arduino IDE (don't make binary)
 # WARNING: the stmxxx_rcc.c file uses the HSE_VALUE for some functions, so those will be
 # wrong if the HSE value is changed
-variant_lib: $(STD_PERIPH_OBJS)
-	$(AR) -rcs $(VARIANT_DIR)/libm4duino_$(VARIANT).a $(STD_PERIPH_OBJS)
+lib: $(STD_PERIPH_OBJS)
+	@echo "[AR] $(@F)"
+	@$(AR) -rcs $(KODUINO_DIR)/system/lib$(SERIES).a $(STD_PERIPH_OBJS)
 
 clean:
 	$(shell rm -f $(OBJS) $(BUILDDIR)/main.elf $(BUILDDIR)/main.bin)
@@ -138,10 +141,10 @@ $(BUILDDIR)/%.proj.o: $(CURDIR)/%.cpp
 	@$(CXX) $(CXXFLAGS) -c -o $(PREF)$@ $(PREF)$^
 
 # Libraries
-$(BUILDDIR)/%.o: $(M4DUINO_DIR)/libraries/*/%.c
+$(BUILDDIR)/%.o: $(KODUINO_DIR)/libraries/*/%.c
 	@echo "[CC] $(@F)"
 	@$(CC) $(CFLAGS) -c -o $(PREF)$@ $(PREF)$^
-$(BUILDDIR)/%.o: $(M4DUINO_DIR)/libraries/*/%.cpp
+$(BUILDDIR)/%.o: $(KODUINO_DIR)/libraries/*/%.cpp
 	@echo "[CXX] $(@F)"
 	@$(CXX) $(CXXFLAGS) -c -o $(PREF)$@ $(PREF)$^
 

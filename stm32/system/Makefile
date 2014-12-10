@@ -1,0 +1,9 @@
+
+VARIANT = f4xxrg
+# VARIANT = f37xcc
+HSE_VALUE = 16000000UL
+UPLOAD_METHOD = SERIAL
+UPLOAD_BAUD	= 500000
+LIBRARIES = SPI IMU EEPROM Encoder Brushless Eigen Wire
+
+include $(KODUINO_DIR)/project.mk

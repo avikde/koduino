@@ -14,15 +14,15 @@ extern "C"{
 // Init DMA for ADC
 // 
 // numChannels must be smaller than or equal to 9 (ADC1 has 9 channels on the chip)
-void dmaInit(DMA_Channel_TypeDef *dmaYChannelX, uint16_t bufferSize, uint32_t periphalBaseAddr, uint32_t memoryBaseAddr);
+// void dmaInit(DMA_Channel_TypeDef *dmaYChannelX, uint16_t bufferSize, uint32_t periphalBaseAddr, uint32_t memoryBaseAddr);
 
 // cldoc:end-category()
 
 // cldoc:begin-category(Analog)
 
-typedef enum ADCTriggerType {
-  CONTINUOUS, SOFTWARE_START
-} ADCTriggerType;
+// typedef enum ADCTriggerType {
+//   CONTINUOUS, SOFTWARE_START
+// } ADCTriggerType;
 
 
 // Macro to convert a 12-bit ADC to a float from 0 to 1
