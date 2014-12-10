@@ -10,52 +10,37 @@ extern "C"{
 #endif // __cplusplus
 
 
-// // // TODO: 
-// typedef enum {
-//   // Digital
-//   OUTPUT, OUTPUT_OPEN_DRAIN, INPUT, INPUT_PULLUP, INPUT_PULLDOWN, 
-//   // Analog
-//   INPUT_ANALOG, 
-//   // Timer
-//   OUTPUT_PWM, INPUT_ENCODER, INPUT_PULSE_IN,
-//   // External interrupt (EXTI)
-//   INPUT_INTERRUPT,
-//   // Other alternate function
-//   ALTERNATE_FUNCTION
-// } PinMode;
 
-// // digitalWrite, analogWrite can check if the mode is right, otherwise set it
-
-
-// cldoc:begin-category(Digital)
+/** @addtogroup Digital Digital I/O
+ *  @{
+ */
 
 #define bitRead(value, bit) (((value) >> (bit)) & 0x01)
 #define bitSet(value, bit) ((value) |= (1UL << (bit)))
 #define bitClear(value, bit) ((value) &= ~(1UL << (bit)))
 #define bitWrite(value, bit, bitvalue) (bitvalue ? bitSet(value, bit) : bitClear(value, bit))
 
-// Logic levels (for setting digitalWrite)
-typedef enum LogicValue {
-  LOW = 0, HIGH = 1, TOGGLE = 2
-} LogicValue;
+/**
+ * @brief Set a digital pin to a given logic level
+ * @details [long description]
+ * 
+ * @param pin Pin to set
+ * @param val Can be `LOW`, `HIGH`, or `TOGGLE` (new from Arduino)
+ */
+void digitalWrite(uint8_t pin, LogicValue val);
 
-// Set a digital pin to a given logic level
-// @name Pin to set
-// @val Can be LOW, HIGH, or TOGGLE (new from Arduino)
-void digitalWrite(uint8_t name, LogicValue val);
-
-// Read a digital pin
-// @name Pin to read
-// 
-// @return 0 if LOW, 1 if HIGH
-static inline uint8_t digitalRead(uint8_t name) {
+/**
+ * @brief Read a digital pin
+ * @details Pin must have been configured as input by pinMode()
+ * 
+ * @param pin Pin to read 
+ * @return 1 if the pin is a logic HIGH level, 0 for LOW
+ */
+static inline uint8_t digitalRead(uint8_t pin) {
   return GPIO_ReadInputDataBit(PIN_MAP[name].port, 1<<PIN_MAP[name].pin);
 }
 
-// cldoc:end-category()
-
-
-// cldoc:begin-category(LED)
+/** @} */
 
 typedef enum DigitalPolarity {
   ACTIVE_HIGH, ACTIVE_LOW
@@ -73,7 +58,6 @@ void ledWrite(uint8_t name, float val);
 void ledConfigBarGraph(uint8_t green, uint8_t yellow, uint8_t red);
 void ledBarGraph(float val, float tgreen, float tyellow, float tred);
 
-// cldoc:end-category()
 
 #ifdef __cplusplus
 } // extern "C"
