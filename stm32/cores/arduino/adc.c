@@ -189,3 +189,22 @@ uint16_t analogRead(uint8_t pin) {
 }
 
 
+
+
+// #define MAX_ADCS 3
+// uint16_t syncReadBuffer[MAX_ADCS];
+// uint8_t syncReadPins[MAX_ADCS];
+// uint16_t *analogSyncRead(uint8_t count, ...) {
+//   va_list ap;
+//   // double tot = 0;
+
+//   va_start(ap, count); //Requires the last fixed parameter (to get the address)
+//   static uint8_t pins[MAX_ADCS]; // 3 is max
+//   for (int j=0; j<count; j++) {
+//     syncReadPins[j] = va_arg(ap, uint8_t);
+//   }
+//   va_end(ap);
+//   return tot/count;
+// }
+// readings = analogSyncRead(3, pin1, pin2, pin3);
+

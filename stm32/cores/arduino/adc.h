@@ -46,6 +46,7 @@ void analogReadSampleTime(uint8_t sampleTime);
 uint16_t analogRead(uint8_t pin);
 
 
+
 /** @} */ // end of Analog
 
 
