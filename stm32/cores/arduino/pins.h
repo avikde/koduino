@@ -15,7 +15,7 @@ extern "C"{
 
 
 /**
- * @brief Configure a pin before using it
+ * @brief Configure a pin before using it.
  * @details This function behaves like the Arduino one, but does more in some cases.
  * 
  * In a few situations, this *MUST* be called in this library when it is not necessary 
@@ -28,8 +28,7 @@ extern "C"{
 void pinMode(uint8_t pin, WiringPinMode mode);
 
 /**
- * @brief Low-level function to reassign AF number of timer assigned to a pin
- * @details The default assignments are [here](https://docs.google.com/spreadsheet/pub?key=0Ai-vm-to9OcDdG1zMzR5WFhweGVwNlNnZmtQdlpsb2c&single=true&gid=1&output=html).
+ * @brief Low-level function to reassign AF number of timer assigned to a pin. The default assignments are [here](https://docs.google.com/spreadsheet/pub?key=0Ai-vm-to9OcDdG1zMzR5WFhweGVwNlNnZmtQdlpsb2c&single=true&gid=1&output=html).
  * 
  * @param pin 
  * @param altFunc New AF number (0-15)
@@ -40,7 +39,6 @@ void pinRemap(uint8_t pin, uint8_t altFunc, uint8_t timer, uint8_t channel);
 
 /**
  * @brief Low-level function to configure the pin for a specific alternate function. The user should not need to call this directly.
- * @details 
  * 
  * @param pin Pin to configure
  * @param oType One of `GPIO_OType_PP`, `GPIO_OType_OD`
