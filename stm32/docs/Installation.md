@@ -6,9 +6,9 @@ This library uses ST's Standard Peripheral Library, and GNU's embedded ARM cross
 
 OS-specific installation directions:
 
-## Mac
+## Mac/Linux
 
-* Go to https://launchpad.net/gcc-arm-embedded and download the latest Mac binaries.
+* Go to https://launchpad.net/gcc-arm-embedded and download the latest Mac/Linux binaries.
 * Extract the tar file you downloaded, put it somewhere you want (for e.g. your home directory) and rename the extracted folder to `gcc-arm-none-eabi`.
 * Add `export PATH=$PATH:$HOME/gcc-arm-none-eabi/bin` to your `~/.bash_profile`.
 * Test that it worked by running `arm-none-eabi-gcc --version` from a new terminal window.
@@ -16,7 +16,17 @@ OS-specific installation directions:
 * Install the latest [FTDI drivers](http://www.ftdichip.com/Drivers/VCP.htm).
 * Run `pip install pyserial progressbar`.
 * Clone this repository (ask for invite) using `hg clone` followed the URL in the top right of this webpage (use HTTPS if unsure).
-* Add `export STM32DIR=$HOME/stm32-robot` to your `~/.bash_profile`.
+* Add `export KODUINO_DIR=<koduino>/` to your `~/.bash_profile`.
+
+## Linux
+
+* Go to https://launchpad.net/gcc-arm-embedded and download the latest Linux binaries.
+* Extract the tar file you downloaded, put it in your home directory, and rename the extracted folder to `gcc-arm-none-eabi`.
+* Add `export PATH=$PATH:$HOME/gcc-arm-none-eabi/bin` to your `~/.bashrc`.
+* Test that it worked by running `arm-none-eabi-gcc --version` from a new terminal window.
+* Run `pip install pyserial progressbar`.
+* Download [the repository](https://github.com/avikde/koduino), put it in your home directory, and remove `-master` from the name so the directory is just called `koduino`.
+* Add `export KODUINO_DIR=$(HOME)/koduino/` to your `~/.bash_profile`.
 
 ## Windows (using Cygwin)
 
