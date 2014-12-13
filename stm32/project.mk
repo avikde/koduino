@@ -56,7 +56,7 @@ endif
 EXTRA_LIB_INCS = $(patsubst %,-I$(PREF)$(KODUINO_DIR)/libraries/%,$(LIBRARIES))
 
 # Compile and link flags
-BFLAGS = -O3 -Os -Wall -Werror-implicit-function-declaration -Wno-sign-compare -Wno-strict-aliasing -Wdouble-promotion \
+BFLAGS = -O3 -Os -Wall -Werror-implicit-function-declaration -Wno-sign-compare -Wno-strict-aliasing -Wdouble-promotion -Wno-unused-local-typedefs \
 -mcpu=cortex-m4 -mlittle-endian -mthumb \
 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -fsingle-precision-constant -ffast-math -D__FPU_PRESENT=1 -DARM_MATH_CM4 \
 -fno-common -fno-exceptions -ffunction-sections -fdata-sections -nostartfiles \
@@ -98,10 +98,10 @@ OBJS += $(patsubst %.cpp,$(BUILDDIR)/%.proj.o,$(notdir $(wildcard $(CURDIR)/*.cp
 
 all: flash
 
+# $(KODUINO_DIR)/system/stm32flash/stm32flash -i -rts,-dtr,dtr:rts,-dtr,dtr -w $< -R -b $(UPLOAD_BAUD) -n 1000
 flash: $(BUILDDIR)/$(PROJNAME).bin
 ifeq ($(UPLOAD_METHOD), SERIAL)
 	@python $(KODUINO_DIR)/system/stm32loader.py -b $(UPLOAD_BAUD) -ew $<
-	# $(KODUINO_DIR)/system/stm32flash/stm32flash -i -rts,-dtr,dtr:rts,-dtr,dtr -w $< -R -b $(UPLOAD_BAUD) -n 1000
 else
 ifeq ($(UNAME),Linux)
 	@sudo dfu-util -d 0483:df11 -a 0 -s 0x08000000 -D $<

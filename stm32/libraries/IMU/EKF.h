@@ -12,7 +12,11 @@ typedef Eigen::Matrix<float, 3, 3> mat3;
 typedef Eigen::Quaternion<float> quat;
 
 static inline mat3 toMat3(float *arr) {
-  return Eigen::Map<Eigen::Matrix<float,3,3>, Eigen::RowMajor>(arr);
+  return Eigen::Map<mat3, Eigen::RowMajor>(arr);
+}
+
+static inline vec3 toVec3(float *arr) {
+  return Eigen::Map<vec3, Eigen::RowMajor>(arr);
 }
 
 // mat3 toEigenM(const float *arr) {
@@ -23,9 +27,10 @@ static inline mat3 toMat3(float *arr) {
 
 class EKF : public OrientationFilter {
 public:
-
   const float kOneG = 9.8;
-
+  const mat3 I = mat3::Identity();
+  vec3 gravity;
+  
   EKF();
   void init(const float *acc);
 

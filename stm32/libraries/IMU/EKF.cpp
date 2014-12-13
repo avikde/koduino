@@ -18,11 +18,8 @@ static inline quat operator * (const quat& q, float s) {
  *  @param dt Time interval in seconds
  *  @param normalize If True, quaternion is normalized after integration
  */
-template <typename Scalar>
-static inline void integrateEuler(Eigen::Quaternion<Scalar> &q, Eigen::Quaternion<Scalar> &w, Scalar dt,
-                    bool normalize = true) {
-  q = q + (q * w * static_cast<Scalar>(0.5)) * dt;
-
+static inline void integrateEuler(quat &q, quat &w, float dt, bool normalize = true) {
+  q = q + (q * w * 0.5) * dt;
   if (normalize) {
     q.normalize();
   }
@@ -39,16 +36,16 @@ static inline mat3 crossSkew(const vec3 &w) {
   return W;
 }
 
-
-
 EKF::EKF() : dt(0.001) {
+  gravity << 0, 0, kOneG;
+
   P.setZero();
   b.setZero();
   w.setZero();
   dx.setZero();
 
   wCov = 10 * mat3::Identity();
-  aCov = 100 * mat3::Identity();
+  aCov = 0.01 * mat3::Identity();
   // estBias_ = false;
   // ignoreZ_ = false;
   // useMag_ = false;
@@ -66,12 +63,12 @@ void EKF::init(const float *acc) {
 
   //  start w/ a large uncertainty
   P.setIdentity();
-  P *= PI * PI;
+  P *= 10;
 }
 
 
 void EKF::predict(const float *gyr) {
-  static const mat3 I = mat3::Identity(); //  identity R3
+  // static const mat3 I = mat3::Identity(); //  identity R3
 
   // // If steady do a moving average bias estimate
   // float wb2 = gyr[0] * gyr[0] + gyr[1] * gyr[1] + gyr[2] * gyr[2];
@@ -102,6 +99,7 @@ void EKF::predict(const float *gyr) {
 
 // Main function
 void EKF::update(const float *acc, const float *gyr) {
+  // prediction step
   predict(gyr);
 
   mat3 A;
@@ -109,17 +107,12 @@ void EKF::update(const float *acc, const float *gyr) {
   //  rotation matrix: world -> body
   mat3 bRw = q.conjugate().matrix();
 
-  vec3 gravity;
-  gravity << 0, 0, kOneG;
-
   //  predicted gravity vector
   vec3 aPred = bRw * gravity;
 
   //  calculate jacobian
   mat3 H = crossSkew(aPred);
-  vec3 ab;
-  ab << acc[0], acc[1], acc[2];
-  vec3 r = ab - aPred;
+  vec3 y = toVec3((float *)acc) - aPred;
 
   //  solve for the kalman gain
   mat3 S = H * P * H.transpose() + aCov;
@@ -137,10 +130,10 @@ void EKF::update(const float *acc, const float *gyr) {
   const mat3 K = P * H.transpose() * Sinv;
 
   A = K * H;
-  dx = K * r;
+  dx = K * y;
 
   //  perform state update
-  P = (mat3::Identity() - A) * P;
+  P = (I - A) * P;
 
   q = q * quat(1, dx[0]/2, dx[1]/2, dx[2]/2);
   q.normalize();
