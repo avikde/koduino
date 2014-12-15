@@ -19,8 +19,7 @@ in your `.bash_profile` or `.bashrc` depending on OS.
 
 ## Makefile template
 
-~~~{.bash}
-
+~~~{.sh}
 VARIANT = f37xcc
 HSE_VALUE = 16000000UL
 UPLOAD_METHOD = SERIAL
@@ -29,7 +28,6 @@ UPLOAD_BAUD = 500000
 LIBRARIES = SPI Wire
 
 include $(KODUINO_DIR)/project.mk
-
 ~~~
 
 ---
