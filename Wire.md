@@ -2,9 +2,10 @@
 
 ### Usage
 
-1. (Optionally) call `setSpeed()`
-2. Call `begin()`
-3. See below for reading/writing
+1. Add `Wire` to the libraries (in the `LIBRARIES` line on your Makefile or through the IDE)
+2. (Optionally) call `setSpeed()`
+3. Call `begin()`
+4. See below for reading/writing
 
 #### Writing a register
 
@@ -115,7 +116,7 @@ void loop() {
 
 ~~~
 
-### Example: AS5048B
+### Example: AS5048B (*untested*)
 
 ~~~{.cpp}
 

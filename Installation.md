@@ -1,8 +1,39 @@
-#<cldoc:Docs::Installation>
 
-Installation
+To get started, you can choose between using the Arduino IDE to write your code in, or use a Makefile build system. What you choose should be personal preference, and it's very simple to switch between them for a project should you change your mind later.
 
-This library uses ST's Standard Peripheral Library, and GNU's embedded ARM cross-compilation tools. Due to both of these being cross-platform, everything should work on any platform that supports `make` (for the build system), and has FTDI driver support (for the hardware).
+| Arduino IDE | Standalone with Makefile |
+|---------------------------------------------------------------|------------------------------------------------|
+| Only a single .ino file per sketch | Need to keep sketch code along with a Makefile |
+| Set options (HSE value, board variant, libraries) through IDE | Set options in Makefile |
+| Recompiles every time (bug?) | Faster to recompile |
+| Uses stm32flash to upload | Uses stm32loader.py to upload |
+|  | Not recommended on Windows |
+
+
+* Clone the [repository](https://github.com/avikde/koduino), or get a [zipball of the code](http://github.com/avikde/koduino/zipball/master/).
+* Put
+~~~
+export KODUINO_DIR=<koduino_location>/stm32
+~~~
+in your `.bash_profile` or `.bashrc` depending on OS.
+
+## Makefile template
+
+~~~{.sh}
+
+VARIANT = f37xcc
+HSE_VALUE = 16000000UL
+UPLOAD_METHOD = SERIAL
+UPLOAD_BAUD = 500000
+# Put libraries you want to use here
+LIBRARIES = SPI Wire
+
+include $(KODUINO_DIR)/project.mk
+
+~~~
+
+---
+
 
 OS-specific installation directions:
 
