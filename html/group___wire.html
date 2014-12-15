@@ -89,25 +89,92 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>Call <a class="el" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7" title="Set a digital pin to a given logic level. ">digitalWrite()</a> with <code>HIGH</code>, <code>LOW</code> or <code>TOGGLE</code> on <code>OUTPUT</code> pins</li>
 <li>Call <a class="el" href="group___digital.html#ga3f9e2d2c30df9ba03affa325d5a0eb53" title="Read a digital pin. ">digitalRead()</a> on <code>INPUT</code> pins</li>
 </ol>
-<h3>Example: Blink</h3>
-<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Arduino.h&gt;</span></div>
+<h3>Example: MPU6050</h3>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Wire.h&gt;</span></div>
 <div class="line"></div>
-<div class="line"><span class="comment">// Change to whatever pin an LED is connected to</span></div>
-<div class="line"><span class="keyword">const</span> PinName led = PC13;</div>
+<div class="line"><span class="keyword">const</span> <span class="keywordtype">int</span> led = PC13;</div>
+<div class="line"><span class="keyword">const</span> uint8_t kMPU = 0x68;</div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> setup() {</div>
 <div class="line">  <a class="code" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730">pinMode</a>(led, OUTPUT);</div>
+<div class="line">  Serial1.begin(115200);</div>
+<div class="line"></div>
+<div class="line">  Wire.setSpeed(WIRE_1M);</div>
+<div class="line">  Wire.begin();</div>
 <div class="line">}</div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> loop() {</div>
+<div class="line">  uint8_t magic;</div>
+<div class="line"></div>
+<div class="line">  uint32_t tic = micros();</div>
+<div class="line"></div>
+<div class="line">  Wire.beginTransmission(kMPU);</div>
+<div class="line">  Wire.write(0x75);</div>
+<div class="line">  Wire.endTransmission(<span class="keyword">false</span>);</div>
+<div class="line">  Wire.requestFrom(kMPU, 1);</div>
+<div class="line">  magic = Wire.read();</div>
+<div class="line"></div>
+<div class="line">  tic = micros() - tic;</div>
+<div class="line"></div>
+<div class="line">  Serial1 &lt;&lt; <span class="stringliteral">&quot;WHO_AM_I = 0x&quot;</span> &lt;&lt; _HEX(magic) &lt;&lt; <span class="stringliteral">&quot;, took &quot;</span> &lt;&lt; tic &lt;&lt; <span class="stringliteral">&quot;us.\n&quot;</span>;</div>
+<div class="line"></div>
 <div class="line">  <a class="code" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7">digitalWrite</a>(led, TOGGLE);</div>
 <div class="line">  delay(1000);</div>
+<div class="line">}</div>
+</div><!-- fragment --><h3>Example: Nunchuck</h3>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Wire.h&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="keyword">const</span> <span class="keywordtype">int</span> led = PC13;</div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">void</span> setup() {</div>
+<div class="line">  <a class="code" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730">pinMode</a>(led, OUTPUT);</div>
+<div class="line">  Serial1.begin(115200);</div>
+<div class="line"></div>
+<div class="line">  Wire.begin();</div>
+<div class="line"></div>
+<div class="line">  Wire.beginTransmission(0x52);       <span class="comment">// device address</span></div>
+<div class="line">  Wire.write(0xF0);</div>
+<div class="line">  Wire.write(0x55);</div>
+<div class="line">  Wire.endTransmission();</div>
+<div class="line">  delay(1);</div>
+<div class="line">  Wire.beginTransmission(0x52);</div>
+<div class="line">  Wire.write(0xFB);</div>
+<div class="line">  Wire.write(0x00);</div>
+<div class="line">  Wire.endTransmission();</div>
+<div class="line">}</div>
+<div class="line"></div>
+<div class="line">uint8_t data[6];</div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">void</span> loop() {</div>
+<div class="line">  uint32_t tic = micros();</div>
+<div class="line"></div>
+<div class="line">  Wire.requestFrom(0x52, 6); <span class="comment">// request data from nunchuck</span></div>
+<div class="line">  <span class="keywordtype">int</span> cnt = 0;</div>
+<div class="line">  <span class="keywordflow">while</span> (Wire.available()) {</div>
+<div class="line">    <span class="comment">// receive byte as an integer</span></div>
+<div class="line">    data[cnt] = Wire.read(); <span class="comment">//</span></div>
+<div class="line">    cnt++;</div>
+<div class="line">  }</div>
+<div class="line">  tic = micros() - tic;</div>
+<div class="line"></div>
+<div class="line">  Serial1 &lt;&lt; tic &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span>;</div>
+<div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 6; ++i)</div>
+<div class="line">    Serial1 &lt;&lt; _HEX(data[i]) &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span>;</div>
+<div class="line">  Serial1 &lt;&lt; !(data[5] &amp; 0B00000001) &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; !((data[5] &amp; 0B00000010) &gt;&gt; 1);</div>
+<div class="line">  Serial1 &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"></div>
+<div class="line">  <a class="code" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7">digitalWrite</a>(led, TOGGLE);</div>
+<div class="line">  delay(100);</div>
+<div class="line"></div>
+<div class="line">  Wire.beginTransmission(0x52);      <span class="comment">// transmit to device 0x52</span></div>
+<div class="line">  Wire.write(0x00);         <span class="comment">// sends one byte</span></div>
+<div class="line">  Wire.endTransmission(<span class="keyword">false</span>);    <span class="comment">// stop transmitting</span></div>
 <div class="line">}</div>
 </div><!-- fragment --> </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Dec 15 2014 23:39:31 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Dec 15 2014 23:45:27 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.8
 </small></address>
