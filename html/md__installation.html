@@ -83,9 +83,36 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Installation </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>#&lt;cldoc:Docs::Installation&gt;</p>
-<p>Installation</p>
-<p>This library uses ST's Standard Peripheral Library, and GNU's embedded ARM cross-compilation tools. Due to both of these being cross-platform, everything should work on any platform that supports <code>make</code> (for the build system), and has FTDI driver support (for the hardware).</p>
+<div class="textblock"><p>To get started, you can choose between using the Arduino IDE to write your code in, or use a Makefile build system. What you choose should be personal preference, and it's very simple to switch between them for a project should you change your mind later.</p>
+<table class="doxtable">
+<tr>
+<th>Arduino IDE </th><th>Standalone with Makefile  </th></tr>
+<tr>
+<td>Only a single .ino file per sketch </td><td>Need to keep sketch code along with a Makefile </td></tr>
+<tr>
+<td>Set options (HSE value, board variant, libraries) through IDE </td><td>Set options in Makefile </td></tr>
+<tr>
+<td>Recompiles every time (bug?) </td><td>Faster to recompile </td></tr>
+<tr>
+<td>Uses stm32flash to upload </td><td>Uses stm32loader.py to upload </td></tr>
+<tr>
+<td></td><td>Not recommended on Windows </td></tr>
+</table>
+<ul>
+<li>Clone the <a href="https://github.com/avikde/koduino">repository</a>, or get a <a href="http://github.com/avikde/koduino/zipball/master/">zipball of the code</a>.</li>
+<li>Put <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;export KODUINO_DIR=&lt;koduino_location&gt;/stm32</div>
+</div><!-- fragment --> in your <code>.bash_profile</code> or <code>.bashrc</code> depending on OS.</li>
+</ul>
+<h2>Makefile template</h2>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;VARIANT = f37xcc</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;HSE_VALUE = 16000000UL</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;UPLOAD_METHOD = SERIAL</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;UPLOAD_BAUD = 500000</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;# Put libraries you want to use here</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;LIBRARIES = SPI Wire</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;include $(KODUINO_DIR)/project.mk</div>
+</div><!-- fragment --> <hr/>
 <p>OS-specific installation directions:</p>
 <h2>Mac/Linux</h2>
 <ul>
@@ -130,7 +157,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 16 2014 00:04:40 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Dec 16 2014 00:21:32 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.8
 </small></address>

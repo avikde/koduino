@@ -90,6 +90,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <h3>Usage</h3>
 <ol type="1">
+<li>Add <code>Wire</code> to the libraries (in the <code>LIBRARIES</code> line on your Makefile or through the IDE)</li>
 <li>(Optionally) call <code>setSpeed()</code></li>
 <li>Call <code>begin()</code></li>
 <li>See below for reading/writing</li>
@@ -190,7 +191,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">  Wire.write(0x00);         <span class="comment">// sends one byte</span></div>
 <div class="line">  Wire.endTransmission(<span class="keyword">false</span>);    <span class="comment">// stop transmitting</span></div>
 <div class="line">}</div>
-</div><!-- fragment --><h3>Example: AS5048B</h3>
+</div><!-- fragment --><h3>Example: AS5048B (<em>untested</em>)</h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Wire.h&gt;</span></div>
 <div class="line"></div>
 <div class="line"><span class="keyword">const</span> <span class="keywordtype">int</span> led = PC13;</div>
@@ -267,7 +268,7 @@ Variables</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 16 2014 00:04:40 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Dec 16 2014 00:21:32 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.8
 </small></address>
