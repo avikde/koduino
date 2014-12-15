@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.8"/>
-<title>Koduino: Wire</title>
+<title>Koduino: Wire / I2C / SMBus library</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,7 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Modules</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Modules</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -79,15 +79,35 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
-<div class="title">Wire</div>  </div>
+<div class="title">Wire / I2C / SMBus library</div>  </div>
 </div><!--header-->
 <div class="contents">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <h3>Usage</h3>
 <ol type="1">
-<li>Call <a class="el" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730" title="Configure a pin before using it. ">pinMode()</a> to set the pin to <code>OUTPUT</code>, <code>OUTPUT_OPEN_DRAIN</code>, <code>INPUT</code>, <code>INPUT_PULLUP</code>, or <code>INPUT_PULLDOWN</code></li>
-<li>Call <a class="el" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7" title="Set a digital pin to a given logic level. ">digitalWrite()</a> with <code>HIGH</code>, <code>LOW</code> or <code>TOGGLE</code> on <code>OUTPUT</code> pins</li>
-<li>Call <a class="el" href="group___digital.html#ga3f9e2d2c30df9ba03affa325d5a0eb53" title="Read a digital pin. ">digitalRead()</a> on <code>INPUT</code> pins</li>
+<li>(Optionally) call <code>setSpeed()</code></li>
+<li>Call <code>begin()</code></li>
+<li>See below for reading/writing</li>
+</ol>
+<h4>Writing a register</h4>
+<ol type="1">
+<li>Call beginTransmission() with the 7-bit slave address</li>
+<li>Call write() as many times as bytes to write</li>
+<li>Call endTransmission() (without an argument to send a STOP&ndash;recommended).</li>
+</ol>
+<h4>Reading a register</h4>
+<p>One of the most common I2C operations is to read a register from a slave (e.g. MPU6050 and AS5048 examples below). The Arduino API makes this a bit tedious, but the "official" way to do this (fully compatible with Arduino) is to:</p>
+<ol type="1">
+<li>Call beginTransmission() with the 7-bit slave address</li>
+<li>write() the register name</li>
+<li>Call endTransmission() with the argument <code>false</code> (don't sent STOP)</li>
+<li>Call requestFrom() with the 7-bit slave address and a length of 1 (this sends STOP)</li>
+<li>Call read() to get the register value</li>
 </ol>
 <h3>Example: MPU6050</h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Wire.h&gt;</span></div>
@@ -99,7 +119,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">  <a class="code" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730">pinMode</a>(led, OUTPUT);</div>
 <div class="line">  Serial1.begin(115200);</div>
 <div class="line"></div>
-<div class="line">  Wire.setSpeed(WIRE_1M);</div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#ad10fdb3bc506ea45833ec7107278b02f">setSpeed</a>(WIRE_1M);</div>
 <div class="line">  Wire.begin();</div>
 <div class="line">}</div>
 <div class="line"></div>
@@ -170,11 +190,84 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">  Wire.write(0x00);         <span class="comment">// sends one byte</span></div>
 <div class="line">  Wire.endTransmission(<span class="keyword">false</span>);    <span class="comment">// stop transmitting</span></div>
 <div class="line">}</div>
-</div><!-- fragment --> </div><!-- contents -->
+</div><!-- fragment --><h3>Example: AS5048B</h3>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Wire.h&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="keyword">const</span> <span class="keywordtype">int</span> led = PC13;</div>
+<div class="line"><span class="keyword">const</span> uint8_t kAMS = 0x40;</div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">void</span> setup() {</div>
+<div class="line">  <a class="code" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730">pinMode</a>(led, OUTPUT);</div>
+<div class="line">  Serial1.begin(115200);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">// Try increasing speed if it works</span></div>
+<div class="line">  <span class="comment">// Wire.setSpeed(WIRE_1M);</span></div>
+<div class="line">  Wire.begin();</div>
+<div class="line">}</div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">void</span> loop() {</div>
+<div class="line">  uint32_t tic = micros();</div>
+<div class="line"></div>
+<div class="line">  Wire.beginTransmission(kAMS);</div>
+<div class="line">  Wire.write(255);</div>
+<div class="line">  Wire.endTransmission(<span class="keyword">false</span>);</div>
+<div class="line">  Wire.requestFrom(kAMS, 1);</div>
+<div class="line">  uint8_t l = Wire.read() &amp; 0x3f;</div>
+<div class="line"></div>
+<div class="line">  Wire.beginTransmission(kAMS);</div>
+<div class="line">  Wire.write(254);</div>
+<div class="line">  Wire.endTransmission(<span class="keyword">false</span>);</div>
+<div class="line">  Wire.requestFrom(kAMS, 1);</div>
+<div class="line">  uint8_t h = Wire.read();</div>
+<div class="line"></div>
+<div class="line">  tic = micros() - tic;</div>
+<div class="line"></div>
+<div class="line">  Serial1 &lt;&lt; <span class="stringliteral">&quot;Read position = &quot;</span> &lt;&lt; ((uint16_t)h&lt;&lt;6) + (uint16_t)l &lt;&lt; <span class="stringliteral">&quot;, took &quot;</span> &lt;&lt; tic &lt;&lt; <span class="stringliteral">&quot;us.\n&quot;</span>;</div>
+<div class="line"></div>
+<div class="line">  <a class="code" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7">digitalWrite</a>(led, TOGGLE);</div>
+<div class="line">  delay(50);</div>
+<div class="line">}</div>
+</div><!-- fragment --> <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_two_wire.html">TwoWire</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wire class.  <a href="class_two_wire.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga46e571372fb3cb84bf36381925f00f8f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___wire.html#ga46e571372fb3cb84bf36381925f00f8f">WireClockSpeed</a> { <b>WIRE_100K</b> = 0x80941F27, 
+<b>WIRE_200K</b> = 0x80720713, 
+<b>WIRE_400K</b> = 0x6043070E, 
+<b>WIRE_1M</b> = 0x00C71030
+ }</td></tr>
+<tr class="separator:ga46e571372fb3cb84bf36381925f00f8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ga35bd3de386d23ba02c35f820303db472"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga35bd3de386d23ba02c35f820303db472"></a>
+<a class="el" href="class_two_wire.html">TwoWire</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Wire</b></td></tr>
+<tr class="separator:ga35bd3de386d23ba02c35f820303db472"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a class="anchor" id="ga46e571372fb3cb84bf36381925f00f8f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group___wire.html#ga46e571372fb3cb84bf36381925f00f8f">WireClockSpeed</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>STM32F373 takes a funny TIMINGR and manual analog and digital filter setting </p>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Dec 15 2014 23:45:27 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Dec 16 2014 00:04:40 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.8
 </small></address>

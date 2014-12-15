@@ -9,9 +9,10 @@ var indexSectionsWithContent =
 {
   0: "_abdegiklmoprstuw",
   1: "_delprstu",
-  2: "adp",
-  3: "abdeimopstw",
-  4: "abdegikmoprstw"
+  2: "adps",
+  3: "w",
+  4: "abdeimopstw",
+  5: "abdegikmoprstw"
 };
 
 var indexSectionNames =
@@ -19,8 +20,9 @@ var indexSectionNames =
   0: "all",
   1: "classes",
   2: "functions",
-  3: "groups",
-  4: "pages"
+  3: "enums",
+  4: "groups",
+  5: "pages"
 };
 
 function convertToId(search)
