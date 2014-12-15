@@ -19,7 +19,7 @@ in your `.bash_profile` or `.bashrc` depending on OS.
 
 ## Makefile template
 
-~~~{.sh}
+~~~{.bash}
 
 VARIANT = f37xcc
 HSE_VALUE = 16000000UL
