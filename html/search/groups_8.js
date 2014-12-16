@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['serial',['Serial',['../group___serial.html',1,'']]],
-  ['spi',['SPI',['../group___s_p_i.html',1,'']]],
-  ['streaming',['Streaming',['../group___streaming.html',1,'']]]
+  ['pin_20configuration',['Pin configuration',['../group___pins.html',1,'']]],
+  ['pwm_20output_20and_20input',['PWM output and input',['../group___p_w_m.html',1,'']]]
 ];

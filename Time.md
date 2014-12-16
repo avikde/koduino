@@ -2,9 +2,8 @@
 
 ### Usage
 
-1. Call pinMode() to set the pin to `OUTPUT`, `OUTPUT_OPEN_DRAIN`, `INPUT`, `INPUT_PULLUP`, or `INPUT_PULLDOWN`
-2. Call digitalWrite() with `HIGH`, `LOW` or `TOGGLE` on `OUTPUT` pins
-3. Call digitalRead() on `INPUT` pins
+1. Call millis() or micros() to know the current time
+2. Call delay(), delayNB() or delayMicroseconds() to block execution for a duration
 
 ### Example: Blink
 

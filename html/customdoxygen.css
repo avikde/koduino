@@ -1054,10 +1054,10 @@ tr.heading h2 {
 #navrow4 a{color:rgb(0,151,156);font-weight: normal;}
 .tablist li {
 	background-image: none;
-	font-size:0.8rem;
-	line-height:1.65rem;
+	font-size:14px;
 }
 .tablist a {
+  font-weight: normal;
 	background-image: none;
 	color: white;
 	text-shadow:none;
@@ -1065,11 +1065,17 @@ tr.heading h2 {
 .tablist a:hover {
 	background-image: none;
 	text-shadow:none;
+  color: lightyellow;
 }
 .tablist li.current a {
 	background-image: none;
 	color: #fff;
 	text-shadow:none;
+}
+.tablist li.current a:hover {
+  background-image: none;
+  color: lightyellow;
+  text-shadow:none;
 }
 .tabs li.current {
 	background-color: rgb(0,151,156); /*blue*/

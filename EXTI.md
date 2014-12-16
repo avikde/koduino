@@ -2,26 +2,31 @@
 
 ### Usage
 
-1. Call pinMode() to set the pin to `OUTPUT`, `OUTPUT_OPEN_DRAIN`, `INPUT`, `INPUT_PULLUP`, or `INPUT_PULLDOWN`
-2. Call digitalWrite() with `HIGH`, `LOW` or `TOGGLE` on `OUTPUT` pins
-3. Call digitalRead() on `INPUT` pins
+1. Call attachInterrupt()
 
-### Example: Blink
+### Example: Mass transport sensor
 
 ~~~{.cpp}
 
 #include <Arduino.h>
 
 // Change to whatever pin an LED is connected to
-const PinName led = PC13;
+const int led = PC13;
+// Declare variables that will be modified by interrupt handlers `volatile`
+volatile int count = 0;
+
+void countUp() {
+  count++;
+}
 
 void setup() {
-  pinMode(led, OUTPUT);
+  Serial1.begin(115200);
+  attachInterrupt(PA0, countUp, CHANGE);
 }
 
 void loop() {
-  digitalWrite(led, TOGGLE);
-  delay(1000);
+  Serial1 << "Counted " << count << " particles.\n";
+  delay(100);
 }
 
 ~~~

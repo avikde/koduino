@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.8"/>
-<title>Koduino: Time</title>
+<title>Koduino: Keeping time</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -24,8 +24,8 @@
  <tbody>
  <tr style="height: 56px;">
  <!-- ADDED THIS CELL -->
-  <td style="font: 300 20px Lato,sans-serif;background-color: #eeeeee;padding: 10px;border-right:2px solid #cccccc;">
-  <a href="/" style="color:#444444">&#8629; Home</a>
+  <td style="font: 300 16px Lato,sans-serif;background-color: #eeeeee;padding: 10px;border-right:2px solid #ddd;">
+  <a href="/" style="color:#444444">&#8679; avikde.me</a>
   </td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Koduino
@@ -79,15 +79,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">Time</div>  </div>
+<div class="title">Keeping time</div>  </div>
 </div><!--header-->
 <div class="contents">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <h3>Usage</h3>
 <ol type="1">
-<li>Call <a class="el" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730" title="Configure a pin before using it. ">pinMode()</a> to set the pin to <code>OUTPUT</code>, <code>OUTPUT_OPEN_DRAIN</code>, <code>INPUT</code>, <code>INPUT_PULLUP</code>, or <code>INPUT_PULLDOWN</code></li>
-<li>Call <a class="el" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7" title="Set a digital pin to a given logic level. ">digitalWrite()</a> with <code>HIGH</code>, <code>LOW</code> or <code>TOGGLE</code> on <code>OUTPUT</code> pins</li>
-<li>Call <a class="el" href="group___digital.html#ga3f9e2d2c30df9ba03affa325d5a0eb53" title="Read a digital pin. ">digitalRead()</a> on <code>INPUT</code> pins</li>
+<li>Call <a class="el" href="group___time.html#gadb94fbd930038e1510574dd4bcf07fe1">millis()</a> or <a class="el" href="group___time.html#ga2b97cb2cd2661deade2d301d38c4ebe8">micros()</a> to know the current time</li>
+<li>Call <a class="el" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d" title="Blocks execution for a specified number of milliseconds. ">delay()</a>, <a class="el" href="group___time.html#ga1ca1758040a4581015e74b8371edfcea" title="Non-blocking delay. ">delayNB()</a> or <a class="el" href="group___time.html#ga3ff9db8978fbc49767c96b3ccd7b9a68" title="Blocks execution for a specified number of microseconds. ">delayMicroseconds()</a> to block execution for a duration</li>
 </ol>
 <h3>Example: Blink</h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Arduino.h&gt;</span></div>
@@ -101,13 +103,149 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> loop() {</div>
 <div class="line">  <a class="code" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7">digitalWrite</a>(led, TOGGLE);</div>
-<div class="line">  delay(1000);</div>
+<div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(1000);</div>
 <div class="line">}</div>
-</div><!-- fragment --> </div><!-- contents -->
+</div><!-- fragment --> <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:gadb94fbd930038e1510574dd4bcf07fe1"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___time.html#gadb94fbd930038e1510574dd4bcf07fe1">millis</a> ()</td></tr>
+<tr class="separator:gadb94fbd930038e1510574dd4bcf07fe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2b97cb2cd2661deade2d301d38c4ebe8"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___time.html#ga2b97cb2cd2661deade2d301d38c4ebe8">micros</a> ()</td></tr>
+<tr class="separator:ga2b97cb2cd2661deade2d301d38c4ebe8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3194c3cfc86e8c279646fd44f3e2ee4d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a> (uint32_t nTime)</td></tr>
+<tr class="memdesc:ga3194c3cfc86e8c279646fd44f3e2ee4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blocks execution for a specified number of milliseconds.  <a href="#ga3194c3cfc86e8c279646fd44f3e2ee4d">More...</a><br /></td></tr>
+<tr class="separator:ga3194c3cfc86e8c279646fd44f3e2ee4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3ff9db8978fbc49767c96b3ccd7b9a68"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___time.html#ga3ff9db8978fbc49767c96b3ccd7b9a68">delayMicroseconds</a> (uint32_t nTime)</td></tr>
+<tr class="memdesc:ga3ff9db8978fbc49767c96b3ccd7b9a68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blocks execution for a specified number of microseconds.  <a href="#ga3ff9db8978fbc49767c96b3ccd7b9a68">More...</a><br /></td></tr>
+<tr class="separator:ga3ff9db8978fbc49767c96b3ccd7b9a68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1ca1758040a4581015e74b8371edfcea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___time.html#ga1ca1758040a4581015e74b8371edfcea">delayNB</a> (uint32_t nTime, ISRType iterate)</td></tr>
+<tr class="memdesc:ga1ca1758040a4581015e74b8371edfcea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non-blocking delay.  <a href="#ga1ca1758040a4581015e74b8371edfcea">More...</a><br /></td></tr>
+<tr class="separator:ga1ca1758040a4581015e74b8371edfcea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="ga3194c3cfc86e8c279646fd44f3e2ee4d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void delay </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>nTime</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Blocks execution for a specified number of milliseconds. </p>
+<p>Only accurate to +/- 1 ms; if you need more precision use <a class="el" href="group___time.html#ga3ff9db8978fbc49767c96b3ccd7b9a68" title="Blocks execution for a specified number of microseconds. ">delayMicroseconds()</a>. Note that any code called through <a class="el" href="group___timebase.html">timer interrupts</a> will still execute.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nTime</td><td>Number of milliseconds to wait </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ga3ff9db8978fbc49767c96b3ccd7b9a68"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void delayMicroseconds </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>nTime</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Blocks execution for a specified number of microseconds. </p>
+<p>Note that any code called through <a class="el" href="group___timebase.html">timer interrupts</a> will still execute.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nTime</td><td>Number of microseconds to wait </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ga1ca1758040a4581015e74b8371edfcea"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void delayNB </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>nTime</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ISRType&#160;</td>
+          <td class="paramname"><em>iterate</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Non-blocking delay. </p>
+<p>Will repeatedly execute the callback function while waiting. Note, it is preferred to use <a class="el" href="group___timebase.html">timer interrupts</a> for this kind of functionality. <b>FIXME:</b> test if timebase screws up Wire or Serial communication</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nTime</td><td>Number of milliseconds to wait </td></tr>
+    <tr><td class="paramname">iterate</td><td>Function to call while waiting </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ga2b97cb2cd2661deade2d301d38c4ebe8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t micros </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Rolls over at max of uint32_t or ~71 minutes </p><dl class="section return"><dt>Returns</dt><dd>Time elapsed in microseconds since the start of the program </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="gadb94fbd930038e1510574dd4bcf07fe1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t millis </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Rolls over at max of uint32_t or ~50 days </p><dl class="section return"><dt>Returns</dt><dd>Time elapsed in milliseconds since the start of the program </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 16 2014 00:28:34 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Dec 16 2014 23:34:30 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.8
 </small></address>

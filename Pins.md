@@ -18,7 +18,7 @@ There are some default assignments for all the pins which are linked to below fo
 
 However, other assignments are possible, and the function pinRemap() can be called to do this. A common use case is changing the timer a pin is connected to (see example below).
 
-## Example (changing connected timer)
+## Example: changing connected timer
 
 ~~~{.cpp}
 

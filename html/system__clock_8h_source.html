@@ -24,8 +24,8 @@
  <tbody>
  <tr style="height: 56px;">
  <!-- ADDED THIS CELL -->
-  <td style="font: 300 20px Lato,sans-serif;background-color: #eeeeee;padding: 10px;border-right:2px solid #cccccc;">
-  <a href="/" style="color:#444444">&#8629; Home</a>
+  <td style="font: 300 16px Lato,sans-serif;background-color: #eeeeee;padding: 10px;border-right:2px solid #ddd;">
+  <a href="/" style="color:#444444">&#8679; avikde.me</a>
   </td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Koduino
@@ -99,43 +99,40 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#endif // __cplusplus</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">// cldoc:begin-category(Helper)</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keywordtype">void</span> systemClockInit();</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">// Private</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keywordtype">void</span> systemClockISR();</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">// cldoc:end-category()</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">// cldoc:begin-category(Time)</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;uint32_t millis();</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;uint32_t micros();</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keywordtype">void</span> delay(uint32_t nTime);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keywordtype">void</span> delayMicroseconds(uint32_t nTime);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">// Non-blocking delay which calls the specified function, but unlike timebase it doesn&#39;t use interrupts, so it won&#39;t screw up communication</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">typedef</span> void (*IterFunc)(void);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keywordtype">void</span> delayNB(uint32_t nTime, IterFunc iterate);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">// cldoc:end-category()</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// extern &quot;C&quot;</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#endif // __cplusplus</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keywordtype">void</span> systemClockInit();</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">// Private</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keywordtype">void</span> systemClockISR();</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;uint32_t <a class="code" href="group___time.html#gadb94fbd930038e1510574dd4bcf07fe1">millis</a>();</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;uint32_t <a class="code" href="group___time.html#ga2b97cb2cd2661deade2d301d38c4ebe8">micros</a>();</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(uint32_t nTime);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group___time.html#ga3ff9db8978fbc49767c96b3ccd7b9a68">delayMicroseconds</a>(uint32_t nTime);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group___time.html#ga1ca1758040a4581015e74b8371edfcea">delayNB</a>(uint32_t nTime, ISRType iterate);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; <span class="comment">// end of addtogroup</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;} <span class="comment">// extern &quot;C&quot;</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#endif // __cplusplus</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="group___time_html_ga2b97cb2cd2661deade2d301d38c4ebe8"><div class="ttname"><a href="group___time.html#ga2b97cb2cd2661deade2d301d38c4ebe8">micros</a></div><div class="ttdeci">uint32_t micros()</div><div class="ttdef"><b>Definition:</b> system_clock.c:35</div></div>
+<div class="ttc" id="group___time_html_ga1ca1758040a4581015e74b8371edfcea"><div class="ttname"><a href="group___time.html#ga1ca1758040a4581015e74b8371edfcea">delayNB</a></div><div class="ttdeci">void delayNB(uint32_t nTime, ISRType iterate)</div><div class="ttdoc">Non-blocking delay. </div><div class="ttdef"><b>Definition:</b> system_clock.c:58</div></div>
+<div class="ttc" id="group___time_html_ga3ff9db8978fbc49767c96b3ccd7b9a68"><div class="ttname"><a href="group___time.html#ga3ff9db8978fbc49767c96b3ccd7b9a68">delayMicroseconds</a></div><div class="ttdeci">void delayMicroseconds(uint32_t nTime)</div><div class="ttdoc">Blocks execution for a specified number of microseconds. </div><div class="ttdef"><b>Definition:</b> system_clock.c:44</div></div>
+<div class="ttc" id="group___time_html_ga3194c3cfc86e8c279646fd44f3e2ee4d"><div class="ttname"><a href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a></div><div class="ttdeci">void delay(uint32_t nTime)</div><div class="ttdoc">Blocks execution for a specified number of milliseconds. </div><div class="ttdef"><b>Definition:</b> system_clock.c:52</div></div>
+<div class="ttc" id="group___time_html_gadb94fbd930038e1510574dd4bcf07fe1"><div class="ttname"><a href="group___time.html#gadb94fbd930038e1510574dd4bcf07fe1">millis</a></div><div class="ttdeci">uint32_t millis()</div><div class="ttdef"><b>Definition:</b> system_clock.c:30</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 16 2014 00:28:34 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Dec 16 2014 23:34:30 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.8
 </small></address>

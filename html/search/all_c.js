@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['reference',['Reference',['../md__reference.html',1,'']]],
-  ['ringbuffer',['RingBuffer',['../struct_ring_buffer.html',1,'']]]
+  ['openlog',['OpenLog',['../md__open_log.html',1,'']]],
+  ['openlog',['OpenLog',['../class_open_log.html',1,'OpenLog'],['../group___open_log.html',1,'(Global Namespace)']]],
+  ['orientationfilter',['OrientationFilter',['../class_orientation_filter.html',1,'']]]
 ];

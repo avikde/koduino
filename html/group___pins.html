@@ -24,8 +24,8 @@
  <tbody>
  <tr style="height: 56px;">
  <!-- ADDED THIS CELL -->
-  <td style="font: 300 20px Lato,sans-serif;background-color: #eeeeee;padding: 10px;border-right:2px solid #cccccc;">
-  <a href="/" style="color:#444444">&#8629; Home</a>
+  <td style="font: 300 16px Lato,sans-serif;background-color: #eeeeee;padding: 10px;border-right:2px solid #ddd;">
+  <a href="/" style="color:#444444">&#8679; avikde.me</a>
   </td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Koduino
@@ -100,7 +100,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </ul>
 <h3>Pin remapping</h3>
 <p>However, other assignments are possible, and the function <a class="el" href="group___pins.html#ga7b545930be968fa598f0ef566e426ee1" title="Low-level function to reassign AF number of timer assigned to a pin. The default assignments are here...">pinRemap()</a> can be called to do this. A common use case is changing the timer a pin is connected to (see example below).</p>
-<h2>Example (changing connected timer)</h2>
+<h2>Example: changing connected timer</h2>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Arduino.h&gt;</span></div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> setup() {</div>
@@ -108,14 +108,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">  <a class="code" href="group___pins.html#ga7b545930be968fa598f0ef566e426ee1">pinRemap</a>(PB6, 11, TIMER19, 1);</div>
 <div class="line"></div>
 <div class="line">  <span class="comment">// Arduino-like configuration for PWM</span></div>
-<div class="line">  analogWriteFrequency(PB6, 25000);</div>
+<div class="line">  <a class="code" href="group___p_w_m.html#gadfc7d43d5ecc4dcd39e59ce2a07772c1">analogWriteFrequency</a>(PB6, 25000);</div>
 <div class="line">  <span class="comment">// Unlike in Arduino, this *MUST* be called before analogWrite()</span></div>
 <div class="line">  <a class="code" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730">pinMode</a>(PB6, PWM);</div>
 <div class="line">}</div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> loop() {</div>
 <div class="line">  <span class="comment">// 75% duty cycle PWM at 25 KHz</span></div>
-<div class="line">  analogWrite(PB6, 0.75);</div>
+<div class="line">  <a class="code" href="group___p_w_m.html#ga345bbc70c769e161d1f50a0624de86b5">analogWrite</a>(PB6, 0.75);</div>
 <div class="line">}</div>
 </div><!-- fragment --> <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -157,7 +157,7 @@ Functions</h2></td></tr>
 
 <p>Configure a pin before using it. </p>
 <p>This function behaves like the Arduino one, but does more in some cases.</p>
-<p>In a few situations, this <em>MUST</em> be called in this library when it is not necessary to in Arduino. For instance, a timer pin must be configured for PWM using pinMode(pin, PWM) before calling analogWrite() on that pin.</p>
+<p>In a few situations, this <em>MUST</em> be called in this library when it is not necessary to in Arduino. For instance, a timer pin must be configured for PWM using pinMode(pin, PWM) before calling <a class="el" href="group___p_w_m.html#ga345bbc70c769e161d1f50a0624de86b5" title="Change the PWM duty cycle on a pin. ">analogWrite()</a> on that pin.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pin</td><td>Pin to configure </td></tr>
@@ -270,7 +270,7 @@ Functions</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 16 2014 00:28:34 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Dec 16 2014 23:34:30 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.8
 </small></address>

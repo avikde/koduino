@@ -24,8 +24,8 @@
  <tbody>
  <tr style="height: 56px;">
  <!-- ADDED THIS CELL -->
-  <td style="font: 300 20px Lato,sans-serif;background-color: #eeeeee;padding: 10px;border-right:2px solid #cccccc;">
-  <a href="/" style="color:#444444">&#8629; Home</a>
+  <td style="font: 300 16px Lato,sans-serif;background-color: #eeeeee;padding: 10px;border-right:2px solid #ddd;">
+  <a href="/" style="color:#444444">&#8679; avikde.me</a>
   </td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Koduino
@@ -127,7 +127,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><span class="keywordtype">void</span> loop() {</div>
 <div class="line">  uint8_t magic;</div>
 <div class="line"></div>
-<div class="line">  uint32_t tic = micros();</div>
+<div class="line">  uint32_t tic = <a class="code" href="group___time.html#ga2b97cb2cd2661deade2d301d38c4ebe8">micros</a>();</div>
 <div class="line"></div>
 <div class="line">  Wire.beginTransmission(kMPU);</div>
 <div class="line">  Wire.write(0x75);</div>
@@ -135,12 +135,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">  Wire.requestFrom(kMPU, 1);</div>
 <div class="line">  magic = Wire.read();</div>
 <div class="line"></div>
-<div class="line">  tic = micros() - tic;</div>
+<div class="line">  tic = <a class="code" href="group___time.html#ga2b97cb2cd2661deade2d301d38c4ebe8">micros</a>() - tic;</div>
 <div class="line"></div>
 <div class="line">  Serial1 &lt;&lt; <span class="stringliteral">&quot;WHO_AM_I = 0x&quot;</span> &lt;&lt; _HEX(magic) &lt;&lt; <span class="stringliteral">&quot;, took &quot;</span> &lt;&lt; tic &lt;&lt; <span class="stringliteral">&quot;us.\n&quot;</span>;</div>
 <div class="line"></div>
 <div class="line">  <a class="code" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7">digitalWrite</a>(led, TOGGLE);</div>
-<div class="line">  delay(1000);</div>
+<div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(1000);</div>
 <div class="line">}</div>
 </div><!-- fragment --><h3>Example: Nunchuck</h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Wire.h&gt;</span></div>
@@ -157,7 +157,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">  Wire.write(0xF0);</div>
 <div class="line">  Wire.write(0x55);</div>
 <div class="line">  Wire.endTransmission();</div>
-<div class="line">  delay(1);</div>
+<div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(1);</div>
 <div class="line">  Wire.beginTransmission(0x52);</div>
 <div class="line">  Wire.write(0xFB);</div>
 <div class="line">  Wire.write(0x00);</div>
@@ -167,7 +167,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">uint8_t data[6];</div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> loop() {</div>
-<div class="line">  uint32_t tic = micros();</div>
+<div class="line">  uint32_t tic = <a class="code" href="group___time.html#ga2b97cb2cd2661deade2d301d38c4ebe8">micros</a>();</div>
 <div class="line"></div>
 <div class="line">  Wire.requestFrom(0x52, 6); <span class="comment">// request data from nunchuck</span></div>
 <div class="line">  <span class="keywordtype">int</span> cnt = 0;</div>
@@ -176,7 +176,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">    data[cnt] = Wire.read(); <span class="comment">//</span></div>
 <div class="line">    cnt++;</div>
 <div class="line">  }</div>
-<div class="line">  tic = micros() - tic;</div>
+<div class="line">  tic = <a class="code" href="group___time.html#ga2b97cb2cd2661deade2d301d38c4ebe8">micros</a>() - tic;</div>
 <div class="line"></div>
 <div class="line">  Serial1 &lt;&lt; tic &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span>;</div>
 <div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 6; ++i)</div>
@@ -185,7 +185,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">  Serial1 &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line"></div>
 <div class="line">  <a class="code" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7">digitalWrite</a>(led, TOGGLE);</div>
-<div class="line">  delay(100);</div>
+<div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(100);</div>
 <div class="line"></div>
 <div class="line">  Wire.beginTransmission(0x52);      <span class="comment">// transmit to device 0x52</span></div>
 <div class="line">  Wire.write(0x00);         <span class="comment">// sends one byte</span></div>
@@ -207,7 +207,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">}</div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> loop() {</div>
-<div class="line">  uint32_t tic = micros();</div>
+<div class="line">  uint32_t tic = <a class="code" href="group___time.html#ga2b97cb2cd2661deade2d301d38c4ebe8">micros</a>();</div>
 <div class="line"></div>
 <div class="line">  Wire.beginTransmission(kAMS);</div>
 <div class="line">  Wire.write(255);</div>
@@ -221,12 +221,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">  Wire.requestFrom(kAMS, 1);</div>
 <div class="line">  uint8_t h = Wire.read();</div>
 <div class="line"></div>
-<div class="line">  tic = micros() - tic;</div>
+<div class="line">  tic = <a class="code" href="group___time.html#ga2b97cb2cd2661deade2d301d38c4ebe8">micros</a>() - tic;</div>
 <div class="line"></div>
 <div class="line">  Serial1 &lt;&lt; <span class="stringliteral">&quot;Read position = &quot;</span> &lt;&lt; ((uint16_t)h&lt;&lt;6) + (uint16_t)l &lt;&lt; <span class="stringliteral">&quot;, took &quot;</span> &lt;&lt; tic &lt;&lt; <span class="stringliteral">&quot;us.\n&quot;</span>;</div>
 <div class="line"></div>
 <div class="line">  <a class="code" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7">digitalWrite</a>(led, TOGGLE);</div>
-<div class="line">  delay(50);</div>
+<div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(50);</div>
 <div class="line">}</div>
 </div><!-- fragment --> <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
@@ -268,7 +268,7 @@ Variables</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 16 2014 00:28:34 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Dec 16 2014 23:34:30 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.8
 </small></address>

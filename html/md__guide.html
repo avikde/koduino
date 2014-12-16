@@ -24,8 +24,8 @@
  <tbody>
  <tr style="height: 56px;">
  <!-- ADDED THIS CELL -->
-  <td style="font: 300 20px Lato,sans-serif;background-color: #eeeeee;padding: 10px;border-right:2px solid #cccccc;">
-  <a href="/" style="color:#444444">&#8629; Home</a>
+  <td style="font: 300 16px Lato,sans-serif;background-color: #eeeeee;padding: 10px;border-right:2px solid #ddd;">
+  <a href="/" style="color:#444444">&#8679; avikde.me</a>
   </td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Koduino
@@ -83,30 +83,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Guide </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>#&lt;cldoc:Docs::Guide&gt;</p>
-<p>Getting started</p>
-<h2>Quick Start</h2>
-<p>Quickly get up and running with your first project.</p>
-<p>A <em>project</em> is a directory containing a special <code>Makefile</code> and at least one <code>.cpp</code> file implementing either the <code>setup()</code> and <code>loop()</code> functions, or a <code>main()</code> function.</p>
-<h3>Project file</h3>
-<p>```c++</p>
-<p>#include &lt;<a class="el" href="_arduino_8h_source.html">Arduino.h</a>&gt;</p>
-<p>const PinName led = PC13;</p>
-<p>void setup() { pinMode(led, OUTPUT); Serial1.begin(115200); }</p>
-<p>uint32_t tic, toc;</p>
-<p>void loop() { digitalWrite(led, TOGGLE); delay(1000);</p>
-<p>tic = micros(); Serial1 &lt;&lt; "Current time = " &lt;&lt; millis() &lt;&lt; ". This took " &lt;&lt; toc &lt;&lt; "us." &lt;&lt; endl; toc = micros() - tic; }</p>
-<p>```</p>
-<h3>Makefile</h3>
-<p>To compile this project, we need to include the <code>Arduino</code> library. Doing this is as simple as typing it into the <code>LIBRARIES</code> definition in the <code>Makefile</code> (which is a comma-separated list). You can find more <a href="#Guide/Makefile">Makefile options here</a>.</p>
-<p>```make</p>
-<p>UPLOAD_METHOD = SERIAL VENDORLIB = -lstm32f37x UPLOAD_BAUD = 500000 LIBRARIES = Arduino</p>
-<p>include /Users/avik/repos/stm32-robot/project.mk</p>
-<p>```</p>
-<p>The <code>stm32-robot/libraries/*/examples/</code> subdirectories of the repository contain a variety of example projects</p>
-<p>The code above is for the <code>Blink</code> example. To start off, navigate (using <code>cd</code>) to <code>stm32-robot/libraries/Arduino/examples/Blink</code> (which has the same code as above), plug in the board, and type <code>make</code>.</p>
-<p>A lot of the core library code is meant to seem familar to <a href="http://arduino.cc/en/Reference/HomePage">Arduino code</a>. Please see the [compatibility matrix](Overview) for more details.</p>
-<h2>Makefile</h2>
+<div class="textblock"><h2>Makefile</h2>
 <p><em>NOTE: It seems like the Makefile has errors if there is a space in the username</em></p>
 <ul>
 <li><code>UPLOAD_METHOD</code>: Can be <code>SERIAL</code> or <code>DFU</code>. If the board has an FTDI chip connected to the upload USB port, then pick <code>SERIAL</code>, otherwise pick <code>DFU</code>.</li>
@@ -137,7 +114,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 16 2014 00:28:34 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Dec 16 2014 23:34:30 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.8
 </small></address>

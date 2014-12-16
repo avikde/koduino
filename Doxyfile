@@ -753,7 +753,15 @@ WARN_LOGFILE           =
 # spaces.
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  = . /Applications/Arduino.app/Contents/Java/hardware/koduino/stm32/cores/arduino /Applications/Arduino.app/Contents/Java/hardware/koduino/stm32/libraries/Wire
+INPUT                  = . 
+INPUT += /Applications/Arduino.app/Contents/Java/hardware/koduino/stm32/cores/arduino 
+INPUT += /Applications/Arduino.app/Contents/Java/hardware/koduino/stm32/libraries/Wire
+INPUT += /Applications/Arduino.app/Contents/Java/hardware/koduino/stm32/libraries/SPI
+INPUT += /Applications/Arduino.app/Contents/Java/hardware/koduino/stm32/libraries/EEPROM
+INPUT += /Applications/Arduino.app/Contents/Java/hardware/koduino/stm32/libraries/Encoder
+INPUT += /Applications/Arduino.app/Contents/Java/hardware/koduino/stm32/libraries/IMU
+INPUT += /Applications/Arduino.app/Contents/Java/hardware/koduino/stm32/libraries/MotorController
+INPUT += /Applications/Arduino.app/Contents/Java/hardware/koduino/stm32/libraries/OpenLog
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses

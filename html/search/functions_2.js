@@ -1,6 +1,10 @@
 var searchData=
 [
-  ['pinmode',['pinMode',['../group___pins.html#ga34d257d1f45a539062543dc6f0aea730',1,'pinMode(uint8_t pin, WiringPinMode wiringMode):&#160;pins.c'],['../group___pins.html#ga34d257d1f45a539062543dc6f0aea730',1,'pinMode(uint8_t pin, WiringPinMode mode):&#160;pins.c']]],
-  ['pinmodealt',['pinModeAlt',['../group___pins.html#ga3f9e36cae9fc9f70ac454f088256ccad',1,'pinModeAlt(uint8_t pin, uint32_t oType, uint32_t pull, uint8_t altFunc):&#160;pins.c'],['../group___pins.html#ga3f9e36cae9fc9f70ac454f088256ccad',1,'pinModeAlt(uint8_t pin, uint32_t oType, uint32_t pull, uint8_t altFunc):&#160;pins.c']]],
-  ['pinremap',['pinRemap',['../group___pins.html#ga7b545930be968fa598f0ef566e426ee1',1,'pinRemap(uint8_t pin, uint8_t altFunc, uint8_t timer, uint8_t channel):&#160;pins.c'],['../group___pins.html#ga7b545930be968fa598f0ef566e426ee1',1,'pinRemap(uint8_t pin, uint8_t altFunc, uint8_t timer, uint8_t channel):&#160;pins.c']]]
+  ['ee_5ffindvalidpage',['EE_FindValidPage',['../group___e_e_p_r_o_m___emulation.html#ga67661c337ad58c959596443779fbf179',1,'EEPROM.cpp']]],
+  ['ee_5fformat',['EE_Format',['../group___e_e_p_r_o_m___emulation.html#ga8678fbad350dd8d0e149db243b390cde',1,'EEPROM.cpp']]],
+  ['ee_5finit',['EE_Init',['../group___e_e_p_r_o_m___emulation.html#ga83834957567411c76bb7f659cf8a1a38',1,'EE_Init(void):&#160;EEPROM.cpp'],['../group___e_e_p_r_o_m___emulation.html#ga83834957567411c76bb7f659cf8a1a38',1,'EE_Init(void):&#160;EEPROM.cpp']]],
+  ['ee_5fpagetransfer',['EE_PageTransfer',['../group___e_e_p_r_o_m___emulation.html#ga9153d2bbc3558a6f495ed74ad1d647e9',1,'EEPROM.cpp']]],
+  ['ee_5freadvariable',['EE_ReadVariable',['../group___e_e_p_r_o_m___emulation.html#gabb6dbecc0cb964ee005c579e6ed892f2',1,'EE_ReadVariable(uint16_t VirtAddress, uint32_t *Data):&#160;EEPROM.cpp'],['../group___e_e_p_r_o_m___emulation.html#gabb6dbecc0cb964ee005c579e6ed892f2',1,'EE_ReadVariable(uint16_t VirtAddress, uint32_t *Data):&#160;EEPROM.cpp']]],
+  ['ee_5fverifypagefullwritevariable',['EE_VerifyPageFullWriteVariable',['../group___e_e_p_r_o_m___emulation.html#gac62b2696850db46b4d0e39ff6c27a09d',1,'EEPROM.cpp']]],
+  ['ee_5fwritevariable',['EE_WriteVariable',['../group___e_e_p_r_o_m___emulation.html#gaaa743cc1fa5fadad5f6c0fd671237835',1,'EE_WriteVariable(uint16_t VirtAddress, uint32_t Data):&#160;EEPROM.cpp'],['../group___e_e_p_r_o_m___emulation.html#gaaa743cc1fa5fadad5f6c0fd671237835',1,'EE_WriteVariable(uint16_t VirtAddress, uint32_t Data):&#160;EEPROM.cpp']]]
 ];

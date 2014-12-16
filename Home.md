@@ -2,23 +2,22 @@
 
 The repository associated with this library is at https://github.com/avikde/koduino.
 
-### WARNING: This documentation is NOT COMPLETE YET
-
 This is a library of code for boards developed using the STM32 F3/F4 series of microcontrollers, chosen for their FPU instructions and friendly built-in bootloaders.
 The microcontrollers currently targeted are:
 
 * [F373xC](http://www.st.com/web/catalog/mmc/FM141/SC1169/SS1576/LN10) (full support)
 * [F4xxRG](http://www.st.com/web/en/catalog/mmc/FM141/SC1169/SS1577?sc=stm32f4) (planned)
 
-The API functions here are in general optimized for speed and concurrency, at the expense of being slightly less fool-proof than Arduino (e.g. see [pin configuration](@ref Pins)).
+The API functions here are in general optimized for speed and concurrency, at the expense of being slightly less fool-proof than Arduino (e.g. see [pin configuration](@ref Pins), [PWM output and input](@ref PWM)).
 
 ## Getting Started
 
-Code can be compiled and uploaded from either within the Arduino IDE, or it can be done standalone with Makefiles.
+[Installation & Setup Guide](Installation.md)
 
-* [Installation](Installation.md)
+<!-- 
 * [Writing your first program](Guide.md)
 * [Uploading your code](Bootloading.md)
+ -->
 
 ## API Reference
 
@@ -32,6 +31,13 @@ Code can be compiled and uploaded from either within the Arduino IDE, or it can 
 * [Running code with precise timing](@ref Timebase) - attachTimerInterrupt, ...
 * [External (or pin-change) interrupts](@ref EXTI) - attachInterrupt, ...
 * [Printing, streaming and strings](@ref Streaming) - Serial1 <<, ...
+
+
+---
+
+Documentation complete till here
+
+---
 
 ### Communication
 

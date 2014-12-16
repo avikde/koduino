@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['pin_20configuration',['Pin configuration',['../group___pins.html',1,'']]],
-  ['pwm',['PWM',['../group___p_w_m.html',1,'']]]
+  ['openlog_20driver',['OpenLog driver',['../group___open_log.html',1,'']]]
 ];

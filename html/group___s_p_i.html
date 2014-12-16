@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.8"/>
-<title>Koduino: SPI</title>
+<title>Koduino: SPI library</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -24,8 +24,8 @@
  <tbody>
  <tr style="height: 56px;">
  <!-- ADDED THIS CELL -->
-  <td style="font: 300 20px Lato,sans-serif;background-color: #eeeeee;padding: 10px;border-right:2px solid #cccccc;">
-  <a href="/" style="color:#444444">&#8629; Home</a>
+  <td style="font: 300 16px Lato,sans-serif;background-color: #eeeeee;padding: 10px;border-right:2px solid #ddd;">
+  <a href="/" style="color:#444444">&#8679; avikde.me</a>
   </td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Koduino
@@ -79,10 +79,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#define-members">Macros</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
-<div class="title">SPI</div>  </div>
+<div class="title">SPI library</div>  </div>
 </div><!--header-->
 <div class="contents">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <h3>Usage</h3>
 <ol type="1">
 <li>Call <a class="el" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730" title="Configure a pin before using it. ">pinMode()</a> to set the pin to <code>OUTPUT</code>, <code>OUTPUT_OPEN_DRAIN</code>, <code>INPUT</code>, <code>INPUT_PULLUP</code>, or <code>INPUT_PULLDOWN</code></li>
@@ -101,13 +106,64 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> loop() {</div>
 <div class="line">  <a class="code" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7">digitalWrite</a>(led, TOGGLE);</div>
-<div class="line">  delay(1000);</div>
+<div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(1000);</div>
 <div class="line">}</div>
-</div><!-- fragment --> </div><!-- contents -->
+</div><!-- fragment --> <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_p_i_class.html">SPIClass</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:gac9d0bde2b42b2403d00b7a611514b006"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gac9d0bde2b42b2403d00b7a611514b006"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SPI_MODE0</b>&#160;&#160;&#160;0x02</td></tr>
+<tr class="separator:gac9d0bde2b42b2403d00b7a611514b006"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9481b7327b91aa52ff5f70eb2d0acc95"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga9481b7327b91aa52ff5f70eb2d0acc95"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SPI_MODE1</b>&#160;&#160;&#160;0x00</td></tr>
+<tr class="separator:ga9481b7327b91aa52ff5f70eb2d0acc95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga991dec04d2fb38979cfb0d9fc7f8b026"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga991dec04d2fb38979cfb0d9fc7f8b026"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SPI_MODE2</b>&#160;&#160;&#160;0x03</td></tr>
+<tr class="separator:ga991dec04d2fb38979cfb0d9fc7f8b026"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5f928a2445070981765ee0416c12369d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga5f928a2445070981765ee0416c12369d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SPI_MODE3</b>&#160;&#160;&#160;0x01</td></tr>
+<tr class="separator:ga5f928a2445070981765ee0416c12369d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae40dbea74458f8f2aa56f163b4f9a592"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gae40dbea74458f8f2aa56f163b4f9a592"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SPI_CLOCK_DIV2</b>&#160;&#160;&#160;SPI_BaudRatePrescaler_2</td></tr>
+<tr class="separator:gae40dbea74458f8f2aa56f163b4f9a592"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa5277a58d46a44a61456b5c32b70d596"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaa5277a58d46a44a61456b5c32b70d596"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SPI_CLOCK_DIV4</b>&#160;&#160;&#160;SPI_BaudRatePrescaler_4</td></tr>
+<tr class="separator:gaa5277a58d46a44a61456b5c32b70d596"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1c17812f1dcf847c8c5f97ea58659663"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga1c17812f1dcf847c8c5f97ea58659663"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SPI_CLOCK_DIV8</b>&#160;&#160;&#160;SPI_BaudRatePrescaler_8</td></tr>
+<tr class="separator:ga1c17812f1dcf847c8c5f97ea58659663"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga84c3e36d173ca9b2bf4314da5fb688a9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga84c3e36d173ca9b2bf4314da5fb688a9"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SPI_CLOCK_DIV16</b>&#160;&#160;&#160;SPI_BaudRatePrescaler_16</td></tr>
+<tr class="separator:ga84c3e36d173ca9b2bf4314da5fb688a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga51ee7ab477a5076a2768aead6d311b95"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga51ee7ab477a5076a2768aead6d311b95"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SPI_CLOCK_DIV32</b>&#160;&#160;&#160;SPI_BaudRatePrescaler_32</td></tr>
+<tr class="separator:ga51ee7ab477a5076a2768aead6d311b95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae5d8e597407d89c8fe4e7d2cddfd4963"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gae5d8e597407d89c8fe4e7d2cddfd4963"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SPI_CLOCK_DIV64</b>&#160;&#160;&#160;SPI_BaudRatePrescaler_64</td></tr>
+<tr class="separator:gae5d8e597407d89c8fe4e7d2cddfd4963"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae7bbb331aa1b0f066aeaf652b3a1fdec"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gae7bbb331aa1b0f066aeaf652b3a1fdec"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SPI_CLOCK_DIV128</b>&#160;&#160;&#160;SPI_BaudRatePrescaler_128</td></tr>
+<tr class="separator:gae7bbb331aa1b0f066aeaf652b3a1fdec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafbfb6224cc8ceebfd39dd613eac4cf39"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gafbfb6224cc8ceebfd39dd613eac4cf39"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SPI_CLOCK_DIV256</b>&#160;&#160;&#160;SPI_BaudRatePrescaler_256</td></tr>
+<tr class="separator:gafbfb6224cc8ceebfd39dd613eac4cf39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ga56953eb3affc2a9f56e1680bbc537bf7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga56953eb3affc2a9f56e1680bbc537bf7"></a>
+<a class="el" href="class_s_p_i_class.html">SPIClass</a>&#160;</td><td class="memItemRight" valign="bottom"><b>SPI</b></td></tr>
+<tr class="separator:ga56953eb3affc2a9f56e1680bbc537bf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 16 2014 00:28:34 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Dec 16 2014 23:34:30 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.8
 </small></address>

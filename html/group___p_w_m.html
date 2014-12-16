@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.8"/>
-<title>Koduino: PWM</title>
+<title>Koduino: PWM output and input</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -24,8 +24,8 @@
  <tbody>
  <tr style="height: 56px;">
  <!-- ADDED THIS CELL -->
-  <td style="font: 300 20px Lato,sans-serif;background-color: #eeeeee;padding: 10px;border-right:2px solid #cccccc;">
-  <a href="/" style="color:#444444">&#8629; Home</a>
+  <td style="font: 300 16px Lato,sans-serif;background-color: #eeeeee;padding: 10px;border-right:2px solid #ddd;">
+  <a href="/" style="color:#444444">&#8679; avikde.me</a>
   </td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Koduino
@@ -79,35 +79,187 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">PWM</div>  </div>
+<div class="title">PWM output and input</div>  </div>
 </div><!--header-->
 <div class="contents">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <h3>Usage</h3>
+<p>PWM output:</p>
 <ol type="1">
-<li>Call <a class="el" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730" title="Configure a pin before using it. ">pinMode()</a> to set the pin to <code>OUTPUT</code>, <code>OUTPUT_OPEN_DRAIN</code>, <code>INPUT</code>, <code>INPUT_PULLUP</code>, or <code>INPUT_PULLDOWN</code></li>
-<li>Call <a class="el" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7" title="Set a digital pin to a given logic level. ">digitalWrite()</a> with <code>HIGH</code>, <code>LOW</code> or <code>TOGGLE</code> on <code>OUTPUT</code> pins</li>
-<li>Call <a class="el" href="group___digital.html#ga3f9e2d2c30df9ba03affa325d5a0eb53" title="Read a digital pin. ">digitalRead()</a> on <code>INPUT</code> pins</li>
+<li>(Optionally) call <a class="el" href="group___pins.html#ga7b545930be968fa598f0ef566e426ee1" title="Low-level function to reassign AF number of timer assigned to a pin. The default assignments are here...">pinRemap()</a> to change the timer connected to a pin</li>
+<li>(Optionally) call <a class="el" href="group___p_w_m.html#gadfc7d43d5ecc4dcd39e59ce2a07772c1" title="Assign a PWM frequency to the specified pin (default = 1000 Hz) ">analogWriteFrequency()</a> to change output PWM frequency</li>
+<li>Call <a class="el" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730" title="Configure a pin before using it. ">pinMode()</a> with <code>PWM</code></li>
+<li>Call <a class="el" href="group___p_w_m.html#ga345bbc70c769e161d1f50a0624de86b5" title="Change the PWM duty cycle on a pin. ">analogWrite()</a></li>
 </ol>
-<h3>Example: Blink</h3>
+<p>PWM input:</p>
+<ol type="1">
+<li>(Optionally) call <a class="el" href="group___pins.html#ga7b545930be968fa598f0ef566e426ee1" title="Low-level function to reassign AF number of timer assigned to a pin. The default assignments are here...">pinRemap()</a> to change the timer connected to a pin</li>
+<li>Call <a class="el" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730" title="Configure a pin before using it. ">pinMode()</a> with <code>PULSE_IN</code></li>
+<li>Call <a class="el" href="group___p_w_m.html#ga1ab4d24e9da3f2a60671f42fb5709ae6" title="Read a PWM signal (non-blocking) ">pulseIn()</a></li>
+</ol>
+<h2>Example: PWM output</h2>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Arduino.h&gt;</span></div>
 <div class="line"></div>
-<div class="line"><span class="comment">// Change to whatever pin an LED is connected to</span></div>
-<div class="line"><span class="keyword">const</span> PinName led = PC13;</div>
-<div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> setup() {</div>
-<div class="line">  <a class="code" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730">pinMode</a>(led, OUTPUT);</div>
+<div class="line">  <span class="comment">// (Optional) non Arduino-like function to assign a different timer to PB6</span></div>
+<div class="line">  <a class="code" href="group___pins.html#ga7b545930be968fa598f0ef566e426ee1">pinRemap</a>(PB6, 11, TIMER19, 1);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">// Arduino-like configuration for PWM</span></div>
+<div class="line">  <a class="code" href="group___p_w_m.html#gadfc7d43d5ecc4dcd39e59ce2a07772c1">analogWriteFrequency</a>(PB6, 25000);</div>
+<div class="line">  <span class="comment">// Unlike in Arduino, this *MUST* be called before analogWrite()</span></div>
+<div class="line">  <a class="code" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730">pinMode</a>(PB6, PWM);</div>
 <div class="line">}</div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> loop() {</div>
-<div class="line">  <a class="code" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7">digitalWrite</a>(led, TOGGLE);</div>
-<div class="line">  delay(1000);</div>
+<div class="line">  <span class="comment">// 75% duty cycle PWM at 25 KHz</span></div>
+<div class="line">  <a class="code" href="group___p_w_m.html#ga345bbc70c769e161d1f50a0624de86b5">analogWrite</a>(PB6, 0.75);</div>
+<div class="line">} </div>
+</div><!-- fragment --><h2>Example: PWM input (loopback) test</h2>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Arduino.h&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="comment">// Connect PA0 and PA6 for this test</span></div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">void</span> setup() {</div>
+<div class="line">  Serial1.begin(115200);</div>
+<div class="line">  <a class="code" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730">pinMode</a>(PA0, PWM);</div>
+<div class="line">  <a class="code" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730">pinMode</a>(PA6, PULSE_IN);</div>
 <div class="line">}</div>
-</div><!-- fragment --> </div><!-- contents -->
+<div class="line"></div>
+<div class="line"><span class="keywordtype">void</span> loop() {</div>
+<div class="line">  <a class="code" href="group___p_w_m.html#ga345bbc70c769e161d1f50a0624de86b5">analogWrite</a>(PA0, 0.3);</div>
+<div class="line">  Serial1 &lt;&lt; <span class="stringliteral">&quot;Read &quot;</span> &lt;&lt; <a class="code" href="group___p_w_m.html#ga1ab4d24e9da3f2a60671f42fb5709ae6">pulseIn</a>(PA6) &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(10);</div>
+<div class="line">}</div>
+</div><!-- fragment --> <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:gadfc7d43d5ecc4dcd39e59ce2a07772c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_w_m.html#gadfc7d43d5ecc4dcd39e59ce2a07772c1">analogWriteFrequency</a> (uint8_t pin, int freqHz)</td></tr>
+<tr class="memdesc:gadfc7d43d5ecc4dcd39e59ce2a07772c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assign a PWM frequency to the specified pin (default = 1000 Hz)  <a href="#gadfc7d43d5ecc4dcd39e59ce2a07772c1">More...</a><br /></td></tr>
+<tr class="separator:gadfc7d43d5ecc4dcd39e59ce2a07772c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga345bbc70c769e161d1f50a0624de86b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_w_m.html#ga345bbc70c769e161d1f50a0624de86b5">analogWrite</a> (uint8_t pin, float duty)</td></tr>
+<tr class="memdesc:ga345bbc70c769e161d1f50a0624de86b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change the PWM duty cycle on a pin.  <a href="#ga345bbc70c769e161d1f50a0624de86b5">More...</a><br /></td></tr>
+<tr class="separator:ga345bbc70c769e161d1f50a0624de86b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1ab4d24e9da3f2a60671f42fb5709ae6"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_w_m.html#ga1ab4d24e9da3f2a60671f42fb5709ae6">pulseIn</a> (uint8_t pin)</td></tr>
+<tr class="memdesc:ga1ab4d24e9da3f2a60671f42fb5709ae6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a PWM signal (non-blocking)  <a href="#ga1ab4d24e9da3f2a60671f42fb5709ae6">More...</a><br /></td></tr>
+<tr class="separator:ga1ab4d24e9da3f2a60671f42fb5709ae6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="ga345bbc70c769e161d1f50a0624de86b5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void analogWrite </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>pin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>duty</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Change the PWM duty cycle on a pin. </p>
+<p>Unlike Arduino, <a class="el" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730" title="Configure a pin before using it. ">pinMode()</a> must have been called on the pin beforehand with <code>PWM</code>. Also, the duty cycle is specified in floating point, and the resolution is only limited by the timer (see <a class="el" href="group___p_w_m.html#gadfc7d43d5ecc4dcd39e59ce2a07772c1" title="Assign a PWM frequency to the specified pin (default = 1000 Hz) ">analogWriteFrequency()</a>).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pin</td><td></td></tr>
+    <tr><td class="paramname">duty</td><td>The new duty cycle in normalized floating point from 0.0 (0%) to 1.0 (100%). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="gadfc7d43d5ecc4dcd39e59ce2a07772c1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void analogWriteFrequency </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>pin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>freqHz</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Assign a PWM frequency to the specified pin (default = 1000 Hz) </p>
+<p>Please see the <a class="el" href="group___pins.html">pin remapping</a> documentation for more details about connected timers to pins, including defaults. This function will change the PWM frequency for all pins connected to the same timer.</p>
+<p><em>Gory details:</em></p><ul>
+<li>There is a 36MHz base clock.</li>
+<li>Resolution: When PWM freq = 20KHz, resolution = 36000/20 = 1800 ~= 11 bits, and better for lower frequencies</li>
+<li>Minimum freuency is 36000000/65535 = 549Hz</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pin</td><td>Pin to change frequency on </td></tr>
+    <tr><td class="paramname">freqHz</td><td>New frequency in Hz (default is 1000) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ga1ab4d24e9da3f2a60671f42fb5709ae6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float pulseIn </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>pin</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Read a PWM signal (non-blocking) </p>
+<p><a class="el" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730" title="Configure a pin before using it. ">pinMode()</a> with <code>PULSE_IN</code> must have been called on the pin before-hand. Unlike Arduino, this function does not block and wait. It uses high-speed timer interrupts to catch rising and falling edges, and keeps track of the time when these happen to estimate the PWM duty cycle.</p>
+<p><em>Advanced:</em></p>
+<ul>
+<li>Period: The period of the PWM is also available in low-level form. The command <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;TIMER_MAP[ PIN_MAP[ *pin* ].timer ].channelData[ PIN_MAP[ *pin* ].channel-1].period</div>
+</div><!-- fragment --> will return the PWM period in units such that 36000 -&gt; 1ms, 3600 -&gt; 0.1ms etc.</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pin</td><td>Pin to read </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A float from 0.0 to 1.0 corresponding to PWM duty cycle </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 16 2014 00:28:34 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Dec 16 2014 23:34:30 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.8
 </small></address>

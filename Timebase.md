@@ -2,7 +2,7 @@
 
 ### Usage
 
-1. Call attachTimerInterrupt() with index 0-2, a callback function, and a frequency in Hz
+1. Call attachTimerInterrupt()
 
 ### Example: Parallel blink
 
