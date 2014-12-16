@@ -3,7 +3,9 @@
 
 #include "Motor.h"
 
-// cldoc:begin-category(MotorController)
+/** @addtogroup MotorController
+ *  @{
+ */
 
 // This should be templated
 // Class for two motors in parallel: difference in position is position-controlled and the gain can be set. The mean can be open-loop or position-controlled.
@@ -99,7 +101,7 @@ protected:
   // Barrier barrier;
 };
 
-// cldoc:end-category()
 
+/** @} */ // end of addtogroup
 
 #endif

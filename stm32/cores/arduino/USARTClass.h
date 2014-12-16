@@ -35,6 +35,10 @@
 
 #include "Stream.h"
 
+/** @addtogroup Serial Serial / USART
+ *  @{
+ */
+
 class USARTClass : public Stream {
 private:
   // should this be static? i would think one per instance
@@ -85,6 +89,8 @@ public:
 
 // static bool isEnabled(void);
 };
+
+/** @} */ // end of addtogroup
 
 extern "C"{
 #endif // __cplusplus

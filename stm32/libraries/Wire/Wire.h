@@ -6,12 +6,18 @@
 
 #define WIRE_BUFFER_LENGTH 32
 
-// cldoc:begin-category(Wire)
+/** @addtogroup Wire Wire / I2C / SMBus library
+ *  @{
+ */
 
 // STM32F373 takes a funny TIMINGR and manual analog and digital filter setting
 //FastMode+ -  1 MHz speed (Rise time = 26ns, Fall time = 2ns, Analog Filter OFF)
 //FastMode - 400 KHz speed (Rise time = 100ns, Fall time = 10ns, Analog Filter ON)
 //Standard - 100 KHz speed (Rise time = 100ns, Fall time = 10ns, Analog Filter ON)
+
+/**
+ * STM32F373 takes a funny TIMINGR and manual analog and digital filter setting
+ */
 enum WireClockSpeed {
   // WIRE_STANDARD = 0x60C3283A, // 100KHz; works
   WIRE_100K = 0x80941F27, // 100KHz; works
@@ -21,6 +27,11 @@ enum WireClockSpeed {
   WIRE_1M = 0x00C71030 // 1MHz; works
 };
 
+/**
+ * @brief Wire class
+ * @details Class for Wire
+ * 
+ */
 class TwoWire// : public Stream
 {
 protected:
@@ -80,6 +91,12 @@ public:
 
   // Custom API =================================================
 
+  /**
+   * @brief Set SCL clock speed
+   * @details Call this before begin()
+   * 
+   * @param  One of `WIRE_100K`, `WIRE_200K`, `WIRE_400K`, or `WIRE_1M` (with units of Hz)
+   */
   void setSpeed(WireClockSpeed);
   // void enableDMAMode(bool);
   void stretchClock(bool);
@@ -88,7 +105,7 @@ public:
 extern TwoWire Wire;
 // extern TwoWire Wire2;
 
-// cldoc:end-category()
+/** @} */ // end of addtogroup
 
 #endif
 

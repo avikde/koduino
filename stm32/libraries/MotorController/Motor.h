@@ -3,6 +3,10 @@
 
 #include <Arduino.h>
 
+/** @addtogroup MotorController Motor controller library
+ *  @{
+ */
+
 // ===============================================================================
 // New types
 // ===============================================================================
@@ -128,8 +132,7 @@ protected:
   bool usePwmIn;
 };
 
-// cldoc:end-category()
-
+/** @} */ // end of addtogroup
 
 
 // class BlCon3 : public Motor {

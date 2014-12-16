@@ -4,7 +4,9 @@
 
 #include "timer.h"
 
-// cldoc:begin-category(Encoder)
+/** @addtogroup Encoder
+ *  @{
+ */
 
 // Use a timer as a quadrature decoder. This assumes there is an A/B (x4) 
 // quadrature signal, with one of them wired up to TIMx_CH1, the other one
@@ -29,6 +31,6 @@ protected:
 };
 
 
-// cldoc:end-category()
+/** @} */ // end of addtogroup
 
 #endif

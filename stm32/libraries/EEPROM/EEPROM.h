@@ -80,9 +80,6 @@ extern "C" {
 #endif
 
 
-// cldoc:begin-category(Helper)
-  
-
 /* Exported types ------------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
@@ -90,20 +87,43 @@ uint16_t EE_Init(void);
 uint16_t EE_ReadVariable(uint16_t VirtAddress, uint32_t* Data);
 uint16_t EE_WriteVariable(uint16_t VirtAddress, uint32_t Data);
 
-// cldoc:end-category()
-
 #ifdef __cplusplus
 }
 #endif
 
-// cldoc:begin-category(EEPROM)
+/** @addtogroup EEPROM EEPROM (non-volatile memory)
+ *  @{
+ */
 
+/**
+ * @brief [brief description]
+ * @details [long description]
+ * 
+ * @param d [description]
+ * @return [description]
+ */
 class EEPROMClass
 {
 public:
   EEPROMClass() : inited(false) {}
-  uint32_t read(int);
-  void write(int, uint32_t);
+
+  /**
+   * @brief [brief description]
+   * @details [long description]
+   * 
+   * @param address [description]
+   * @return [description]
+   */
+  uint32_t read(int address);
+
+  /**
+   * @brief [brief description]
+   * @details [long description]
+   * 
+   * @param address [description]
+   * @param value [description]
+   */
+  void write(int address, uint32_t value);
 protected:
   bool inited;
   void initCheck();
@@ -111,7 +131,7 @@ protected:
 
 extern EEPROMClass EEPROM;
 
-// cldoc:end-category()
+/** @} */ // end of addtogroup
 
 #endif /* __EEPROM_H */
 

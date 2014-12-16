@@ -55,7 +55,7 @@ void delay(uint32_t n)
   while (millis() - start < n);
 }
 
-void delayNB(uint32_t nTime, IterFunc iterate)
+void delayNB(uint32_t nTime, ISRType iterate)
 {
   uint32_t start = millis();
   while (millis() - start < nTime) { iterate(); }

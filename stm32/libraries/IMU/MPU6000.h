@@ -4,6 +4,10 @@
 #include "IMU.h"
 #include <SPI.h>
 
+/** @addtogroup IMU
+ *  @{
+ */
+
 // MPU 6000 registers
 #define MPUREG_WHOAMI     0x75
 #define MPUREG_SMPLRT_DIV   0x19
@@ -99,6 +103,6 @@ public:
   unsigned long csDelay;
 };
 
-// cldoc:end-category()
+/** @} */ // end of addtogroup
 
 #endif

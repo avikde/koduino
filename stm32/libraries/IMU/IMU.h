@@ -5,7 +5,9 @@
 #include <math.h>
 // #include "OrientationFilter.h"
 
-// cldoc:begin-category(IMU)
+/** @addtogroup IMU IMU drivers and attitude estimation
+ *  @{
+ */
 
 class IMU {
 public:
@@ -37,6 +39,6 @@ protected:
   // These should be set by readSensors, and be in units of m/s^2 and rad/s
 };
 
-// cldoc:end-category()
+/** @} */ // end of addtogroup
 
 #endif

@@ -4,14 +4,15 @@
 #include <Arduino.h>
 #include <stdint.h>
 
+/** @addtogroup OpenLog OpenLog driver
+ *  @{
+ */
+
 #define MAX_LOG_LINE_LEN 80
 
 typedef enum {
   OL_NOT_INITED, OL_NORMAL, OL_COMMAND
 } OpenLogMode;
-
-
-// cldoc:begin-category(OpenLog)
 
 class OpenLog {
 public:
@@ -44,7 +45,6 @@ protected:
   bool enabled;
 };
 
-
-// cldoc:end-category()
+/** @} */ // end of addtogroup
 
 #endif

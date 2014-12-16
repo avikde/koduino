@@ -4,8 +4,9 @@
 #include "OrientationFilter.h"
 #include <math.h>
 
-// cldoc:begin-category(IMU)
-
+/** @addtogroup IMU
+ *  @{
+ */
 
 class ComplementaryFilter : public OrientationFilter {
 public:
@@ -55,6 +56,6 @@ public:
 protected:
 };
 
-// cldoc:end-category()
+/** @} */ // end of addtogroup
 
 #endif

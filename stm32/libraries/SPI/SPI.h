@@ -4,6 +4,10 @@
 
 #include "Arduino.h"
 
+/** @addtogroup SPI SPI library
+ *  @{
+ */
+
 #define SPI_MODE0 0x02
 #define SPI_MODE1 0x00
 #define SPI_MODE2 0x03
@@ -54,6 +58,6 @@ public:
 
 extern SPIClass SPI;
 
-// cldoc:end-category()
+/** @} */ // end of addtogroup
 
 #endif

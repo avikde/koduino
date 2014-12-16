@@ -9,46 +9,50 @@
 extern "C"{
 #endif // __cplusplus
 
-// cldoc:begin-category(Helper)
-
-// Interrupt types
-typedef enum InterruptTrigger {
-  RISING, FALLING, CHANGE
-} InterruptTrigger;
 
 // This function is called by any of the interrupt handlers. It essentially fetches the user function pointer from the array and calls it.
 void wirishExternalInterruptHandler(uint8_t EXTI_Line_Number);
 
-// cldoc:end-category()
 
+/** @addtogroup EXTI External interrupts
+ *  @{
+ */
 
-
-// cldoc:begin-category(Interrupts)
-
-// Enable an interrupt
-// @pinName Name of pin interrupt is connected to
-// @ISR Callback function to call when interrupt is triggered
-// @mode One of RISING, FALLING, CHANGE
-// 
-// Enable an interrupt. **Note:** there is only ONE EXTI per *pinSource*, i.e. PA0, PB0 cannot both have interrupts, but PA0 and PB1 can. Obviously, there can be a total of 16.
+/**
+ * @brief Enable an interrupt
+ * @details **Note:** There is only ONE EXTI per *pinSource*, i.e. 
+ * PA0, PB0 cannot both have interrupts, but PA0 and PB1 can. 
+ * Obviously, there can be a total of 16.
+ * 
+ * @param pinName Name of pin interrupt is connected to
+ * @param ISR Callback function to call when interrupt is triggered
+ * @param mode One of InterruptTrigger
+ */
 void attachInterrupt(uint8_t pinName, ISRType ISR, InterruptTrigger mode);
 
-
-// Disable an interrupt
-// @pinName Pin name where <attachInterrupt> was called
+/**
+ * @brief Disable an interrupt
+ * @details 
+ * 
+ * @param pinName Pin name where attachInterrupt() was called
+ */
 void detachInterrupt(uint8_t pinName);
 
-
-// Disable external interrupts
-// 
-// Disable external interrupts. **Note:** This is unlike the Arduino function which disables ALL interrupts. That would stop the system clock here as well. (NVIC_DisableIRQ() would do that).
+/**
+ * @brief Disable external interrupts
+ * @details **Note:** This is unlike the Arduino function which disables ALL interrupts. 
+ * That would stop the system clock here as well.
+ * Call `NVIC_DisableIRQ()` if you want the arduino behavior
+ */
 void noInterrupts();
 
-// Enable external interrupts
+/**
+ * @brief Enable external interrupts
+ * @details Enabled by default
+ */
 void interrupts();
 
-// cldoc:end-category()
-
+/** @} */ // end of addtogroup
 
 
 

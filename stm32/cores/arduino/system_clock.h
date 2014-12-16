@@ -10,31 +10,60 @@ extern "C"{
 #endif // __cplusplus
 
 
-// cldoc:begin-category(Helper)
-
 /// Initialize clock counter and timer hardware.
 void systemClockInit();
 
 // Private
 void systemClockISR();
 
-// cldoc:end-category()
 
+/** @addtogroup Time Keeping time
+ *  @{
+ */
 
-
-// cldoc:begin-category(Time)
-
+/**
+ * @brief 
+ * @details Rolls over at max of uint32_t or ~50 days
+ * @return Time elapsed in milliseconds since the start of the program
+ */
 uint32_t millis();
+
+/**
+ * @brief 
+ * @details Rolls over at max of uint32_t or ~71 minutes
+ * @return Time elapsed in microseconds since the start of the program
+ */
 uint32_t micros();
 
+/**
+ * @brief Blocks execution for a specified number of milliseconds
+ * @details Only accurate to +/- 1 ms; if you need more precision use delayMicroseconds(). 
+ * Note that any code called through [timer interrupts](@ref Timebase) will still execute.
+ * 
+ * @param nTime Number of milliseconds to wait
+ */
 void delay(uint32_t nTime);
+
+/**
+ * @brief Blocks execution for a specified number of microseconds
+ * @details Note that any code called through [timer interrupts](@ref Timebase) will still execute.
+ * 
+ * @param nTime Number of microseconds to wait
+ */
 void delayMicroseconds(uint32_t nTime);
 
-// Non-blocking delay which calls the specified function, but unlike timebase it doesn't use interrupts, so it won't screw up communication
-typedef void (*IterFunc)(void);
-void delayNB(uint32_t nTime, IterFunc iterate);
+/**
+ * @brief Non-blocking delay
+ * @details Will repeatedly execute the callback function while waiting. Note, it is 
+ * preferred to use [timer interrupts](@ref Timebase) for this kind of functionality. 
+ * **FIXME:** test if timebase screws up Wire or Serial communication
+ * 
+ * @param nTime Number of milliseconds to wait
+ * @param iterate Function to call while waiting
+ */
+void delayNB(uint32_t nTime, ISRType iterate);
 
-// cldoc:end-category()
+/** @} */ // end of addtogroup
 
 
 

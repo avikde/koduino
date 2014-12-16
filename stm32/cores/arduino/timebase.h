@@ -8,7 +8,9 @@ extern "C"{
 #endif // __cplusplus
 
 
-// cldoc:begin-category(Timebase)
+/** @addtogroup Timebase Timer interrupts
+ *  @{
+ */
 
 // This is a general timer interrupt class, called as 
 // 
@@ -20,16 +22,40 @@ extern "C"{
 
 // Make up Arduino-like functions
 // Minimum freq ~= 0.061Hz, maximum ~= 36MHz)
+
+/**
+ * @brief Begin a timer interrupt
+ * @details Starts calling the interrupt handler specified at the frequency specified.
+ * 
+ * @param i One of 0, 1, or 2 (#3 is used for pulseIn, and #4 is used for the [system clock](@ref Time))
+ * @param ISR Interrupt handler (similar to usage for [external interrupts](@ref EXTI))
+ * @param freqHz Frequency in Hz, between ~0.061Hz and ~36MHz.
+ */
 void attachTimerInterrupt(uint8_t i, ISRType ISR, int freqHz);
+
+/**
+ * @brief Disable a timer interrupt
+ * @details This forgets the attached interrupt handler, i.e. to restart, attachTimerInterrupt() has to be called again!
+ * 
+ * @param i One of 0, 1, or 2
+ */
 void detachTimerInterrupt(uint8_t i);
+
+/**
+ * @brief Disable all timer interrupts
+ * @details Call this to temporarily suspend all timer interrupts, and timerInterrupts() to resume them again
+ */
 void noTimerInterrupts();
+
+/**
+ * @brief Re-enable timer interrupts
+ * @details To be called after noTimerInterrupts()
+ */
 void timerInterrupts();
 
-// cldoc:end-category()
+/** @} */ // end of addtogroup
 
 
-
-// cldoc:begin-category(Helper)
 
 // General ISR for all timebase
 void timebaseISR(uint8_t i, uint8_t timer);
@@ -41,7 +67,6 @@ void attachSysClkInterrupt(ISRType ISR);
 // Highest resolution for PWM in
 void attachHighResClkUpdate(ISRType ISR);
 
-// cldoc:end-category()
 
 #ifdef __cplusplus
 } // extern "C"

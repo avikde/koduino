@@ -1,6 +1,10 @@
 #ifndef OrientationFilter_h
 #define OrientationFilter_h
 
+/** @addtogroup IMU
+ *  @{
+ */
+
 enum OrientationFilterType {
   IMU_FILTER_BUILTIN, IMU_FILTER_COMPLEMENTARY, IMU_FILTER_UKF
 };
@@ -26,6 +30,6 @@ protected:
   EulerState euler;
 };
 
-// cldoc:end-category()
+/** @} */ // end of addtogroup
 
 #endif

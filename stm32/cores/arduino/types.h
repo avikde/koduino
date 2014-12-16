@@ -8,8 +8,6 @@
 extern "C"{
 #endif // __cplusplus
 
-// cldoc:begin-category(Types)
-
 // Types needed by variant.h are in here
 #define NOT_SET 0xff
 
@@ -116,6 +114,14 @@ typedef struct USARTInfo {
   ByteFunc rxCallback;
 } USARTInfo;
 
+/**
+ * @brief External interrupt types
+ * @details Use with attachInterrupt()
+ */
+typedef enum InterruptTrigger {
+  RISING, FALLING, CHANGE
+} InterruptTrigger;
+
 
 /* Define attribute */
 #if defined   ( __CC_ARM   ) /* Keil uVision 4 */
@@ -133,7 +139,6 @@ extern TimerInfo TIMER_MAP[];
 extern TimebaseChannel TIMEBASE_MAP[];
 extern USARTInfo USART_MAP[];
 
-// cldoc:end-category()
 
 #ifdef __cplusplus
 } // extern "C"

@@ -4,9 +4,12 @@
 #include "OrientationFilter.h"
 #include <Eigen.h>
 
+/** @addtogroup IMU
+ *  @{
+ */
+
 #ifdef __cplusplus
 
-// cldoc:begin-category(IMU)
 typedef Eigen::Matrix<float, 3, 1> vec3;
 typedef Eigen::Matrix<float, 3, 3> mat3;
 typedef Eigen::Quaternion<float> quat;
@@ -65,8 +68,8 @@ protected:
   mat3 wCov, aCov;
 };
 
-// cldoc:end-category()
-
 #endif // __cplusplus
+
+/** @} */ // end of addtogroup
 
 #endif

@@ -3,7 +3,9 @@
 
 #include "AbstractMotor.h"
 
-// cldoc:begin-category(MotorController)
+/** @addtogroup MotorController
+ *  @{
+ */
 
 // i=0->mean, i=1->diff coordinate
 class SagittalPair : public AbstractMotor<2> {
@@ -34,6 +36,6 @@ public:
   void setDiffGain(float Kp) { setDiffGain(Kp, 0); }
 };
 
-// cldoc:end-category()
+/** @} */ // end of addtogroup
 
 #endif
