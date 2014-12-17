@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['dlpf',['DLPF',['../class_d_l_p_f.html',1,'']]]
+  ['usartclass',['USARTClass',['../class_u_s_a_r_t_class.html',1,'']]]
 ];

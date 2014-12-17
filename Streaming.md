@@ -1,27 +1,28 @@
-@addtogroup Streaming
+@class Stream Stream.h
 
-### Usage
+## Stream, Print, String
 
-1. Call pinMode() to set the pin to `OUTPUT`, `OUTPUT_OPEN_DRAIN`, `INPUT`, `INPUT_PULLUP`, or `INPUT_PULLDOWN`
-2. Call digitalWrite() with `HIGH`, `LOW` or `TOGGLE` on `OUTPUT` pins
-3. Call digitalRead() on `INPUT` pins
+Stream is a collection of functions for ASCII or binary streams used by [Serial](@ref USARTClass), [Wire](@ref TwoWire), etc. These methods are identical to the [Arduino equivalents](http://arduino.cc/en/Reference/Stream).
 
-### Example: Blink
+The Arduino [String library](http://arduino.cc/en/Reference/StringObject) is included as well.
+
+## Streaming
+
+The excellent [Streaming library](http://arduiniana.org/libraries/streaming/) is also available.
+
+### Example
 
 ~~~{.cpp}
 
 #include <Arduino.h>
 
-// Change to whatever pin an LED is connected to
-const PinName led = PC13;
-
 void setup() {
-  pinMode(led, OUTPUT);
+  Serial1.begin(115200);
 }
 
 void loop() {
-  digitalWrite(led, TOGGLE);
-  delay(1000);
+  Serial1 << "The time is " << millis() << " and PI = " << PI << "\n";
 }
 
 ~~~
+

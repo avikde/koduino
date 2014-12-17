@@ -45,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li class="current"><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -69,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Modules</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Modules</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -102,16 +103,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li><a class="el" href="group___time.html">Keeping time</a> - millis, micros ...</li>
 <li><a class="el" href="group___timebase.html">Running code with precise timing</a> - attachTimerInterrupt, ...</li>
 <li><a class="el" href="group___e_x_t_i.html">External (or pin-change) interrupts</a> - attachInterrupt, ...</li>
-<li><a class="el" href="group___streaming.html">Printing, streaming and strings</a> - Serial1 &lt;&lt;, ...</li>
+<li><a class="el" href="class_stream.html">Printing, streaming and strings</a> - Serial1 &lt;&lt;, ...</li>
+</ul>
+<h3>Communication</h3>
+<ul>
+<li><a class="el" href="class_u_s_a_r_t_class.html">Serial / USART</a> - FTDI (USB/Serial), XBee, ... s</li>
+<li><a class="el" href="class_s_p_i_class.html">SPI</a> - MPU-6000, ...</li>
+<li><a class="el" href="class_two_wire.html">Wire / I2C / SMBus</a> - Nunchuck, MPU-6050, ...</li>
 </ul>
 <hr/>
 <p>Documentation complete till here </p><hr/>
-<h3>Communication</h3>
-<ul>
-<li><a class="el" href="group___serial.html">Serial / USART</a> - FTDI (USB/Serial), XBee, ...</li>
-<li><a class="el" href="group___s_p_i.html">SPI</a> - <a class="el" href="class_m_p_u6000.html">MPU6000</a>, ...</li>
-<li><a class="el" href="group___wire.html">Wire / I2C / SMBus</a> - Nunchuck, MPU6050, ...</li>
-</ul>
 <h3>Basic libraries</h3>
 <ul>
 <li><a class="el" href="group___e_e_p_r_o_m.html">Storing data in non-volatile memory (EEPROM)</a></li>
@@ -129,7 +130,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 16 2014 23:34:30 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 17 2014 23:06:56 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.8
 </small></address>

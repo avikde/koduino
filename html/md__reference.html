@@ -45,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -68,7 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Modules</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Modules</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,7 +101,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>[Analog input](ADC) - <code>analogRead</code></li>
 <li>[Time](Time) - <code>millis</code>, <code>micros</code>, <code>delay</code>, <code>delayMicroseconds</code></li>
 <li>[Wiring math](Math) - <code>min</code>, <code>max</code>, <code>abs</code>, <code>constrain</code>, <code>map</code> (for floats as well!), etc.</li>
-<li>[Advanced math](Math) - ARM fast math functions, <code><a class="el" href="class_d_l_p_f.html">DLPF</a></code>, <code><a class="el" href="class_p_d.html">PD</a></code>, etc.</li>
+<li>[Advanced math](Math) - ARM fast math functions, <code>DLPF</code>, <code>PD</code>, etc.</li>
 <li>[Bits and bytes](Bitwise) - <code>lowByte</code>, <code>highByte</code>, <code>bitRead</code>, <code>bitWrite</code>, <code>bitSet</code>, <code>bitClear</code>, <code>bit</code></li>
 <li>[External interrupts](EXTI) - <code>attachInterrupt</code>, <code>detachInterrupt</code>, <code>interrupts</code>, <code>noInterrupts</code></li>
 <li>[Timer interrupts](Timebase) - <code>attachTimerInterrupt</code>, <code>detachTimerInterrupt</code>, <code>timerInterrupts</code>, <code>noTimerInterrupts</code></li>
@@ -122,24 +123,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <ul>
 <li><code>read</code>, <code>write</code></li>
 </ul>
-<h3>[<a class="el" href="class_encoder.html">Encoder</a>](<a class="el" href="class_encoder.html">Encoder</a>)</h3>
+<h3>[Encoder](Encoder)</h3>
 <p>Read a quadrature encoder (A/B/I) at high speeds. <em>NOTE: This library might be moved into the <code>wirish</code> core as a pinMode option</em></p>
 <ul>
 <li><code>init</code>, <code>read</code>, <code>write</code></li>
 </ul>
-<h3>[<a class="el" href="class_i_m_u.html">IMU</a>](<a class="el" href="class_i_m_u.html">IMU</a>)</h3>
-<p>Drivers for <a class="el" href="class_i_m_u.html">IMU</a> chips as well as filtering code.</p>
+<h3>[IMU](IMU)</h3>
+<p>Drivers for IMU chips as well as filtering code.</p>
 <ul>
-<li><code><a class="el" href="class_i_m_u.html">IMU</a></code> base class, <code><a class="el" href="class_m_p_u6000.html">MPU6000</a></code></li>
-<li><code><a class="el" href="class_orientation_filter.html">OrientationFilter</a></code> base class, <code><a class="el" href="class_complementary_filter.html">ComplementaryFilter</a></code></li>
+<li><code>IMU</code> base class, <code>MPU6000</code></li>
+<li><code>OrientationFilter</code> base class, <code>ComplementaryFilter</code></li>
 </ul>
 <h3>[MotorController](MotorController)</h3>
 <p>Control motors at a higher level, when the motor controller is configured in voltage or torque more. Also includes high-level multi-motor setups such as a sagittal pair with mean/difference control, and easy extensibility to other setups, such as a Delta configuration etc.</p>
 <ul>
-<li><code><a class="el" href="class_motor.html">Motor</a></code> base class, <code><a class="el" href="class_bl_con34.html">BlCon34</a></code></li>
-<li><code><a class="el" href="class_abstract_motor.html">AbstractMotor</a></code> base class, <code><a class="el" href="class_sagittal_pair.html">SagittalPair</a></code></li>
+<li><code>Motor</code> base class, <code>BlCon34</code></li>
+<li><code>AbstractMotor</code> base class, <code>SagittalPair</code></li>
 </ul>
-<h3>[<a class="el" href="class_open_log.html">OpenLog</a>](<a class="el" href="class_open_log.html">OpenLog</a>)</h3>
+<h3>[OpenLog](OpenLog)</h3>
 <p>Driver for the <a href="https://github.com/sparkfun/OpenLog">SparkFun OpenLog</a> for asynchronously dumping data to an SD card over Serial, usable either with the official SparkFun hardware or the version on the mainboard.</p>
 <ul>
 <li><code>init</code>, <code>enable</code>, <code>write</code></li>
@@ -163,7 +164,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 16 2014 23:34:30 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 17 2014 23:06:56 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.8
 </small></address>

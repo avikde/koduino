@@ -45,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -68,7 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Modules</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Modules</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -95,98 +96,117 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#define WIRE_BUFFER_LENGTH 32</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">// STM32F373 takes a funny TIMINGR and manual analog and digital filter setting</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">//FastMode+ -  1 MHz speed (Rise time = 26ns, Fall time = 2ns, Analog Filter OFF)</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">//FastMode - 400 KHz speed (Rise time = 100ns, Fall time = 10ns, Analog Filter ON)</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">//Standard - 100 KHz speed (Rise time = 100ns, Fall time = 10ns, Analog Filter ON)</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="group___wire.html#ga46e571372fb3cb84bf36381925f00f8f">   21</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="group___wire.html#ga46e571372fb3cb84bf36381925f00f8f">WireClockSpeed</a> {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <span class="comment">// WIRE_STANDARD = 0x60C3283A, // 100KHz; works</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  WIRE_100K = 0x80941F27, <span class="comment">// 100KHz; works</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  WIRE_200K = 0x80720713, <span class="comment">// 200KHz; check?</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  WIRE_400K = 0x6043070E, <span class="comment">// 400KHz; works</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <span class="comment">// WIRE_FAST_MODE_PLUS = 0x2043070E // 933KHz; works</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  WIRE_1M = 0x00C71030 <span class="comment">// 1MHz; works</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;};</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="class_two_wire.html">   35</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_two_wire.html">TwoWire</a><span class="comment">// : public Stream</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;{</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  I2C_TypeDef *I2Cx;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  uint8_t txBuffer[WIRE_BUFFER_LENGTH];</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="comment">// uint8_t txBufferIndex;</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  uint8_t txBufferLength;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  uint8_t rxBuffer[WIRE_BUFFER_LENGTH];</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  uint8_t rxBufferIndex;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  uint8_t rxBufferLength;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <a class="code" href="group___wire.html#ga46e571372fb3cb84bf36381925f00f8f">WireClockSpeed</a> clockSpeed;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  uint8_t txAddress;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">// STM32F373 takes a funny TIMINGR and manual analog and digital filter setting</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">//FastMode+ -  1 MHz speed (Rise time = 26ns, Fall time = 2ns, Analog Filter OFF)</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">//FastMode - 400 KHz speed (Rise time = 100ns, Fall time = 10ns, Analog Filter ON)</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">//Standard - 100 KHz speed (Rise time = 100ns, Fall time = 10ns, Analog Filter ON)</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">enum</span> WireClockSpeed {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <span class="comment">// WIRE_STANDARD = 0x60C3283A, // 100KHz; works</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  WIRE_100K = 0x80941F27, <span class="comment">// 100KHz; works</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  WIRE_200K = 0x80720713, <span class="comment">// 200KHz; check?</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  WIRE_400K = 0x6043070E, <span class="comment">// 400KHz; works</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <span class="comment">// WIRE_FAST_MODE_PLUS = 0x2043070E // 933KHz; works</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  WIRE_1M = 0x00C71030 <span class="comment">// 1MHz; works</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;};</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="class_two_wire.html">   31</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_two_wire.html">TwoWire</a> : <span class="keyword">public</span> <a class="code" href="class_stream.html">Stream</a></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;{</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  I2C_TypeDef *I2Cx;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  uint8_t txBuffer[WIRE_BUFFER_LENGTH];</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  uint8_t txBufferLength;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  uint8_t rxBuffer[WIRE_BUFFER_LENGTH];</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  uint8_t rxBufferIndex;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  uint8_t rxBufferLength;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  WireClockSpeed clockSpeed;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  uint8_t txAddress;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keywordtype">bool</span> transmitting;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="keywordtype">bool</span> txBufferFull;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  void (*user_onRequest)(void);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  void (*user_onReceive)(int);</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keywordtype">bool</span> transmitting;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordtype">bool</span> txBufferFull;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  void (*user_onRequest)(void);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  void (*user_onReceive)(int);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="keywordtype">bool</span> readHelper(uint8_t slaveAddr, uint8_t length, uint8_t *data);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <a class="code" href="class_two_wire.html">TwoWire</a>(I2C_TypeDef *I2Cx);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keywordtype">void</span> begin();</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="keywordtype">void</span> begin(uint8_t);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keywordtype">void</span> begin(<span class="keywordtype">int</span>);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keywordtype">bool</span> readHelper(uint8_t slaveAddr, uint8_t length, uint8_t *data);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <a class="code" href="class_two_wire.html">TwoWire</a>(I2C_TypeDef *I2Cx);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="class_two_wire.html#ada85a7a8663ec8af0a1248b659be2f18">begin</a>();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="class_two_wire.html#ada85a7a8663ec8af0a1248b659be2f18">begin</a>(uint8_t);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="class_two_wire.html#ada85a7a8663ec8af0a1248b659be2f18">begin</a>(<span class="keywordtype">int</span>);</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="keywordtype">void</span> beginTransmission(uint8_t address);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  uint8_t endTransmission(<span class="keywordtype">bool</span> stop);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  uint8_t endTransmission() { <span class="keywordflow">return</span> endTransmission(<span class="keyword">true</span>); }</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">size_t</span> write(uint8_t);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">size_t</span> write(<span class="keyword">const</span> uint8_t *, <span class="keywordtype">size_t</span>);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  uint8_t requestFrom(uint8_t address, uint8_t quantity) {</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">return</span> requestFrom(address, quantity, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  }</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  uint8_t requestFrom(uint8_t address, uint8_t quantity, <span class="keywordtype">bool</span> stop);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> available(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> read(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> peek(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> flush(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <span class="keywordtype">void</span> onReceive( <span class="keywordtype">void</span> (*)(<span class="keywordtype">int</span>) );</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  <span class="keywordtype">void</span> onRequest( <span class="keywordtype">void</span> (*)(<span class="keywordtype">void</span>) );</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <span class="keyword">inline</span> <span class="keywordtype">size_t</span> write(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> n) { <span class="keywordflow">return</span> write((uint8_t)n); }</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="keyword">inline</span> <span class="keywordtype">size_t</span> write(<span class="keywordtype">long</span> n) { <span class="keywordflow">return</span> write((uint8_t)n); }</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <span class="keyword">inline</span> <span class="keywordtype">size_t</span> write(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> n) { <span class="keywordflow">return</span> write((uint8_t)n); }</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  <span class="keyword">inline</span> <span class="keywordtype">size_t</span> write(<span class="keywordtype">int</span> n) { <span class="keywordflow">return</span> write((uint8_t)n); }</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  <span class="comment">// using Print::write;</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> slaveEventHandler(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">bool</span> isEnabled(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  <span class="comment">// Custom API =================================================</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="class_two_wire.html#ad10fdb3bc506ea45833ec7107278b02f">setSpeed</a>(<a class="code" href="group___wire.html#ga46e571372fb3cb84bf36381925f00f8f">WireClockSpeed</a>);</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  <span class="comment">// void enableDMAMode(bool);</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  <span class="keywordtype">void</span> stretchClock(<span class="keywordtype">bool</span>);</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;};</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="class_two_wire.html#a1876ffdb16fb185c14a75e1251cef5e4">beginTransmission</a>(uint8_t address);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  uint8_t <a class="code" href="class_two_wire.html#a294bec855a25d7d2009ea4675484474d">endTransmission</a>(<span class="keywordtype">bool</span> stop);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="class_two_wire.html#a294bec855a25d7d2009ea4675484474d">   93</a></span>&#160;  uint8_t <a class="code" href="class_two_wire.html#a294bec855a25d7d2009ea4675484474d">endTransmission</a>() { <span class="keywordflow">return</span> <a class="code" href="class_two_wire.html#a294bec855a25d7d2009ea4675484474d">endTransmission</a>(<span class="keyword">true</span>); }</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">size_t</span> <a class="code" href="class_two_wire.html#a3dead761a20db7a7bced562967170919">write</a>(uint8_t b);</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">size_t</span> <a class="code" href="class_two_wire.html#a3dead761a20db7a7bced562967170919">write</a>(<span class="keyword">const</span> uint8_t *, <span class="keywordtype">size_t</span>);</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="keyword">extern</span> <a class="code" href="class_two_wire.html">TwoWire</a> Wire;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment">// extern TwoWire Wire2;</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; <span class="comment">// end of addtogroup</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="class_two_wire.html#a35778784c333b7284e3c2378826b814d">  108</a></span>&#160;  uint8_t <a class="code" href="class_two_wire.html#a35778784c333b7284e3c2378826b814d">requestFrom</a>(uint8_t address, uint8_t quantity) {</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_two_wire.html#a35778784c333b7284e3c2378826b814d">requestFrom</a>(address, quantity, <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  }</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;</div>
-<div class="ttc" id="class_two_wire_html"><div class="ttname"><a href="class_two_wire.html">TwoWire</a></div><div class="ttdoc">Wire class. </div><div class="ttdef"><b>Definition:</b> Wire.h:35</div></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  uint8_t <a class="code" href="class_two_wire.html#a35778784c333b7284e3c2378826b814d">requestFrom</a>(uint8_t address, uint8_t quantity, <span class="keywordtype">bool</span> stop);</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_two_wire.html#aee57bc52bee06508e231c5fc6bc35ada">available</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_two_wire.html#aa361b83500d00dfb93bb25b6473b33e9">read</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_two_wire.html#a5bd64cb7bd609e9470a15d96a0991ec8">peek</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_two_wire.html#a4d92ddf6ca349c815de1de15fca06b5e">flush</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  <span class="keywordtype">void</span> onReceive( <span class="keywordtype">void</span> (*)(<span class="keywordtype">int</span>) );</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;  <span class="keywordtype">void</span> onRequest( <span class="keywordtype">void</span> (*)(<span class="keywordtype">void</span>) );</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;  <span class="keyword">inline</span> <span class="keywordtype">size_t</span> <a class="code" href="class_two_wire.html#a3dead761a20db7a7bced562967170919">write</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> n) { <span class="keywordflow">return</span> <a class="code" href="class_two_wire.html#a3dead761a20db7a7bced562967170919">write</a>((uint8_t)n); }</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;  <span class="keyword">inline</span> <span class="keywordtype">size_t</span> <a class="code" href="class_two_wire.html#a3dead761a20db7a7bced562967170919">write</a>(<span class="keywordtype">long</span> n) { <span class="keywordflow">return</span> <a class="code" href="class_two_wire.html#a3dead761a20db7a7bced562967170919">write</a>((uint8_t)n); }</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;  <span class="keyword">inline</span> <span class="keywordtype">size_t</span> <a class="code" href="class_two_wire.html#a3dead761a20db7a7bced562967170919">write</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> n) { <span class="keywordflow">return</span> <a class="code" href="class_two_wire.html#a3dead761a20db7a7bced562967170919">write</a>((uint8_t)n); }</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;  <span class="keyword">inline</span> <span class="keywordtype">size_t</span> <a class="code" href="class_two_wire.html#a3dead761a20db7a7bced562967170919">write</a>(<span class="keywordtype">int</span> n) { <span class="keywordflow">return</span> <a class="code" href="class_two_wire.html#a3dead761a20db7a7bced562967170919">write</a>((uint8_t)n); }</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;  <span class="keyword">using</span> Print::write;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> slaveEventHandler(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">bool</span> isEnabled(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;  <span class="comment">// Custom API =================================================</span></div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="class_two_wire.html#ad10fdb3bc506ea45833ec7107278b02f">setSpeed</a>(WireClockSpeed);</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;  <span class="comment">// void enableDMAMode(bool);</span></div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="class_two_wire.html#ae6a23f97fd2ee62fc085f4666bd0b4f1">stretchClock</a>(<span class="keywordtype">bool</span> flag);</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;};</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="keyword">extern</span> <a class="code" href="class_two_wire.html">TwoWire</a> Wire;</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;<span class="comment">// extern TwoWire Wire2;</span></div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;</div>
+<div class="ttc" id="class_two_wire_html_a3dead761a20db7a7bced562967170919"><div class="ttname"><a href="class_two_wire.html#a3dead761a20db7a7bced562967170919">TwoWire::write</a></div><div class="ttdeci">virtual size_t write(uint8_t b)</div><div class="ttdoc">Add a single byte to the write buffer. </div><div class="ttdef"><b>Definition:</b> Wire.cpp:178</div></div>
+<div class="ttc" id="class_two_wire_html_a35778784c333b7284e3c2378826b814d"><div class="ttname"><a href="class_two_wire.html#a35778784c333b7284e3c2378826b814d">TwoWire::requestFrom</a></div><div class="ttdeci">uint8_t requestFrom(uint8_t address, uint8_t quantity)</div><div class="ttdef"><b>Definition:</b> Wire.h:108</div></div>
+<div class="ttc" id="class_two_wire_html_a294bec855a25d7d2009ea4675484474d"><div class="ttname"><a href="class_two_wire.html#a294bec855a25d7d2009ea4675484474d">TwoWire::endTransmission</a></div><div class="ttdeci">uint8_t endTransmission()</div><div class="ttdef"><b>Definition:</b> Wire.h:93</div></div>
+<div class="ttc" id="class_two_wire_html_aee57bc52bee06508e231c5fc6bc35ada"><div class="ttname"><a href="class_two_wire.html#aee57bc52bee06508e231c5fc6bc35ada">TwoWire::available</a></div><div class="ttdeci">virtual int available(void)</div><div class="ttdoc">Return the number of bytes in the receive buffer. </div><div class="ttdef"><b>Definition:</b> Wire.cpp:217</div></div>
+<div class="ttc" id="class_stream_html"><div class="ttname"><a href="class_stream.html">Stream</a></div><div class="ttdoc">Stream library inherited by Wire, Serial, etc. </div><div class="ttdef"><b>Definition:</b> Stream.h:28</div></div>
+<div class="ttc" id="class_two_wire_html"><div class="ttname"><a href="class_two_wire.html">TwoWire</a></div><div class="ttdoc">Wire / I2C / SMBus library (call with global object Wire) </div><div class="ttdef"><b>Definition:</b> Wire.h:31</div></div>
+<div class="ttc" id="class_two_wire_html_ada85a7a8663ec8af0a1248b659be2f18"><div class="ttname"><a href="class_two_wire.html#ada85a7a8663ec8af0a1248b659be2f18">TwoWire::begin</a></div><div class="ttdeci">void begin()</div><div class="ttdoc">Start the I2C peripheral and configure the SDA and SCL pins. </div><div class="ttdef"><b>Definition:</b> Wire.cpp:24</div></div>
+<div class="ttc" id="class_two_wire_html_a5bd64cb7bd609e9470a15d96a0991ec8"><div class="ttname"><a href="class_two_wire.html#a5bd64cb7bd609e9470a15d96a0991ec8">TwoWire::peek</a></div><div class="ttdeci">virtual int peek(void)</div><div class="ttdoc">Reads a single byte from the receive buffer. </div><div class="ttdef"><b>Definition:</b> Wire.cpp:239</div></div>
+<div class="ttc" id="class_two_wire_html_a4d92ddf6ca349c815de1de15fca06b5e"><div class="ttname"><a href="class_two_wire.html#a4d92ddf6ca349c815de1de15fca06b5e">TwoWire::flush</a></div><div class="ttdeci">virtual void flush(void)</div><div class="ttdoc">Waits till the previous write operation is finished. </div><div class="ttdef"><b>Definition:</b> Wire.cpp:249</div></div>
+<div class="ttc" id="class_two_wire_html_a1876ffdb16fb185c14a75e1251cef5e4"><div class="ttname"><a href="class_two_wire.html#a1876ffdb16fb185c14a75e1251cef5e4">TwoWire::beginTransmission</a></div><div class="ttdeci">void beginTransmission(uint8_t address)</div><div class="ttdoc">Command to begin a write operation. </div><div class="ttdef"><b>Definition:</b> Wire.cpp:70</div></div>
 <div class="ttc" id="class_two_wire_html_ad10fdb3bc506ea45833ec7107278b02f"><div class="ttname"><a href="class_two_wire.html#ad10fdb3bc506ea45833ec7107278b02f">TwoWire::setSpeed</a></div><div class="ttdeci">void setSpeed(WireClockSpeed)</div><div class="ttdoc">Set SCL clock speed. </div><div class="ttdef"><b>Definition:</b> Wire.cpp:16</div></div>
-<div class="ttc" id="group___wire_html_ga46e571372fb3cb84bf36381925f00f8f"><div class="ttname"><a href="group___wire.html#ga46e571372fb3cb84bf36381925f00f8f">WireClockSpeed</a></div><div class="ttdeci">WireClockSpeed</div><div class="ttdef"><b>Definition:</b> Wire.h:21</div></div>
+<div class="ttc" id="class_two_wire_html_aa361b83500d00dfb93bb25b6473b33e9"><div class="ttname"><a href="class_two_wire.html#aa361b83500d00dfb93bb25b6473b33e9">TwoWire::read</a></div><div class="ttdeci">virtual int read(void)</div><div class="ttdoc">Reads a single byte from the receive buffer. </div><div class="ttdef"><b>Definition:</b> Wire.cpp:224</div></div>
+<div class="ttc" id="class_two_wire_html_ae6a23f97fd2ee62fc085f4666bd0b4f1"><div class="ttname"><a href="class_two_wire.html#ae6a23f97fd2ee62fc085f4666bd0b4f1">TwoWire::stretchClock</a></div><div class="ttdeci">void stretchClock(bool flag)</div><div class="ttdoc">Enable I2C clock stretching. </div><div class="ttdef"><b>Definition:</b> Wire.cpp:20</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 16 2014 23:34:30 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 17 2014 23:06:56 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.8
 </small></address>

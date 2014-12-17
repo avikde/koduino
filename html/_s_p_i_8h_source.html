@@ -45,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -68,7 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Modules</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Modules</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -93,64 +94,70 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;Arduino.h&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#define SPI_MODE0 0x02</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#define SPI_MODE1 0x00</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#define SPI_MODE2 0x03</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#define SPI_MODE3 0x01</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#define SPI_CLOCK_DIV2    SPI_BaudRatePrescaler_2</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#define SPI_CLOCK_DIV4    SPI_BaudRatePrescaler_4</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#define SPI_CLOCK_DIV8    SPI_BaudRatePrescaler_8</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#define SPI_CLOCK_DIV16   SPI_BaudRatePrescaler_16</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#define SPI_CLOCK_DIV32   SPI_BaudRatePrescaler_32</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#define SPI_CLOCK_DIV64   SPI_BaudRatePrescaler_64</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#define SPI_CLOCK_DIV128  SPI_BaudRatePrescaler_128</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#define SPI_CLOCK_DIV256  SPI_BaudRatePrescaler_256</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">// cldoc:begin-category(SPI)</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="class_s_p_i_class.html">   27</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_s_p_i_class.html">SPIClass</a> {</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keyword">static</span> SPI_InitTypeDef SPI_InitStructure;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">bool</span> SPI_Bit_Order_Set;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">bool</span> SPI_Data_Mode_Set;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">bool</span> SPI_Clock_Divider_Set;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">bool</span> SPI_Enabled;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keyword">static</span> uint8_t SCK, MISO, MOSI;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keyword">static</span> uint8_t afSCK, afMISO, afMOSI;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="comment">// Not in Arduino</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> setPins(uint8_t SCK, uint8_t afSCK, uint8_t MISO, uint8_t afMISO, uint8_t MOSI, uint8_t afMOSI);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> begin();</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="comment">// static void begin(PinName);</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> end();</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> setBitOrder(uint8_t);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> setDataMode(uint8_t);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> setClockDivider(uint8_t);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keyword">static</span> uint8_t transfer(uint8_t _data);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> attachInterrupt();</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> detachInterrupt();</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">bool</span> isEnabled(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;};</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keyword">extern</span> <a class="code" href="class_s_p_i_class.html">SPIClass</a> SPI;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; <span class="comment">// end of addtogroup</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="class_s_p_i_class_html"><div class="ttname"><a href="class_s_p_i_class.html">SPIClass</a></div><div class="ttdef"><b>Definition:</b> SPI.h:27</div></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#define SPI_MODE0 0x02</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#define SPI_MODE1 0x00</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#define SPI_MODE2 0x03</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#define SPI_MODE3 0x01</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#define SPI_CLOCK_DIV2    SPI_BaudRatePrescaler_2</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#define SPI_CLOCK_DIV4    SPI_BaudRatePrescaler_4</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#define SPI_CLOCK_DIV8    SPI_BaudRatePrescaler_8</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#define SPI_CLOCK_DIV16   SPI_BaudRatePrescaler_16</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#define SPI_CLOCK_DIV32   SPI_BaudRatePrescaler_32</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#define SPI_CLOCK_DIV64   SPI_BaudRatePrescaler_64</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#define SPI_CLOCK_DIV128  SPI_BaudRatePrescaler_128</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#define SPI_CLOCK_DIV256  SPI_BaudRatePrescaler_256</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="class_s_p_i_class.html">   26</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_s_p_i_class.html">SPIClass</a> {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="keyword">static</span> SPI_InitTypeDef SPI_InitStructure;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">bool</span> SPI_Bit_Order_Set;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">bool</span> SPI_Data_Mode_Set;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">bool</span> SPI_Clock_Divider_Set;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">bool</span> SPI_Enabled;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keyword">static</span> uint8_t SCK, MISO, MOSI;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keyword">static</span> uint8_t afSCK, afMISO, afMOSI;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="class_s_p_i_class.html#a57bbcf9ec1a5c401bd4bc4057ab7d63c">setPins</a>(uint8_t SCK, uint8_t afSCK, uint8_t MISO, uint8_t afMISO, uint8_t MOSI, uint8_t afMOSI);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="class_s_p_i_class.html#a4a2646959a242f6af423b04734c003f0">begin</a>();</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="class_s_p_i_class.html#a79d89d8e3f5f1b003cb7b0aed2d77eab">end</a>();</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="class_s_p_i_class.html#afde3febd4ff7bf33bb2b54e8a9b9694d">setBitOrder</a>(uint8_t ord);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="class_s_p_i_class.html#a13cf0985428fd08a5e056c747e296cc1">setDataMode</a>(uint8_t mode);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="class_s_p_i_class.html#aa8440b0652b8a0d3d56434b57a8fec1d">setClockDivider</a>(uint8_t div);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <span class="keyword">static</span> uint8_t <a class="code" href="class_s_p_i_class.html#a6e946f3e79c8195a164a35b477f51ebf">transfer</a>(uint8_t _data);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> attachInterrupt();</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> detachInterrupt();</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">bool</span> isEnabled(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;};</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="keyword">extern</span> <a class="code" href="class_s_p_i_class.html">SPIClass</a> SPI;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="class_s_p_i_class_html_afde3febd4ff7bf33bb2b54e8a9b9694d"><div class="ttname"><a href="class_s_p_i_class.html#afde3febd4ff7bf33bb2b54e8a9b9694d">SPIClass::setBitOrder</a></div><div class="ttdeci">static void setBitOrder(uint8_t ord)</div><div class="ttdoc">Sets the bit-order for data. </div><div class="ttdef"><b>Definition:</b> SPI.cpp:104</div></div>
+<div class="ttc" id="class_s_p_i_class_html_a79d89d8e3f5f1b003cb7b0aed2d77eab"><div class="ttname"><a href="class_s_p_i_class.html#a79d89d8e3f5f1b003cb7b0aed2d77eab">SPIClass::end</a></div><div class="ttdeci">static void end()</div><div class="ttdoc">Close SPI. </div><div class="ttdef"><b>Definition:</b> SPI.cpp:95</div></div>
+<div class="ttc" id="class_s_p_i_class_html_a6e946f3e79c8195a164a35b477f51ebf"><div class="ttname"><a href="class_s_p_i_class.html#a6e946f3e79c8195a164a35b477f51ebf">SPIClass::transfer</a></div><div class="ttdeci">static uint8_t transfer(uint8_t _data)</div><div class="ttdoc">Transfers one byte over the SPI bus, both sending and receiving. </div><div class="ttdef"><b>Definition:</b> SPI.cpp:169</div></div>
+<div class="ttc" id="class_s_p_i_class_html_a4a2646959a242f6af423b04734c003f0"><div class="ttname"><a href="class_s_p_i_class.html#a4a2646959a242f6af423b04734c003f0">SPIClass::begin</a></div><div class="ttdeci">static void begin()</div><div class="ttdoc">Start SPI peripheral and configure pins. </div><div class="ttdef"><b>Definition:</b> SPI.cpp:50</div></div>
+<div class="ttc" id="class_s_p_i_class_html"><div class="ttname"><a href="class_s_p_i_class.html">SPIClass</a></div><div class="ttdoc">SPI library (call with global object SPI) </div><div class="ttdef"><b>Definition:</b> SPI.h:26</div></div>
+<div class="ttc" id="class_s_p_i_class_html_a13cf0985428fd08a5e056c747e296cc1"><div class="ttname"><a href="class_s_p_i_class.html#a13cf0985428fd08a5e056c747e296cc1">SPIClass::setDataMode</a></div><div class="ttdeci">static void setDataMode(uint8_t mode)</div><div class="ttdoc">Sets the SPI mode. </div><div class="ttdef"><b>Definition:</b> SPI.cpp:120</div></div>
+<div class="ttc" id="class_s_p_i_class_html_a57bbcf9ec1a5c401bd4bc4057ab7d63c"><div class="ttname"><a href="class_s_p_i_class.html#a57bbcf9ec1a5c401bd4bc4057ab7d63c">SPIClass::setPins</a></div><div class="ttdeci">static void setPins(uint8_t SCK, uint8_t afSCK, uint8_t MISO, uint8_t afMISO, uint8_t MOSI, uint8_t afMOSI)</div><div class="ttdoc">Change default SCK, MISO and MOSI pins. </div><div class="ttdef"><b>Definition:</b> SPI.cpp:41</div></div>
+<div class="ttc" id="class_s_p_i_class_html_aa8440b0652b8a0d3d56434b57a8fec1d"><div class="ttname"><a href="class_s_p_i_class.html#aa8440b0652b8a0d3d56434b57a8fec1d">SPIClass::setClockDivider</a></div><div class="ttdeci">static void setClockDivider(uint8_t div)</div><div class="ttdoc">Sets the clock divider (with respect to the system clock) </div><div class="ttdef"><b>Definition:</b> SPI.cpp:160</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 16 2014 23:34:30 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 17 2014 23:06:56 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.8
 </small></address>

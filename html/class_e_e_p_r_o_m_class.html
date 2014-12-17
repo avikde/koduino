@@ -45,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -76,7 +77,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Modules</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Modules</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -89,8 +90,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="class_e_e_p_r_o_m_class-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">EEPROMClass Class Reference<div class="ingroups"><a class="el" href="group___e_e_p_r_o_m.html">EEPROM (non-volatile memory)</a></div></div>  </div>
@@ -101,28 +100,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <a href="class_e_e_p_r_o_m_class.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_e_e_p_r_o_m_8h_source.html">EEPROM.h</a>&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:ae6e7566f23b462f867816737087908ce"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_e_p_r_o_m_class.html#ae6e7566f23b462f867816737087908ce">read</a> (int address)</td></tr>
-<tr class="memdesc:ae6e7566f23b462f867816737087908ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">[brief description]  <a href="#ae6e7566f23b462f867816737087908ce">More...</a><br /></td></tr>
-<tr class="separator:ae6e7566f23b462f867816737087908ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab52acb224d40586bce6030fbe8983f97"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_e_p_r_o_m_class.html#ab52acb224d40586bce6030fbe8983f97">write</a> (int address, uint32_t value)</td></tr>
-<tr class="memdesc:ab52acb224d40586bce6030fbe8983f97"><td class="mdescLeft">&#160;</td><td class="mdescRight">[brief description]  <a href="#ab52acb224d40586bce6030fbe8983f97">More...</a><br /></td></tr>
-<tr class="separator:ab52acb224d40586bce6030fbe8983f97"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:a905c6324502b78d1d0f5b612dcc39d91"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a905c6324502b78d1d0f5b612dcc39d91"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>initCheck</b> ()</td></tr>
-<tr class="separator:a905c6324502b78d1d0f5b612dcc39d91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:ad46212a44b41c429a3508a273dc9ccbc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad46212a44b41c429a3508a273dc9ccbc"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>inited</b></td></tr>
-<tr class="separator:ad46212a44b41c429a3508a273dc9ccbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>[brief description] </p>
 <p>[long description]</p>
@@ -133,7 +110,17 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>inited</b></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>[description] </dd></dl>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ae6e7566f23b462f867816737087908ce"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_e_p_r_o_m_class.html#ae6e7566f23b462f867816737087908ce">read</a> (int address)</td></tr>
+<tr class="memdesc:ae6e7566f23b462f867816737087908ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">[brief description]  <a href="#ae6e7566f23b462f867816737087908ce">More...</a><br /></td></tr>
+<tr class="separator:ae6e7566f23b462f867816737087908ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab52acb224d40586bce6030fbe8983f97"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_e_p_r_o_m_class.html#ab52acb224d40586bce6030fbe8983f97">write</a> (int address, uint32_t value)</td></tr>
+<tr class="memdesc:ab52acb224d40586bce6030fbe8983f97"><td class="mdescLeft">&#160;</td><td class="mdescRight">[brief description]  <a href="#ab52acb224d40586bce6030fbe8983f97">More...</a><br /></td></tr>
+<tr class="separator:ab52acb224d40586bce6030fbe8983f97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="ae6e7566f23b462f867816737087908ce"></a>
 <div class="memitem">
 <div class="memproto">
@@ -204,7 +191,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>inited</b></td></tr>
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 16 2014 23:34:30 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 17 2014 23:06:56 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.8
 </small></address>

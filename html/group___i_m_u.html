@@ -45,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -69,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Modules</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Modules</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -79,10 +80,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#define-members">Macros</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
 <div class="title">IMU drivers and attitude estimation</div>  </div>
 </div><!--header-->
@@ -108,199 +105,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">  <a class="code" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7">digitalWrite</a>(led, TOGGLE);</div>
 <div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(1000);</div>
 <div class="line">}</div>
-</div><!-- fragment --> <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_complementary_filter.html">ComplementaryFilter</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_m_u.html">IMU</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structt_axis.html">tAxis</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="union_m_p_u_data.html">MPUData</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_p_u6000.html">MPU6000</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_euler_state.html">EulerState</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_orientation_filter.html">OrientationFilter</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:gaf5367cbad74bc39a3ebe8777e1115642"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaf5367cbad74bc39a3ebe8777e1115642"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPUREG_WHOAMI</b>&#160;&#160;&#160;0x75</td></tr>
-<tr class="separator:gaf5367cbad74bc39a3ebe8777e1115642"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga480fa1bcb8a55c19f8e001e740ac74f5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga480fa1bcb8a55c19f8e001e740ac74f5"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPUREG_SMPLRT_DIV</b>&#160;&#160;&#160;0x19</td></tr>
-<tr class="separator:ga480fa1bcb8a55c19f8e001e740ac74f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga088e2a9ab338307df731dca2a0b9e24c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga088e2a9ab338307df731dca2a0b9e24c"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPUREG_CONFIG</b>&#160;&#160;&#160;0x1A</td></tr>
-<tr class="separator:ga088e2a9ab338307df731dca2a0b9e24c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5decff2a237e98cfae1d009c79b602c0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga5decff2a237e98cfae1d009c79b602c0"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPUREG_GYRO_CONFIG</b>&#160;&#160;&#160;0x1B</td></tr>
-<tr class="separator:ga5decff2a237e98cfae1d009c79b602c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8a9ed30b1f8ade85d63d9de15a6450bc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga8a9ed30b1f8ade85d63d9de15a6450bc"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPUREG_ACCEL_CONFIG</b>&#160;&#160;&#160;0x1C</td></tr>
-<tr class="separator:ga8a9ed30b1f8ade85d63d9de15a6450bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1d73746a9db5e6160474a621af10f5c4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga1d73746a9db5e6160474a621af10f5c4"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPUREG_FIFO_EN</b>&#160;&#160;&#160;0x23</td></tr>
-<tr class="separator:ga1d73746a9db5e6160474a621af10f5c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9dde6de4307cf51d1e1997334eb9bc7d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga9dde6de4307cf51d1e1997334eb9bc7d"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPUREG_INT_PIN_CFG</b>&#160;&#160;&#160;0x37</td></tr>
-<tr class="separator:ga9dde6de4307cf51d1e1997334eb9bc7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga27594a92e2e552918e1fa76338e6291b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga27594a92e2e552918e1fa76338e6291b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPUREG_INT_ENABLE</b>&#160;&#160;&#160;0x38</td></tr>
-<tr class="separator:ga27594a92e2e552918e1fa76338e6291b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad543e3b4a1b7995fcdc1c83ca41bf82b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gad543e3b4a1b7995fcdc1c83ca41bf82b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPUREG_INT_STATUS</b>&#160;&#160;&#160;0x3A</td></tr>
-<tr class="separator:gad543e3b4a1b7995fcdc1c83ca41bf82b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae2c995f4d257a72ccc833cb1ae6917a0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gae2c995f4d257a72ccc833cb1ae6917a0"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPUREG_ACCEL_XOUT_H</b>&#160;&#160;&#160;0x3B</td></tr>
-<tr class="separator:gae2c995f4d257a72ccc833cb1ae6917a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6c2761f8555ab92ca74e2177e9eb67fe"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga6c2761f8555ab92ca74e2177e9eb67fe"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPUREG_ACCEL_XOUT_L</b>&#160;&#160;&#160;0x3C</td></tr>
-<tr class="separator:ga6c2761f8555ab92ca74e2177e9eb67fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9ec294f32f1f3428c52b553400066457"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga9ec294f32f1f3428c52b553400066457"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPUREG_ACCEL_YOUT_H</b>&#160;&#160;&#160;0x3D</td></tr>
-<tr class="separator:ga9ec294f32f1f3428c52b553400066457"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga893b111754ff002c22cec7754d8862c1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga893b111754ff002c22cec7754d8862c1"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPUREG_ACCEL_YOUT_L</b>&#160;&#160;&#160;0x3E</td></tr>
-<tr class="separator:ga893b111754ff002c22cec7754d8862c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2e6edc77d4a1d060589a8e7f8186b784"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga2e6edc77d4a1d060589a8e7f8186b784"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPUREG_ACCEL_ZOUT_H</b>&#160;&#160;&#160;0x3F</td></tr>
-<tr class="separator:ga2e6edc77d4a1d060589a8e7f8186b784"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad351c119ba40ddc5334fff2e708e4af9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gad351c119ba40ddc5334fff2e708e4af9"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPUREG_ACCEL_ZOUT_L</b>&#160;&#160;&#160;0x40</td></tr>
-<tr class="separator:gad351c119ba40ddc5334fff2e708e4af9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7a7a43ea55e62853969ddd392cfd4ed0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga7a7a43ea55e62853969ddd392cfd4ed0"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPUREG_TEMP_OUT_H</b>&#160;&#160;&#160;0x41</td></tr>
-<tr class="separator:ga7a7a43ea55e62853969ddd392cfd4ed0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga838b70cc3ed51b3e0ee14f29ee86ab36"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga838b70cc3ed51b3e0ee14f29ee86ab36"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPUREG_TEMP_OUT_L</b>&#160;&#160;&#160;0x42</td></tr>
-<tr class="separator:ga838b70cc3ed51b3e0ee14f29ee86ab36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab7ad5b7de47abdffeed500c4b9d88ef3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gab7ad5b7de47abdffeed500c4b9d88ef3"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPUREG_GYRO_XOUT_H</b>&#160;&#160;&#160;0x43</td></tr>
-<tr class="separator:gab7ad5b7de47abdffeed500c4b9d88ef3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf518e393e4007aa94135a4374a3715ac"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaf518e393e4007aa94135a4374a3715ac"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPUREG_GYRO_XOUT_L</b>&#160;&#160;&#160;0x44</td></tr>
-<tr class="separator:gaf518e393e4007aa94135a4374a3715ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf5ae30153b984a30249ee20facfa6363"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaf5ae30153b984a30249ee20facfa6363"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPUREG_GYRO_YOUT_H</b>&#160;&#160;&#160;0x45</td></tr>
-<tr class="separator:gaf5ae30153b984a30249ee20facfa6363"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga30d6409a9753f4bbb5f7d0a0aa11b8f2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga30d6409a9753f4bbb5f7d0a0aa11b8f2"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPUREG_GYRO_YOUT_L</b>&#160;&#160;&#160;0x46</td></tr>
-<tr class="separator:ga30d6409a9753f4bbb5f7d0a0aa11b8f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga75fdb4a37399d66e52d30b82d943ea12"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga75fdb4a37399d66e52d30b82d943ea12"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPUREG_GYRO_ZOUT_H</b>&#160;&#160;&#160;0x47</td></tr>
-<tr class="separator:ga75fdb4a37399d66e52d30b82d943ea12"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2ba1da6c69049ce1f2555d3805cb9d44"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga2ba1da6c69049ce1f2555d3805cb9d44"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPUREG_GYRO_ZOUT_L</b>&#160;&#160;&#160;0x48</td></tr>
-<tr class="separator:ga2ba1da6c69049ce1f2555d3805cb9d44"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8f4f5a02247e0dc78f3c1b796a19225c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga8f4f5a02247e0dc78f3c1b796a19225c"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPUREG_USER_CTRL</b>&#160;&#160;&#160;0x6A</td></tr>
-<tr class="separator:ga8f4f5a02247e0dc78f3c1b796a19225c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga08e3c76bc820eae3615002404015651b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga08e3c76bc820eae3615002404015651b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPUREG_PWR_MGMT_1</b>&#160;&#160;&#160;0x6B</td></tr>
-<tr class="separator:ga08e3c76bc820eae3615002404015651b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6091654fab4a6015034db8019ff50f6b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga6091654fab4a6015034db8019ff50f6b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPUREG_PWR_MGMT_2</b>&#160;&#160;&#160;0x6C</td></tr>
-<tr class="separator:ga6091654fab4a6015034db8019ff50f6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7cd1d602a16ef18b185a19678ffe2acf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga7cd1d602a16ef18b185a19678ffe2acf"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPUREG_FIFO_COUNTH</b>&#160;&#160;&#160;0x72</td></tr>
-<tr class="separator:ga7cd1d602a16ef18b185a19678ffe2acf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac8048ddb83b3b2139e86dc66b9430440"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gac8048ddb83b3b2139e86dc66b9430440"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPUREG_FIFO_COUNTL</b>&#160;&#160;&#160;0x73</td></tr>
-<tr class="separator:gac8048ddb83b3b2139e86dc66b9430440"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga65a8abba9dd56815168c880f67bf065b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga65a8abba9dd56815168c880f67bf065b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPUREG_FIFO_R_W</b>&#160;&#160;&#160;0x74</td></tr>
-<tr class="separator:ga65a8abba9dd56815168c880f67bf065b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1fed8bd436e9b7dfccb1cae99ca89103"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga1fed8bd436e9b7dfccb1cae99ca89103"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>BIT_SLEEP</b>&#160;&#160;&#160;0x40</td></tr>
-<tr class="separator:ga1fed8bd436e9b7dfccb1cae99ca89103"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga30a2f1f788faf9cbdeec0b2bbb39fb8c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga30a2f1f788faf9cbdeec0b2bbb39fb8c"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>BIT_H_RESET</b>&#160;&#160;&#160;0x80</td></tr>
-<tr class="separator:ga30a2f1f788faf9cbdeec0b2bbb39fb8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac38a8874c8758922c29421ba8ba643de"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gac38a8874c8758922c29421ba8ba643de"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>BITS_CLKSEL</b>&#160;&#160;&#160;0x07</td></tr>
-<tr class="separator:gac38a8874c8758922c29421ba8ba643de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga944417cd026a2bd2125bb8eaa76bf3ad"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga944417cd026a2bd2125bb8eaa76bf3ad"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPU_CLK_SEL_PLLGYROX</b>&#160;&#160;&#160;0x01</td></tr>
-<tr class="separator:ga944417cd026a2bd2125bb8eaa76bf3ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9dc4dc5665ac7d0bba0b9b21b9c71d12"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga9dc4dc5665ac7d0bba0b9b21b9c71d12"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPU_CLK_SEL_PLLGYROZ</b>&#160;&#160;&#160;0x03</td></tr>
-<tr class="separator:ga9dc4dc5665ac7d0bba0b9b21b9c71d12"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaabc609c0666120a8f2d8041d7bb44989"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaabc609c0666120a8f2d8041d7bb44989"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPU_EXT_SYNC_GYROX</b>&#160;&#160;&#160;0x02</td></tr>
-<tr class="separator:gaabc609c0666120a8f2d8041d7bb44989"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9e7d0e86b5d40ec5bb8202b926c7f8d6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga9e7d0e86b5d40ec5bb8202b926c7f8d6"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>BITS_FS_250DPS</b>&#160;&#160;&#160;0x00</td></tr>
-<tr class="separator:ga9e7d0e86b5d40ec5bb8202b926c7f8d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadf6b50b2041b449c5883c250c47f09e2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gadf6b50b2041b449c5883c250c47f09e2"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>BITS_FS_500DPS</b>&#160;&#160;&#160;0x08</td></tr>
-<tr class="separator:gadf6b50b2041b449c5883c250c47f09e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadaba564194d0798e5c122f555b1c61e2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gadaba564194d0798e5c122f555b1c61e2"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>BITS_FS_1000DPS</b>&#160;&#160;&#160;0x10</td></tr>
-<tr class="separator:gadaba564194d0798e5c122f555b1c61e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5bb9754e23061a7f2f5cd10e4d3ad2df"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga5bb9754e23061a7f2f5cd10e4d3ad2df"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>BITS_FS_2000DPS</b>&#160;&#160;&#160;0x18</td></tr>
-<tr class="separator:ga5bb9754e23061a7f2f5cd10e4d3ad2df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafca5f862287194d1e94e7b220e483c47"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gafca5f862287194d1e94e7b220e483c47"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>BITS_FS_MASK</b>&#160;&#160;&#160;0x18</td></tr>
-<tr class="separator:gafca5f862287194d1e94e7b220e483c47"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8025466cac57d798dbd40f19c5be1a8b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga8025466cac57d798dbd40f19c5be1a8b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>BITS_DLPF_CFG_256HZ_NOLPF2</b>&#160;&#160;&#160;0x00</td></tr>
-<tr class="separator:ga8025466cac57d798dbd40f19c5be1a8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabcace62ae86342cf57aa7de5581f4130"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gabcace62ae86342cf57aa7de5581f4130"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>BITS_DLPF_CFG_188HZ</b>&#160;&#160;&#160;0x01</td></tr>
-<tr class="separator:gabcace62ae86342cf57aa7de5581f4130"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gacb24b04f00e68f89c16862a303b413ec"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gacb24b04f00e68f89c16862a303b413ec"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>BITS_DLPF_CFG_98HZ</b>&#160;&#160;&#160;0x02</td></tr>
-<tr class="separator:gacb24b04f00e68f89c16862a303b413ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga44541217261cc05131a4113ad807dbf2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga44541217261cc05131a4113ad807dbf2"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>BITS_DLPF_CFG_42HZ</b>&#160;&#160;&#160;0x03</td></tr>
-<tr class="separator:ga44541217261cc05131a4113ad807dbf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga67c9b5662440c5544bd8beec01ba11ac"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga67c9b5662440c5544bd8beec01ba11ac"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>BITS_DLPF_CFG_20HZ</b>&#160;&#160;&#160;0x04</td></tr>
-<tr class="separator:ga67c9b5662440c5544bd8beec01ba11ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga584b3250b87795ebceb2760db71a3c2c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga584b3250b87795ebceb2760db71a3c2c"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>BITS_DLPF_CFG_10HZ</b>&#160;&#160;&#160;0x05</td></tr>
-<tr class="separator:ga584b3250b87795ebceb2760db71a3c2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga27ac58c4ccfdccda1aa8aba51ed2fdfa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga27ac58c4ccfdccda1aa8aba51ed2fdfa"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>BITS_DLPF_CFG_5HZ</b>&#160;&#160;&#160;0x06</td></tr>
-<tr class="separator:ga27ac58c4ccfdccda1aa8aba51ed2fdfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadd820c891f6289f28169ec193989d071"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gadd820c891f6289f28169ec193989d071"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>BITS_DLPF_CFG_2100HZ_NOLPF</b>&#160;&#160;&#160;0x07</td></tr>
-<tr class="separator:gadd820c891f6289f28169ec193989d071"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaca8277059599ac72dc5b4a8bdd88837a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaca8277059599ac72dc5b4a8bdd88837a"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>BITS_DLPF_CFG_MASK</b>&#160;&#160;&#160;0x07</td></tr>
-<tr class="separator:gaca8277059599ac72dc5b4a8bdd88837a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaeb55354f7d86711bd32f4a9bd7abd80c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaeb55354f7d86711bd32f4a9bd7abd80c"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>BIT_INT_ANYRD_2CLEAR</b>&#160;&#160;&#160;0x10</td></tr>
-<tr class="separator:gaeb55354f7d86711bd32f4a9bd7abd80c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2cc3a4ac952a96bac26f12b0f892c159"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga2cc3a4ac952a96bac26f12b0f892c159"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>BIT_RAW_RDY_EN</b>&#160;&#160;&#160;0x01</td></tr>
-<tr class="separator:ga2cc3a4ac952a96bac26f12b0f892c159"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae434660d02cd8083270713af8b4a1593"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gae434660d02cd8083270713af8b4a1593"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>BIT_I2C_IF_DIS</b>&#160;&#160;&#160;0x10</td></tr>
-<tr class="separator:gae434660d02cd8083270713af8b4a1593"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac7619400e4d4a27abd76e25fadc617a2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gac7619400e4d4a27abd76e25fadc617a2"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>BIT_INT_STATUS_DATA</b>&#160;&#160;&#160;0x01</td></tr>
-<tr class="separator:gac7619400e4d4a27abd76e25fadc617a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:ga058c6507034c4fa4209777cece349e35"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga058c6507034c4fa4209777cece349e35"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>OrientationFilterType</b> { <b>IMU_FILTER_BUILTIN</b>, 
-<b>IMU_FILTER_COMPLEMENTARY</b>, 
-<b>IMU_FILTER_UKF</b>
- }</td></tr>
-<tr class="separator:ga058c6507034c4fa4209777cece349e35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-</div><!-- contents -->
+</div><!-- fragment --> </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 16 2014 23:34:30 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 17 2014 23:06:56 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.8
 </small></address>

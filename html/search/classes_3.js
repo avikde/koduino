@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['complementaryfilter',['ComplementaryFilter',['../class_complementary_filter.html',1,'']]]
+  ['twowire',['TwoWire',['../class_two_wire.html',1,'']]]
 ];

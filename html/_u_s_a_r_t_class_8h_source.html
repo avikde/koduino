@@ -45,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -68,7 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Modules</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Modules</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -124,78 +125,90 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;Stream.h&quot;</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">class </span>USARTClass : <span class="keyword">public</span> <a class="code" href="class_stream.html">Stream</a> {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="comment">// should this be static? i would think one per instance</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keyword">static</span> USART_InitTypeDef USART_InitStructure;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="comment">// static bool USARTSerial_Enabled;</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="comment">// bool transmitting;</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <a class="code" href="struct_ring_buffer.html">RingBuffer</a> _rxBuf;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <a class="code" href="struct_ring_buffer.html">RingBuffer</a> _txBuf;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <a class="code" href="struct_u_s_a_r_t_info.html">USARTInfo</a> *usartMap; <span class="comment">// pointer to USART_MAP[] containing USART peripheral register locations (etc)</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="comment">// helper</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keywordtype">void</span> init(uint32_t baud, uint32_t wordLength, uint32_t parity, uint32_t stopBits);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  USARTClass(<a class="code" href="struct_u_s_a_r_t_info.html">USARTInfo</a> *usartMapPtr);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="comment">// virtual ~USARTClass() {};</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keywordtype">void</span> begin(uint32_t, uint8_t);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keywordtype">void</span> begin(uint32_t baud) { begin(baud, SERIAL_8N1); }</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="comment">// void beginHalfDuplex(uint32_t);//???</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keywordtype">void</span> end();</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="comment">// Custom function to remap pins - call before begin(). Note that USART is always AF7.</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <span class="keywordtype">void</span> setPins(uint8_t tx, uint8_t rx);</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> available(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> peek(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> read(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">bool</span> writeComplete();</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> flush(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="comment">// override a block write from Print</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  <span class="comment">// virtual size_t write(const uint8_t *buffer, size_t size);</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">size_t</span> write(uint8_t c);<span class="comment">// { return write(&amp;c, 1); }</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <span class="comment">// virtual size_t write(uint8_t);</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  <span class="comment">// these don&#39;t seem right</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <span class="comment">// inline size_t write(unsigned long n) { return write((uint8_t)n); }</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <span class="comment">// inline size_t write(long n) { return write((uint8_t)n); }</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="comment">// inline size_t write(unsigned int n) { return write((uint8_t)n); }</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <span class="comment">// inline size_t write(int n) { return write((uint8_t)n); }</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  <span class="keyword">using</span> Print::write; <span class="comment">// pull in write(str) from Print</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="keyword">operator</span> bool() { <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  <span class="comment">// Expose RX interrupt for PacketParser</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="group___e_x_t_i.html#gafb1e263c44d0ba4a97eccc2ab6f7a99d">attachInterrupt</a>(ByteFunc);</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="group___e_x_t_i.html#ga4d6f04e458d226b547767b1d62278ad9">detachInterrupt</a>();</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment">// static bool isEnabled(void);</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;};</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; <span class="comment">// end of addtogroup</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span>{</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="preprocessor">#endif // __cplusplus</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="keywordtype">void</span> wirishUSARTInterruptHandler(<a class="code" href="struct_u_s_a_r_t_info.html">USARTInfo</a> *usartMap);</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;} <span class="comment">// extern &quot;C&quot;</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="preprocessor">#endif // __cplusplus</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="class_u_s_a_r_t_class.html">   44</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_u_s_a_r_t_class.html">USARTClass</a> : <span class="keyword">public</span> <a class="code" href="class_stream.html">Stream</a> {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="comment">// should this be static? i would think one per instance</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="keyword">static</span> USART_InitTypeDef USART_InitStructure;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="comment">// static bool USARTSerial_Enabled;</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="comment">// bool transmitting;</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  RingBuffer _rxBuf;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  RingBuffer _txBuf;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  USARTInfo *usartMap; <span class="comment">// pointer to USART_MAP[] containing USART peripheral register locations (etc)</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="comment">// helper</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keywordtype">void</span> init(uint32_t baud, uint32_t wordLength, uint32_t parity, uint32_t stopBits);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <a class="code" href="class_u_s_a_r_t_class.html">USARTClass</a>(USARTInfo *usartMapPtr);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="comment">// virtual ~USARTClass() {};</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="class_u_s_a_r_t_class.html#ab703331e88e9627b23eb9464c16b7502">begin</a>(uint32_t baud, uint8_t mode);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="class_u_s_a_r_t_class.html#ab703331e88e9627b23eb9464c16b7502">begin</a>(uint32_t baud) { <a class="code" href="class_u_s_a_r_t_class.html#ab703331e88e9627b23eb9464c16b7502">begin</a>(baud, SERIAL_8N1); }</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="class_u_s_a_r_t_class.html#a71c831424f02ae9f21a4eca28ee547c7">end</a>();</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="class_u_s_a_r_t_class.html#a4556d342bafdc54cd3f9b3957593e5fe">setPins</a>(uint8_t tx, uint8_t rx);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_u_s_a_r_t_class.html#aa72ca41dffc66d47530f47ac4662d1e2">available</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_u_s_a_r_t_class.html#a9a04a523e13cd614d65298de8c1ddb3d">peek</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_u_s_a_r_t_class.html#ae1657d0b30cd3063854a330cc5a91b85">read</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_u_s_a_r_t_class.html#ac47083e1c7a985dfbad78821dd00f632">flush</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_u_s_a_r_t_class.html#ab984fe0f13a15c5dfe7565d910706dc9">writeComplete</a>();</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="class_stream_html"><div class="ttname"><a href="class_stream.html">Stream</a></div><div class="ttdef"><b>Definition:</b> Stream.h:24</div></div>
-<div class="ttc" id="struct_u_s_a_r_t_info_html"><div class="ttname"><a href="struct_u_s_a_r_t_info.html">USARTInfo</a></div><div class="ttdef"><b>Definition:</b> types.h:103</div></div>
-<div class="ttc" id="group___e_x_t_i_html_ga4d6f04e458d226b547767b1d62278ad9"><div class="ttname"><a href="group___e_x_t_i.html#ga4d6f04e458d226b547767b1d62278ad9">detachInterrupt</a></div><div class="ttdeci">void detachInterrupt(uint8_t pinName)</div><div class="ttdoc">Disable an interrupt. </div><div class="ttdef"><b>Definition:</b> exti.c:116</div></div>
-<div class="ttc" id="group___e_x_t_i_html_gafb1e263c44d0ba4a97eccc2ab6f7a99d"><div class="ttname"><a href="group___e_x_t_i.html#gafb1e263c44d0ba4a97eccc2ab6f7a99d">attachInterrupt</a></div><div class="ttdeci">void attachInterrupt(uint8_t pinName, ISRType ISR, InterruptTrigger mode)</div><div class="ttdoc">Enable an interrupt. </div><div class="ttdef"><b>Definition:</b> exti.c:78</div></div>
-<div class="ttc" id="struct_ring_buffer_html"><div class="ttname"><a href="struct_ring_buffer.html">RingBuffer</a></div><div class="ttdef"><b>Definition:</b> types.h:95</div></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  <span class="comment">// override a block write from Print</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  <span class="comment">// virtual size_t write(const uint8_t *buffer, size_t size);</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">size_t</span> <a class="code" href="class_u_s_a_r_t_class.html#a40cee922977d845eacf20a2f565b7a2b">write</a>(uint8_t c);<span class="comment">// { return write(&amp;c, 1); }</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  <span class="comment">// virtual size_t write(uint8_t);</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  <span class="comment">// these don&#39;t seem right</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  <span class="comment">// inline size_t write(unsigned long n) { return write((uint8_t)n); }</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  <span class="comment">// inline size_t write(long n) { return write((uint8_t)n); }</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  <span class="comment">// inline size_t write(unsigned int n) { return write((uint8_t)n); }</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  <span class="comment">// inline size_t write(int n) { return write((uint8_t)n); }</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  <span class="keyword">using</span> Print::write; <span class="comment">// pull in write(str) from Print</span></div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;  <span class="keyword">operator</span> bool() { <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  <span class="comment">// Expose RX interrupt for PacketParser</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> attachInterrupt(ByteFunc);</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> detachInterrupt();</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="comment">// static bool isEnabled(void);</span></div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;};</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span>{</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="preprocessor">#endif // __cplusplus</span></div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;<span class="keywordtype">void</span> wirishUSARTInterruptHandler(USARTInfo *usartMap);</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;} <span class="comment">// extern &quot;C&quot;</span></div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="preprocessor">#endif // __cplusplus</span></div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="class_stream_html"><div class="ttname"><a href="class_stream.html">Stream</a></div><div class="ttdoc">Stream library inherited by Wire, Serial, etc. </div><div class="ttdef"><b>Definition:</b> Stream.h:28</div></div>
+<div class="ttc" id="class_u_s_a_r_t_class_html_a9a04a523e13cd614d65298de8c1ddb3d"><div class="ttname"><a href="class_u_s_a_r_t_class.html#a9a04a523e13cd614d65298de8c1ddb3d">USARTClass::peek</a></div><div class="ttdeci">virtual int peek(void)</div><div class="ttdoc">Reads a single byte from the receive buffer. </div><div class="ttdef"><b>Definition:</b> USARTClass.cpp:112</div></div>
+<div class="ttc" id="class_u_s_a_r_t_class_html_a4556d342bafdc54cd3f9b3957593e5fe"><div class="ttname"><a href="class_u_s_a_r_t_class.html#a4556d342bafdc54cd3f9b3957593e5fe">USARTClass::setPins</a></div><div class="ttdeci">void setPins(uint8_t tx, uint8_t rx)</div><div class="ttdoc">Change the default RX and TX pins. </div><div class="ttdef"><b>Definition:</b> USARTClass.cpp:103</div></div>
+<div class="ttc" id="class_u_s_a_r_t_class_html_ae1657d0b30cd3063854a330cc5a91b85"><div class="ttname"><a href="class_u_s_a_r_t_class.html#ae1657d0b30cd3063854a330cc5a91b85">USARTClass::read</a></div><div class="ttdeci">virtual int read(void)</div><div class="ttdoc">Reads a single byte from the receive buffer. </div><div class="ttdef"><b>Definition:</b> USARTClass.cpp:119</div></div>
+<div class="ttc" id="class_u_s_a_r_t_class_html_ab703331e88e9627b23eb9464c16b7502"><div class="ttname"><a href="class_u_s_a_r_t_class.html#ab703331e88e9627b23eb9464c16b7502">USARTClass::begin</a></div><div class="ttdeci">void begin(uint32_t baud, uint8_t mode)</div><div class="ttdoc">Opens a serial connection and configures the RX and TX pins. </div><div class="ttdef"><b>Definition:</b> USARTClass.cpp:54</div></div>
+<div class="ttc" id="class_u_s_a_r_t_class_html_a40cee922977d845eacf20a2f565b7a2b"><div class="ttname"><a href="class_u_s_a_r_t_class.html#a40cee922977d845eacf20a2f565b7a2b">USARTClass::write</a></div><div class="ttdeci">virtual size_t write(uint8_t c)</div><div class="ttdoc">Write a single character. </div><div class="ttdef"><b>Definition:</b> USARTClass.cpp:141</div></div>
+<div class="ttc" id="class_u_s_a_r_t_class_html"><div class="ttname"><a href="class_u_s_a_r_t_class.html">USARTClass</a></div><div class="ttdoc">Serial / USART library (use on global objects Serial<x> where <x> can be 1, 2, 3) ...</div><div class="ttdef"><b>Definition:</b> USARTClass.h:44</div></div>
+<div class="ttc" id="class_u_s_a_r_t_class_html_a71c831424f02ae9f21a4eca28ee547c7"><div class="ttname"><a href="class_u_s_a_r_t_class.html#a71c831424f02ae9f21a4eca28ee547c7">USARTClass::end</a></div><div class="ttdeci">void end()</div><div class="ttdoc">Close the serial port. </div><div class="ttdef"><b>Definition:</b> USARTClass.cpp:89</div></div>
+<div class="ttc" id="class_u_s_a_r_t_class_html_ac47083e1c7a985dfbad78821dd00f632"><div class="ttname"><a href="class_u_s_a_r_t_class.html#ac47083e1c7a985dfbad78821dd00f632">USARTClass::flush</a></div><div class="ttdeci">virtual void flush(void)</div><div class="ttdoc">Waits till the previous write operation is finished. </div><div class="ttdef"><b>Definition:</b> USARTClass.cpp:134</div></div>
+<div class="ttc" id="class_u_s_a_r_t_class_html_aa72ca41dffc66d47530f47ac4662d1e2"><div class="ttname"><a href="class_u_s_a_r_t_class.html#aa72ca41dffc66d47530f47ac4662d1e2">USARTClass::available</a></div><div class="ttdeci">virtual int available(void)</div><div class="ttdoc">Return the number of bytes in the receive buffer. </div><div class="ttdef"><b>Definition:</b> USARTClass.cpp:108</div></div>
+<div class="ttc" id="class_u_s_a_r_t_class_html_ab984fe0f13a15c5dfe7565d910706dc9"><div class="ttname"><a href="class_u_s_a_r_t_class.html#ab984fe0f13a15c5dfe7565d910706dc9">USARTClass::writeComplete</a></div><div class="ttdeci">virtual bool writeComplete()</div><div class="ttdoc">Check if the previous write operation is finished. </div><div class="ttdef"><b>Definition:</b> USARTClass.cpp:130</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 16 2014 23:34:30 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 17 2014 23:06:56 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.8
 </small></address>

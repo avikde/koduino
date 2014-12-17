@@ -45,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -69,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Modules</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Modules</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -80,7 +81,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">Digital I/O</div>  </div>
@@ -108,21 +108,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(1000);</div>
 <div class="line">}</div>
 </div><!-- fragment --> <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:gaff20d8c0a05ad3043afa2e4ad9ebe768"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaff20d8c0a05ad3043afa2e4ad9ebe768"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>bitRead</b>(value, bit)&#160;&#160;&#160;(((value) &gt;&gt; (bit)) &amp; 0x01)</td></tr>
-<tr class="separator:gaff20d8c0a05ad3043afa2e4ad9ebe768"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6a8195c0e930f86c6af03ba6af8b41dd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga6a8195c0e930f86c6af03ba6af8b41dd"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>bitSet</b>(value, bit)&#160;&#160;&#160;((value) |= (1UL &lt;&lt; (bit)))</td></tr>
-<tr class="separator:ga6a8195c0e930f86c6af03ba6af8b41dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabbe843c0521806a4ab2e7cffe44769e2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gabbe843c0521806a4ab2e7cffe44769e2"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>bitClear</b>(value, bit)&#160;&#160;&#160;((value) &amp;= ~(1UL &lt;&lt; (bit)))</td></tr>
-<tr class="separator:gabbe843c0521806a4ab2e7cffe44769e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga42c17f59f3f9a3112d01246760067a8e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga42c17f59f3f9a3112d01246760067a8e"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>bitWrite</b>(value, bit, bitvalue)&#160;&#160;&#160;(bitvalue ? bitSet(value, bit) : bitClear(value, bit))</td></tr>
-<tr class="separator:ga42c17f59f3f9a3112d01246760067a8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga83a60de700245d1262ec6bb1c6f54cb7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7">digitalWrite</a> (uint8_t pin, LogicValue val)</td></tr>
@@ -207,7 +192,7 @@ Functions</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 16 2014 23:34:30 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 17 2014 23:06:56 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.8
 </small></address>

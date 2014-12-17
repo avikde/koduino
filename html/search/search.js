@@ -7,12 +7,11 @@
 
 var indexSectionsWithContent =
 {
-  0: "_abcdegiklmnoprstuw",
-  1: "_abcdeilmoprstu",
-  2: "adeimnprstw",
-  3: "w",
-  4: "abdeikmopstw",
-  5: "abdegikmoprstw"
+  0: "abdefgikmnoprstuw",
+  1: "epstu",
+  2: "abdefimnprstw",
+  3: "abdeikmopt",
+  4: "abdegikmoprstw"
 };
 
 var indexSectionNames =
@@ -20,9 +19,8 @@ var indexSectionNames =
   0: "all",
   1: "classes",
   2: "functions",
-  3: "enums",
-  4: "groups",
-  5: "pages"
+  3: "groups",
+  4: "pages"
 };
 
 function convertToId(search)

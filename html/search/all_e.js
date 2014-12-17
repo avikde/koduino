@@ -1,6 +1,9 @@
 var searchData=
 [
-  ['reference',['Reference',['../md__reference.html',1,'']]],
-  ['read',['read',['../class_e_e_p_r_o_m_class.html#ae6e7566f23b462f867816737087908ce',1,'EEPROMClass']]],
-  ['ringbuffer',['RingBuffer',['../struct_ring_buffer.html',1,'']]]
+  ['time',['Time',['../md__time.html',1,'']]],
+  ['timebase',['Timebase',['../md__timebase.html',1,'']]],
+  ['timer_20interrupts',['Timer interrupts',['../group___timebase.html',1,'']]],
+  ['timerinterrupts',['timerInterrupts',['../group___timebase.html#gadc648cb22e2853bbc47400e438e0e360',1,'timerInterrupts():&#160;timebase.c'],['../group___timebase.html#gadc648cb22e2853bbc47400e438e0e360',1,'timerInterrupts():&#160;timebase.c']]],
+  ['transfer',['transfer',['../class_s_p_i_class.html#a6e946f3e79c8195a164a35b477f51ebf',1,'SPIClass']]],
+  ['twowire',['TwoWire',['../class_two_wire.html',1,'']]]
 ];

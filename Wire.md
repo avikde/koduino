@@ -1,15 +1,14 @@
-@addtogroup Wire
+@class TwoWire Wire.h
 
 ### Usage
 
-1. Add `Wire` to the libraries (in the `LIBRARIES` line on your Makefile or through the IDE)
-2. (Optionally) call `setSpeed()`
-3. Call `begin()`
-4. See below for reading/writing
+1. (Optionally) call setSpeed()
+2. Call begin()
+3. See below for reading/writing
 
 #### Writing a register
 
-1. Call beginTransmission() with the 7-bit slave address
+1. Call beginTransmission()
 2. Call write() as many times as bytes to write
 3. Call endTransmission() (without an argument to send a STOP--recommended).
 
@@ -17,7 +16,7 @@
 
 One of the most common I2C operations is to read a register from a slave (e.g. MPU6050 and AS5048 examples below). The Arduino API makes this a bit tedious, but the "official" way to do this (fully compatible with Arduino) is to:
 
-1. Call beginTransmission() with the 7-bit slave address
+1. Call beginTransmission()
 2. write() the register name
 3. Call endTransmission() with the argument `false` (don't sent STOP)
 4. Call requestFrom() with the 7-bit slave address and a length of 1 (this sends STOP)

@@ -1,15 +1,15 @@
 var searchData=
 [
-  ['pins',['Pins',['../md__pins.html',1,'']]],
-  ['pwm',['PWM',['../md__p_w_m.html',1,'']]],
-  ['pd',['PD',['../class_p_d.html',1,'']]],
-  ['pininfo',['PinInfo',['../struct_pin_info.html',1,'']]],
-  ['pinmode',['pinMode',['../group___pins.html#ga34d257d1f45a539062543dc6f0aea730',1,'pinMode(uint8_t pin, WiringPinMode wiringMode):&#160;pins.c'],['../group___pins.html#ga34d257d1f45a539062543dc6f0aea730',1,'pinMode(uint8_t pin, WiringPinMode mode):&#160;pins.c']]],
-  ['pinmodealt',['pinModeAlt',['../group___pins.html#ga3f9e36cae9fc9f70ac454f088256ccad',1,'pinModeAlt(uint8_t pin, uint32_t oType, uint32_t pull, uint8_t altFunc):&#160;pins.c'],['../group___pins.html#ga3f9e36cae9fc9f70ac454f088256ccad',1,'pinModeAlt(uint8_t pin, uint32_t oType, uint32_t pull, uint8_t altFunc):&#160;pins.c']]],
-  ['pinremap',['pinRemap',['../group___pins.html#ga7b545930be968fa598f0ef566e426ee1',1,'pinRemap(uint8_t pin, uint8_t altFunc, uint8_t timer, uint8_t channel):&#160;pins.c'],['../group___pins.html#ga7b545930be968fa598f0ef566e426ee1',1,'pinRemap(uint8_t pin, uint8_t altFunc, uint8_t timer, uint8_t channel):&#160;pins.c']]],
-  ['pin_20configuration',['Pin configuration',['../group___pins.html',1,'']]],
-  ['print',['Print',['../class_print.html',1,'']]],
-  ['printable',['Printable',['../class_printable.html',1,'']]],
-  ['pulsein',['pulseIn',['../group___p_w_m.html#ga1ab4d24e9da3f2a60671f42fb5709ae6',1,'pulseIn(uint8_t name):&#160;timer.c'],['../group___p_w_m.html#ga1ab4d24e9da3f2a60671f42fb5709ae6',1,'pulseIn(uint8_t pin):&#160;timer.c']]],
-  ['pwm_20output_20and_20input',['PWM output and input',['../group___p_w_m.html',1,'']]]
+  ['serial',['Serial',['../md__serial.html',1,'']]],
+  ['spi',['SPI',['../md__s_p_i.html',1,'']]],
+  ['streaming',['Streaming',['../md__streaming.html',1,'']]],
+  ['setbitorder',['setBitOrder',['../class_s_p_i_class.html#afde3febd4ff7bf33bb2b54e8a9b9694d',1,'SPIClass']]],
+  ['setclockdivider',['setClockDivider',['../class_s_p_i_class.html#aa8440b0652b8a0d3d56434b57a8fec1d',1,'SPIClass']]],
+  ['setdatamode',['setDataMode',['../class_s_p_i_class.html#a13cf0985428fd08a5e056c747e296cc1',1,'SPIClass']]],
+  ['setpins',['setPins',['../class_u_s_a_r_t_class.html#a4556d342bafdc54cd3f9b3957593e5fe',1,'USARTClass::setPins()'],['../class_s_p_i_class.html#a57bbcf9ec1a5c401bd4bc4057ab7d63c',1,'SPIClass::setPins()']]],
+  ['setspeed',['setSpeed',['../class_two_wire.html#ad10fdb3bc506ea45833ec7107278b02f',1,'TwoWire']]],
+  ['settimeout',['setTimeout',['../class_stream.html#a46b2d7c7e65159c07b9ea877d0d53299',1,'Stream']]],
+  ['spiclass',['SPIClass',['../class_s_p_i_class.html',1,'']]],
+  ['stream',['Stream',['../class_stream.html',1,'']]],
+  ['stretchclock',['stretchClock',['../class_two_wire.html#ae6a23f97fd2ee62fc085f4666bd0b4f1',1,'TwoWire']]]
 ];

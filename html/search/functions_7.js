@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['read',['read',['../class_e_e_p_r_o_m_class.html#ae6e7566f23b462f867816737087908ce',1,'EEPROMClass']]]
+  ['nointerrupts',['noInterrupts',['../group___e_x_t_i.html#ga10e6193b0f9d7fc1ea6342ca38b1402f',1,'noInterrupts():&#160;exti.c'],['../group___e_x_t_i.html#ga10e6193b0f9d7fc1ea6342ca38b1402f',1,'noInterrupts():&#160;exti.c']]],
+  ['notimerinterrupts',['noTimerInterrupts',['../group___timebase.html#ga19eb20616514af394300248e60835a72',1,'noTimerInterrupts():&#160;timebase.c'],['../group___timebase.html#ga19eb20616514af394300248e60835a72',1,'noTimerInterrupts():&#160;timebase.c']]]
 ];
