@@ -4,9 +4,6 @@
 
 #include "Arduino.h"
 
-/** @addtogroup SPI SPI library
- *  @{
- */
 
 #define SPI_MODE0 0x02
 #define SPI_MODE1 0x00
@@ -22,8 +19,10 @@
 #define SPI_CLOCK_DIV128	SPI_BaudRatePrescaler_128
 #define SPI_CLOCK_DIV256	SPI_BaudRatePrescaler_256
 
-// cldoc:begin-category(SPI)
-
+/**
+ * @brief SPI library (call with global object `SPI`)
+ * @details 
+ */
 class SPIClass {
 private:
 	static SPI_InitTypeDef SPI_InitStructure;
@@ -37,17 +36,62 @@ private:
   static uint8_t afSCK, afMISO, afMOSI;
 
 public:
-	// Not in Arduino
+	/**
+	 * @brief Change default SCK, MISO and MOSI pins
+	 * @details You will need to look at the datasheet to fill in the alternate function (AF) numbers
+	 * 
+	 * @param SCK Default is `PA5`
+	 * @param afSCK 
+	 * @param MISO Default is `PB4`
+	 * @param afMISO 
+	 * @param MOSI Default is `PB5`
+	 * @param afMOSI 
+	 */
 	static void setPins(uint8_t SCK, uint8_t afSCK, uint8_t MISO, uint8_t afMISO, uint8_t MOSI, uint8_t afMOSI);
 
+	/**
+	 * @brief Start SPI peripheral and configure pins
+	 * @details 
+	 */
 	static void begin();
-	// static void begin(PinName);
+
+	/**
+	 * @brief Close SPI
+	 * @details 
+	 */
 	static void end();
 
-	static void setBitOrder(uint8_t);
-	static void setDataMode(uint8_t);
-	static void setClockDivider(uint8_t);
+	/**
+	 * @brief Sets the bit-order for data
+	 * @details 
+	 * 
+	 * @param ord One of `MSBFIRST`, `LSBFIRST`
+	 */
+	static void setBitOrder(uint8_t ord);
 
+	/**
+	 * @brief Sets the SPI mode
+	 * @details See the [Wikipedia SPI page](http://en.wikipedia.org/wiki/Serial_Peripheral_Interface_Bus) for details on these modes
+	 * 
+	 * @param mode One of `SPI_MODE<x>`, where `<x>` can be 0, 1, 2, 3
+	 */
+	static void setDataMode(uint8_t mode);
+
+	/**
+	 * @brief Sets the clock divider (with respect to the system clock)
+	 * @details 
+	 * 
+	 * @param div One of `SPI_CLOCK_DIV<x>` where `<x>` can be 2, 4, 8, 16, 32, 64, 128, 256
+	 */
+	static void setClockDivider(uint8_t div);
+
+	/**
+	 * @brief Transfers one byte over the SPI bus, both sending and receiving
+	 * @details Make sure you drive chip select low before calling this
+	 * 
+	 * @param _data Byte to send
+	 * @return Returns the byte received from the slave
+	 */
 	static uint8_t transfer(uint8_t _data);
 
 	static void attachInterrupt();
@@ -57,7 +101,5 @@ public:
 };
 
 extern SPIClass SPI;
-
-/** @} */ // end of addtogroup
 
 #endif

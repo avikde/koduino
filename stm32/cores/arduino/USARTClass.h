@@ -35,10 +35,12 @@
 
 #include "Stream.h"
 
-/** @addtogroup Serial Serial / USART
- *  @{
- */
 
+
+/**
+ * @brief Serial / USART library (use on global objects `Serial<x>` where `<x>` can be 1, 2, 3)
+ * @details 
+ */
 class USARTClass : public Stream {
 private:
   // should this be static? i would think one per instance
@@ -55,21 +57,64 @@ private:
 public:
   USARTClass(USARTInfo *usartMapPtr);
   // virtual ~USARTClass() {};
-  void begin(uint32_t, uint8_t);
+
+  /**
+   * @brief Opens a serial connection and configures the RX and TX pins
+   * @details Use setPins() to change the default RX and TX pins
+   * 
+   * @param baud Baud rate as an integer
+   * @param mode One of `SERIAL_<x>` where `<x>` can be `8N1`, `8N2`, `7E1`, `8E1`, 
+   * `7E2`, `8E2`, `7O1`, `8O2` (default if omitted is `8N1`)
+   */
+  void begin(uint32_t baud, uint8_t mode);
+
   void begin(uint32_t baud) { begin(baud, SERIAL_8N1); }
-  // void beginHalfDuplex(uint32_t);//???
+
+  /**
+   * @brief Close the serial port
+   * @details 
+   */
   void end();
 
-  // Custom function to remap pins - call before begin(). Note that USART is always AF7.
+  /**
+   * @brief Change the default RX and TX pins
+   * @details Should be called before begin(). Defaults are
+   * 
+   * * `PA9`, `PA10` for `Serial1`
+   * * `PB3`, `PB4` for `Serial2`
+   * * `PB8`, `PB9` for `Serial3`
+   * 
+   * @param tx New TX pin
+   * @param rx New RX pin
+   */
   void setPins(uint8_t tx, uint8_t rx);
 
   virtual int available(void);
   virtual int peek(void);
   virtual int read(void);
-  virtual bool writeComplete();
   virtual void flush(void);
+
+  /**
+   * @brief Check if the previous write operation is finished
+   * @details 
+   * @return `true` if complete
+   */
+  virtual bool writeComplete();
+
   // override a block write from Print
   // virtual size_t write(const uint8_t *buffer, size_t size);
+
+  /**
+   * @brief Write a single character
+   * @details Does not block. Uses a ring buffer to queue outgoing transfers and 
+   * interrupt handlers to transmit the queue.
+   * 
+   * *Note:* No output is allowed for the first 1 second on the bootloading port, 
+   * `Serial1` in order to not interfere with auto-reset and bootloading
+   * 
+   * @param c Character to write
+   * @return 1 on success, 0 on failure
+   */
   virtual size_t write(uint8_t c);// { return write(&c, 1); }
   // virtual size_t write(uint8_t);
 
@@ -90,7 +135,6 @@ public:
 // static bool isEnabled(void);
 };
 
-/** @} */ // end of addtogroup
 
 extern "C"{
 #endif // __cplusplus

@@ -110,17 +110,17 @@ bool Stream::findUntil(char *target, size_t targetLen, char *terminator, size_t 
 // returns the first valid (long) integer value from the current position.
 // initial characters that are not digits (or the minus sign) are skipped
 // function is terminated by the first character that is not a digit.
-long Stream::parseInt()
+int Stream::parseInt()
 {
   return parseInt(NO_SKIP_CHAR); // terminate on first non-digit character (or timeout)
 }
 
 // as above but a given skipChar is ignored
 // this allows format characters (typically commas) in values to be ignored
-long Stream::parseInt(char skipChar)
+int Stream::parseInt(char skipChar)
 {
   bool isNegative = false;
-  long value = 0;
+  int value = 0;
   int c;
 
   c = peekNextDigit();

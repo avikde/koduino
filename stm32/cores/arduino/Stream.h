@@ -21,6 +21,10 @@
 readBytesBetween( pre_string, terminator, buffer, length)
 */
 
+/**
+ * @brief Stream library inherited by Wire, Serial, etc.
+ * @details 
+ */
 class Stream : public Print
 {
 protected:
@@ -30,48 +34,121 @@ protected:
   int timedPeek();    // private method to peek stream with timeout
   int peekNextDigit(); // returns the next numeric digit in the stream or -1 if timeout
   
-  long parseInt(char skipChar); // as above but the given skipChar is ignored
+  int parseInt(char skipChar); // as above but the given skipChar is ignored
   // as above but the given skipChar is ignored
   // this allows format characters (typically commas) in values to be ignored
 
   float parseFloat(char skipChar);  // as above but the given skipChar is ignored
 
 public:
+  /**
+   * @brief Return the number of bytes in the receive buffer
+   * @details 
+   * @return 
+   */
   virtual int available() = 0;
+
+  /**
+   * @brief Reads a single byte from the receive buffer
+   * @details Increments the buffer pointer
+   * @return 
+   */
   virtual int read() = 0;
+
+  /**
+   * @brief Reads a single byte from the receive buffer
+   * @details Does not increment the buffer pointer
+   * @return 
+   */
   virtual int peek() = 0;
+
+  /**
+   * @brief Waits till the previous write operation is finished
+   * @details 
+   */
   virtual void flush() = 0;
 
   Stream() {_timeout=1000;}
 
 // parsing methods
 
-  void setTimeout(uint32_t timeout);  // sets maximum milliseconds to wait for stream data, default is 1 second
+  /**
+   * @brief Sets maximum milliseconds to wait for stream data
+   * @details 
+   * 
+   * @param timeout Default is 1 second
+   */
+  void setTimeout(uint32_t timeout);
 
-  bool find(char *target);   // reads data from the stream until the target string is found
-  // returns true if target string is found, false if timed out (see setTimeout)
+  /**
+   * @brief Reads data from the stream until the target string is found
+   * @details 
+   * 
+   * @param target 
+   * @return true if target string is found, false if timed out (see setTimeout)
+   */
+  bool find(char *target);
 
-  bool find(char *target, size_t length);   // reads data from the stream until the target string of given length is found
-  // returns true if target string is found, false if timed out
+  /**
+   * @brief Reads data from the stream until the target string of given length is found
+   * @details 
+   * 
+   * @param target 
+   * @param length 
+   * 
+   * @return true if target string is found, false if timed out
+   */
+  bool find(char *target, size_t length);
 
-  bool findUntil(char *target, char *terminator);   // as find but search ends if the terminator string is found
+  /**
+   * @brief Same as find() but search ends if the terminator string is found
+   * @details 
+   * 
+   * @param target 
+   * @param terminator 
+   * 
+   * @return 
+   */
+  bool findUntil(char *target, char *terminator);
 
-  bool findUntil(char *target, size_t targetLen, char *terminate, size_t termLen);   // as above but search ends if the terminate string is found
 
+  bool findUntil(char *target, size_t targetLen, char *terminate, size_t termLen);
 
-  long parseInt(); // returns the first valid (long) integer value from the current position.
-  // initial characters that are not digits (or the minus sign) are skipped
-  // integer is terminated by the first character that is not a digit.
+  /**
+   * @brief Returns the first valid (long) integer value from the current position
+   * @details Initial characters that are not digits (or the minus sign) are skipped. Integer is terminated by the first character that is not a digit.
+   * @return 
+   */
+  int parseInt();
 
-  float parseFloat();               // float version of parseInt
+  /**
+   * @brief Float version of parseInt()
+   * @details 
+   * @return 
+   */
+  float parseFloat();
 
-  size_t readBytes( char *buffer, size_t length); // read chars from stream into buffer
-  // terminates if length characters have been read or timeout (see setTimeout)
-  // returns the number of characters placed in the buffer (0 means no valid data found)
+  /**
+   * @brief Read chars from stream into buffer
+   * @details Terminates if length characters have been read or timeout (see setTimeout())
+   * 
+   * @param buffer 
+   * @param length 
+   * 
+   * @return The number of characters placed in the buffer (0 means no valid data found)
+   */
+  size_t readBytes( char *buffer, size_t length);
 
-  size_t readBytesUntil( char terminator, char *buffer, size_t length); // as readBytes with terminator character
-  // terminates if length characters have been read, timeout, or if the terminator character  detected
-  // returns the number of characters placed in the buffer (0 means no valid data found)
+  /**
+   * @brief Same as readBytes() with terminator character
+   * @details Terminates if length characters have been read, timeout, or if the terminator character  detected
+   * 
+   * @param terminator 
+   * @param buffer 
+   * @param length 
+   * @return the number of characters placed in the buffer (0 means no valid data found)
+   */
+  size_t readBytesUntil( char terminator, char *buffer, size_t length);
 
   // Arduino String functions to be added here
   String readString();
