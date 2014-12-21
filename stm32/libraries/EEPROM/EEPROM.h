@@ -33,7 +33,7 @@
 #define EEPROM_NUMBER_VALUES 32
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f37x.h"
+#include "chip.h"
 
 #define EEPROM_FLASH_SIZE 128
 
@@ -91,16 +91,10 @@ uint16_t EE_WriteVariable(uint16_t VirtAddress, uint32_t Data);
 }
 #endif
 
-/** @addtogroup EEPROM EEPROM (non-volatile memory)
- *  @{
- */
 
 /**
- * @brief [brief description]
- * @details [long description]
- * 
- * @param d [description]
- * @return [description]
+ * @brief EEPROM library (call with global object `EEPROM`)
+ * @details 
  */
 class EEPROMClass
 {
@@ -108,30 +102,46 @@ public:
   EEPROMClass() : inited(false) {}
 
   /**
-   * @brief [brief description]
-   * @details [long description]
+   * @brief Read a 32-bit integer from EEPROM
+   * @details 
    * 
-   * @param address [description]
-   * @return [description]
+   * @param address Address between 0 and 31
+   * @return 
    */
   uint32_t read(int address);
 
   /**
-   * @brief [brief description]
-   * @details [long description]
+   * @brief Read a float from EEPROM
+   * @details 
    * 
-   * @param address [description]
-   * @param value [description]
+   * @param address Address between 0 and 31
+   * @return 
+   */
+  float readFloat(int address);
+
+  /**
+   * @brief Store a 32-bit integer in EEPROM
+   * @details
+   * 
+   * @param address Address between 0 and 31
+   * @param value 
    */
   void write(int address, uint32_t value);
+
+  /**
+   * @brief Store a float in EEPROM
+   * @details
+   * 
+   * @param address Address between 0 and 31
+   * @param value 
+   */
+  void writeFloat(int address, float value);
 protected:
   bool inited;
   void initCheck();
 };
 
 extern EEPROMClass EEPROM;
-
-/** @} */ // end of addtogroup
 
 #endif /* __EEPROM_H */
 

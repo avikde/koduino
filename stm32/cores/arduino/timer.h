@@ -20,8 +20,6 @@ extern "C"{
  *  @{
  */
 
-// User functions =========================================================
-
 /**
  * @brief Assign a PWM frequency to the specified pin (default = 1000 Hz)
  * @details Please see the [pin remapping](@ref Pins) documentation for more details about 

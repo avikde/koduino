@@ -2,12 +2,11 @@
 #include "Encoder.h"
 #include "pins.h"
 
-void Encoder::init(uint8_t timer, uint16_t maxCount, uint8_t pin1, uint8_t af1, uint8_t pin2, uint8_t af2) {
-  this->timer = timer;
-
-  // Alternate function, pull-up
-  pinModeAlt(pin1, GPIO_OType_PP, GPIO_PuPd_UP, af1);
-  pinModeAlt(pin2, GPIO_OType_PP, GPIO_PuPd_UP, af2);
+void Encoder::init(uint8_t pin1, uint8_t pin2, uint16_t maxCount) {
+  // NEW: read from pin config.
+  timer = PIN_MAP[pin1].timer;
+  pinModeAlt(pin1, GPIO_OType_PP, GPIO_PuPd_UP, PIN_MAP[pin1].altFunc);
+  pinModeAlt(pin2, GPIO_OType_PP, GPIO_PuPd_UP, PIN_MAP[pin2].altFunc);
 
   // Start timer
   timerInitHelper(timer, 0, maxCount);
@@ -26,7 +25,11 @@ void Encoder::init(uint8_t timer, uint16_t maxCount, uint8_t pin1, uint8_t af1, 
   TIM_Cmd(TIMER_MAP[timer].TIMx, ENABLE);
 }
 
-// void Encoder::init(TimerName timer, uint16_t maxCount, const TimerPin& p1, const TimerPin& p2) {
-//   init(timer, maxCount, p1.pin, p1.af, p2.pin, p2.af);
-// }
+
+// // BEFORE
+// void Encoder::init(uint8_t timer, uint16_t maxCount, uint8_t pin1, uint8_t af1, uint8_t pin2, uint8_t af2) {
+// this->timer = timer;
+// pinModeAlt(pin1, GPIO_OType_PP, GPIO_PuPd_UP, af1);
+// pinModeAlt(pin2, GPIO_OType_PP, GPIO_PuPd_UP, af2);
+// ...
 

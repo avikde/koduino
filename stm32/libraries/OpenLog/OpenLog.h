@@ -4,10 +4,6 @@
 #include <Arduino.h>
 #include <stdint.h>
 
-/** @addtogroup OpenLog OpenLog driver
- *  @{
- */
-
 #define MAX_LOG_LINE_LEN 80
 
 typedef enum {
@@ -16,19 +12,43 @@ typedef enum {
 
 class OpenLog {
 public:
-  // High level functions for OpenLog v3 firmware attached on some serial port
-  // A lot of the functions are from https://github.com/sparkfun/OpenLog/blob/master/firmware/examples/OpenLog_ReadExample/OpenLog_ReadExample.ino
+  /**
+   * @brief Constructor to set up hardware connections to the OpenLog
+   * @details 
+   * 
+   * @param rst Reset pin
+   * @param Ser Connected Serial port
+   * @param baud Baud rate (*must match* setting in [CONFIG.TXT](https://github.com/sparkfun/OpenLog/wiki/Config-File) on the SD card)
+   */
+  OpenLog(uint8_t rst, USARTClass& Ser, uint32_t baud) : mode(OL_NOT_INITED), rst(rst), Ser(Ser), baud(baud), enabled(false) {}
 
-  OpenLog(PinName rst, USARTClass& Ser, uint32_t baud) : mode(OL_NOT_INITED), rst(rst), Ser(Ser), baud(baud), enabled(false) {}
-
-  // Call to reset OpenLog and start a new log
-  // Waits till OpenLog is connected (timeout in ms). Returns 1 if connected, 0 if failed
+  /**
+   * @brief Reset OpenLog and start a new log
+   * @details Waits till OpenLog is connected (timeout is 3 seconds). Note that this will 
+   * fail if an SD card is not plugged into the socket.
+   * 
+   * @param header ASCII string containing a comma-separated list of *short* data column names
+   * @param fmt ASCII string containing a [python struct format string](https://docs.python.org/2/library/struct.html#format-characters) corresponding to a data row
+   * @param packetSize Size of the entire packet
+   * @return true if connected, false if failed
+   */
   bool init(const char *header, const char *fmt, uint32_t packetSize);
 
-  // Start / stop logging
+  /**
+   * @brief Start / stop logging data
+   * @details 
+   * 
+   * @param flag 
+   */
   void enable(bool flag);
 
-  // Doesn't actually write the data till TX buffer is clear
+  /**
+   * @brief Write a data buffer of size `packetSize` specified during init()
+   * @details Only writes the data if the Serial TX buffer is empty (i.e. if the previous
+   * write operation finished).
+   * 
+   * @param bytes Pointer to data buffer
+   */
   void write(const uint8_t *bytes);
 
   // //This function pushes OpenLog into command mode
@@ -38,13 +58,11 @@ public:
 
 protected:
   OpenLogMode mode;
-  PinName rst;
+  uint8_t rst;
   USARTClass& Ser;
   uint32_t baud;
   int packetSize;
   bool enabled;
 };
-
-/** @} */ // end of addtogroup
 
 #endif

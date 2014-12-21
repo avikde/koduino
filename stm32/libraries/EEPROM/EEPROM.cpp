@@ -27,7 +27,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "eeprom.h"
-#include <stm32f37x_flash.h>
+#include "string.h"
 #ifdef EEPROM_NUMBER_VALUES
 /** @addtogroup EEPROM_Emulation
   * @{
@@ -667,9 +667,23 @@ uint32_t EEPROMClass::read(int address) {
   return ret;
 }
 
+float EEPROMClass::readFloat(int address) {
+  initCheck();
+  float ret = 0;
+  EE_ReadVariable(address, (uint32_t *)&ret);
+  return ret;
+}
+
 void EEPROMClass::write(int address, uint32_t value) {
   initCheck();
   EE_WriteVariable(address, value);
+}
+
+void EEPROMClass::writeFloat(int address, float value) {
+  initCheck();
+  static uint32_t uvalue;
+  memcpy(&uvalue, &value, 4);
+  EE_WriteVariable(address, uvalue);
 }
 
 void EEPROMClass::initCheck() {
