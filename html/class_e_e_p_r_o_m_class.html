@@ -92,33 +92,50 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="class_e_e_p_r_o_m_class-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">EEPROMClass Class Reference<div class="ingroups"><a class="el" href="group___e_e_p_r_o_m.html">EEPROM (non-volatile memory)</a></div></div>  </div>
+<div class="title">EEPROMClass Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>[brief description]  
+<p>EEPROM library (call with global object <code>EEPROM</code>)  
  <a href="class_e_e_p_r_o_m_class.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_e_e_p_r_o_m_8h_source.html">EEPROM.h</a>&gt;</code></p>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>[brief description] </p>
-<p>[long description]</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">d</td><td>[description] </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>[description] </dd></dl>
-</div><table class="memberdecls">
+<div class="textblock"><p>EEPROM library (call with global object <code>EEPROM</code>) </p>
+<p>This class allows storing data / parameters in non-volatile memory that you may not want to hard-code in the source file, e.g. the zero-position for a motor. <em>Note:</em> unlike Arduino, in which each address corresponds to a byte, here each address from 0-31 corresponds to a 32-bit value (convenient for ints and floats).</p>
+<p>There are distinct functions <a class="el" href="class_e_e_p_r_o_m_class.html#a5e2688a15e91e6fae5f3f243c773fe06" title="Store a float in EEPROM. ">writeFloat()</a> and <a class="el" href="class_e_e_p_r_o_m_class.html#af8f4254204627de422dd459fadb166b2" title="Read a float from EEPROM. ">readFloat()</a> for floating-point values since static casts have to be avoided.</p>
+<h3>Usage</h3>
+<ol type="1">
+<li>Call <a class="el" href="class_e_e_p_r_o_m_class.html#ab52acb224d40586bce6030fbe8983f97" title="Store a 32-bit integer in EEPROM. ">write()</a> or <a class="el" href="class_e_e_p_r_o_m_class.html#a5e2688a15e91e6fae5f3f243c773fe06" title="Store a float in EEPROM. ">writeFloat()</a> to store, and <a class="el" href="class_e_e_p_r_o_m_class.html#ae6e7566f23b462f867816737087908ce" title="Read a 32-bit integer from EEPROM. ">read()</a> or <a class="el" href="class_e_e_p_r_o_m_class.html#af8f4254204627de422dd459fadb166b2" title="Read a float from EEPROM. ">readFloat()</a>to retrieve values</li>
+</ol>
+<h3>Example: Write/read</h3>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;EEPROM.h&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">void</span> setup() {</div>
+<div class="line">  Serial1.begin(115200);</div>
+<div class="line">  EEPROM.<a class="code" href="class_e_e_p_r_o_m_class.html#ab52acb224d40586bce6030fbe8983f97">write</a>(0, 123);</div>
+<div class="line">  EEPROM.<a class="code" href="class_e_e_p_r_o_m_class.html#a5e2688a15e91e6fae5f3f243c773fe06">writeFloat</a>(1, 4.56);</div>
+<div class="line">}</div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">void</span> loop() {</div>
+<div class="line">  Serial1 &lt;&lt; <span class="stringliteral">&quot;Expect 123, 4.56; read &quot;</span> &lt;&lt; EEPROM.<a class="code" href="class_e_e_p_r_o_m_class.html#ae6e7566f23b462f867816737087908ce">read</a>(0) &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; EEPROM.<a class="code" href="class_e_e_p_r_o_m_class.html#af8f4254204627de422dd459fadb166b2">readFloat</a>(1) &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(1000);</div>
+<div class="line">}</div>
+</div><!-- fragment --> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ae6e7566f23b462f867816737087908ce"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_e_p_r_o_m_class.html#ae6e7566f23b462f867816737087908ce">read</a> (int address)</td></tr>
-<tr class="memdesc:ae6e7566f23b462f867816737087908ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">[brief description]  <a href="#ae6e7566f23b462f867816737087908ce">More...</a><br /></td></tr>
+<tr class="memdesc:ae6e7566f23b462f867816737087908ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a 32-bit integer from EEPROM.  <a href="#ae6e7566f23b462f867816737087908ce">More...</a><br /></td></tr>
 <tr class="separator:ae6e7566f23b462f867816737087908ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8f4254204627de422dd459fadb166b2"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_e_p_r_o_m_class.html#af8f4254204627de422dd459fadb166b2">readFloat</a> (int address)</td></tr>
+<tr class="memdesc:af8f4254204627de422dd459fadb166b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a float from EEPROM.  <a href="#af8f4254204627de422dd459fadb166b2">More...</a><br /></td></tr>
+<tr class="separator:af8f4254204627de422dd459fadb166b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab52acb224d40586bce6030fbe8983f97"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_e_p_r_o_m_class.html#ab52acb224d40586bce6030fbe8983f97">write</a> (int address, uint32_t value)</td></tr>
-<tr class="memdesc:ab52acb224d40586bce6030fbe8983f97"><td class="mdescLeft">&#160;</td><td class="mdescRight">[brief description]  <a href="#ab52acb224d40586bce6030fbe8983f97">More...</a><br /></td></tr>
+<tr class="memdesc:ab52acb224d40586bce6030fbe8983f97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store a 32-bit integer in EEPROM.  <a href="#ab52acb224d40586bce6030fbe8983f97">More...</a><br /></td></tr>
 <tr class="separator:ab52acb224d40586bce6030fbe8983f97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e2688a15e91e6fae5f3f243c773fe06"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_e_p_r_o_m_class.html#a5e2688a15e91e6fae5f3f243c773fe06">writeFloat</a> (int address, float value)</td></tr>
+<tr class="memdesc:a5e2688a15e91e6fae5f3f243c773fe06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store a float in EEPROM.  <a href="#a5e2688a15e91e6fae5f3f243c773fe06">More...</a><br /></td></tr>
+<tr class="separator:a5e2688a15e91e6fae5f3f243c773fe06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="ae6e7566f23b462f867816737087908ce"></a>
@@ -135,15 +152,39 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>[brief description] </p>
-<p>[long description]</p>
+<p>Read a 32-bit integer from EEPROM. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">address</td><td>[description] </td></tr>
+    <tr><td class="paramname">address</td><td>Address between 0 and 31 </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>[description] </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="af8f4254204627de422dd459fadb166b2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float EEPROMClass::readFloat </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>address</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Read a float from EEPROM. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">address</td><td>Address between 0 and 31 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
 </div>
 </div>
@@ -171,12 +212,46 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>[brief description] </p>
-<p>[long description]</p>
+<p>Store a 32-bit integer in EEPROM. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">address</td><td>[description] </td></tr>
-    <tr><td class="paramname">value</td><td>[description] </td></tr>
+    <tr><td class="paramname">address</td><td>Address between 0 and 31 </td></tr>
+    <tr><td class="paramname">value</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a5e2688a15e91e6fae5f3f243c773fe06"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void EEPROMClass::writeFloat </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>address</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Store a float in EEPROM. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">address</td><td>Address between 0 and 31 </td></tr>
+    <tr><td class="paramname">value</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -191,7 +266,7 @@ Public Member Functions</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 17 2014 23:09:47 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Dec 21 2014 22:57:12 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.8
 </small></address>

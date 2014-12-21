@@ -12,7 +12,7 @@
 #include <Arduino.h>
 
 // Change to whatever pin an LED is connected to
-const PinName led = PC13;
+const int led = PC13;
 
 void setup() {
   pinMode(led, OUTPUT);

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['openlog_20driver',['OpenLog driver',['../group___open_log.html',1,'']]]
+  ['timer_20interrupts',['Timer interrupts',['../group___timebase.html',1,'']]]
 ];

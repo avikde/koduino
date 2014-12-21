@@ -1,4 +1,4 @@
-@addtogroup Brushless
+@class Brushless Brushless.h
 
 ### Usage
 

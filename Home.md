@@ -38,18 +38,18 @@ The API functions here are in general optimized for speed and concurrency, at th
 * [SPI](@ref SPIClass) - MPU-6000, ...
 * [Wire / I2C / SMBus](@ref TwoWire) - Nunchuck, MPU-6050, ...
 
+### Basic libraries
+
+* [Storing data in non-volatile memory (EEPROM)](@ref EEPROMClass)
+* [Reading a quadrature encoder](@ref Encoder)
+* [Data logging: OpenLog driver](@ref OpenLog)
+
 
 ---
 
 Documentation complete till here
 
 ---
-
-### Basic libraries
-
-* [Storing data in non-volatile memory (EEPROM)](@ref EEPROM)
-* [Reading a quadrature encoder](@ref Encoder)
-* [Data logging: OpenLog driver](@ref OpenLog)
 
 ### Robotics-oriented libraries
 

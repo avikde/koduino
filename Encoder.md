@@ -1,27 +1,35 @@
-@addtogroup Encoder
+@class Encoder Encoder.h
 
 ### Usage
 
-1. Call pinMode() to set the pin to `OUTPUT`, `OUTPUT_OPEN_DRAIN`, `INPUT`, `INPUT_PULLUP`, or `INPUT_PULLDOWN`
-2. Call digitalWrite() with `HIGH`, `LOW` or `TOGGLE` on `OUTPUT` pins
-3. Call digitalRead() on `INPUT` pins
+1. (Optionally) call pinRemap() to map the A/B pins to channels 1 and 2 of timer 2, 3, 4, 5, or 19.
+2. Call init() to configure the pins and start the encoder
+3. (Optionally) call write() at any time to set the count to a desired value
+4. Call read() to read the current count
 
-### Example: Blink
+### Example
 
 ~~~{.cpp}
 
-#include <Arduino.h>
+#include <Encoder.h>
 
-// Change to whatever pin an LED is connected to
-const PinName led = PC13;
+// Connect encoder signals B and A to PA0 and PA1
+
+Encoder encoder;
 
 void setup() {
-  pinMode(led, OUTPUT);
+  pinRemap(PA0, 2, TIMER5, 1);
+  pinRemap(PA1, 2, TIMER5, 2);
+
+  Serial1.begin(115200);
+
+  // Assuming a 12-bit encoder
+  encoder.init(PA0, PA1, 4095);
 }
 
 void loop() {
-  digitalWrite(led, TOGGLE);
-  delay(1000);
+  Serial1 << encoder.read() << "\n";
+  delay(10);
 }
 
 ~~~

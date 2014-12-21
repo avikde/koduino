@@ -22,6 +22,7 @@ void setup() {
 
 void loop() {
   Serial1 << "The time is " << millis() << " and PI = " << PI << "\n";
+  delay(1000);
 }
 
 ~~~

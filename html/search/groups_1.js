@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['brushless',['Brushless',['../group___brushless.html',1,'']]]
+  ['digital_20i_2fo',['Digital I/O',['../group___digital.html',1,'']]]
 ];
