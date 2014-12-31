@@ -115,6 +115,7 @@ recipe.size.regex=\.text\s+([0-9]+).*
 # tools.stm32flash.upload.pattern="{path}/{cmd}" -i {upload.sequence} -w "{build.path}/{build.project_name}.bin" -R -b {upload.baud} {serial.port}
 tools.stm32ld.cmd=stm32ld
 tools.stm32ld.cmd.windows=stm32ld.exe
+tools.stm32ld.cmd.macosx=stm32ld.osx
 tools.stm32ld.path={runtime.ide.path}/hardware/koduino/stm32/system/stm32ld
 
 tools.stm32ld.upload.params.verbose=
