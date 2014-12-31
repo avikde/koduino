@@ -30,9 +30,9 @@ f37xcc.build.hse_clock=0
 # f37xcc.menu.hse.24mhz.build.hse_clock=1
 
 # Upload choices
-f37xcc.upload.tool=stm32flash
+f37xcc.upload.tool=stm32ld
 f37xcc.upload.protocol=serial
-f37xcc.upload.sequence=-rts,-dtr,dtr:rts,-dtr,dtr
+# f37xcc.upload.sequence=-rts,-dtr,dtr:rts,-dtr,dtr
 f37xcc.upload.baud=230400
 f37xcc.upload.maximum_size=262144
 # f37xcc.menu.bootloader.serial=Serial
