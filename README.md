@@ -9,9 +9,15 @@ This is a library of code for boards developed using the STM32 F3/F4 series of m
 * **Chip families:** F37x, F4xx (soon), F1xx (planned)
 * **Chips tested:** F373CC, F405RG (soon), F1?? (planned)
 
+### Supported software
+
+* 95% of the Arduino core (felt no urgency to implement `shiftOut` or `tone` but they should be easy)
+* Libraries: `Wire`, `SPI`, `EEPROM`, `Encoder`, etc.
+* [Documentation!](http://avikde.me/koduino/html/)
+
 ### Why does this library exist?
 
-Roger Clark compiled a [list of other STM32 Arduino compatibility projects](https://github.com/rogerclarkmelbourne/Arduino_STM32/wiki/Other-STM32-Arduino-projects). I think this library may have some of the folowing benefits.
+Roger Clark compiled a [list of other STM32 Arduino compatibility projects](https://github.com/rogerclarkmelbourne/Arduino_STM32/wiki/Other-STM32-Arduino-projects). I really began working on this because my initial F373-based hardware was not supported by any of them. Even so, I think this library may have some of the folowing benefits for others as well.
 
 #### As a user
 
@@ -24,7 +30,7 @@ Roger Clark compiled a [list of other STM32 Arduino compatibility projects](http
 
 #### As a developer
 
-1. **Porting to new chips:** This process is much easier than with libmaple, or Aeroquad32, etc. because this library uses a (relatively) portable interface layer, the ST standard periperal library, to try and use the same Arduino core code to interface with several microcontrollers. The alternative, to begin with the register map for each new chip, is tedious at best (trust me, I tried).
+1. **Porting to new chips:** This process is much easier than with libmaple, or Aeroquad32, etc. because this library uses a (relatively) portable interface layer, the ST standard periperal library, to try and use the same Arduino core code to interface with several microcontrollers. The alternative, to begin with the register map for each new chip, is tedious at best (trust me, I tried ;) ).
 1. **Open-source hardware:** No custom bootloaders are required. You can literally make your own board from one of the reference designs (repo coming soon), or even begin straight from the microcontroller datasheet reference schematic, and get your own hardware working quickly.
 
 ### Get started
