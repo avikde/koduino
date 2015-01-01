@@ -1,7 +1,7 @@
 Koduino
 =======
 
-This is a library of code for boards developed using the STM32 F3/F4 series of microcontrollers, chosen for their FPU instructions and friendly built-in bootloaders.
+This is a library of code for boards developed using the STM32 F3/F4 microcontrollers, chosen for their great price/performance ratio, friendly built-in bootloaders, and (for the Cortex-M4F ones) FPU support.
 
 ### Supported hardware
 
