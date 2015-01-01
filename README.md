@@ -12,7 +12,7 @@ This is a library of code for boards developed using the STM32 F3/F4 series of m
 ### Supported software
 
 * 95% of the Arduino core (felt no urgency to implement `shiftOut` or `tone` but they should be easy)
-* Libraries: `Wire`, `SPI`, `EEPROM`, `Encoder`, etc.
+* Libraries: `Wire`, `SPI`, `EEPROM`, `Encoder`, etc. `Serial` (over USB) is not supported yet, but should be soon.
 * [Documentation!](http://avikde.me/koduino/html/)
 
 ### Why does this library exist?
@@ -45,3 +45,13 @@ If you're used to mercurial, git should be no problem. You can
 #### 2. Program microcontrollers
 
 Links to get started are at http://avikde.me/koduino.
+
+### Contribute
+
+If this library is helpful to you, please consider contributing to it. The main areas that need help are:
+
+* Adding support for more chips
+* Maintaining upload tools for several OS'es / platforms, debugging wireless uploads, making uploads faster, etc.
+* Contributing to the Arduino core: I often leave out functionality that I don't need (e.g. `tone`) but someone might!
+
+You are welcome to fork, and please submit pull requests if you do! Additionally, I would love to have direct collaborators who have commit access---don't hesitate to get it touch.
