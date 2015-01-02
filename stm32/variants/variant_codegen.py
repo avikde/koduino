@@ -73,7 +73,6 @@ with open(PIN_MAP, 'rb') as csvfile:
     print('NOT_SET,'),
     # ioConfig
     print('NOT_SET},')
-print('  // ^^^ Manually delete the last comma at the end ^^^')
 print('};')
 
 print('\n'),
@@ -117,7 +116,6 @@ with open(TIMER_MAP, 'rb') as csvfile:
           print('timer'+tim+'ch},')
         else:
           print('(TimerChannelData *)0},')
-print('  // ^^^ Manually delete the last comma at the end ^^^')
 print('  // ^^^ Look up IRQn names from CMSIS device header ^^^')
 print('};')
 
