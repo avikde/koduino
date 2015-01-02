@@ -25,8 +25,11 @@ typedef struct PinInfo {
   // GPIO pinSource
   const uint8_t pin;
   // ADC channel (if it is not an analog pin, adcChannel is set to 0xFF)
-  // 
-  // FIXME what if there are multiple ADC's?
+  // FIXME if there are multiple ADC's make this a mux? lower nibble will be channel (0-15)
+  //  and upper nibble will be binary ADC4|ADC3|ADC2|ADC1. E.g. if a pin is on ADC1, ADC2, 
+  // and channel 1,
+  // this will be 00110001
+  // Currently the upper nibble is unused
   const uint8_t adcChannel;
   // Alternate function
   uint8_t altFunc;
@@ -49,7 +52,7 @@ typedef struct TimerChannelData {
   // Reference to the pin attached to this channel (for analogWrite, etc.)
   uint8_t pin;
   // PulseIn
-  uint8_t bPulseIn;
+  uint8_t bPwmIn;
   volatile int risingEdge, pulseWidth, period;
   volatile uint32_t lastRollover;
 } TimerChannelData;
@@ -61,7 +64,7 @@ typedef struct TimerInfo {
   // non-constant
   // frequency
   int freqHz;
-  // how many times rolled over (for pulseIn)
+  // how many times rolled over (for pwmIn)
   volatile uint32_t numRollovers;
   // variable number of channels; assigned in variant.cpp
   TimerChannelData *channelData;
@@ -137,6 +140,7 @@ typedef enum InterruptTrigger {
 extern PinInfo PIN_MAP[];
 extern TimerInfo TIMER_MAP[];
 extern TimebaseChannel TIMEBASE_MAP[];
+extern const uint8_t SYSCLK_TIMEBASE;
 extern USARTInfo USART_MAP[];
 
 

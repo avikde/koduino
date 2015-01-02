@@ -9,7 +9,6 @@
 extern "C"{
 #endif // __cplusplus
 
-
 // This function is called by any of the interrupt handlers. It essentially fetches the user function pointer from the array and calls it.
 void wirishExternalInterruptHandler(uint8_t EXTI_Line_Number);
 

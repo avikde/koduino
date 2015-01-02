@@ -4,6 +4,7 @@
 #include "system_clock.h"
 #include "gpio.h"
 #include "timebase.h"
+#include "variant.h"
 
 // Some code from https://github.com/spark/core-firmware/blob/master/src/spark_wiring_interrupts.cpp
 
@@ -27,11 +28,14 @@ const uint32_t extiLines[] = {
   EXTI_Line15
 };
 
-//Interrupts
- const uint8_t extiIRQn[] = {
+const uint8_t extiIRQn[] = {
   EXTI0_IRQn,     //0
   EXTI1_IRQn,     //1
+#if defined(STM32F37x)
   EXTI2_TS_IRQn,  //2
+#else
+  EXTI2_IRQn,     //2
+#endif
   EXTI3_IRQn,     //3
   EXTI4_IRQn,     //4
   EXTI9_5_IRQn,   //5
@@ -133,24 +137,14 @@ void detachInterrupt(uint8_t pinName) {
 
 void noInterrupts() {
   //Only disable the interrupts that are exposed to the user
-  NVIC_DisableIRQ(EXTI0_IRQn);
-  NVIC_DisableIRQ(EXTI1_IRQn);
-  NVIC_DisableIRQ(EXTI2_TS_IRQn);
-  NVIC_DisableIRQ(EXTI3_IRQn);
-  NVIC_DisableIRQ(EXTI4_IRQn);
-  NVIC_DisableIRQ(EXTI9_5_IRQn);
-  NVIC_DisableIRQ(EXTI15_10_IRQn);
+  for (uint8_t i=0; i<16; ++i)
+    NVIC_DisableIRQ(extiIRQn[i]);
 }
 
 void interrupts() {
-  //Only enable the interrupts that are exposed to the user
-  NVIC_EnableIRQ(EXTI0_IRQn);
-  NVIC_EnableIRQ(EXTI1_IRQn);
-  NVIC_EnableIRQ(EXTI2_TS_IRQn);
-  NVIC_EnableIRQ(EXTI3_IRQn);
-  NVIC_EnableIRQ(EXTI4_IRQn);
-  NVIC_EnableIRQ(EXTI9_5_IRQn);
-  NVIC_EnableIRQ(EXTI15_10_IRQn);
+  //Only disable the interrupts that are exposed to the user
+  for (uint8_t i=0; i<16; ++i)
+    NVIC_EnableIRQ(extiIRQn[i]);
 }
 
 void wirishExternalInterruptHandler(uint8_t EXTI_Line_Number) {

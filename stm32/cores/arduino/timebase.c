@@ -22,15 +22,15 @@ void setupTimerUpdateInterrupt(uint8_t i, ISRType ISR, uint16_t prescaler, uint3
 
 void attachSysClkInterrupt(ISRType ISR) {
   // 1MHz base clock, millisecond interrupts, microsecond counts
-  setupTimerUpdateInterrupt(4, ISR, (SystemCoreClock / 1000000)-1, 1000-1);
+  setupTimerUpdateInterrupt(SYSCLK_TIMEBASE, ISR, (SystemCoreClock / 1000000)-1, 1000-1);
 }
 
-void attachHighResClkUpdate(ISRType ISR) {
-  // Highest resolution - 16bit
-  // 4 KHz timer - make sure signals are not faster than this!!!
-  // Tradeoff is: low prescaler => more precise, but will overflow the 32-bit int holding the tick value faster.
-  setupTimerUpdateInterrupt(3, ISR, (SystemCoreClock / 4000000)-1, 65535);
-}
+// void attachHighResClkUpdate(ISRType ISR) {
+//   // Highest resolution - 16bit
+//   // 4 KHz timer - make sure signals are not faster than this!!!
+//   // Tradeoff is: low prescaler => more precise, but will overflow the 32-bit int holding the tick value faster.
+//   setupTimerUpdateInterrupt(3, ISR, (SystemCoreClock / 4000000)-1, 65535);
+// }
 
 void attachTimerInterrupt(uint8_t i, ISRType ISR, int freqHz) {
   // Ideally, (without the -1) period = prescaler = sqrt(72MHz/freq), but sqrt is expensive

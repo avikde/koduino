@@ -151,7 +151,7 @@ protected:
 //     digitalWrite(dPin, (flag) ? HIGH : LOW);
 //   }
 //   float getRawPosition() {
-//     return (pulseIn(inPin) * TWO_PI);
+//     return (pwmIn(inPin) * TWO_PI);
 //   }
 //   void sendOpenLoop(float val) {
 //     analogWrite(pwmPin, map(val, -1, 1, 0.1, 0.9));
@@ -178,7 +178,7 @@ protected:
 //     digitalWrite(dPin, (flag) ? HIGH : LOW);
 //   }
 //   float getRawPosition() {
-//     return (pulseIn(inPin) * TWO_PI);
+//     return (pwmIn(inPin) * TWO_PI);
 //   }
 //   void sendOpenLoop(float val) {
 //     analogWrite(pwmPin, map(val, -1, 1, 0.1, 0.9));

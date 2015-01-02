@@ -55,9 +55,6 @@ int main() {
   // External interrupts
   interrupts();
 
-  // ADC(s)
-  adcInit();
-
   // // Uses: TIMER3, TIMER4
   // pulseInInit();
 

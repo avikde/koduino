@@ -27,7 +27,7 @@ extern "C"{
  * @brief Begin a timer interrupt
  * @details Starts calling the interrupt handler specified at the frequency specified.
  * 
- * @param i One of 0, 1, or 2 (#3 is used for pulseIn, and #4 is used for the [system clock](@ref Time))
+ * @param i One of 0, 1, or 2 (#3 is used for pwmIn, and #4 is used for the [system clock](@ref Time))
  * @param ISR Interrupt handler (similar to usage for [external interrupts](@ref EXTI))
  * @param freqHz Frequency in Hz, between ~0.061Hz and ~36MHz.
  */
@@ -65,7 +65,7 @@ void timebaseISR(uint8_t i, uint8_t timer);
 // Uses a basic timer to setup up millisecond interrupts such that the period is 1000
 void attachSysClkInterrupt(ISRType ISR);
 // Highest resolution for PWM in
-void attachHighResClkUpdate(ISRType ISR);
+// TIM_TypeDef *attachHighResClkUpdate(ISRType ISR);
 
 
 #ifdef __cplusplus

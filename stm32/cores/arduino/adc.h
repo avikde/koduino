@@ -18,9 +18,13 @@ extern "C"{
  */
 #define ADC_TO_FLOAT(i) ((i)/((float)(1<<12)))
 
+// Should be called by variant init once for each ADC
 
+// Only does something for F4, not F3 std periph libs
+void adcCommonInit();
+// Should be called once per ADC
+void adcInit(ADC_TypeDef *ADCx);
 
-void adcInit();
 
 /** @addtogroup Analog Analog input
  *  @{
@@ -38,7 +42,7 @@ void analogReadSampleTime(uint8_t sampleTime);
 
 /**
  * @brief Read a single pin
- * @details Should take ~5us for 13.5 cycle sample time (see analogReadSampleTime())
+ * @details Should take ~5us for (see analogReadSampleTime())
  * 
  * @param pin Pin name to read
  * @return The 12-bit (0-4096) value of the converted signal, with 0 = 0V, 4096 = 3.3V
@@ -46,6 +50,24 @@ void analogReadSampleTime(uint8_t sampleTime);
 uint16_t analogRead(uint8_t pin);
 
 
+/**
+ * @brief 
+ * @details 
+ * 
+ * @param pin Pin name to read
+ * @return The 12-bit (0-4096) value of the converted signal, with 0 = 0V, 4096 = 3.3V
+ */
+
+/**
+ * @brief Read 3 pins synchronously
+ * @details Should take ~5us (see analogReadSampleTime())
+ * 
+ * @param pin1 
+ * @param pin2 
+ * @param pin3 
+ * @return An array of 3x 16-bit integers containing conversion values from pin1, pin2, pin3 respectively.
+ */
+const uint16_t *analogSyncRead(uint8_t pin1, uint8_t pin2, uint8_t pin3);
 
 /** @} */ // end of Analog
 

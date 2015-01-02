@@ -216,10 +216,10 @@ float motorGetPosition(MotorInstance *M)
       pos = ADC_TO_FLOAT(analogRead(M->posPin)) * M->fbFullRange;
       break;
     case FB_PWM:
-      pos = pulseIn(M->posPin) * M->fbFullRange;
+      pos = pwmIn(M->posPin) * M->fbFullRange;
       break;
     case FB_PWM_10_90:
-      pos = map(pulseIn(M->posPin), 0.1, 0.9, 0, TWO_PI);
+      pos = map(pwmIn(M->posPin), 0.1, 0.9, 0, TWO_PI);
       break;
     default:
       pos = 0;

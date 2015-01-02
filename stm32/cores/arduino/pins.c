@@ -51,11 +51,11 @@ void pinMode(uint8_t pin, WiringPinMode wiringMode) {
       }
     } else if (wiringMode == PULSE_IN) {
       if (TIMER_MAP[timer].channelData == 0)
-        // This timer is not supported for pulseIn
+        // This timer is not supported for pwmIn
         return;
 
       TimerChannelData *S = &TIMER_MAP[timer].channelData[channel-1];
-      S->bPulseIn = 1;
+      S->bPwmIn = 1;
       S->pin = pin;
 
       // Enable update interrupt to count rollovers

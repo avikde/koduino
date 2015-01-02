@@ -12,7 +12,7 @@ extern "C"{
 // FUTURE IDEAS?
 // 
 // pinModeTimer should take another argument: ENCODER_AB, PULSE_IN or PWM_OUT
-// if pulseIn is called and it is in output mode it should be re-inited TIM_ICInit etc. <- function timerInitPulseInPin
+// if pwmIn is called and it is in output mode it should be re-inited TIM_ICInit etc. <- function timerInitPulseInPin
 // if analogWrite is called and it is in input mode it should be re-inited TIM_OC1Init etc. <- timerInitPWMPin
 
 
@@ -65,7 +65,7 @@ void analogWrite(uint8_t pin, float duty);
  * @param pin Pin to read
  * @return A float from 0.0 to 1.0 corresponding to PWM duty cycle
  */
-float pulseIn(uint8_t pin);
+float pwmIn(uint8_t pin);
 
 /** @} */ // end of addtogroup
 

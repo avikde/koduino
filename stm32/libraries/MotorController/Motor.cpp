@@ -135,7 +135,7 @@ void BlCon34::enable(bool flag) {
 }
 
 float BlCon34::getRawPosition() {
-  return map(usePwmIn ? pwmIn(inPin) : pulseIn(inPin), 0.1, 0.9, 0, TWO_PI);
+  return map(pwmIn(inPin), 0.1, 0.9, 0, TWO_PI);
 }
 
 void BlCon34::sendOpenLoop(float val) {

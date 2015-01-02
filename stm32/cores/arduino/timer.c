@@ -67,7 +67,7 @@ void analogWrite(uint8_t name, float duty) {
   }
 }
 
-float pulseIn(uint8_t name) {
+float pwmIn(uint8_t name) {
   uint8_t timer = PIN_MAP[name].timer;
   TimerChannelData *C = &TIMER_MAP[ timer ].channelData[ PIN_MAP[name].channel-1];
 
@@ -83,8 +83,8 @@ float pulseIn(uint8_t name) {
 
 // Helper for each channel
 void timerCCxISR(TIM_TypeDef *TIMx, TimerChannelData *C, int current, uint32_t currRollover) {
-  // Is this a pulseIn pin?
-  if (C->bPulseIn == 1) {
+  // Is this a pwmIn pin?
+  if (C->bPwmIn == 1) {
     // Keep track of how many times timer rolled over since last time
     int newRollovers = currRollover - C->lastRollover;
 
@@ -113,7 +113,7 @@ void timerISR(uint8_t timer) {
     cfg->numRollovers++;
   }
 
-  // CCx for pulseIn
+  // CCx for pwmIn
   if (TIM_GetITStatus(TIMx, TIM_IT_CC1) != RESET) {
     TIM_ClearITPendingBit(TIMx, TIM_IT_CC1);
     timerCCxISR(TIMx, &cfg->channelData[0], TIM_GetCapture1(TIMx), cfg->numRollovers);

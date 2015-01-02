@@ -1,10 +1,7 @@
 
 #include "system_clock.h"
 
-#include <stm32f37x_misc.h>
-#include <stm32f37x_tim.h>
-#include <stm32f37x_rcc.h>
-
+#include "chip.h"
 #include "nvic.h"
 #include "timer.h"
 #include "gpio.h"
@@ -35,7 +32,7 @@ uint32_t millis()
 uint32_t micros()
 {
   // return _millis * 1000 + TIM_GetCounter(TIMER_MAP[sysClkTimer].TIMx);
-  return _millis * 1000 + TIM_GetCounter(TIM18);
+  return _millis * 1000 + TIM_GetCounter(TIMER_MAP[ TIMEBASE_MAP[ SYSCLK_TIMEBASE ].timer ].TIMx);
 }
 
 

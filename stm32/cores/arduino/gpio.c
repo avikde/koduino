@@ -8,11 +8,12 @@
 
 void digitalWrite(uint8_t name, LogicValue val) {
   if (val == LOW)
-    PIN_MAP[(name)].port->BRR = (1<<PIN_MAP[(name)].pin);
+    GPIO_ResetBits(PIN_MAP[name].port, 1<<PIN_MAP[name].pin);
   else if (val == HIGH)
-    PIN_MAP[(name)].port->BSRR = (1<<PIN_MAP[(name)].pin);
+    GPIO_SetBits(PIN_MAP[name].port, 1<<PIN_MAP[name].pin);
   else if (val == TOGGLE)
-    PIN_MAP[(name)].port->ODR ^= (1<<PIN_MAP[(name)].pin);
+    PIN_MAP[name].port->ODR ^= (1<<PIN_MAP[name].pin);
+    // GPIO_ToggleBits(PIN_MAP[name].port, 1<<PIN_MAP[name].pin);
 }
 
 // ============================================================================
