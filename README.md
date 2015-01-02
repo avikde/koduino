@@ -22,6 +22,12 @@ Roger Clark compiled a [list of other STM32 Arduino compatibility projects](http
 #### As a user
 
 1. Works with the Arduino IDE
+2. Awesome features that are not in Arduino: e.g. 
+    1. Hardware floating point, and advanced math libraries (Eigen is included)
+    2. Non-blocking PWM input--use PWM as a fast, simple communication method
+    3. Fast SD-card writing using SDIO (soon)
+    4. Timer interrupts (run code with precise timing up to several MHz)
+    5. ...
 1. Hands-free programming on boards with hardware support (FTDI chip with NRST/BOOT0 connections)
 1. Wireless programming on boards with hardware support (wireless-UART like XBee)
 1. Already in use in my several of my own critical projects, including
