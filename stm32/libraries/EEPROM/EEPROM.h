@@ -3,6 +3,10 @@
 
 #include <stdint.h>
 
+/**
+ * @brief EEPROM library (call with global object `EEPROM`)
+ * @details 
+ */
 class EEPROMClass
 {
 public:

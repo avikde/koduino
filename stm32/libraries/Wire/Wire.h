@@ -7,7 +7,6 @@
 #define WIRE_BUFFER_LENGTH 32
 
 
-// STM32F373 takes a funny TIMINGR and manual analog and digital filter setting
 //FastMode+ -  1 MHz speed (Rise time = 26ns, Fall time = 2ns, Analog Filter OFF)
 //FastMode - 400 KHz speed (Rise time = 100ns, Fall time = 10ns, Analog Filter ON)
 //Standard - 100 KHz speed (Rise time = 100ns, Fall time = 10ns, Analog Filter ON)
@@ -16,12 +15,19 @@
  * STM32F373 takes a funny TIMINGR and manual analog and digital filter setting
  */
 enum WireClockSpeed {
+#if defined(STM32F37x)
   // WIRE_STANDARD = 0x60C3283A, // 100KHz; works
   WIRE_100K = 0x80941F27, // 100KHz; works
   WIRE_200K = 0x80720713, // 200KHz; check?
   WIRE_400K = 0x6043070E, // 400KHz; works
   // WIRE_FAST_MODE_PLUS = 0x2043070E // 933KHz; works
   WIRE_1M = 0x00C71030 // 1MHz; works
+#else
+  WIRE_100K = 100000, // 100KHz; ?
+  WIRE_200K = 200000, // 200KHz; ?
+  WIRE_400K = 400000, // 400KHz; ?
+  WIRE_1M = 1000000 // 1MHz; ?
+#endif
 };
 
 /**

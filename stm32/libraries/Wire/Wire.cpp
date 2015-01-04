@@ -4,6 +4,18 @@
 // 1000 gives ~600us block in the requestFrom function when the slave is not connected. 10000 gives ~6000us
 #define WIRE_TIMEOUT 1000 
 
+#if defined(STM32F37x)
+uint8_t SDA1 = PA14;
+uint8_t SCL1 = PA15;
+uint8_t SDA2 = PF7;
+uint8_t SCL2 = PF1;
+#elif defined(STM32F40_41xxx)
+uint8_t SDA1 = PB7;
+uint8_t SCL1 = PB6;
+uint8_t SDA2 = PB11;
+uint8_t SCL2 = PB10;
+#endif
+
 // Constructors ////////////////////////////////////////////////////////////////
 
 TwoWire::TwoWire(I2C_TypeDef *I2Cx) : I2Cx(I2Cx) {
@@ -23,34 +35,44 @@ void TwoWire::stretchClock(bool stretch) {
 
 void TwoWire::begin(void) {
   if (I2Cx == I2C1) {
+#if defined(STM32F37x)
     SYSCFG_I2CFastModePlusConfig(SYSCFG_I2CFastModePlus_I2C1, ENABLE);
     RCC_I2CCLKConfig(RCC_I2C1CLK_SYSCLK);
+#endif
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_I2C1, ENABLE);
 
     // setPins?
-    pinModeAlt(PA14, GPIO_OType_OD, GPIO_PuPd_NOPULL, 4);
-    pinModeAlt(PA15, GPIO_OType_OD, GPIO_PuPd_NOPULL, 4);
+    pinModeAlt(SDA1, GPIO_OType_OD, GPIO_PuPd_NOPULL, 4);
+    pinModeAlt(SCL1, GPIO_OType_OD, GPIO_PuPd_NOPULL, 4);
   }
   else if (I2Cx == I2C2) {
+#if defined(STM32F37x)
     // SYSCFG_I2CFastModePlusConfig(SYSCFG_I2CFastModePlus_I2C2, ENABLE);
     RCC_I2CCLKConfig(RCC_I2C2CLK_SYSCLK);
+#endif
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_I2C2, ENABLE);
 
     // setPins?
-    pinModeAlt(PF7, GPIO_OType_OD, GPIO_PuPd_NOPULL, 4);
-    pinModeAlt(PF1, GPIO_OType_OD, GPIO_PuPd_NOPULL, 4);
+    pinModeAlt(SDA2, GPIO_OType_OD, GPIO_PuPd_NOPULL, 4);
+    pinModeAlt(SCL2, GPIO_OType_OD, GPIO_PuPd_NOPULL, 4);
   }
 
   I2C_InitTypeDef I2C_InitStructure;
 
 
   I2C_DeInit(I2Cx);
-  I2C_InitStructure.I2C_Mode = I2C_Mode_I2C;  
-  I2C_InitStructure.I2C_AnalogFilter = I2C_AnalogFilter_Enable;
-  I2C_InitStructure.I2C_DigitalFilter = 0x00;
+  I2C_InitStructure.I2C_Mode = I2C_Mode_I2C;
   I2C_InitStructure.I2C_Ack = I2C_Ack_Enable;
   I2C_InitStructure.I2C_AcknowledgedAddress = I2C_AcknowledgedAddress_7bit;
+
+#if defined(STM32F37x)
+  I2C_InitStructure.I2C_AnalogFilter = I2C_AnalogFilter_Enable;
+  I2C_InitStructure.I2C_DigitalFilter = 0x00;
   I2C_InitStructure.I2C_Timing = clockSpeed; 
+#else
+  I2C_InitStructure.I2C_DutyCycle = I2C_DutyCycle_2;// or I2C_DutyCycle_16_9
+  I2C_InitStructure.I2C_ClockSpeed = clockSpeed;
+#endif
 
   I2C_Init(I2Cx, &I2C_InitStructure);  
   I2C_Cmd(I2Cx, ENABLE);
@@ -89,6 +111,7 @@ uint8_t TwoWire::endTransmission(bool stop) {
   if (txBufferFull)
     return 1;
 
+#if defined(STM32F37x)
   //Wait until I2C isn't busy
   timeout = WIRE_TIMEOUT;
   while (I2C_GetFlagStatus(I2Cx, I2C_FLAG_BUSY) == SET) {
@@ -109,8 +132,6 @@ uint8_t TwoWire::endTransmission(bool stop) {
   }
 
   if (stop) {
-    //Wait for the stop flag to be set indicating
-    //a stop condition has been sent
     timeout = WIRE_TIMEOUT;
     while(I2C_GetFlagStatus(I2Cx, I2C_FLAG_STOPF) == RESET) {
       if ((timeout--) == 0) return 4;
@@ -125,6 +146,40 @@ uint8_t TwoWire::endTransmission(bool stop) {
     }
   }
 
+#else
+  // === F1, F4 ===
+  I2C_GenerateSTART(I2Cx, ENABLE);
+
+  timeout = WIRE_TIMEOUT;
+  while (!I2C_CheckEvent(I2Cx, I2C_EVENT_MASTER_MODE_SELECT))
+    if ((timeout--) == 0) return 4;
+
+  I2C_Send7bitAddress(I2Cx, txAddress, I2C_Direction_Transmitter);
+
+  timeout = WIRE_TIMEOUT;
+  while (!I2C_CheckEvent(I2Cx, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED))
+    if ((timeout--) == 0) return 4;
+
+  for (int i=0; i<txBufferLength; ++i) {
+    I2C_SendData(I2Cx, txBuffer[i]);
+
+    timeout = WIRE_TIMEOUT;
+    while (!I2C_CheckEvent(I2Cx, I2C_EVENT_MASTER_BYTE_TRANSMITTED))
+      if ((timeout--) == 0) return 4;
+  }
+  if (stop) {
+    I2C_GenerateSTOP(I2Cx, ENABLE);
+
+    timeout = WIRE_TIMEOUT;
+    while(I2C_GetFlagStatus(I2Cx, I2C_FLAG_STOPF) == RESET) {
+      if ((timeout--) == 0) break;
+    }
+    //Clear the stop flag for the next potential transfer
+    I2C_ClearFlag(I2Cx, I2C_FLAG_STOPF);
+  }
+
+#endif
+
   return 0;
 }
 
@@ -136,6 +191,7 @@ uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, bool stop) {
 
   rxBufferIndex = rxBufferLength = 0;
 
+#if defined(STM32F37x)
   //As per, start another transfer, we want to read DCnt
   //amount of bytes. Generate a start condition and
   //indicate that we want to read.
@@ -167,6 +223,46 @@ uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, bool stop) {
     //Clear the stop flag for the next potential transfer
     I2C_ClearFlag(I2Cx, I2C_FLAG_STOPF);
   }
+
+#else
+  // === F1, F4 ===
+  I2C_GenerateSTART(I2Cx, ENABLE);
+
+  timeout = WIRE_TIMEOUT;
+  while (!I2C_CheckEvent(I2Cx, I2C_EVENT_MASTER_MODE_SELECT))
+    if ((timeout--) == 0) return 0;
+
+  I2C_Send7bitAddress(I2Cx, address, I2C_Direction_Receiver);
+
+  timeout = WIRE_TIMEOUT;
+  while (!I2C_CheckEvent(I2Cx, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED))
+    if ((timeout--) == 0) return 0;
+
+  for (int i = 0; i<quantity; ++i) {
+    // Not sure about this: got from spark code
+    if (i == quantity-1 && stop) {
+      I2C_AcknowledgeConfig(I2Cx, DISABLE);
+      I2C_GenerateSTOP(I2Cx, ENABLE);
+      timeout = WIRE_TIMEOUT;
+      while(I2C_GetFlagStatus(I2Cx, I2C_FLAG_STOPF) == RESET) {
+        if ((timeout--) == 0) break;
+      }
+      //Clear the stop flag for the next potential transfer
+      I2C_ClearFlag(I2Cx, I2C_FLAG_STOPF);
+    }
+
+    timeout = WIRE_TIMEOUT;
+    while (!I2C_CheckEvent(I2Cx, I2C_EVENT_MASTER_BYTE_RECEIVED)) {
+      if ((timeout--) == 0) {
+        rxBufferLength = i;
+        return i;
+      }
+    }   
+    rxBuffer[i] = I2C_ReceiveData(I2Cx);
+  }
+  I2C_AcknowledgeConfig(I2Cx, ENABLE);
+#endif
+
 
   rxBufferLength = quantity;
   return rxBufferLength;
