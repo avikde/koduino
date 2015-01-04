@@ -5,7 +5,9 @@
 // Include the CMSIS, HAL based on chip
 #if defined(STM32F37x)
 #include "stm32f37x.h"
-#elif defined(STM32F40_41xxx)
+#elif defined(STM32F30x)
+#include "stm32f30x.h"
+#elif defined(STM32F40_41xxx) || defined(STM32F411xE)
 #include "stm32f4xx.h"
 #endif
 

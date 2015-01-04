@@ -85,7 +85,9 @@ void SPIClass::begin() {
 
 	// Important
   SPI_SSOutputCmd(SPI1, ENABLE);
+#if defined(STM32F37x)
   SPI_RxFIFOThresholdConfig(SPI1, SPI_RxFIFOThreshold_QF);
+#endif
 
 	SPI_Cmd(SPI1, ENABLE);
 
@@ -166,17 +168,34 @@ void SPIClass::setClockDivider(uint8_t rate)
 	SPI_Clock_Divider_Set = true;
 }
 
+// Helper functions
+#if defined(STM32F37x)
+uint8_t spiRX(SPI_TypeDef *SPIx) {
+	return SPI_ReceiveData8(SPIx);
+}
+void spiTX(SPI_TypeDef *SPIx, uint8_t cmd) {
+	SPI_SendData8(SPIx, cmd);
+}
+#else
+uint8_t spiRX(SPI_TypeDef *SPIx) {
+	return (uint8_t)SPI_I2S_ReceiveData(SPIx);
+}
+void spiTX(SPI_TypeDef *SPIx, uint8_t cmd) {
+	SPI_I2S_SendData(SPIx, cmd);
+}
+#endif
+
 uint8_t SPIClass::transfer(uint8_t cmd) {
   //read off any remaining bytes
   while(SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_RXNE))
-    SPI_ReceiveData8(SPI1);
+    spiRX(SPI1);
 
   //wait until TX buffer is empty
   while(!SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_TXE));
 
-  SPI_SendData8(SPI1, cmd);  //send the command
+  spiTX(SPI1, cmd);  //send the command
   while(!SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_RXNE));
-  return SPI_ReceiveData8(SPI1);
+  return spiRX(SPI1);
 }
 
 void SPIClass::attachInterrupt() {
