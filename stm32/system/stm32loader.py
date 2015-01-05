@@ -426,12 +426,14 @@ if __name__ == "__main__":
       'read': 0,
       'len': 1000,
       'fname':'',
+      'eepstart': 0x08010000,
+      'eeplen': 0,
     }
 
 # http://www.python.org/doc/2.5.2/lib/module-getopt.html
 
   try:
-    opts, args = getopt.getopt(sys.argv[1:], "hqVewvrp:b:a:l:")
+    opts, args = getopt.getopt(sys.argv[1:], "hqVewvrp:b:a:l:E:L:")
   except getopt.GetoptError as err:
     # print help information and exit:
     print(str(err)) # will print something like "option -a not recognized"
@@ -462,6 +464,10 @@ if __name__ == "__main__":
       conf['address'] = eval(a)
     elif o == '-l':
       conf['len'] = eval(a)
+    elif o == '-E':
+      conf['eepstart'] = eval(a)
+    elif o == '-L':
+      conf['eeplen'] = eval(a)
     else:
       assert False, "unhandled option"
 
@@ -512,6 +518,11 @@ if __name__ == "__main__":
       mdebug(5, "Reading data from %s" % args[0])
       data = read(args[0])
 
+    # First save EEPROM data
+    if conf['eeplen'] > 0:
+      eepdata = cmd.readMemory(conf['eepstart'], conf['eeplen'])
+      # print(eepdata)
+
     if conf['erase']:
       # Pre-3.0 bootloaders use the erase memory
       # command. Starting with 3.0, extended erase memory
@@ -536,6 +547,10 @@ if __name__ == "__main__":
         for i in xrange(0, len(data)):
           if data[i] != verify[i]:
             print(hex(i) + ': ' + hex(data[i]) + ' vs ' + hex(verify[i]))
+
+    # Put back EEPROM data
+    if conf['eeplen'] > 0:
+      cmd.writeMemory(conf['eepstart'], eepdata)
 
     if not conf['write'] and conf['read']:
       rdata = cmd.readMemory(conf['address'], conf['len'])

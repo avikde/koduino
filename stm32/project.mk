@@ -17,6 +17,12 @@ endif
 ifndef HSE_CLOCK
 HSE_CLOCK = 0
 endif
+ifndef EEP_START
+EEP_START = 0x08010000
+endif
+ifndef EEP_LEN
+EEP_LEN = 4096
+endif
 
 ######################################################################################
 
@@ -101,7 +107,7 @@ all: flash
 # $(KODUINO_DIR)/system/stm32flash/stm32flash -i -rts,-dtr,dtr:rts,-dtr,dtr -w $< -R -b $(UPLOAD_BAUD) -n 1000
 flash: $(BUILDDIR)/$(PROJNAME).bin
 ifeq ($(UPLOAD_METHOD), SERIAL)
-	@python $(KODUINO_DIR)/system/stm32loader.py -b $(UPLOAD_BAUD) -ew $<
+	@python $(KODUINO_DIR)/system/stm32loader.py -b $(UPLOAD_BAUD) -E $(EEP_START) -L $(EEP_LEN) -ew $<
 else
 ifeq ($(UNAME),Linux)
 	@sudo dfu-util -d 0483:df11 -a 0 -s 0x08000000 -D $<
