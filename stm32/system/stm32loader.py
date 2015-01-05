@@ -1,9 +1,14 @@
-# -*- coding: utf-8 -*-
-# vim: sw=4:ts=4:si:et:enc=utf-8
-
+# ORIGINAL:
 # Author: Ivan A-R <ivan@tuxotronic.org>
 # Project page: http://tuxotronic.org/wiki/projects/stm32loader
 #
+# MODIFIED to add:
+# * Input flushing and timing tuning in initChip() so that it works in spite of 
+#   large amounts of serial RX from the microcontroller
+# * EEPROM saving option
+# Author: Avik De <avikde@gmail.com>
+# Project page: https://github.com/avikde/koduino
+# 
 # This file is part of stm32loader.
 #
 # stm32loader is free software; you can redistribute it and/or modify it under
