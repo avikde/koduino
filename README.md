@@ -12,7 +12,8 @@ This is a library of code for boards developed using the STM32 F3/F4 microcontro
 ### Supported software
 
 * 95% of the Arduino core (felt no urgency to implement `shiftOut` or `tone` but they should be easy)
-* Libraries: `Wire`, `SPI`, `EEPROM`, `Encoder`, etc. Important omissions: `Serial` (using USB CDC) is not supported yet, but should be soon.
+* Libraries: `Wire`, `SPI`, `EEPROM`, `Encoder`, etc.
+* *Important:* `Serialx` (USART) is supported well, but `SerialUSB` (using USB CDC) is not supported yet--coming soon.
 * [Documentation!](http://avikde.me/koduino/html/)
 
 ### Why does this library exist?
