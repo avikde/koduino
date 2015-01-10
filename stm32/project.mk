@@ -17,12 +17,6 @@ endif
 ifndef HSE_CLOCK
 HSE_CLOCK = 0
 endif
-ifndef EEP_START
-EEP_START = 0x08010000
-endif
-ifndef EEP_LEN
-EEP_LEN = 4096
-endif
 
 ######################################################################################
 
