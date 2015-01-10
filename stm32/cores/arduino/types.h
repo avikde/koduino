@@ -75,7 +75,7 @@ typedef enum WiringPinMode {
   OUTPUT, OUTPUT_OPEN_DRAIN,
   INPUT, INPUT_ANALOG, INPUT_PULLUP, INPUT_PULLDOWN, 
   PWM, 
-  PULSE_IN
+  PWM_IN
 } WiringPinMode;
 
 // Logic levels

@@ -109,15 +109,11 @@ protected:
 class BlCon34 : public Motor {
 public:
   // Constructor (sets defaults)
-  BlCon34() : usePwmIn(true) {}
+  BlCon34() {}
 
   // "Constructors"
-  void init(const TimerPin& outPin_, const PinName& inPin_, float zero, int8_t dir, float gearRatio);
-  void init(const TimerPin& outPin_, const PinName& inPin_, float zero, int8_t dir) {
-    init(outPin_, inPin_, zero, dir, 1.0);
-  }
-  void init(const TimerPin& outPin_, const TimerPin& inPin_, float zero, int8_t dir, float gearRatio);
-  void init(const TimerPin& outPin_, const TimerPin& inPin_, float zero, int8_t dir) {
+  void init(uint8_t outPin_, uint8_t inPin_, float zero, int8_t dir, float gearRatio);
+  void init(uint8_t outPin_, uint8_t inPin_, float zero, int8_t dir) {
     init(outPin_, inPin_, zero, dir, 1.0);
   }
   // From base class
@@ -126,10 +122,10 @@ public:
   void sendOpenLoop(float val);
 
 protected:
-  void initCommon(const TimerPin& outPin_, float zero, int8_t dir, float gearRatio);
+  void initCommon(uint8_t outPin_, float zero, int8_t dir, float gearRatio);
   
-  PinName outPin, inPin;
-  bool usePwmIn;
+  uint8_t outPin, inPin;
+  // bool usePwmIn;
 };
 
 /** @} */ // end of addtogroup

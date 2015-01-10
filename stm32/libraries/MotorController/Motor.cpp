@@ -106,29 +106,30 @@ float Motor::update() {
 // Derived classes: driver / feedback device specific
 // ===============================================================================
 
-void BlCon34::initCommon(const TimerPin& outPin_, float zero, int8_t dir, float gearRatio) {
+void BlCon34::initCommon(uint8_t outPin_, float zero, int8_t dir, float gearRatio) {
   pinMode(outPin_, PWM);
-  this->outPin = outPin_.pin;
+  // this->outPin = outPin_.pin;
   analogWrite(outPin, 0);
   driverDirection = 1;
   // Call base class init
   Motor::init(zero, dir, gearRatio);
 }
 
-void BlCon34::init(const TimerPin& outPin_, const PinName& inPin_, float zero, int8_t dir, float gearRatio) {
-  usePwmIn = true;
-  pwmIn(inPin_);
+void BlCon34::init(uint8_t outPin_, uint8_t inPin_, float zero, int8_t dir, float gearRatio) {
+  // usePwmIn = true;
+  // pwmIn(inPin_);
+  pinMode(inPin_, PWM_IN);
   this->inPin = inPin_;
   initCommon(outPin_, zero, dir, gearRatio);
 }
 
-void BlCon34::init(const TimerPin& outPin_, const TimerPin& inPin_, float zero, int8_t dir, float gearRatio) {
-  usePwmIn = false;
-  // pinModePulseIn(inPin_);
-  pinMode(inPin_, PULSE_IN);
-  this->inPin = inPin_.pin;
-  initCommon(outPin_, zero, dir, gearRatio);
-}
+// void BlCon34::init(uint8_t outPin_, uint8_t inPin_, float zero, int8_t dir, float gearRatio) {
+//   // usePwmIn = false;
+//   // pinModePulseIn(inPin_);
+//   pinMode(inPin_, PWM_IN);
+//   this->inPin = inPin_.pin;
+//   initCommon(outPin_, zero, dir, gearRatio);
+// }
 
 void BlCon34::enable(bool flag) {
   enableFlag = flag;

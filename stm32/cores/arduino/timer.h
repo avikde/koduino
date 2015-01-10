@@ -11,7 +11,7 @@ extern "C"{
 
 // FUTURE IDEAS?
 // 
-// pinModeTimer should take another argument: ENCODER_AB, PULSE_IN or PWM_OUT
+// pinModeTimer should take another argument: ENCODER_AB, PWM_IN or PWM_OUT
 // if pwmIn is called and it is in output mode it should be re-inited TIM_ICInit etc. <- function timerInitPulseInPin
 // if analogWrite is called and it is in input mode it should be re-inited TIM_OC1Init etc. <- timerInitPWMPin
 
@@ -49,7 +49,7 @@ void analogWrite(uint8_t pin, float duty);
 
 /**
  * @brief Read a PWM signal (non-blocking)
- * @details pinMode() with `PULSE_IN` must have been called on the pin before-hand.
+ * @details pinMode() with `PWM_IN` must have been called on the pin before-hand.
  * Unlike Arduino, this function does not block and wait. It uses high-speed timer interrupts 
  * to catch rising and falling edges, and keeps track of the time when these happen to 
  * estimate the PWM duty cycle. 

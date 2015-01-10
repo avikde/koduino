@@ -14,7 +14,7 @@ void pinRemap(uint8_t pin, uint8_t altFunc, uint8_t timer, uint8_t channel) {
 // TODO: EXTI
 void pinMode(uint8_t pin, WiringPinMode wiringMode) {
   // Timer setup
-  if (wiringMode == PWM || wiringMode == PULSE_IN) {
+  if (wiringMode == PWM || wiringMode == PWM_IN) {
     // NEW: start the timer automatically
     pinTimerInit(pin);
 
@@ -49,7 +49,7 @@ void pinMode(uint8_t pin, WiringPinMode wiringMode) {
         default:
           break;
       }
-    } else if (wiringMode == PULSE_IN) {
+    } else if (wiringMode == PWM_IN) {
       if (TIMER_MAP[timer].channelData == 0)
         // This timer is not supported for pwmIn
         return;
