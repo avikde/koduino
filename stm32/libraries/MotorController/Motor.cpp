@@ -108,7 +108,7 @@ float Motor::update() {
 
 void BlCon34::initCommon(uint8_t outPin_, float zero, int8_t dir, float gearRatio) {
   pinMode(outPin_, PWM);
-  // this->outPin = outPin_.pin;
+  this->outPin = outPin_;
   analogWrite(outPin, 0);
   driverDirection = 1;
   // Call base class init
