@@ -84,27 +84,28 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Porting </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>The steps below are cumulative. For example, if you need to do a type 3 port, you would also need to do steps 1-2. Consequently, it is the easiest to do port to a different package for an existing chip.</p>
+<div class="textblock"><p><b>This guide has not been completed yet, please check back soon</b> </p><hr/>
+<p>The steps below are cumulative. For example, if you need to do a type 3 port, you would also need to do steps 1-2. Consequently, it is the easiest to do port to a different package for an existing chip.</p>
 <h3>Identifying your chip</h3>
-<p>The STM32 chip part numbers are of the form: </p><pre class="fragment">STM32|&lt;SERIES_CHIP&gt;|&lt;PACKAGE&gt;|&lt;FLASH_SIZE&gt;
-</pre><p>For example, for <code>STM32F405RG</code>: <code>SERIES_CHIP = F405</code>, <code>PACKAGE = R</code>, <code>FLASH_SIZE = G</code></p>
-<p>The current status is</p>
+<p>The STM32 chip part numbers are of the form: </p><pre class="fragment">STM32|&lt;CHIP_ID&gt;|&lt;PACKAGE&gt;|&lt;FLASH_SIZE&gt;
+</pre><p>For example, for <code>STM32F405RG</code>: <code>CHIP_ID = F405</code>, <code>PACKAGE = R</code>, <code>FLASH_SIZE = G</code></p>
 <table class="doxtable">
 <tr>
-<th>Arduino IDE </th><th>Standalone with Makefile  </th></tr>
+<th>Series </th><th>MCU </th><th>Chip IDs  </th></tr>
 <tr>
-<td>Only a single .ino file per sketch </td><td>Need to keep sketch code along with a Makefile </td></tr>
+<td>STM32F30x </td><td>STM32F37x </td><td></td></tr>
 <tr>
-<td>Set options (HSE value, board variant, libraries) through IDE </td><td>Set options in Makefile </td></tr>
+<td>STM32F37x </td><td>STM32F37x </td><td>F373, F378 </td></tr>
 <tr>
-<td>Recompiles every time (bug?) </td><td>Faster to recompile </td></tr>
+<td>STM32F4xx </td><td>STM32F401xxx </td><td>F405, F407, F417 </td></tr>
 <tr>
-<td>Uses stm32flash to upload </td><td>Uses stm32loader.py to upload </td></tr>
+<td>STM32F4xx </td><td>STM32F40_41xxx </td><td>F405, F407, F417 </td></tr>
 <tr>
-<td></td><td>Not recommended on Windows </td></tr>
+<td>STM32F411 </td><td>STM32F411xE </td><td>F411 </td></tr>
 </table>
+<p>| STM32F411 | F405, ... | | Set options (HSE value, board variant, libraries) through IDE | Set options in Makefile | | Recompiles every time (bug?) | Faster to recompile | | Uses stm32flash to upload | Uses stm32loader.py to upload | | | Not recommended on Windows |</p>
 <p>Choose:</p>
-<h2>1. New <code>PACKAGE</code></h2>
+<h2>1. New package</h2>
 <h2>2. New variant</h2>
 <p>A variant corresponds to a subdirectory of <code>koduino/variants</code>. You need a new variant in the following cases:</p>
 <ul>
@@ -119,7 +120,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2015 12:32:04 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 13 2015 07:38:56 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.8
 </small></address>
