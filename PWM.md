@@ -12,8 +12,8 @@ PWM output:
 PWM input:
 
 1. (Optionally) call pinRemap() to change the timer connected to a pin
-2. Call pinMode() with `PULSE_IN`
-3. Call pulseIn()
+2. Call pinMode() with `PWM_IN`
+3. Call pwmIn()
 
 ## Example: PWM output
 
@@ -49,12 +49,12 @@ void loop() {
 void setup() {
   Serial1.begin(115200);
   pinMode(PA0, PWM);
-  pinMode(PA6, PULSE_IN);
+  pinMode(PA6, PWM_IN);
 }
 
 void loop() {
   analogWrite(PA0, 0.3);
-  Serial1 << "Read " << pulseIn(PA6) << "\n";
+  Serial1 << "Read " << pwmIn(PA6) << "\n";
   delay(10);
 }
 

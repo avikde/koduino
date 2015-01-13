@@ -115,7 +115,7 @@ void loop() {
 
 ~~~
 
-### Example: AS5048B (*untested*)
+### Example: AS5048B
 
 ~~~{.cpp}
 
@@ -128,8 +128,7 @@ void setup() {
   pinMode(led, OUTPUT);
   Serial1.begin(115200);
 
-  // Try increasing speed if it works
-  // Wire.setSpeed(WIRE_1M);
+  Wire.setSpeed(WIRE_400K);
   Wire.begin();
 }
 

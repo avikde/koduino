@@ -101,8 +101,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">// FUTURE IDEAS?</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">// </span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">// pinModeTimer should take another argument: ENCODER_AB, PULSE_IN or PWM_OUT</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">// if pulseIn is called and it is in output mode it should be re-inited TIM_ICInit etc. &lt;- function timerInitPulseInPin</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">// pinModeTimer should take another argument: ENCODER_AB, PWM_IN or PWM_OUT</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">// if pwmIn is called and it is in output mode it should be re-inited TIM_ICInit etc. &lt;- function timerInitPulseInPin</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">// if analogWrite is called and it is in input mode it should be re-inited TIM_OC1Init etc. &lt;- timerInitPWMPin</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
@@ -110,7 +110,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group___p_w_m.html#ga345bbc70c769e161d1f50a0624de86b5">analogWrite</a>(uint8_t pin, <span class="keywordtype">float</span> duty);</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keywordtype">float</span> <a class="code" href="group___p_w_m.html#ga1ab4d24e9da3f2a60671f42fb5709ae6">pulseIn</a>(uint8_t pin);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keywordtype">float</span> <a class="code" href="group___p_w_m.html#ga4978918346876528b54add5619f7dadd">pwmIn</a>(uint8_t pin);</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; <span class="comment">// end of addtogroup</span></div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keywordtype">void</span> timerInit(uint8_t timer, <span class="keywordtype">int</span> freqHz);</div>
@@ -130,14 +130,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
-<div class="ttc" id="group___p_w_m_html_ga1ab4d24e9da3f2a60671f42fb5709ae6"><div class="ttname"><a href="group___p_w_m.html#ga1ab4d24e9da3f2a60671f42fb5709ae6">pulseIn</a></div><div class="ttdeci">float pulseIn(uint8_t pin)</div><div class="ttdoc">Read a PWM signal (non-blocking) </div><div class="ttdef"><b>Definition:</b> timer.c:70</div></div>
+<div class="ttc" id="group___p_w_m_html_ga4978918346876528b54add5619f7dadd"><div class="ttname"><a href="group___p_w_m.html#ga4978918346876528b54add5619f7dadd">pwmIn</a></div><div class="ttdeci">float pwmIn(uint8_t pin)</div><div class="ttdoc">Read a PWM signal (non-blocking) </div><div class="ttdef"><b>Definition:</b> timer.c:70</div></div>
 <div class="ttc" id="group___p_w_m_html_ga345bbc70c769e161d1f50a0624de86b5"><div class="ttname"><a href="group___p_w_m.html#ga345bbc70c769e161d1f50a0624de86b5">analogWrite</a></div><div class="ttdeci">void analogWrite(uint8_t pin, float duty)</div><div class="ttdoc">Change the PWM duty cycle on a pin. </div><div class="ttdef"><b>Definition:</b> timer.c:51</div></div>
 <div class="ttc" id="group___p_w_m_html_gadfc7d43d5ecc4dcd39e59ce2a07772c1"><div class="ttname"><a href="group___p_w_m.html#gadfc7d43d5ecc4dcd39e59ce2a07772c1">analogWriteFrequency</a></div><div class="ttdeci">void analogWriteFrequency(uint8_t pin, int freqHz)</div><div class="ttdoc">Assign a PWM frequency to the specified pin (default = 1000 Hz) </div><div class="ttdef"><b>Definition:</b> timer.c:29</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 21 2014 22:57:12 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2015 12:32:04 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.8
 </small></address>

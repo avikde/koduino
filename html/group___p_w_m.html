@@ -98,8 +98,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>PWM input:</p>
 <ol type="1">
 <li>(Optionally) call <a class="el" href="group___pins.html#ga7b545930be968fa598f0ef566e426ee1" title="Low-level function to reassign AF number of timer assigned to a pin. The default assignments are here...">pinRemap()</a> to change the timer connected to a pin</li>
-<li>Call <a class="el" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730" title="Configure a pin before using it. ">pinMode()</a> with <code>PULSE_IN</code></li>
-<li>Call <a class="el" href="group___p_w_m.html#ga1ab4d24e9da3f2a60671f42fb5709ae6" title="Read a PWM signal (non-blocking) ">pulseIn()</a></li>
+<li>Call <a class="el" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730" title="Configure a pin before using it. ">pinMode()</a> with <code>PWM_IN</code></li>
+<li>Call <a class="el" href="group___p_w_m.html#ga4978918346876528b54add5619f7dadd" title="Read a PWM signal (non-blocking) ">pwmIn()</a></li>
 </ol>
 <h2>Example: PWM output</h2>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Arduino.h&gt;</span></div>
@@ -126,12 +126,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><span class="keywordtype">void</span> setup() {</div>
 <div class="line">  Serial1.begin(115200);</div>
 <div class="line">  <a class="code" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730">pinMode</a>(PA0, PWM);</div>
-<div class="line">  <a class="code" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730">pinMode</a>(PA6, PULSE_IN);</div>
+<div class="line">  <a class="code" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730">pinMode</a>(PA6, PWM_IN);</div>
 <div class="line">}</div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> loop() {</div>
 <div class="line">  <a class="code" href="group___p_w_m.html#ga345bbc70c769e161d1f50a0624de86b5">analogWrite</a>(PA0, 0.3);</div>
-<div class="line">  Serial1 &lt;&lt; <span class="stringliteral">&quot;Read &quot;</span> &lt;&lt; <a class="code" href="group___p_w_m.html#ga1ab4d24e9da3f2a60671f42fb5709ae6">pulseIn</a>(PA6) &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line">  Serial1 &lt;&lt; <span class="stringliteral">&quot;Read &quot;</span> &lt;&lt; <a class="code" href="group___p_w_m.html#ga4978918346876528b54add5619f7dadd">pwmIn</a>(PA6) &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(10);</div>
 <div class="line">}</div>
 </div><!-- fragment --> <table class="memberdecls">
@@ -143,9 +143,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga345bbc70c769e161d1f50a0624de86b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_w_m.html#ga345bbc70c769e161d1f50a0624de86b5">analogWrite</a> (uint8_t pin, float duty)</td></tr>
 <tr class="memdesc:ga345bbc70c769e161d1f50a0624de86b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change the PWM duty cycle on a pin.  <a href="#ga345bbc70c769e161d1f50a0624de86b5">More...</a><br /></td></tr>
 <tr class="separator:ga345bbc70c769e161d1f50a0624de86b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1ab4d24e9da3f2a60671f42fb5709ae6"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_w_m.html#ga1ab4d24e9da3f2a60671f42fb5709ae6">pulseIn</a> (uint8_t pin)</td></tr>
-<tr class="memdesc:ga1ab4d24e9da3f2a60671f42fb5709ae6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a PWM signal (non-blocking)  <a href="#ga1ab4d24e9da3f2a60671f42fb5709ae6">More...</a><br /></td></tr>
-<tr class="separator:ga1ab4d24e9da3f2a60671f42fb5709ae6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4978918346876528b54add5619f7dadd"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_w_m.html#ga4978918346876528b54add5619f7dadd">pwmIn</a> (uint8_t pin)</td></tr>
+<tr class="memdesc:ga4978918346876528b54add5619f7dadd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a PWM signal (non-blocking)  <a href="#ga4978918346876528b54add5619f7dadd">More...</a><br /></td></tr>
+<tr class="separator:ga4978918346876528b54add5619f7dadd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="ga345bbc70c769e161d1f50a0624de86b5"></a>
@@ -225,12 +225,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ga1ab4d24e9da3f2a60671f42fb5709ae6"></a>
+<a class="anchor" id="ga4978918346876528b54add5619f7dadd"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float pulseIn </td>
+          <td class="memname">float pwmIn </td>
           <td>(</td>
           <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>pin</em></td><td>)</td>
@@ -240,7 +240,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Read a PWM signal (non-blocking) </p>
-<p><a class="el" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730" title="Configure a pin before using it. ">pinMode()</a> with <code>PULSE_IN</code> must have been called on the pin before-hand. Unlike Arduino, this function does not block and wait. It uses high-speed timer interrupts to catch rising and falling edges, and keeps track of the time when these happen to estimate the PWM duty cycle.</p>
+<p><a class="el" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730" title="Configure a pin before using it. ">pinMode()</a> with <code>PWM_IN</code> must have been called on the pin before-hand. Unlike Arduino, this function does not block and wait. It uses high-speed timer interrupts to catch rising and falling edges, and keeps track of the time when these happen to estimate the PWM duty cycle.</p>
 <p><em>Advanced:</em></p>
 <ul>
 <li>Period: The period of the PWM is also available in low-level form. The command <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;TIMER_MAP[ PIN_MAP[ *pin* ].timer ].channelData[ PIN_MAP[ *pin* ].channel-1].period</div>
@@ -260,7 +260,7 @@ Functions</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 21 2014 22:57:12 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2015 12:32:04 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.8
 </small></address>

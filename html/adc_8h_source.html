@@ -102,80 +102,86 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#define ADC_TO_FLOAT(i) ((i)/((float)(1&lt;&lt;12)))</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">// Should be called by variant init once for each ADC</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keywordtype">void</span> adcInit();</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group___analog.html#gacff56f09a9d08b160d957caff4c41b1b">analogReadSampleTime</a>(uint8_t sampleTime);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;uint16_t <a class="code" href="group___analog.html#ga4edb9397d5e5089f29bf504a1b5192b3">analogRead</a>(uint8_t pin);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; <span class="comment">// end of Analog</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">// Only does something for F4, not F3 std periph libs</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keywordtype">void</span> adcCommonInit();</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">// Should be called once per ADC</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keywordtype">void</span> adcInit(ADC_TypeDef *ADCx);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group___analog.html#gacff56f09a9d08b160d957caff4c41b1b">analogReadSampleTime</a>(uint8_t sampleTime);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;uint16_t <a class="code" href="group___analog.html#ga4edb9397d5e5089f29bf504a1b5192b3">analogRead</a>(uint8_t pin);</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">// Init DMA for ADC</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">// </span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">// numChannels must be smaller than or equal to 9 (ADC1 has 9 channels on the chip)</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">// void dmaInit(DMA_Channel_TypeDef *dmaYChannelX, uint16_t bufferSize, uint32_t periphalBaseAddr, uint32_t memoryBaseAddr);</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">// typedef enum ADCTriggerType {</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">//   CONTINUOUS, SOFTWARE_START</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">// } ADCTriggerType;</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">// Initialize ADC channels</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">// @numChannels number of ADC conversions needed</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">// @pins Array of pins of size `numChannels`</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">// </span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">// This function is a departure from the Arduino API and must be called at the moment. </span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">// </span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">// *NOTE:* This API may change to be more Arduino-compatible.</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">// </span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">// *FIXME:* Make it unnecessary to call adcInit Idea: just like with the timer system, create a data structure of all 9 or so ADC&#39;s, and calling analogRead or analogReadBatch once will add that ADC pin to the list of conversions?</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">// void adcInit(int numChannels, const uint8_t *pins);</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keyword">const</span> uint16_t *<a class="code" href="group___analog.html#ga4fd6831861c1e3b19777b7b0bb65de65">analogSyncRead</a>(uint8_t pin1, uint8_t pin2, uint8_t pin3);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; <span class="comment">// end of Analog</span></div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">// Read sequentially</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">// @numChannels Number of channels</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">// @pins Array of size numChannels, to convert sequentially</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">// @out Array to store converted values in</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">// </span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">// This function performs *numChannels* ADC conversions sequentially.</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">// </span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">// The STM32 only has 1 ADC, but with several channels, and consequently, triggering a regular conversion converts all the channels. So, it is more efficient to do the conversion in batch  (taking O(1) time) rather than sequentially (taking O(n) time).</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">// </span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">// To use,</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">// </span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">// * Call &lt;adcSetMode&gt; (or defaults to CONTINUOUS)</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">// * Call &lt;adcInit&gt; with all the pins required</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment">// * Call &lt;analogReadBatch&gt; to sequentially sample all the inited ADC channels</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment">// void analogReadBatch(int numChannels, const uint8_t *pins, uint16_t *out);</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment">// Set ADC trigger type</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment">// @mode CONTINUOUS (**default**) or SOFTWARE_START</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="comment">// </span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">// Set the ADC trigger type.</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">// </span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="comment">// * Must be called before &lt;adcInit&gt;</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment">// * Calling &lt;analogRead&gt; or &lt;analogReadBatch&gt; should be faster in CONTINUOUS conversion mode, but if precise timing (or Arduino-like behavior) is required, select SOFTWARE_START. Then, the conversion is triggered by &lt;analogRead&gt; or &lt;analogReadBatch&gt;.</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="comment">// void adcSetMode(ADCTriggerType mode);</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;} <span class="comment">// extern &quot;C&quot;</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor">#endif // __cplusplus</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
-<div class="ttc" id="group___analog_html_ga4edb9397d5e5089f29bf504a1b5192b3"><div class="ttname"><a href="group___analog.html#ga4edb9397d5e5089f29bf504a1b5192b3">analogRead</a></div><div class="ttdeci">uint16_t analogRead(uint8_t pin)</div><div class="ttdoc">Read a single pin. </div><div class="ttdef"><b>Definition:</b> adc.c:178</div></div>
-<div class="ttc" id="group___analog_html_gacff56f09a9d08b160d957caff4c41b1b"><div class="ttname"><a href="group___analog.html#gacff56f09a9d08b160d957caff4c41b1b">analogReadSampleTime</a></div><div class="ttdeci">void analogReadSampleTime(uint8_t sampleTime)</div><div class="ttdoc">Set ADC sample time. </div><div class="ttdef"><b>Definition:</b> adc.c:22</div></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">// Init DMA for ADC</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">// </span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">// numChannels must be smaller than or equal to 9 (ADC1 has 9 channels on the chip)</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">// void dmaInit(DMA_Channel_TypeDef *dmaYChannelX, uint16_t bufferSize, uint32_t periphalBaseAddr, uint32_t memoryBaseAddr);</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">// typedef enum ADCTriggerType {</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">//   CONTINUOUS, SOFTWARE_START</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">// } ADCTriggerType;</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">// Initialize ADC channels</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">// @numChannels number of ADC conversions needed</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment">// @pins Array of pins of size `numChannels`</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment">// </span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment">// This function is a departure from the Arduino API and must be called at the moment. </span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment">// </span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment">// *NOTE:* This API may change to be more Arduino-compatible.</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment">// </span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="comment">// *FIXME:* Make it unnecessary to call adcInit Idea: just like with the timer system, create a data structure of all 9 or so ADC&#39;s, and calling analogRead or analogReadBatch once will add that ADC pin to the list of conversions?</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">// void adcInit(int numChannels, const uint8_t *pins);</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="comment">// Read sequentially</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment">// @numChannels Number of channels</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="comment">// @pins Array of size numChannels, to convert sequentially</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="comment">// @out Array to store converted values in</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="comment">// </span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment">// This function performs *numChannels* ADC conversions sequentially.</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment">// </span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">// The STM32 only has 1 ADC, but with several channels, and consequently, triggering a regular conversion converts all the channels. So, it is more efficient to do the conversion in batch  (taking O(1) time) rather than sequentially (taking O(n) time).</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment">// </span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment">// To use,</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment">// </span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment">// * Call &lt;adcSetMode&gt; (or defaults to CONTINUOUS)</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="comment">// * Call &lt;adcInit&gt; with all the pins required</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment">// * Call &lt;analogReadBatch&gt; to sequentially sample all the inited ADC channels</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="comment">// void analogReadBatch(int numChannels, const uint8_t *pins, uint16_t *out);</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment">// Set ADC trigger type</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">// @mode CONTINUOUS (**default**) or SOFTWARE_START</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">// </span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment">// Set the ADC trigger type.</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="comment">// </span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="comment">// * Must be called before &lt;adcInit&gt;</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="comment">// * Calling &lt;analogRead&gt; or &lt;analogReadBatch&gt; should be faster in CONTINUOUS conversion mode, but if precise timing (or Arduino-like behavior) is required, select SOFTWARE_START. Then, the conversion is triggered by &lt;analogRead&gt; or &lt;analogReadBatch&gt;.</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment">// void adcSetMode(ADCTriggerType mode);</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;} <span class="comment">// extern &quot;C&quot;</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="preprocessor">#endif // __cplusplus</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;</div>
+<div class="ttc" id="group___analog_html_ga4fd6831861c1e3b19777b7b0bb65de65"><div class="ttname"><a href="group___analog.html#ga4fd6831861c1e3b19777b7b0bb65de65">analogSyncRead</a></div><div class="ttdeci">const uint16_t * analogSyncRead(uint8_t pin1, uint8_t pin2, uint8_t pin3)</div><div class="ttdoc">Read 3 pins synchronously. </div></div>
+<div class="ttc" id="group___analog_html_ga4edb9397d5e5089f29bf504a1b5192b3"><div class="ttname"><a href="group___analog.html#ga4edb9397d5e5089f29bf504a1b5192b3">analogRead</a></div><div class="ttdeci">uint16_t analogRead(uint8_t pin)</div><div class="ttdoc">Read a single pin. </div><div class="ttdef"><b>Definition:</b> adc.c:62</div></div>
+<div class="ttc" id="group___analog_html_gacff56f09a9d08b160d957caff4c41b1b"><div class="ttname"><a href="group___analog.html#gacff56f09a9d08b160d957caff4c41b1b">analogReadSampleTime</a></div><div class="ttdeci">void analogReadSampleTime(uint8_t sampleTime)</div><div class="ttdoc">Set ADC sample time. </div><div class="ttdef"><b>Definition:</b> adc.c:17</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 21 2014 22:57:11 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2015 12:32:04 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.8
 </small></address>

@@ -99,44 +99,43 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span>{</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#endif // __cplusplus</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">// This function is called by any of the interrupt handlers. It essentially fetches the user function pointer from the array and calls it.</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keywordtype">void</span> wirishExternalInterruptHandler(uint8_t EXTI_Line_Number);</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">// This function is called by any of the interrupt handlers. It essentially fetches the user function pointer from the array and calls it.</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keywordtype">void</span> wirishExternalInterruptHandler(uint8_t EXTI_Line_Number);</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group___e_x_t_i.html#gafb1e263c44d0ba4a97eccc2ab6f7a99d">attachInterrupt</a>(uint8_t pinName, ISRType ISR, InterruptTrigger mode);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group___e_x_t_i.html#ga4d6f04e458d226b547767b1d62278ad9">detachInterrupt</a>(uint8_t pinName);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group___e_x_t_i.html#ga10e6193b0f9d7fc1ea6342ca38b1402f">noInterrupts</a>();</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group___e_x_t_i.html#gab3a4471e1b3085323ec2067aaaccb52c">interrupts</a>();</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; <span class="comment">// end of addtogroup</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group___e_x_t_i.html#gafb1e263c44d0ba4a97eccc2ab6f7a99d">attachInterrupt</a>(uint8_t pinName, ISRType ISR, InterruptTrigger mode);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group___e_x_t_i.html#ga4d6f04e458d226b547767b1d62278ad9">detachInterrupt</a>(uint8_t pinName);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group___e_x_t_i.html#ga10e6193b0f9d7fc1ea6342ca38b1402f">noInterrupts</a>();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group___e_x_t_i.html#gab3a4471e1b3085323ec2067aaaccb52c">interrupts</a>();</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; <span class="comment">// end of addtogroup</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">// // PWM Input using EXTI</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">// float pwmIn(uint8_t pinName);</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">// // Private</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">// void pinModePwmIn(uint8_t pinName);</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">// void pwmInClkInit();</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">// uint32_t pwmInTicks();</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;} <span class="comment">// extern &quot;C&quot;</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#endif // __cplusplus</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="group___e_x_t_i_html_ga10e6193b0f9d7fc1ea6342ca38b1402f"><div class="ttname"><a href="group___e_x_t_i.html#ga10e6193b0f9d7fc1ea6342ca38b1402f">noInterrupts</a></div><div class="ttdeci">void noInterrupts()</div><div class="ttdoc">Disable external interrupts. </div><div class="ttdef"><b>Definition:</b> exti.c:134</div></div>
-<div class="ttc" id="group___e_x_t_i_html_ga4d6f04e458d226b547767b1d62278ad9"><div class="ttname"><a href="group___e_x_t_i.html#ga4d6f04e458d226b547767b1d62278ad9">detachInterrupt</a></div><div class="ttdeci">void detachInterrupt(uint8_t pinName)</div><div class="ttdoc">Disable an interrupt. </div><div class="ttdef"><b>Definition:</b> exti.c:116</div></div>
-<div class="ttc" id="group___e_x_t_i_html_gab3a4471e1b3085323ec2067aaaccb52c"><div class="ttname"><a href="group___e_x_t_i.html#gab3a4471e1b3085323ec2067aaaccb52c">interrupts</a></div><div class="ttdeci">void interrupts()</div><div class="ttdoc">Enable external interrupts. </div><div class="ttdef"><b>Definition:</b> exti.c:145</div></div>
-<div class="ttc" id="group___e_x_t_i_html_gafb1e263c44d0ba4a97eccc2ab6f7a99d"><div class="ttname"><a href="group___e_x_t_i.html#gafb1e263c44d0ba4a97eccc2ab6f7a99d">attachInterrupt</a></div><div class="ttdeci">void attachInterrupt(uint8_t pinName, ISRType ISR, InterruptTrigger mode)</div><div class="ttdoc">Enable an interrupt. </div><div class="ttdef"><b>Definition:</b> exti.c:78</div></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">// // PWM Input using EXTI</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">// float pwmIn(uint8_t pinName);</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">// // Private</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">// void pinModePwmIn(uint8_t pinName);</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">// void pwmInClkInit();</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">// uint32_t pwmInTicks();</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;} <span class="comment">// extern &quot;C&quot;</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#endif // __cplusplus</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="group___e_x_t_i_html_ga10e6193b0f9d7fc1ea6342ca38b1402f"><div class="ttname"><a href="group___e_x_t_i.html#ga10e6193b0f9d7fc1ea6342ca38b1402f">noInterrupts</a></div><div class="ttdeci">void noInterrupts()</div><div class="ttdoc">Disable external interrupts. </div><div class="ttdef"><b>Definition:</b> exti.c:138</div></div>
+<div class="ttc" id="group___e_x_t_i_html_ga4d6f04e458d226b547767b1d62278ad9"><div class="ttname"><a href="group___e_x_t_i.html#ga4d6f04e458d226b547767b1d62278ad9">detachInterrupt</a></div><div class="ttdeci">void detachInterrupt(uint8_t pinName)</div><div class="ttdoc">Disable an interrupt. </div><div class="ttdef"><b>Definition:</b> exti.c:120</div></div>
+<div class="ttc" id="group___e_x_t_i_html_gab3a4471e1b3085323ec2067aaaccb52c"><div class="ttname"><a href="group___e_x_t_i.html#gab3a4471e1b3085323ec2067aaaccb52c">interrupts</a></div><div class="ttdeci">void interrupts()</div><div class="ttdoc">Enable external interrupts. </div><div class="ttdef"><b>Definition:</b> exti.c:144</div></div>
+<div class="ttc" id="group___e_x_t_i_html_gafb1e263c44d0ba4a97eccc2ab6f7a99d"><div class="ttname"><a href="group___e_x_t_i.html#gafb1e263c44d0ba4a97eccc2ab6f7a99d">attachInterrupt</a></div><div class="ttdeci">void attachInterrupt(uint8_t pinName, ISRType ISR, InterruptTrigger mode)</div><div class="ttdoc">Enable an interrupt. </div><div class="ttdef"><b>Definition:</b> exti.c:82</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 21 2014 22:57:11 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2015 12:32:04 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.8
 </small></address>

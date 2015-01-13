@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.8"/>
-<title>Koduino: IMU drivers and attitude estimation</title>
+<title>Koduino: Porting</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -64,7 +64,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
-</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -79,33 +78,44 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
+</div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">IMU drivers and attitude estimation</div>  </div>
+<div class="title">Porting </div>  </div>
 </div><!--header-->
 <div class="contents">
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<h3>Usage</h3>
-<ol type="1">
-<li>Call <a class="el" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730" title="Configure a pin before using it. ">pinMode()</a> to set the pin to <code>OUTPUT</code>, <code>OUTPUT_OPEN_DRAIN</code>, <code>INPUT</code>, <code>INPUT_PULLUP</code>, or <code>INPUT_PULLDOWN</code></li>
-<li>Call <a class="el" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7" title="Set a digital pin to a given logic level. ">digitalWrite()</a> with <code>HIGH</code>, <code>LOW</code> or <code>TOGGLE</code> on <code>OUTPUT</code> pins</li>
-<li>Call <a class="el" href="group___digital.html#ga3f9e2d2c30df9ba03affa325d5a0eb53" title="Read a digital pin. ">digitalRead()</a> on <code>INPUT</code> pins</li>
-</ol>
-<h3>Example: Blink</h3>
-<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Arduino.h&gt;</span></div>
-<div class="line"></div>
-<div class="line"><span class="comment">// Change to whatever pin an LED is connected to</span></div>
-<div class="line"><span class="keyword">const</span> PinName led = PC13;</div>
-<div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> setup() {</div>
-<div class="line">  <a class="code" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730">pinMode</a>(led, OUTPUT);</div>
-<div class="line">}</div>
-<div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> loop() {</div>
-<div class="line">  <a class="code" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7">digitalWrite</a>(led, TOGGLE);</div>
-<div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(1000);</div>
-<div class="line">}</div>
-</div><!-- fragment --> </div><!-- contents -->
+<div class="textblock"><p>The steps below are cumulative. For example, if you need to do a type 3 port, you would also need to do steps 1-2. Consequently, it is the easiest to do port to a different package for an existing chip.</p>
+<h3>Identifying your chip</h3>
+<p>The STM32 chip part numbers are of the form: </p><pre class="fragment">STM32|&lt;SERIES_CHIP&gt;|&lt;PACKAGE&gt;|&lt;FLASH_SIZE&gt;
+</pre><p>For example, for <code>STM32F405RG</code>: <code>SERIES_CHIP = F405</code>, <code>PACKAGE = R</code>, <code>FLASH_SIZE = G</code></p>
+<p>The current status is</p>
+<table class="doxtable">
+<tr>
+<th>Arduino IDE </th><th>Standalone with Makefile  </th></tr>
+<tr>
+<td>Only a single .ino file per sketch </td><td>Need to keep sketch code along with a Makefile </td></tr>
+<tr>
+<td>Set options (HSE value, board variant, libraries) through IDE </td><td>Set options in Makefile </td></tr>
+<tr>
+<td>Recompiles every time (bug?) </td><td>Faster to recompile </td></tr>
+<tr>
+<td>Uses stm32flash to upload </td><td>Uses stm32loader.py to upload </td></tr>
+<tr>
+<td></td><td>Not recommended on Windows </td></tr>
+</table>
+<p>Choose:</p>
+<h2>1. New <code>PACKAGE</code></h2>
+<h2>2. New variant</h2>
+<p>A variant corresponds to a subdirectory of <code>koduino/variants</code>. You need a new variant in the following cases:</p>
+<ul>
+<li>If a different startup script is required, a new variant should be defined. E.g. within the F4 series, F40_41x and F411x need different variants. This is actually a necessity, since if you put different startup .S scripts in the variant directory, the Arduino IDE will compile all files in the directory.</li>
+<li>Usually a different memory size</li>
+</ul>
+<h2>2. New memory size for existing chip</h2>
+<p>Need new startup .S file</p>
+<h2>3. New chip in existing series</h2>
+<h2>4. New series</h2>
+</div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

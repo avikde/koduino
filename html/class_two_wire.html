@@ -204,7 +204,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">  Wire.<a class="code" href="class_two_wire.html#a3dead761a20db7a7bced562967170919">write</a>(0x00);         <span class="comment">// sends one byte</span></div>
 <div class="line">  Wire.<a class="code" href="class_two_wire.html#a1a32e8abde1410a2ad7938475840b0bc">endTransmission</a>(<span class="keyword">false</span>);    <span class="comment">// stop transmitting</span></div>
 <div class="line">}</div>
-</div><!-- fragment --><h3>Example: AS5048B (<em>untested</em>)</h3>
+</div><!-- fragment --><h3>Example: AS5048B</h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Wire.h&gt;</span></div>
 <div class="line"></div>
 <div class="line"><span class="keyword">const</span> <span class="keywordtype">int</span> led = PC13;</div>
@@ -214,8 +214,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">  <a class="code" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730">pinMode</a>(led, OUTPUT);</div>
 <div class="line">  Serial1.begin(115200);</div>
 <div class="line"></div>
-<div class="line">  <span class="comment">// Try increasing speed if it works</span></div>
-<div class="line">  <span class="comment">// Wire.setSpeed(WIRE_1M);</span></div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#ad10fdb3bc506ea45833ec7107278b02f">setSpeed</a>(WIRE_400K);</div>
 <div class="line">  Wire.<a class="code" href="class_two_wire.html#ada85a7a8663ec8af0a1248b659be2f18">begin</a>();</div>
 <div class="line">}</div>
 <div class="line"></div>
@@ -670,7 +669,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 21 2014 22:57:12 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2015 12:32:04 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.8
 </small></address>

@@ -10,9 +10,10 @@ The microcontrollers currently targeted are:
 
 The API functions here are in general optimized for speed and concurrency, at the expense of being slightly less fool-proof than Arduino (e.g. see [pin configuration](@ref Pins), [PWM output and input](@ref PWM)).
 
-## Getting Started
+## Quick links
 
-[Installation & Setup Guide](Installation.md)
+* [Installation & Setup Guide](Installation.md)
+* [Porting to new chips](Porting.md) - **Not completed yet**
 
 <!-- 
 * [Writing your first program](Guide.md)

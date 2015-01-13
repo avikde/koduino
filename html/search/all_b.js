@@ -1,6 +1,7 @@
 var searchData=
 [
   ['pins',['Pins',['../md__pins.html',1,'']]],
+  ['porting',['Porting',['../md__porting.html',1,'']]],
   ['pwm',['PWM',['../md__p_w_m.html',1,'']]],
   ['parsefloat',['parseFloat',['../class_stream.html#a5e5a0cc11eb586d89dcb7fa8e53a87e8',1,'Stream']]],
   ['parseint',['parseInt',['../class_stream.html#abeda6a8584f0214ff4a2e99c1f96d60c',1,'Stream']]],
@@ -10,6 +11,6 @@ var searchData=
   ['pinremap',['pinRemap',['../group___pins.html#ga7b545930be968fa598f0ef566e426ee1',1,'pinRemap(uint8_t pin, uint8_t altFunc, uint8_t timer, uint8_t channel):&#160;pins.c'],['../group___pins.html#ga7b545930be968fa598f0ef566e426ee1',1,'pinRemap(uint8_t pin, uint8_t altFunc, uint8_t timer, uint8_t channel):&#160;pins.c']]],
   ['pin_20configuration',['Pin configuration',['../group___pins.html',1,'']]],
   ['printable',['Printable',['../class_printable.html',1,'']]],
-  ['pulsein',['pulseIn',['../group___p_w_m.html#ga1ab4d24e9da3f2a60671f42fb5709ae6',1,'pulseIn(uint8_t name):&#160;timer.c'],['../group___p_w_m.html#ga1ab4d24e9da3f2a60671f42fb5709ae6',1,'pulseIn(uint8_t pin):&#160;timer.c']]],
-  ['pwm_20output_20and_20input',['PWM output and input',['../group___p_w_m.html',1,'']]]
+  ['pwm_20output_20and_20input',['PWM output and input',['../group___p_w_m.html',1,'']]],
+  ['pwmin',['pwmIn',['../group___p_w_m.html#ga4978918346876528b54add5619f7dadd',1,'pwmIn(uint8_t name):&#160;timer.c'],['../group___p_w_m.html#ga4978918346876528b54add5619f7dadd',1,'pwmIn(uint8_t pin):&#160;timer.c']]]
 ];
