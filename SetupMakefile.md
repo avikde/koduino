@@ -39,10 +39,10 @@ from a new terminal window.
 In a new directory, create a file called `Makefile` with the following contents.
 
 ~~~{.sh}
-VARIANT = f37xcc # one of f37xcc or f4xxrg
+VARIANT = f37x # a variant name
 HSE_VALUE = 16000000UL
 UPLOAD_METHOD = SERIAL
-UPLOAD_BAUD = 500000
+UPLOAD_BAUD = 230400
 # Put libraries you want to use here
 LIBRARIES = SPI Wire
 
