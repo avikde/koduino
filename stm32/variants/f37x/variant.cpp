@@ -38,9 +38,10 @@ const uint8_t PC15 = 29;
 const uint8_t PD8 = 30;
 const uint8_t PE8 = 31;
 const uint8_t PE9 = 32;
-const uint8_t PF1 = 33;
-const uint8_t PF6 = 34;
-const uint8_t PF7 = 35;
+const uint8_t PF0 = 33;
+const uint8_t PF1 = 34;
+const uint8_t PF6 = 35;
+const uint8_t PF7 = 36;
 
 // Timers
 
@@ -104,9 +105,10 @@ PinInfo PIN_MAP[] = {
   {GPIOE, 8, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET},//31
   {GPIOE, 9, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET},//32
   
-  {GPIOF, 1, NOT_SET, 4, NOT_SET, NOT_SET, NOT_SET, NOT_SET},//33 I2C2_SCL
-  {GPIOF, 6, NOT_SET, 5, NOT_SET, NOT_SET, NOT_SET, NOT_SET},//34 SPI1_MOSI
-  {GPIOF, 7, NOT_SET, 4, NOT_SET, NOT_SET, NOT_SET, NOT_SET}//35 I2C2_SDA
+  {GPIOF, 0, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET},//33 OSC
+  {GPIOF, 1, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET},//34 I2C2_SCL
+  {GPIOF, 6, NOT_SET, 5, NOT_SET, NOT_SET, NOT_SET, NOT_SET},//35 SPI1_MOSI
+  {GPIOF, 7, NOT_SET, 4, NOT_SET, NOT_SET, NOT_SET, NOT_SET}//36 I2C2_SDA
 };
 
 // Run-time timer configuration

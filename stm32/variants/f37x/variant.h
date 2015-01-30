@@ -41,6 +41,7 @@ extern const uint8_t PC15;
 extern const uint8_t PD8;
 extern const uint8_t PE8;
 extern const uint8_t PE9;
+extern const uint8_t PF0;
 extern const uint8_t PF1;
 extern const uint8_t PF6;
 extern const uint8_t PF7;

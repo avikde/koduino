@@ -78,7 +78,7 @@ extern const uint8_t TIMER7;
 
 
 // Mandated by the core library
-#define LED_BUILTIN PC13
+#define LED_BUILTIN PA5
 
 #ifdef __cplusplus
 } // extern "C"

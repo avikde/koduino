@@ -305,11 +305,11 @@ static void SetSysClock(void)
 
   /* SYSCLK, HCLK, PCLK2 and PCLK1 configuration -----------*/
   /* Enable HSE */
-#if defined(M4) && ~defined(M4_WHITE)
+// #if defined(M4) && ~defined(M4_WHITE)
   RCC->CR |= ((uint32_t)RCC_CR_HSEON);
-#else
-  RCC->CR |= ((uint32_t) (RCC_CR_HSEON | RCC_CR_HSEBYP));
-#endif
+// #else
+  // RCC->CR |= ((uint32_t) (RCC_CR_HSEON | RCC_CR_HSEBYP));
+// #endif
   
   /* Wait till HSE is ready and if Time out is reached exit */
   do
@@ -344,11 +344,11 @@ static void SetSysClock(void)
     /* PLL configuration */
     RCC->CFGR &= (uint32_t)((uint32_t)~(RCC_CFGR_PLLSRC | RCC_CFGR_PLLXTPRE | RCC_CFGR_PLLMULL));
 
-#ifndef M4
+// #ifndef M4
     RCC->CFGR |= (uint32_t)(RCC_CFGR_PLLSRC_PREDIV1 | RCC_CFGR_PLLXTPRE_PREDIV1_Div2 | RCC_CFGR_PLLMULL9);
-#else
-    RCC->CFGR |= (uint32_t)(RCC_CFGR_PLLSRC_PREDIV1 | RCC_CFGR_PLLXTPRE_PREDIV1 | RCC_CFGR_PLLMULL9);
-#endif
+// #else
+    // RCC->CFGR |= (uint32_t)(RCC_CFGR_PLLSRC_PREDIV1 | RCC_CFGR_PLLXTPRE_PREDIV1 | RCC_CFGR_PLLMULL9);
+// #endif
 
     /* Enable PLL */
     RCC->CR |= RCC_CR_PLLON;

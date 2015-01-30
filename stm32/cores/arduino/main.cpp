@@ -29,6 +29,12 @@ extern void (*__init_array_end []) (void) WEAK;
 extern void (*__fini_array_start []) (void) WEAK;
 extern void (*__fini_array_end []) (void) WEAK;
 
+
+// // TEST
+// #define LED_PIN 5
+// #define LED_ON() GPIOA->BSRRL |= (1 << 5)
+// #define LED_OFF() GPIOA->BSRRH |= (1 << 5)
+
 int main() {
   // This is basically libc_init_array -- handles global constructors
   unsigned int count;
@@ -42,6 +48,20 @@ int main() {
   count = __fini_array_end - __fini_array_start;
   for (i = 0; i < count; i++)
     __fini_array_start[i] ();
+
+
+  // // TEST
+  // /* Enbale GPIOA clock */
+  // RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
+  // /* Configure GPIOA pin 5 as output */
+  // GPIOA->MODER |= (1 << (LED_PIN << 1));
+  // /* Configure GPIOA pin 5 in max speed */
+  // GPIOA->OSPEEDR |= (3 << (LED_PIN << 1));
+
+  // LED_OFF();
+
+  // while (1) {}
+
 
   //4 bits for preemp priority 0 bit for sub priority
   NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
