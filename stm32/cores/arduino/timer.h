@@ -20,6 +20,8 @@ extern "C"{
  *  @{
  */
 
+void analogWriteResolution(uint8_t nbits);
+
 /**
  * @brief Assign a PWM frequency to the specified pin (default = 1000 Hz)
  * @details Please see the [pin remapping](@ref Pins) documentation for more details about 
@@ -45,7 +47,10 @@ void analogWriteFrequency(uint8_t pin, int freqHz);
  * @param pin 
  * @param duty The new duty cycle in normalized floating point from 0.0 (0%) to 1.0 (100%).
  */
-void analogWrite(uint8_t pin, float duty);
+void analogWriteFloat(uint8_t pin, float duty);
+
+// Not the most efficient: uses analogWriteFloat
+void analogWrite(uint8_t pin, uint32_t duty);
 
 /**
  * @brief Read a PWM signal (non-blocking)

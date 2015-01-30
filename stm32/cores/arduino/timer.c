@@ -12,6 +12,7 @@
 
 // Re-used to init PWM channels
 TIM_OCInitTypeDef  TIM_OCInitStructure;
+uint8_t _analogWriteResolution = 8;
 
 //------------------------------------------------------------------
 
@@ -28,6 +29,10 @@ void timerInitHelper(uint8_t timer, uint16_t prescaler, uint32_t period) {
 
 void analogWriteFrequency(uint8_t pin, int freqHz) {
   TIMER_MAP[ PIN_MAP[pin].timer ].freqHz = freqHz;
+}
+
+void analogWriteResolution(uint8_t nbits) {
+  _analogWriteResolution = nbits;
 }
 
 void timerInit(uint8_t timer, int freqHz) {
@@ -48,7 +53,7 @@ void pinTimerInit(uint8_t pin) {
 }
 
 
-void analogWrite(uint8_t name, float duty) {
+void analogWriteFloat(uint8_t name, float duty) {
   TIM_TypeDef *TIMx = TIMER_MAP[ PIN_MAP[name].timer ].TIMx;
   uint8_t channel = PIN_MAP[name].channel;
   switch (channel) {
@@ -65,6 +70,10 @@ void analogWrite(uint8_t name, float duty) {
     TIM_SetCompare4(TIMx, (uint32_t)(duty*TIMx->ARR));
     break;
   }
+}
+
+void analogWrite(uint8_t pin, uint32_t duty) {
+  analogWriteFloat(pin, duty/((float)((1<<_analogWriteResolution) - 1)));
 }
 
 float pwmIn(uint8_t name) {

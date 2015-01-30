@@ -66,7 +66,7 @@ void ledWrite(uint8_t name, float val)
     val = 1-val;
 
   if (bitRead(PIN_MAP[name].ioConfig, IOCFGBIT_PWM))
-    analogWrite(name, val);
+    analogWriteFloat(name, val);
   else
     digitalWrite(name, (LogicValue)val);
 }

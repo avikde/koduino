@@ -109,7 +109,7 @@ float Motor::update() {
 void BlCon34::initCommon(uint8_t outPin_, float zero, int8_t dir, float gearRatio) {
   pinMode(outPin_, PWM);
   this->outPin = outPin_;
-  analogWrite(outPin, 0);
+  analogWriteFloat(outPin, 0);
   driverDirection = 1;
   // Call base class init
   Motor::init(zero, dir, gearRatio);
@@ -140,5 +140,5 @@ float BlCon34::getRawPosition() {
 }
 
 void BlCon34::sendOpenLoop(float val) {
-  analogWrite(outPin, (enableFlag) ? map(val, -1, 1, 0.11, 0.89) : 0);
+  analogWriteFloat(outPin, (enableFlag) ? map(val, -1, 1, 0.11, 0.89) : 0);
 }
