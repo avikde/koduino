@@ -103,10 +103,15 @@ flash: $(BUILDDIR)/$(PROJNAME).bin
 ifeq ($(UPLOAD_METHOD), SERIAL)
 	@python $(KODUINO_DIR)/system/stm32loader.py -b $(UPLOAD_BAUD) -E $(EEP_START) -L $(EEP_LEN) -ew $<
 else
+ifeq ($(UPLOAD_METHOD), NUCLEO)
+	@sudo python $(KODUINO_DIR)/system/mbedremounter.py
+	@cp $< /Volumes/NUCLEO/
+else
 ifeq ($(UNAME),Linux)
 	@sudo dfu-util -d 0483:df11 -a 0 -s 0x08000000 -D $<
 else
 	@dfu-util -d 0483:df11 -a 0 -s 0x08000000 -D $<
+endif
 endif
 endif
 

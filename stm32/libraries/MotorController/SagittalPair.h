@@ -16,7 +16,7 @@ public:
     motors[1] = M1;
 
     // Set difference coordinate to be position controlled to 0
-    setGain(1, 2);
+    setGain(1, 1);
     setPosition(1, 0);
   }
 

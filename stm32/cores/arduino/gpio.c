@@ -31,6 +31,7 @@ void ledInit(uint8_t name, DigitalPolarity polarity, LEDOutputMode mode) {
   {
     bitSet(PIN_MAP[name].ioConfig, IOCFGBIT_PWM);
 
+#if defined(STM32F37x)
     if (name == PA4)
       pinRemap(name, 10, TIMER12, 1);
     else if (name == PA9)
@@ -43,7 +44,8 @@ void ledInit(uint8_t name, DigitalPolarity polarity, LEDOutputMode mode) {
       pinRemap(name, 10, TIMER12, 1);
     else if (name == PA15)
       pinRemap(name, 10, TIMER12, 2);
-
+#endif
+    
     pinMode(name, PWM);
   }
   else

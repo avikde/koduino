@@ -261,6 +261,8 @@
 
 #include "stm32f4xx.h"
 
+#define USE_HSE_BYPASS
+
 /**
   * @}
   */
