@@ -9,7 +9,7 @@
 
 #if defined(STM32F37x)
 uint8_t ADC_SAMPLE_TIME = ADC_SampleTime_13Cycles5;
-#elif defined(STM32F40_41xxx)
+#elif defined(STM32F40_41xxx) || defined(STM32F411xE)
 uint8_t ADC_SAMPLE_TIME = ADC_SampleTime_15Cycles;
 #endif
 
@@ -19,7 +19,7 @@ void analogReadSampleTime(uint8_t sampleTime) {
 }
 
 void adcCommonInit() {
-#if defined(STM32F40_41xxx)
+#if defined(STM32F40_41xxx) || defined(STM32F411xE)
   ADC_DeInit();
 
   ADC_CommonInitTypeDef ADC_CommonInitStructure;
