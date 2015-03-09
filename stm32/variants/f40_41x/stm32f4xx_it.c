@@ -28,9 +28,13 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-// #include "stm32f4xx_it.h"
-// #include "main.h"
 
+#include "timer.h"
+#include "timebase.h"
+#include "exti.h"
+#include "variant.h"
+#include "USARTClass.h"
+  
 /** @addtogroup Template_Project
   * @{
   */
@@ -151,14 +155,181 @@ void SysTick_Handler(void)
 /*  file (startup_stm32f4xx.s).                                               */
 /******************************************************************************/
 
-/**
-  * @brief  This function handles PPP interrupt request.
-  * @param  None
-  * @retval None
-  */
-/*void PPP_IRQHandler(void)
+
+// GENERAL-PURPOSE TIMERS 
+// Used for analogWrite (PWM), pwmIn
+// See timer.c
+
+void TIM2_IRQHandler() {
+  timerISR(TIMER2);
+}
+void TIM5_IRQHandler() {
+  timerISR(TIMER5);
+}
+void TIM3_IRQHandler() {
+  timerISR(TIMER3);
+}
+void TIM4_IRQHandler() {
+  timerISR(TIMER4);
+}
+void TIM1_CC_IRQHandler() {
+  timerISR(TIMER1);
+}
+void TIM8_CC_IRQHandler() {
+  timerISR(TIMER8);
+}
+void TIM1_BRK_TIM9_IRQHandler() {
+  timebaseISR(0, TIMER9);
+}
+void TIM8_BRK_TIM12_IRQHandler() {
+  timebaseISR(0, TIMER12);
+}
+
+// TIMEBASE TIMERS
+// For timekeeping (millis etc.), timer interrupts (attachTimerInterrupt)
+// See timebase.c
+
+void TIM1_UP_TIM10_IRQHandler() {
+  timebaseISR(0, TIMER10);
+}
+void TIM1_TRG_COM_TIM11_IRQHandler() {
+  timebaseISR(1, TIMER11);
+}
+void TIM8_UP_TIM13_IRQHandler() {
+  timebaseISR(2, TIMER13);
+}
+void TIM8_TRG_COM_TIM14_IRQHandler() {
+  timebaseISR(3, TIMER14);
+}
+void TIM6_DAC_IRQHandler() {
+  timebaseISR(4, TIMER6);
+}
+void TIM7_IRQHandler() {
+  timebaseISR(5, TIMER7);
+}
+
+// UNUSED TIMERS
+// For future use?
+
+// EXTI
+// For attachInterrupt
+// See exti.c
+
+void EXTI0_IRQHandler()
 {
-}*/
+  if(EXTI_GetITStatus(EXTI_Line0) != RESET)
+  {
+    wirishExternalInterruptHandler(0);
+    EXTI_ClearITPendingBit(EXTI_Line0);
+  }
+}
+void EXTI1_IRQHandler()
+{
+  if(EXTI_GetITStatus(EXTI_Line1) != RESET)
+  {
+    wirishExternalInterruptHandler(1);
+    EXTI_ClearITPendingBit(EXTI_Line1);
+  }
+}
+void EXTI2_TS_IRQHandler()
+{
+  if(EXTI_GetITStatus(EXTI_Line2) != RESET)
+  {
+    wirishExternalInterruptHandler(2);
+    EXTI_ClearITPendingBit(EXTI_Line2);
+  }
+}
+void EXTI3_IRQHandler()
+{
+  if(EXTI_GetITStatus(EXTI_Line3) != RESET)
+  {
+    wirishExternalInterruptHandler(3);
+    EXTI_ClearITPendingBit(EXTI_Line3);
+  }
+}
+void EXTI4_IRQHandler()
+{
+  if(EXTI_GetITStatus(EXTI_Line4) != RESET)
+  {
+    wirishExternalInterruptHandler(4);
+    EXTI_ClearITPendingBit(EXTI_Line4);
+  }
+}
+void EXTI9_5_IRQHandler()
+{
+  if(EXTI_GetITStatus(EXTI_Line5) != RESET)
+  {
+    wirishExternalInterruptHandler(5);
+    EXTI_ClearITPendingBit(EXTI_Line5);
+  }
+  if(EXTI_GetITStatus(EXTI_Line6) != RESET)
+  {
+    wirishExternalInterruptHandler(6);
+    EXTI_ClearITPendingBit(EXTI_Line6);
+  }
+  if(EXTI_GetITStatus(EXTI_Line7) != RESET)
+  {
+    wirishExternalInterruptHandler(7);
+    EXTI_ClearITPendingBit(EXTI_Line7);
+  }
+  if(EXTI_GetITStatus(EXTI_Line8) != RESET)
+  {
+    wirishExternalInterruptHandler(8);
+    EXTI_ClearITPendingBit(EXTI_Line8);
+  }
+  if(EXTI_GetITStatus(EXTI_Line9) != RESET)
+  {
+    wirishExternalInterruptHandler(9);
+    EXTI_ClearITPendingBit(EXTI_Line9);
+  }
+}
+void EXTI15_10_IRQHandler()
+{
+  if(EXTI_GetITStatus(EXTI_Line10) != RESET)
+  {
+    wirishExternalInterruptHandler(10);
+    EXTI_ClearITPendingBit(EXTI_Line10);
+  }
+  if(EXTI_GetITStatus(EXTI_Line11) != RESET)
+  {
+    wirishExternalInterruptHandler(11);
+    EXTI_ClearITPendingBit(EXTI_Line11);
+  }
+  if(EXTI_GetITStatus(EXTI_Line12) != RESET)
+  {
+    wirishExternalInterruptHandler(12);
+    EXTI_ClearITPendingBit(EXTI_Line12);
+  }
+  if(EXTI_GetITStatus(EXTI_Line13) != RESET)
+  {
+    wirishExternalInterruptHandler(13);
+    EXTI_ClearITPendingBit(EXTI_Line13);
+  }
+  if(EXTI_GetITStatus(EXTI_Line14) != RESET)
+  {
+    wirishExternalInterruptHandler(14);
+    EXTI_ClearITPendingBit(EXTI_Line14);
+  }
+  if(EXTI_GetITStatus(EXTI_Line15) != RESET)
+  {
+    wirishExternalInterruptHandler(15);
+    EXTI_ClearITPendingBit(EXTI_Line15);
+  }
+}
+
+void USART1_IRQHandler() {
+  wirishUSARTInterruptHandler(&USART_MAP[0]);
+}
+void USART2_IRQHandler() {
+  wirishUSARTInterruptHandler(&USART_MAP[1]);
+}
+void USART3_IRQHandler() {
+  wirishUSARTInterruptHandler(&USART_MAP[2]);
+}
+void USART6_IRQHandler() {
+  wirishUSARTInterruptHandler(&USART_MAP[3]);
+}
+
 
 /**
   * @}

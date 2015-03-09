@@ -7,6 +7,13 @@
 #include "variant.h"
 #include "nvic.h"
 
+// Timers are on APB1 or APB2, which are not necessarily the system clock
+#if defined(STM32F40_41xxx)
+// In the clock config tool, APB1,APB2 clocks set to 84 MHz
+#define TIMER_PERIPH_CLOCK 84000000
+#else
+#define TIMER_PERIPH_CLOCK SystemCoreClock
+#endif
 
 // Helper function
 void setupTimerUpdateInterrupt(uint8_t i, ISRType ISR, uint16_t prescaler, uint32_t period) {
@@ -22,21 +29,21 @@ void setupTimerUpdateInterrupt(uint8_t i, ISRType ISR, uint16_t prescaler, uint3
 
 void attachSysClkInterrupt(ISRType ISR) {
   // 1MHz base clock, millisecond interrupts, microsecond counts
-  setupTimerUpdateInterrupt(SYSCLK_TIMEBASE, ISR, (SystemCoreClock / 1000000)-1, 1000-1);
+  setupTimerUpdateInterrupt(SYSCLK_TIMEBASE, ISR, (TIMER_PERIPH_CLOCK / 1000000)-1, 1000-1);
 }
 
 // void attachHighResClkUpdate(ISRType ISR) {
 //   // Highest resolution - 16bit
 //   // 4 KHz timer - make sure signals are not faster than this!!!
 //   // Tradeoff is: low prescaler => more precise, but will overflow the 32-bit int holding the tick value faster.
-//   setupTimerUpdateInterrupt(3, ISR, (SystemCoreClock / 4000000)-1, 65535);
+//   setupTimerUpdateInterrupt(3, ISR, (TIMER_PERIPH_CLOCK / 4000000)-1, 65535);
 // }
 
 void attachTimerInterrupt(uint8_t i, ISRType ISR, int freqHz) {
   // Ideally, (without the -1) period = prescaler = sqrt(72MHz/freq), but sqrt is expensive
   // Approximate by having 2 cases
   if (freqHz >= 2000) {
-    setupTimerUpdateInterrupt(i, ISR, 0, (SystemCoreClock / freqHz)-1);
+    setupTimerUpdateInterrupt(i, ISR, 0, (TIMER_PERIPH_CLOCK / freqHz)-1);
   } else {
     // 4Khz base clock after prescaling
     // period = 2 => 2KHz, period = 0xffff => 0.061Hz
@@ -44,7 +51,7 @@ void attachTimerInterrupt(uint8_t i, ISRType ISR, int freqHz) {
     if (period < 1 || period > 0xffff)
       return;
 
-    setupTimerUpdateInterrupt(i, ISR, (SystemCoreClock / 4000)-1, period);
+    setupTimerUpdateInterrupt(i, ISR, (TIMER_PERIPH_CLOCK / 4000)-1, period);
   }
 }
 

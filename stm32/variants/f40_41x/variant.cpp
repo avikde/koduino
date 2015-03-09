@@ -229,12 +229,12 @@ bool isAnalogPin(uint8_t pin) {
 }
 
 void variantInit() {
-  TIMEBASE_MAP[0].timer = TIMER6;
-  TIMEBASE_MAP[1].timer = TIMER7;
-  TIMEBASE_MAP[2].timer = TIMER10;
-  TIMEBASE_MAP[3].timer = TIMER11;
-  TIMEBASE_MAP[4].timer = TIMER13;
-  TIMEBASE_MAP[5].timer = TIMER14;
+  TIMEBASE_MAP[0].timer = TIMER10;
+  TIMEBASE_MAP[1].timer = TIMER11;
+  TIMEBASE_MAP[2].timer = TIMER13;
+  TIMEBASE_MAP[3].timer = TIMER14;
+  TIMEBASE_MAP[4].timer = TIMER6;
+  TIMEBASE_MAP[5].timer = TIMER7;
 
   // GPIO
   RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
