@@ -107,9 +107,9 @@ class CommandInterface(object):
     raise CmdException("Unrecognised response 0x%x to %s" % (ask, info))
 
   def reset(self):
-    self.sp.setDTR(False)
-    time.sleep(0.1)
     self.sp.setDTR(True)
+    time.sleep(0.1)
+    self.sp.setDTR(False)
     time.sleep(0.1)
 
   def initChip(self):
@@ -124,6 +124,7 @@ class CommandInterface(object):
     # sys.stdout.write('Initing: ')
 
     while time.time() <= stop:
+      # Was uncommented for F3
       self.reset()
 
       self.sp.flushInput()
