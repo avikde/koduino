@@ -131,7 +131,7 @@ class CommandInterface(object):
 
       got = self.sp.read()
       # if got:
-      #   sys.stdout.write(got)
+        # sys.stdout.write(got)
       # The chip will ACK a sync the very first time and
       # NACK it every time afterwards
       if got and got in '\x79\x1f':

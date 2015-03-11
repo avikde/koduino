@@ -6,8 +6,12 @@
 // Globals ---------------------------------------------------------
 
 // PWM period needed for a certain PWM frequency
-// assuming prescaler=1 for 36MHz base clock
+// assuming prescaler=1 => TIMER_PERIPH_CLOCK / 2
+#if defined(STM32F37x)
 #define TIMER_BASE_CLOCK 36000000
+#else
+#define TIMER_BASE_CLOCK 42000000
+#endif
 #define TIMER_PERIOD(freq_hz) ((int)TIMER_BASE_CLOCK/(freq_hz) - 1)
 
 // Re-used to init PWM channels
