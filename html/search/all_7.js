@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['koduino',['Koduino',['../md__r_e_a_d_m_e.html',1,'']]],
-  ['keeping_20time',['Keeping time',['../group___time.html',1,'']]]
+  ['math',['Math',['../group___math.html',1,'']]],
+  ['math',['Math',['../md__math.html',1,'']]],
+  ['motorcontroller',['MotorController',['../md__motor_controller.html',1,'']]],
+  ['makefile_20setup',['Makefile Setup',['../md__setup_makefile.html',1,'']]],
+  ['motorcontroller',['MotorController',['../group___motor_controller.html',1,'']]]
 ];

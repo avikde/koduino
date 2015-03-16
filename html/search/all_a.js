@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['openlog',['OpenLog',['../md__open_log.html',1,'']]],
-  ['openlog',['OpenLog',['../class_open_log.html',1,'OpenLog'],['../class_open_log.html#a581a88a6607d1db4f95dc7b7db9b0ed0',1,'OpenLog::OpenLog()']]]
+  ['reference',['Reference',['../md__reference.html',1,'']]]
 ];

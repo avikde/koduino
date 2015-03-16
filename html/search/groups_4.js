@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['keeping_20time',['Keeping time',['../group___time.html',1,'']]]
+  ['math',['Math',['../group___math.html',1,'']]],
+  ['motorcontroller',['MotorController',['../group___motor_controller.html',1,'']]]
 ];
