@@ -21,7 +21,7 @@ In the language of the Koduino libraries (and the Arduino 1.5+ hardware spec) th
 | f30x (not working yet) | STM32F30x | STM32F30x | F303, ... |
 | f37x | STM32F37x | STM32F37x | F373, F378 |
 | f40_41x | STM32F4xx | STM32F40_41xxx | F405, F407, F417 |
-| f411 (not working yet) | STM32F411xE | F411 |
+| f411 (not working yet) | STM32F4xx | STM32F411xE | F411 |
 | f429_439 (not working yet) | STM32F4xx | STM32F429_439xx | F429, F439 |
 
 Choose:
