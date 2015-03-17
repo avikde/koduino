@@ -2,18 +2,19 @@
 #include "Wire.h"
 
 // 1000 gives ~600us block in the requestFrom function when the slave is not connected. 10000 gives ~6000us
-#define WIRE_TIMEOUT 1000 
 
 #if defined(STM32F37x)
 uint8_t SDA1 = PA14;
 uint8_t SCL1 = PA15;
 uint8_t SDA2 = PF7;
 uint8_t SCL2 = PF1;
+#define WIRE_TIMEOUT 1000
 #elif defined(STM32F40_41xxx)
 uint8_t SDA1 = PB7;
 uint8_t SCL1 = PB6;
 uint8_t SDA2 = PB11;
 uint8_t SCL2 = PB10;
+#define WIRE_TIMEOUT 1000
 #endif
 
 // Constructors ////////////////////////////////////////////////////////////////
@@ -72,9 +73,11 @@ void TwoWire::begin(void) {
 #else
   I2C_InitStructure.I2C_DutyCycle = I2C_DutyCycle_2;// or I2C_DutyCycle_16_9
   I2C_InitStructure.I2C_ClockSpeed = clockSpeed;
+  I2C_InitStructure.I2C_OwnAddress1 = 0x00;
 #endif
 
-  I2C_Init(I2Cx, &I2C_InitStructure);  
+  // I2C_Cmd(I2Cx, DISABLE);
+  I2C_Init(I2Cx, &I2C_InitStructure);
   I2C_Cmd(I2Cx, ENABLE);
 }
 
@@ -111,13 +114,13 @@ uint8_t TwoWire::endTransmission(bool stop) {
   if (txBufferFull)
     return 1;
 
-#if defined(STM32F37x)
   //Wait until I2C isn't busy
   timeout = WIRE_TIMEOUT;
   while (I2C_GetFlagStatus(I2Cx, I2C_FLAG_BUSY) == SET) {
     if ((timeout--) == 0) return 4;
   }
 
+#if defined(STM32F37x)
   I2C_TransferHandling(I2Cx, txAddress << 1, txBufferLength, (stop) ? I2C_AutoEnd_Mode : I2C_SoftEnd_Mode, I2C_Generate_Start_Write);
 
   for (int i=0; i<txBufferLength; ++i) {
@@ -154,18 +157,18 @@ uint8_t TwoWire::endTransmission(bool stop) {
   while (!I2C_CheckEvent(I2Cx, I2C_EVENT_MASTER_MODE_SELECT))
     if ((timeout--) == 0) return 4;
 
-  I2C_Send7bitAddress(I2Cx, txAddress, I2C_Direction_Transmitter);
+  I2C_Send7bitAddress(I2Cx, txAddress<<1, I2C_Direction_Transmitter);
 
   timeout = WIRE_TIMEOUT;
   while (!I2C_CheckEvent(I2Cx, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED))
-    if ((timeout--) == 0) return 4;
+    if ((timeout--) == 0) return 2;
 
   for (int i=0; i<txBufferLength; ++i) {
     I2C_SendData(I2Cx, txBuffer[i]);
 
     timeout = WIRE_TIMEOUT;
     while (!I2C_CheckEvent(I2Cx, I2C_EVENT_MASTER_BYTE_TRANSMITTED))
-      if ((timeout--) == 0) return 4;
+      if ((timeout--) == 0) return 3;
   }
   if (stop) {
     I2C_GenerateSTOP(I2Cx, ENABLE);
@@ -230,25 +233,25 @@ uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, bool stop) {
 
   timeout = WIRE_TIMEOUT;
   while (!I2C_CheckEvent(I2Cx, I2C_EVENT_MASTER_MODE_SELECT))
-    if ((timeout--) == 0) return 0;
+    if ((timeout--) == 0) return 123;
 
-  I2C_Send7bitAddress(I2Cx, address, I2C_Direction_Receiver);
+  I2C_Send7bitAddress(I2Cx, address<<1, I2C_Direction_Receiver);
 
   timeout = WIRE_TIMEOUT;
   while (!I2C_CheckEvent(I2Cx, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED))
-    if ((timeout--) == 0) return 0;
+    if ((timeout--) == 0) return 145;
 
   for (int i = 0; i<quantity; ++i) {
     // Not sure about this: got from spark code
     if (i == quantity-1 && stop) {
       I2C_AcknowledgeConfig(I2Cx, DISABLE);
       I2C_GenerateSTOP(I2Cx, ENABLE);
-      timeout = WIRE_TIMEOUT;
-      while(I2C_GetFlagStatus(I2Cx, I2C_FLAG_STOPF) == RESET) {
-        if ((timeout--) == 0) break;
-      }
-      //Clear the stop flag for the next potential transfer
-      I2C_ClearFlag(I2Cx, I2C_FLAG_STOPF);
+      // timeout = WIRE_TIMEOUT;
+      // while(I2C_GetFlagStatus(I2Cx, I2C_FLAG_STOPF) == RESET) {
+      //   if ((timeout--) == 0) break;
+      // }
+      // //Clear the stop flag for the next potential transfer
+      // I2C_ClearFlag(I2Cx, I2C_FLAG_STOPF);
     }
 
     timeout = WIRE_TIMEOUT;
@@ -260,9 +263,9 @@ uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, bool stop) {
     }   
     rxBuffer[i] = I2C_ReceiveData(I2Cx);
   }
+  // For next time, enable ACK again
   I2C_AcknowledgeConfig(I2Cx, ENABLE);
 #endif
-
 
   rxBufferLength = quantity;
   return rxBufferLength;
