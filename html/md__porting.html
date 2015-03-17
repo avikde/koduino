@@ -98,13 +98,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr>
 <td>STM32F37x </td><td>STM32F37x </td><td>F373, F378 </td></tr>
 <tr>
-<td>STM32F4xx </td><td>STM32F401xxx </td><td>F405, F407, F417 </td></tr>
-<tr>
 <td>STM32F4xx </td><td>STM32F40_41xxx </td><td>F405, F407, F417 </td></tr>
+<tr>
+<td>STM32F4xx </td><td>STM32F429_439xx </td><td>F429, F439 </td></tr>
 <tr>
 <td>STM32F411 </td><td>STM32F411xE </td><td>F411 </td></tr>
 </table>
-<p>| STM32F411 | F405, ... | | Set options (HSE value, board variant, libraries) through IDE | Set options in Makefile | | Recompiles every time (bug?) | Faster to recompile | | Uses stm32flash to upload | Uses stm32loader.py to upload | | | Not recommended on Windows |</p>
 <p>Choose:</p>
 <h2>1. New package</h2>
 <h2>2. New variant</h2>
@@ -113,15 +112,26 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>If a different startup script is required, a new variant should be defined. E.g. within the F4 series, F40_41x and F411x need different variants. This is actually a necessity, since if you put different startup .S scripts in the variant directory, the Arduino IDE will compile all files in the directory.</li>
 <li>Usually a different memory size</li>
 </ul>
-<h2>2. New memory size for existing chip</h2>
+<h3>2.1 Generating variant.cpp</h3>
+<p>Unfortunately, which pins are able use <code>analogRead</code>, which timers need to be activated for <code>analogWrite</code> needs to be manually set up for a new chip.</p>
+<p>I find that this process is made easier with the following steps:</p>
+<ul>
+<li>Create a spreadsheet of the form of the <a href="https://docs.google.com/spreadsheet/pub?key=0Ai-vm-to9OcDdG1zMzR5WFhweGVwNlNnZmtQdlpsb2c&amp;single=true&amp;gid=5&amp;output=html">F40_41X one I made here</a>, and a <a href="https://docs.google.com/spreadsheet/pub?key=0Ai-vm-to9OcDdG1zMzR5WFhweGVwNlNnZmtQdlpsb2c&amp;single=true&amp;gid=8&amp;output=html">corresponding one for timers</a></li>
+<li>To go with these spreadsheets, there is a python script called <code>variant_codegen.py</code> in the <code>variants</code> directory which prints out C code that can be pasted into <code>variant.cpp</code> and <code>variant.h</code></li>
+<li>The USARTx_TX, RX pins need to be manually entered in the definition of <code>USART_MAP</code></li>
+<li><code>TIMEBASE_MAP</code> configures timers used for <a class="el" href="group___timebase.html">attachTimerInterrupt</a>. At least one of them <em>must</em> be configured for the system clock (<code>millis()</code>, <code>micros()</code>, <code>delay()</code> will not work otherwise).</li>
+<li>Set <code>SYSCLK_TIMEBASE</code> to the array index into <code>TIMEBASE_MAP</code> that should be the system clock. The actual timer peripheral that should be used (can be a basic timer, per ST datasheet) is configured in the first section of <code>variantInit()</code>.</li>
+<li>The interrupt handlers <em>must</em> be configured in <code>stm32fxxx_it.c</code>. At a minimum, make sure that the system clock ISR is pointing to the correct timer. For an example, please see an existing variant such as <code>f37x</code> or <code>f40_41x</code>.</li>
+</ul>
+<h2>3. New memory size for existing chip</h2>
 <p>Need new startup .S file</p>
-<h2>3. New chip in existing series</h2>
-<h2>4. New series</h2>
+<h2>4. New chip in existing series</h2>
+<h2>5. New series</h2>
 </div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Mar 16 2015 19:15:07 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 16 2015 23:07:28 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.9.1
 </small></address>
