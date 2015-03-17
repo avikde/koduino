@@ -11,7 +11,7 @@ export KODUINO_DIR=<koduino_location>/stm32
 
 ### 2. Toolchain setup
 
-If you have the [Arduino IDE](http://arduino.cc/en/main/software#toc3) **1.5.8 BETA**, 
+If you have the [Arduino IDE](http://arduino.cc/en/main/software#toc3) **1.6.1** or **1.5.8 BETA**, 
 
 * Add to `.bash_profile` (Mac) or `.bashrc` (Linux / Cygwin)
 ~~~
