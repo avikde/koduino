@@ -85,25 +85,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Porting </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><b>This guide has not been completed yet, please check back soon</b> </p><hr/>
+<div class="textblock"><p><b>This guide is a work in progress</b> </p><hr/>
 <p>The steps below are cumulative. For example, if you need to do a type 3 port, you would also need to do steps 1-2. Consequently, it is the easiest to do port to a different package for an existing chip.</p>
 <h3>Identifying your chip</h3>
 <p>The STM32 chip part numbers are of the form: </p><pre class="fragment">STM32|&lt;CHIP_ID&gt;|&lt;PACKAGE&gt;|&lt;FLASH_SIZE&gt;
 </pre><p>For example, for <code>STM32F405RG</code>: <code>CHIP_ID = F405</code>, <code>PACKAGE = R</code>, <code>FLASH_SIZE = G</code></p>
+<p>In the language of the Koduino libraries (and the Arduino 1.5+ hardware spec) there are only "variants". Some variants and (a non-exclusive list of) chips that fall under it are listed below:</p>
 <table class="doxtable">
 <tr>
-<th>Series </th><th>MCU </th><th>Chip IDs  </th></tr>
+<th>Variant (in Koduino libraries) </th><th>Series </th><th>MCU </th><th>Chip IDs  </th></tr>
 <tr>
-<td>STM32F30x </td><td>STM32F37x </td><td></td></tr>
+<td>f10x (not working yet) </td><td>- </td><td>- </td><td></td></tr>
 <tr>
-<td>STM32F37x </td><td>STM32F37x </td><td>F373, F378 </td></tr>
+<td>f30x (not working yet) </td><td>STM32F30x </td><td>STM32F30x </td><td>F303, ... </td></tr>
 <tr>
-<td>STM32F4xx </td><td>STM32F40_41xxx </td><td>F405, F407, F417 </td></tr>
+<td>f37x </td><td>STM32F37x </td><td>STM32F37x </td><td>F373, F378 </td></tr>
 <tr>
-<td>STM32F4xx </td><td>STM32F429_439xx </td><td>F429, F439 </td></tr>
-<tr>
-<td>STM32F411 </td><td>STM32F411xE </td><td>F411 </td></tr>
+<td>f40_41x </td><td>STM32F4xx </td><td>STM32F40_41xxx </td><td>F405, F407, F417 </td></tr>
 </table>
+<p>| f411 (not working yet) | STM32F411xE | F411 | | f429_439 (not working yet) | STM32F4xx | STM32F429_439xx | F429, F439 |</p>
 <p>Choose:</p>
 <h2>1. New package</h2>
 <h2>2. New variant</h2>
@@ -114,9 +114,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </ul>
 <h3>2.1 Generating variant.cpp</h3>
 <p>Unfortunately, which pins are able use <code>analogRead</code>, which timers need to be activated for <code>analogWrite</code> needs to be manually set up for a new chip.</p>
-<p>I find that this process is made easier with the following steps:</p>
+<p>I find that this process is made easier with spreadsheets, examples of which are in the table below:</p>
+<table class="doxtable">
+<tr>
+<th>Variant </th><th>Pin map </th><th>Timer map  </th></tr>
+<tr>
+<td>f37x (done manually) </td><td>- </td><td>- </td></tr>
+<tr>
+<td>f40_41x </td><td><a href="https://docs.google.com/spreadsheet/pub?key=0Ai-vm-to9OcDdG1zMzR5WFhweGVwNlNnZmtQdlpsb2c&amp;single=true&amp;gid=5&amp;output=html">f40_41x_PIN_MAP</a> </td><td><a href="https://docs.google.com/spreadsheet/pub?key=0Ai-vm-to9OcDdG1zMzR5WFhweGVwNlNnZmtQdlpsb2c&amp;single=true&amp;gid=8&amp;output=html">f40_41x_TIMER_MAP</a> </td></tr>
+<tr>
+<td>f411 (needs to be checked) </td><td><a href="https://docs.google.com/spreadsheet/pub?key=0Ai-vm-to9OcDdG1zMzR5WFhweGVwNlNnZmtQdlpsb2c&amp;single=true&amp;gid=9&amp;output=html">f411_PIN_MAP</a> </td><td><a href="https://docs.google.com/spreadsheet/pub?key=0Ai-vm-to9OcDdG1zMzR5WFhweGVwNlNnZmtQdlpsb2c&amp;single=true&amp;gid=10&amp;output=html">f411_TIMER_MAP</a> </td></tr>
+</table>
+<p>Follow these steps:</p>
 <ul>
-<li>Create a spreadsheet of the form of the <a href="https://docs.google.com/spreadsheet/pub?key=0Ai-vm-to9OcDdG1zMzR5WFhweGVwNlNnZmtQdlpsb2c&amp;single=true&amp;gid=5&amp;output=html">F40_41X one I made here</a>, and a <a href="https://docs.google.com/spreadsheet/pub?key=0Ai-vm-to9OcDdG1zMzR5WFhweGVwNlNnZmtQdlpsb2c&amp;single=true&amp;gid=8&amp;output=html">corresponding one for timers</a></li>
+<li>Create a spreadsheet pair as above (f40_41x is the best example) for the targeted chip using the datasheet</li>
 <li>To go with these spreadsheets, there is a python script called <code>variant_codegen.py</code> in the <code>variants</code> directory which prints out C code that can be pasted into <code>variant.cpp</code> and <code>variant.h</code></li>
 <li>The USARTx_TX, RX pins need to be manually entered in the definition of <code>USART_MAP</code></li>
 <li><code>TIMEBASE_MAP</code> configures timers used for <a class="el" href="group___timebase.html">attachTimerInterrupt</a>. At least one of them <em>must</em> be configured for the system clock (<code>millis()</code>, <code>micros()</code>, <code>delay()</code> will not work otherwise).</li>
@@ -131,7 +142,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Mar 16 2015 23:31:25 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Mar 17 2015 08:26:26 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.9.1
 </small></address>
