@@ -47,6 +47,7 @@ I find that this process is made easier with spreadsheets, examples of which are
 | f37x (done manually) | - | - |
 | f40_41x | [f40_41x_PIN_MAP](https://docs.google.com/spreadsheet/pub?key=0Ai-vm-to9OcDdG1zMzR5WFhweGVwNlNnZmtQdlpsb2c&single=true&gid=5&output=html) | [f40_41x_TIMER_MAP](https://docs.google.com/spreadsheet/pub?key=0Ai-vm-to9OcDdG1zMzR5WFhweGVwNlNnZmtQdlpsb2c&single=true&gid=8&output=html) |
 | f411 (needs to be checked) | [f411_PIN_MAP](https://docs.google.com/spreadsheet/pub?key=0Ai-vm-to9OcDdG1zMzR5WFhweGVwNlNnZmtQdlpsb2c&single=true&gid=9&output=html) | [f411_TIMER_MAP](https://docs.google.com/spreadsheet/pub?key=0Ai-vm-to9OcDdG1zMzR5WFhweGVwNlNnZmtQdlpsb2c&single=true&gid=10&output=html) |
+| f10x (in progress) | [f10x_PIN_MAP](https://docs.google.com/spreadsheet/pub?key=0Ai-vm-to9OcDdG1zMzR5WFhweGVwNlNnZmtQdlpsb2c&single=true&gid=11&output=html) | [f10x_TIMER_MAP](https://docs.google.com/spreadsheet/pub?key=0Ai-vm-to9OcDdG1zMzR5WFhweGVwNlNnZmtQdlpsb2c&single=true&gid=12&output=html) |
 
 Follow these steps:
 
