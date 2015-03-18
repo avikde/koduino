@@ -7,9 +7,9 @@
 ////////////////////////////////////////////////////////////////////////////////////
 
 
-#if defined(STM32F37x)
+#if defined(SERIES_STM32F37x) || defined(SERIES_STM32F10x)
 uint8_t ADC_SAMPLE_TIME = ADC_SampleTime_13Cycles5;
-#elif defined(STM32F40_41xxx) || defined(STM32F411xE)
+#elif defined(SERIES_STM32F4xx)
 uint8_t ADC_SAMPLE_TIME = ADC_SampleTime_15Cycles;
 #endif
 
@@ -19,7 +19,7 @@ void analogReadSampleTime(uint8_t sampleTime) {
 }
 
 void adcCommonInit() {
-#if defined(STM32F40_41xxx) || defined(STM32F411xE)
+#if defined(SERIES_STM32F4xx)
   ADC_DeInit();
 
   ADC_CommonInitTypeDef ADC_CommonInitStructure;
@@ -34,14 +34,14 @@ void adcCommonInit() {
 void adcInit(ADC_TypeDef *ADCx) {
   ADC_InitTypeDef  ADC_InitStructure;
 
-#if defined(STM32F37x)
+#if defined(SERIES_STM32F37x)
   ADC_DeInit(ADCx);
 #endif
 
   ADC_InitStructure.ADC_ScanConvMode = DISABLE;
   ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;
   ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
-#if defined(STM32F37x)
+#if defined(SERIES_STM32F37x) || defined(SERIES_STM32F10x)
   ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
   ADC_InitStructure.ADC_NbrOfChannel = 1;
 #else
@@ -50,7 +50,7 @@ void adcInit(ADC_TypeDef *ADCx) {
   ADC_Init(ADCx, &ADC_InitStructure);
   ADC_Cmd(ADCx, ENABLE);
 
-#if defined(STM32F37x)
+#if defined(SERIES_STM32F37x) || defined(SERIES_STM32F10x)
   ADC_ResetCalibration(ADCx);
   while(ADC_GetResetCalibrationStatus(ADCx));
   ADC_StartCalibration(ADCx);
@@ -65,7 +65,12 @@ uint16_t analogRead(uint8_t pin) {
 
   ADC_RegularChannelConfig(ADC1, PIN_MAP[pin].adcChannel, 1, ADC_SAMPLE_TIME);
   // Start the conversion
+#if defined(SERIES_STM32F10x)
+  ADC_SoftwareStartConvCmd(ADC1, ENABLE);
+#else
   ADC_SoftwareStartConv(ADC1);
+#endif
+
   // Wait until conversion completion
   while(ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC) == RESET);
   // Get the conversion value
@@ -74,7 +79,7 @@ uint16_t analogRead(uint8_t pin) {
 
 
 
-#if defined(STM32F40_41xxx)
+#if defined(SERIES_STM32F4xx)
 #define MAX_ADCS 3
 uint16_t syncReadBuffer[MAX_ADCS];
 

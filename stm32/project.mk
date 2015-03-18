@@ -56,11 +56,19 @@ endif
 EXTRA_LIB_INCS = $(patsubst %,-I$(PREF)$(KODUINO_DIR)/libraries/%,$(LIBRARIES))
 
 # Compile and link flags
+BFLAGSMCU = -mfpu=fpv4-sp-d16 -mfloat-abi=hard -fsingle-precision-constant -ffast-math -D__FPU_PRESENT=1 -DARM_MATH_CM4 -mcpu=cortex-m4
+LDFLAGSMCU = -larm_cortexM4lf_math
+# No FPU for M3 or M0
+ifeq ($(SERIES), STM32F10x)
+	BFLAGSMCU = -mcpu=cortex-m3
+	LDFLAGSMCU = 
+endif
+
 BFLAGS = -O3 -Os -Wall -Werror-implicit-function-declaration -Wno-sign-compare -Wno-strict-aliasing -Wdouble-promotion -Wno-unused-local-typedefs \
--mcpu=cortex-m4 -mlittle-endian -mthumb \
--mfpu=fpv4-sp-d16 -mfloat-abi=hard -fsingle-precision-constant -ffast-math -D__FPU_PRESENT=1 -DARM_MATH_CM4 \
+-mlittle-endian -mthumb \
+$(BFLAGSMCU) \
 -fno-common -fno-exceptions -ffunction-sections -fdata-sections -nostartfiles \
--DHSE_VALUE=$(HSE_VALUE) -D$(MCU) -DUSE_STDPERIPH_DRIVER -DSERIES=$(SERIES)
+-DHSE_VALUE=$(HSE_VALUE) -D$(MCU) -DUSE_STDPERIPH_DRIVER -DSERIES_$(SERIES)
 
 INCFLAGS = -I$(CMSIS_DIR)/Device/ST/$(SERIES)/Include -I$(CMSIS_DIR)/Include -I$(STD_PERIPH_DIR)/inc -I$(VARIANT_DIR) -I$(CORE_DIR) $(EXTRA_LIB_INCS)
 
@@ -94,7 +102,7 @@ OBJS = $(C_OBJS) $(CXX_OBJS) $(S_OBJS)
 OBJS += $(patsubst %.c,$(BUILDDIR)/%.proj.o,$(notdir $(wildcard $(CURDIR)/*.c)))
 OBJS += $(patsubst %.cpp,$(BUILDDIR)/%.proj.o,$(notdir $(wildcard $(CURDIR)/*.cpp)))
 
-# $(info $(INCFLAGS))
+$(info $(VARIANT_DIR))
 
 all: flash
 
@@ -117,7 +125,7 @@ endif
 
 $(BUILDDIR)/$(PROJNAME).bin: $(OBJS)
 	@echo "[LD] $(@F)"
-	@$(LD) $(LDFLAGS) $(OBJS) $(KODUINO_DIR)/system/lib$(SERIES).a -o $(BUILDDIR)/$(PROJNAME).elf -larm_cortexM4lf_math
+	@$(LD) $(LDFLAGS) $(OBJS) $(KODUINO_DIR)/system/lib$(SERIES).a -o $(BUILDDIR)/$(PROJNAME).elf $(LDFLAGSMCU)
 	@arm-none-eabi-objcopy --output-target=binary $(BUILDDIR)/$(PROJNAME).elf $(BUILDDIR)/$(PROJNAME).bin
 	@$(SZ) $(BUILDDIR)/$(PROJNAME).elf | tail -n 1 | awk '{print "Flash:\t", $$1+$$2, "\t[",($$1+$$2)*100/(256*1024),"% ]", "\nRAM:\t", $$2+$$3, "\t[",($$2+$$3)*100/(32*1024),"% ]"}'
 

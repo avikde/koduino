@@ -23,16 +23,9 @@ SPIClass::SPIClass(SPI_TypeDef *SPIx) {
 	SPI_Clock_Divider_Set = false;
 	SPI_Enabled = false;
 
+#if defined(SERIES_STM32F37x)
 	// Initialize default pin config
 	if (SPIx == SPI1) {
-		// Old default
-		SCK = PA5;
-		afSCK = 5;
-		MISO = PB4;
-		afMISO = 5;
-		MOSI = PB5;
-		afMOSI = 5;
-
 		// Mainboard default (MPU6000 on that board)
 		SCK = PA12;
 		afSCK = 6;
@@ -53,6 +46,7 @@ SPIClass::SPIClass(SPI_TypeDef *SPIx) {
 	else if (SPIx == SPI3) {
 		// TODO
 	}
+#endif
 }
 
 

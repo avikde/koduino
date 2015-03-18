@@ -27,7 +27,7 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "misc.h"
+#include "stm32f10x_misc.h"
 
 /** @addtogroup STM32F10x_StdPeriph_Driver
   * @{
