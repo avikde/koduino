@@ -36,47 +36,47 @@ void TwoWire::stretchClock(bool stretch) {
 
 void TwoWire::begin(void) {
   if (I2Cx == I2C1) {
-#if defined(STM32F37x)
+#if defined(SERIES_STM32F37x)
     SYSCFG_I2CFastModePlusConfig(SYSCFG_I2CFastModePlus_I2C1, ENABLE);
     RCC_I2CCLKConfig(RCC_I2C1CLK_SYSCLK);
 #endif
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_I2C1, ENABLE);
 
     // setPins?
-    pinModeAlt(SDA1, GPIO_OType_OD, GPIO_PuPd_NOPULL, 4);
     pinModeAlt(SCL1, GPIO_OType_OD, GPIO_PuPd_NOPULL, 4);
+    pinModeAlt(SDA1, GPIO_OType_OD, GPIO_PuPd_NOPULL, 4);
   }
   else if (I2Cx == I2C2) {
-#if defined(STM32F37x)
+#if defined(SERIES_STM32F37x)
     // SYSCFG_I2CFastModePlusConfig(SYSCFG_I2CFastModePlus_I2C2, ENABLE);
     RCC_I2CCLKConfig(RCC_I2C2CLK_SYSCLK);
 #endif
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_I2C2, ENABLE);
 
     // setPins?
-    pinModeAlt(SDA2, GPIO_OType_OD, GPIO_PuPd_NOPULL, 4);
     pinModeAlt(SCL2, GPIO_OType_OD, GPIO_PuPd_NOPULL, 4);
+    pinModeAlt(SDA2, GPIO_OType_OD, GPIO_PuPd_NOPULL, 4);
   }
 
   I2C_InitTypeDef I2C_InitStructure;
 
-
+#if defined(SERIES_STM32F37x)
   I2C_DeInit(I2Cx);
+#endif
+
   I2C_InitStructure.I2C_Mode = I2C_Mode_I2C;
-  I2C_InitStructure.I2C_Ack = I2C_Ack_Enable;
   I2C_InitStructure.I2C_AcknowledgedAddress = I2C_AcknowledgedAddress_7bit;
+  I2C_InitStructure.I2C_Ack = I2C_Ack_Enable;
 
 #if defined(STM32F37x)
   I2C_InitStructure.I2C_AnalogFilter = I2C_AnalogFilter_Enable;
   I2C_InitStructure.I2C_DigitalFilter = 0x00;
-  I2C_InitStructure.I2C_Timing = clockSpeed; 
+  I2C_InitStructure.I2C_Timing = clockSpeed;
 #else
   I2C_InitStructure.I2C_DutyCycle = I2C_DutyCycle_2;// or I2C_DutyCycle_16_9
   I2C_InitStructure.I2C_ClockSpeed = clockSpeed;
-  I2C_InitStructure.I2C_OwnAddress1 = 0x00;
 #endif
 
-  // I2C_Cmd(I2Cx, DISABLE);
   I2C_Init(I2Cx, &I2C_InitStructure);
   I2C_Cmd(I2Cx, ENABLE);
 }
@@ -120,7 +120,7 @@ uint8_t TwoWire::endTransmission(bool stop) {
     if ((timeout--) == 0) return 4;
   }
 
-#if defined(STM32F37x)
+#if defined(SERIES_STM32F37x)
   I2C_TransferHandling(I2Cx, txAddress << 1, txBufferLength, (stop) ? I2C_AutoEnd_Mode : I2C_SoftEnd_Mode, I2C_Generate_Start_Write);
 
   for (int i=0; i<txBufferLength; ++i) {
@@ -170,15 +170,10 @@ uint8_t TwoWire::endTransmission(bool stop) {
     while (!I2C_CheckEvent(I2Cx, I2C_EVENT_MASTER_BYTE_TRANSMITTED))
       if ((timeout--) == 0) return 3;
   }
+
+  // Only generate stop if not restarting
   if (stop) {
     I2C_GenerateSTOP(I2Cx, ENABLE);
-
-    timeout = WIRE_TIMEOUT;
-    while(I2C_GetFlagStatus(I2Cx, I2C_FLAG_STOPF) == RESET) {
-      if ((timeout--) == 0) break;
-    }
-    //Clear the stop flag for the next potential transfer
-    I2C_ClearFlag(I2Cx, I2C_FLAG_STOPF);
   }
 
 #endif
@@ -194,7 +189,7 @@ uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, bool stop) {
 
   rxBufferIndex = rxBufferLength = 0;
 
-#if defined(STM32F37x)
+#if defined(SERIES_STM32F37x)
   //As per, start another transfer, we want to read DCnt
   //amount of bytes. Generate a start condition and
   //indicate that we want to read.
@@ -233,27 +228,23 @@ uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, bool stop) {
 
   timeout = WIRE_TIMEOUT;
   while (!I2C_CheckEvent(I2Cx, I2C_EVENT_MASTER_MODE_SELECT))
-    if ((timeout--) == 0) return 123;
+    if ((timeout--) == 0) return 0;
 
   I2C_Send7bitAddress(I2Cx, address<<1, I2C_Direction_Receiver);
 
   timeout = WIRE_TIMEOUT;
-  while (!I2C_CheckEvent(I2Cx, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED))
-    if ((timeout--) == 0) return 145;
+  while (!I2C_CheckEvent(I2Cx, I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED))
+    if ((timeout--) == 0) return 0;
 
   for (int i = 0; i<quantity; ++i) {
-    // Not sure about this: got from spark code
     if (i == quantity-1 && stop) {
+      // disabe acknowledge of received data
+      // nack also generates stop condition after last byte received
       I2C_AcknowledgeConfig(I2Cx, DISABLE);
       I2C_GenerateSTOP(I2Cx, ENABLE);
-      // timeout = WIRE_TIMEOUT;
-      // while(I2C_GetFlagStatus(I2Cx, I2C_FLAG_STOPF) == RESET) {
-      //   if ((timeout--) == 0) break;
-      // }
-      // //Clear the stop flag for the next potential transfer
-      // I2C_ClearFlag(I2Cx, I2C_FLAG_STOPF);
     }
 
+    // wait until one byte has been received
     timeout = WIRE_TIMEOUT;
     while (!I2C_CheckEvent(I2Cx, I2C_EVENT_MASTER_BYTE_RECEIVED)) {
       if ((timeout--) == 0) {

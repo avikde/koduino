@@ -102,7 +102,7 @@ OBJS = $(C_OBJS) $(CXX_OBJS) $(S_OBJS)
 OBJS += $(patsubst %.c,$(BUILDDIR)/%.proj.o,$(notdir $(wildcard $(CURDIR)/*.c)))
 OBJS += $(patsubst %.cpp,$(BUILDDIR)/%.proj.o,$(notdir $(wildcard $(CURDIR)/*.cpp)))
 
-$(info $(VARIANT_DIR))
+# $(info $(VARIANT_DIR))
 
 all: flash
 

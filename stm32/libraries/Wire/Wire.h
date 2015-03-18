@@ -15,7 +15,7 @@
  * STM32F373 takes a funny TIMINGR and manual analog and digital filter setting
  */
 enum WireClockSpeed {
-#if defined(STM32F37x)
+#if defined(SERIES_STM32F37x)
   // WIRE_STANDARD = 0x60C3283A, // 100KHz; works
   WIRE_100K = 0x80941F27, // 100KHz; works
   WIRE_200K = 0x80720713, // 200KHz; check?
