@@ -68,7 +68,7 @@ void TwoWire::begin(void) {
   I2C_InitStructure.I2C_AcknowledgedAddress = I2C_AcknowledgedAddress_7bit;
   I2C_InitStructure.I2C_Ack = I2C_Ack_Enable;
 
-#if defined(STM32F37x)
+#if defined(SERIES_STM32F37x)
   I2C_InitStructure.I2C_AnalogFilter = I2C_AnalogFilter_Enable;
   I2C_InitStructure.I2C_DigitalFilter = 0x00;
   I2C_InitStructure.I2C_Timing = clockSpeed;
