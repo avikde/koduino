@@ -82,6 +82,20 @@ static EXTIChannel extiChannels[] = {
 void attachInterrupt(uint8_t pinName, ISRType ISR, InterruptTrigger mode) {
   // Connect EXTIi to this pin
   const PinInfo *pinfo = &PIN_MAP[pinName];
+#if defined(SERIES_STM32F10x)
+  if (pinfo->port == GPIOA)
+    GPIO_EXTILineConfig(GPIO_PortSourceGPIOA, pinfo->pin);
+  else if (pinfo->port == GPIOB)
+    GPIO_EXTILineConfig(GPIO_PortSourceGPIOB, pinfo->pin);
+  else if (pinfo->port == GPIOC)
+    GPIO_EXTILineConfig(GPIO_PortSourceGPIOC, pinfo->pin);
+  else if (pinfo->port == GPIOD)
+    GPIO_EXTILineConfig(GPIO_PortSourceGPIOD, pinfo->pin);
+  else if (pinfo->port == GPIOE)
+    GPIO_EXTILineConfig(GPIO_PortSourceGPIOE, pinfo->pin);
+  else if (pinfo->port == GPIOF)
+    GPIO_EXTILineConfig(GPIO_PortSourceGPIOF, pinfo->pin);
+#else
   if (pinfo->port == GPIOA)
     SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOA, pinfo->pin);
   else if (pinfo->port == GPIOB)
@@ -94,6 +108,7 @@ void attachInterrupt(uint8_t pinName, ISRType ISR, InterruptTrigger mode) {
     SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOE, pinfo->pin);
   else if (pinfo->port == GPIOF)
     SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOF, pinfo->pin);
+#endif
 
   // Configure EXTIi line
   EXTI_InitTypeDef EXTI_InitStructure;
