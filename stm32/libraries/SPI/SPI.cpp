@@ -46,6 +46,29 @@ SPIClass::SPIClass(SPI_TypeDef *SPIx) {
 	else if (SPIx == SPI3) {
 		// TODO
 	}
+#elif defined(SERIES_STM32F4xx)
+	// Initialize default pin config
+	if (SPIx == SPI1) {
+		// Steensy default
+		SCK = PA5;
+		afSCK = 5;
+		MISO = PA6;
+		afMISO = 5;
+		MOSI = PA7;
+		afMOSI = 5;
+	}
+	else if (SPIx == SPI2) {
+		// FIXME: same as F3 for now
+		SCK = PA8;
+		afSCK = 5;
+		MISO = PB14;
+		afMISO = 5;
+		MOSI = PB15;
+		afMOSI = 5;
+	}
+	else if (SPIx == SPI3) {
+		// TODO
+	}
 #endif
 }
 
