@@ -17,7 +17,7 @@ void pinMode(uint8_t pin, WiringPinMode wiringMode) {
   if (wiringMode == PWM || wiringMode == PWM_IN) {
     // NEW: start the timer automatically
     pinTimerInit(pin);
-
+    
     // Set pin to AF
     uint8_t timer = PIN_MAP[pin].timer;
     uint8_t channel = PIN_MAP[pin].channel;

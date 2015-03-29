@@ -68,6 +68,7 @@ uint16_t analogRead(uint8_t pin);
  * @return An array of 3x 16-bit integers containing conversion values from pin1, pin2, pin3 respectively.
  */
 const uint16_t *analogSyncRead(uint8_t pin1, uint8_t pin2, uint8_t pin3);
+const uint16_t *analogSyncRead2(uint8_t pin1, uint8_t pin2);
 
 /** @} */ // end of Analog
 

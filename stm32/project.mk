@@ -3,20 +3,17 @@
 ifndef KODUINO_DIR
 $(error KODUINO_DIR is not defined!)
 endif
-ifndef HSE_VALUE
-$(error HSE_VALUE is not defined!)
-endif
 ifndef VARIANT
 $(error VARIANT is not defined!)
 endif
 
 # Options that are optional
-ifndef UPLOAD_BAUD
-UPLOAD_BAUD = 57600
-endif
-ifndef HSE_CLOCK
-HSE_CLOCK = 0
-endif
+UPLOAD_BAUD ?= 230400
+HSE_VALUE ?= 16000000UL
+HSE_CLOCK ?= 0
+UPLOAD_METHOD ?= SERIAL
+LIBRARIES ?=
+
 
 ######################################################################################
 
@@ -37,10 +34,15 @@ LD = $(ARCH)-g++
 AS = $(ARCH)-as
 AR = $(ARCH)-ar
 SZ = $(ARCH)-size
-BUILDDIR  = $(CURDIR)/build
+
+# Try to escape spaces
+null := 
+SPACE := $(null) $(null)
+CURDIR_NOSP  = $(subst $(SPACE),\ ,$(CURDIR))
+BUILDDIR  = $(CURDIR_NOSP)/build
 # Create obj directory
 $(shell   mkdir -p $(BUILDDIR))
-PROJNAME  = $(shell basename $(CURDIR))
+PROJNAME  = $(subst $(SPACE),_,$(shell basename $(CURDIR_NOSP)))
 
 # Compile options
 STD_PERIPH_MODULES = adc exti flash gpio i2c misc pwr rcc spi syscfg tim usart
@@ -99,10 +101,10 @@ STD_PERIPH_OBJS = $(patsubst %.c,$(BUILDDIR)/%.o,$(notdir $(STD_PERIPH_SRCS)))
 OBJS = $(C_OBJS) $(CXX_OBJS) $(S_OBJS)
 
 # Project files
-OBJS += $(patsubst %.c,$(BUILDDIR)/%.proj.o,$(notdir $(wildcard $(CURDIR)/*.c)))
-OBJS += $(patsubst %.cpp,$(BUILDDIR)/%.proj.o,$(notdir $(wildcard $(CURDIR)/*.cpp)))
+OBJS += $(patsubst %.c,$(BUILDDIR)/%.proj.o,$(notdir $(wildcard $(CURDIR_NOSP)/*.c)))
+OBJS += $(patsubst %.cpp,$(BUILDDIR)/%.proj.o,$(notdir $(wildcard $(CURDIR_NOSP)/*.cpp)))
 
-# $(info $(VARIANT_DIR))
+$(info $(PROJNAME))
 
 all: flash
 
@@ -146,43 +148,43 @@ clean:
 	$(shell rm -f $(OBJS) $(BUILDDIR)/main.elf $(BUILDDIR)/main.bin)
 
 # Project
-$(BUILDDIR)/%.proj.o: $(CURDIR)/%.c
+$(BUILDDIR)/%.proj.o: $(CURDIR_NOSP)/%.c
 	@echo "[CC] $(@F)"
-	@$(CC) $(CFLAGS) -c -o $(PREF)$@ $(PREF)$^
-$(BUILDDIR)/%.proj.o: $(CURDIR)/%.cpp
+	@$(CC) $(CFLAGS) -c -o "$(PREF)$@" "$(PREF)$^"
+$(BUILDDIR)/%.proj.o: $(CURDIR_NOSP)/%.cpp
 	@echo "[CXX] $(@F)"
-	@$(CXX) $(CXXFLAGS) -c -o $(PREF)$@ $(PREF)$^
+	@$(CXX) $(CXXFLAGS) -c -o "$(PREF)$@" "$(PREF)$^"
 
 # Libraries
 $(BUILDDIR)/%.o: $(KODUINO_DIR)/libraries/*/%.c
 	@echo "[CC] $(@F)"
-	@$(CC) $(CFLAGS) -c -o $(PREF)$@ $(PREF)$^
+	@$(CC) $(CFLAGS) -c -o "$(PREF)$@" "$(PREF)$^"
 $(BUILDDIR)/%.o: $(KODUINO_DIR)/libraries/*/%.cpp
 	@echo "[CXX] $(@F)"
-	@$(CXX) $(CXXFLAGS) -c -o $(PREF)$@ $(PREF)$^
+	@$(CXX) $(CXXFLAGS) -c -o "$(PREF)$@" "$(PREF)$^"
 
 # Std peripheral libs
 $(BUILDDIR)/%.o: $(STD_PERIPH_DIR)/src/%.c
 	@echo "[CC] $(^F)"
-	@$(CC) $(CFLAGS) -c -o $@ $^
+	@$(CC) $(CFLAGS) -c -o "$@" "$^"
 
 # Variant
 $(BUILDDIR)/%.o: $(VARIANT_DIR)/%.c
 	@echo "[CC] $(^F)"
-	@$(CC) $(CFLAGS) -c -o $@ $^
+	@$(CC) $(CFLAGS) -c -o "$@" "$^"
 $(BUILDDIR)/%.o: $(VARIANT_DIR)/%.cpp
 	@echo "[CXX] $(^F)"
-	@$(CXX) $(CXXFLAGS) -c -o $@ $^
+	@$(CXX) $(CXXFLAGS) -c -o "$@" "$^"
 $(BUILDDIR)/%.o: $(VARIANT_DIR)/%.S
 	@echo "[AS] $(@F)"
-	@$(CC) $(CFLAGS) -c -o $@ $^
+	@$(CC) $(CFLAGS) -c -o "$@" "$^"
 
 # Arduino core
 $(BUILDDIR)/%.o: $(CORE_DIR)/%.c
 	@echo "[CC] $(^F)"
-	@$(CC) $(CFLAGS) -c -o $@ $^
+	@$(CC) $(CFLAGS) -c -o "$@" "$^"
 $(BUILDDIR)/%.o: $(CORE_DIR)/%.cpp
 	@echo "[CXX] $(^F)"
-	@$(CXX) $(CXXFLAGS) -c -o $@ $^
+	@$(CXX) $(CXXFLAGS) -c -o "$@" "$^"
 
 

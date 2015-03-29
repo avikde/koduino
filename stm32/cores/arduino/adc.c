@@ -102,4 +102,20 @@ const uint16_t *analogSyncRead(uint8_t pin1, uint8_t pin2, uint8_t pin3) {
 
   return (const uint16_t *)&syncReadBuffer;
 }
+
+const uint16_t *analogSyncRea2(uint8_t pin1, uint8_t pin2) {
+  ADC_RegularChannelConfig(ADC1, PIN_MAP[pin1].adcChannel, 1, ADC_SAMPLE_TIME);
+  ADC_RegularChannelConfig(ADC2, PIN_MAP[pin2].adcChannel, 1, ADC_SAMPLE_TIME);
+
+  ADC_SoftwareStartConv(ADC1);
+  ADC_SoftwareStartConv(ADC2);
+
+  while(ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC) == RESET);
+  while(ADC_GetFlagStatus(ADC2, ADC_FLAG_EOC) == RESET);
+  // Get the conversion value
+  syncReadBuffer[0] = ADC_GetConversionValue(ADC1);
+  syncReadBuffer[1] = ADC_GetConversionValue(ADC2);
+
+  return (const uint16_t *)&syncReadBuffer;
+}
 #endif
