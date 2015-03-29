@@ -1,6 +1,6 @@
 import csv
 
-variant = 'f10x'
+variant = 'f40_41x'
 
 keyChipPin = 'Chip pin'
 keyIndex = 'kod#'

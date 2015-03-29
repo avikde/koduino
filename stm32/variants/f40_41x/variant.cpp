@@ -54,6 +54,8 @@ const uint8_t PC12 = 44;
 const uint8_t PC13 = 45;
 const uint8_t PC14 = 46;
 const uint8_t PC15 = 47;
+const uint8_t PD2 = 48;
+const uint8_t PH1 = 49;
 
 PinInfo PIN_MAP[] = {
   {GPIOC, 7, NOT_SET, 3, TIMER8, 2, NOT_SET, NOT_SET},
@@ -104,6 +106,8 @@ PinInfo PIN_MAP[] = {
   {GPIOC, 13, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET},
   {GPIOC, 14, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET},
   {GPIOC, 15, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET},
+  {GPIOD, 2, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET},
+  {GPIOH, 1, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET},
 };
 
 const uint8_t TIMER2 = 0;
