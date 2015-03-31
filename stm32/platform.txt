@@ -15,7 +15,7 @@ compiler.path={runtime.ide.path}/hardware/tools/gcc-arm-none-eabi-4.8.3-2014q1/b
 compiler.cmsis_dir={build.system.path}/CMSIS/
 compiler.stdperiph_dir={build.system.path}/{build.series}_StdPeriph_Driver/
 
-compiler.bflags=-O3 -Os -Wall -Werror-implicit-function-declaration -Wno-sign-compare -Wno-strict-aliasing -Wdouble-promotion -Wno-unused-local-typedefs -mcpu=cortex-m4 -mlittle-endian -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -fsingle-precision-constant -ffast-math -D__FPU_PRESENT=1 -DARM_MATH_CM4 -fno-common -fno-exceptions -ffunction-sections -fdata-sections -nostartfiles -DHSE_VALUE={build.hse_value} -D{build.mcu} -DUSE_STDPERIPH_DRIVER -DSERIES={build.series}
+compiler.bflags=-O3 -Os -Wall -Werror-implicit-function-declaration -Wno-sign-compare -Wno-strict-aliasing -Wdouble-promotion -Wno-unused-local-typedefs -mcpu=cortex-m4 -mlittle-endian -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -fsingle-precision-constant -ffast-math -D__FPU_PRESENT=1 -DARM_MATH_CM4 -fno-common -fno-exceptions -ffunction-sections -fdata-sections -nostartfiles -DHSE_VALUE={build.hse_value} -D{build.mcu} -DUSE_STDPERIPH_DRIVER -DSERIES_{build.series}
 
 compiler.incflags="-I{compiler.cmsis_dir}Device/ST/{build.series}/Include" "-I{compiler.cmsis_dir}Include" "-I{compiler.stdperiph_dir}inc"
 # -I$(VARIANT_DIR) -I$(CORE_DIR)
