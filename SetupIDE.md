@@ -3,7 +3,7 @@
 
 ### 1. Get the IDE
 
-* Get **1.6.1** version of the [Arduino IDE](http://arduino.cc/), and install it.
+* Get **1.6.1** version of the [Arduino IDE](http://arduino.cc/en/Main/Software) (you may have to click "Previous Releases"), and install it.
 
 ### 2. Get the code
 
