@@ -44,6 +44,9 @@ BUILDDIR  = $(CURDIR_NOSP)/build
 $(shell   mkdir -p $(BUILDDIR))
 PROJNAME  = $(subst $(SPACE),_,$(shell basename $(CURDIR_NOSP)))
 
+# Print some stuff
+$(info Compiling for $(VARIANT), MCU = $(MCU), project = $(PROJNAME), upload method is $(UPLOAD_METHOD))
+
 # Compile options
 STD_PERIPH_MODULES = adc exti flash gpio i2c misc pwr rcc spi syscfg tim usart
 
@@ -103,8 +106,6 @@ OBJS = $(C_OBJS) $(CXX_OBJS) $(S_OBJS)
 # Project files
 OBJS += $(patsubst %.c,$(BUILDDIR)/%.proj.o,$(notdir $(wildcard $(CURDIR_NOSP)/*.c)))
 OBJS += $(patsubst %.cpp,$(BUILDDIR)/%.proj.o,$(notdir $(wildcard $(CURDIR_NOSP)/*.cpp)))
-
-$(info $(PROJNAME))
 
 all: flash
 
