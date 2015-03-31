@@ -3,7 +3,7 @@
 
 ### 1. Get the IDE
 
-* Get [Arduino IDE](http://arduino.cc/en/main/software#toc3) **1.5.8 BETA** version, and install it.
+* Get **1.6.1** version of the [Arduino IDE](http://arduino.cc/), and install it.
 
 ### 2. Get the code
 
