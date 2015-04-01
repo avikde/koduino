@@ -34,6 +34,6 @@ void loop() {
 ~~~
 
 * Double-click the file to open it in the Arduino IDE.
-* Select `Tools -> Board -> f37xcc`.
+* Select `Tools -> Board -> f37x`.
 * Plug in the boad and select the (hopefully only) option in `Tools -> Port` (that isn't `Bluetooth-Modem` or `Bluetooth-Incoming-Port`). *On Mac OS, select the "/dev/tty." option*.
 * Hit `Cmd+u` (Mac) or `Ctrl+u` to compile and upload. *If it says "Failed to init" at the bottom, please try again.*
