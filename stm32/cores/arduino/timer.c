@@ -121,6 +121,8 @@ void timerCCxISR(TIM_TypeDef *TIMx, TimerChannelData *C, int current, uint32_t c
       C->pulseWidth = current + TIMx->ARR * newRollovers - C->risingEdge;
       // if (C->pulseWidth < 0) C->pulseWidth += 65535;
   
+      // HACK
+      
       // HACK: sometimes it is greater than the period
       if (C->pulseWidth > C->period)
         C->pulseWidth -= C->period;

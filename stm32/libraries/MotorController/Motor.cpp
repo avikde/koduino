@@ -140,5 +140,5 @@ float BlCon34::getRawPosition() {
 }
 
 void BlCon34::sendOpenLoop(float val) {
-  analogWriteFloat(outPin, (enableFlag) ? map(val, -1, 1, 0.2, 0.8) : 0);
+  analogWriteFloat(outPin, (enableFlag) ? map(val, -1, 1, 0.12, 0.88) : 0);
 }
