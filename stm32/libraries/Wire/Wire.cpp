@@ -48,7 +48,7 @@ void TwoWire::begin(void) {
   }
   else if (I2Cx == I2C2) {
 #if defined(SERIES_STM32F37x)
-    // SYSCFG_I2CFastModePlusConfig(SYSCFG_I2CFastModePlus_I2C2, ENABLE);
+    SYSCFG_I2CFastModePlusConfig(SYSCFG_I2CFastModePlus_I2C2, ENABLE);
     RCC_I2CCLKConfig(RCC_I2C2CLK_SYSCLK);
 #endif
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_I2C2, ENABLE);
@@ -354,4 +354,4 @@ void TwoWire::onRequest( void (*function)(void) ) {
 // Preinstantiate Objects //////////////////////////////////////////////////////
 
 TwoWire Wire(I2C1);
-// TwoWire Wire2(I2C2);
+TwoWire Wire2(I2C2);
