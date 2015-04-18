@@ -12,7 +12,7 @@ uint8_t ADC_SAMPLE_TIME = ADC_SampleTime_13Cycles5;
 #elif defined(SERIES_STM32F4xx)
 uint8_t ADC_SAMPLE_TIME = ADC_SampleTime_15Cycles;
 #endif
-
+#define ADC_TIMEOUT 50
 
 void analogReadSampleTime(uint8_t sampleTime) {
   ADC_SAMPLE_TIME = sampleTime;
@@ -104,15 +104,21 @@ const uint16_t *analogSyncRead(uint8_t pin1, uint8_t pin2, uint8_t pin3) {
 }
 
 const uint16_t *analogSyncRead2(uint8_t pin1, uint8_t pin2) {
+  static int timeout;
+
   ADC_RegularChannelConfig(ADC1, PIN_MAP[pin1].adcChannel, 1, ADC_SAMPLE_TIME);
   ADC_RegularChannelConfig(ADC2, PIN_MAP[pin2].adcChannel, 1, ADC_SAMPLE_TIME);
 
   ADC_SoftwareStartConv(ADC1);
   ADC_SoftwareStartConv(ADC2);
 
-  while(ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC) == RESET);
-  while(ADC_GetFlagStatus(ADC2, ADC_FLAG_EOC) == RESET);
-  // Get the conversion value
+  // Need a timeout
+  timeout = ADC_TIMEOUT;
+  while (ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC) == RESET && ADC_GetFlagStatus(ADC2, ADC_FLAG_EOC) == RESET)
+    // return previous values
+    if ((timeout--) == 0) return (const uint16_t *)&syncReadBuffer;
+
+  // Didn't time out; get the conversion value
   syncReadBuffer[0] = ADC_GetConversionValue(ADC1);
   syncReadBuffer[1] = ADC_GetConversionValue(ADC2);
 
