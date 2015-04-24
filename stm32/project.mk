@@ -12,6 +12,7 @@ UPLOAD_BAUD ?= 230400
 HSE_VALUE ?= 16000000UL
 HSE_CLOCK ?= 0
 UPLOAD_METHOD ?= SERIAL
+UPLOAD_PORT ?= 
 LIBRARIES ?=
 
 
@@ -112,7 +113,11 @@ all: flash
 # $(KODUINO_DIR)/system/stm32flash/stm32flash -i -rts,-dtr,dtr:rts,-dtr,dtr -w $< -R -b $(UPLOAD_BAUD) -n 1000
 flash: $(BUILDDIR)/$(PROJNAME).bin
 ifeq ($(UPLOAD_METHOD), SERIAL)
+ifeq ($(strip $(UPLOAD_PORT)),)
 	@python $(KODUINO_DIR)/system/stm32loader.py -b $(UPLOAD_BAUD) -E $(EEP_START) -L $(EEP_LEN) -ew $<
+else
+	@python $(KODUINO_DIR)/system/stm32loader.py -p $(UPLOAD_PORT) -b $(UPLOAD_BAUD) -E $(EEP_START) -L $(EEP_LEN) -ew $<
+endif
 else
 ifeq ($(UPLOAD_METHOD), NUCLEO)
 	@sudo python $(KODUINO_DIR)/system/mbedremounter.py

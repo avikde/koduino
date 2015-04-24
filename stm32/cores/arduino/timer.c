@@ -50,17 +50,19 @@ void timerInit(uint8_t timer, int freqHz) {
 
 void pinTimerInit(uint8_t pin) {
   uint8_t timer = PIN_MAP[pin].timer;
+
   nvicEnable(TIMER_MAP[timer].IRQn, 0);
   // Use the frequency set using analogWriteFrequency
   timerInitHelper(timer, 1, TIMER_PERIOD(TIMER_MAP[timer].freqHz));
   TIM_Cmd(TIMER_MAP[timer].TIMx, ENABLE);
-
+  
   // FIXME: Advanced timers need to be specified in variant.cpp
   // isAdvancedTimer() ir something
   // http://www.disca.upv.es/aperles/arm_cortex_m3/curset/STM32F4xx_DSP_StdPeriph_Lib_V1.0.1/html/group___t_i_m___group4.html
 #if defined(SERIES_STM32F4xx)
-  if (TIMER_MAP[timer].TIMx == TIM1)
+  if (TIMER_MAP[timer].TIMx == TIM1) {
     TIM_CtrlPWMOutputs(TIM1, ENABLE);
+  }
 #endif
 }
 
