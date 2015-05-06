@@ -50,6 +50,12 @@ float Motor::getPosition() {
     else if (curPos - prevPosition > PI)
       unwrapOffset -= TWO_PI;
   }
+  // This is meant to fix the jerboa tail startup problem. One of the motors needs
+  // this unwrapOffset value but doesn't get it because there is no previous position 
+  // on startup
+  if (isnan(prevPosition) && curPos < 0) {
+    unwrapOffset += TWO_PI;
+  }
   prevPosition = curPos;
   return (unwrapOffset + curPos) * direction / gearRatio - zero;
 }
