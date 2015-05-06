@@ -55,7 +55,7 @@ public:
 
   // This should be called at a more or less fixed rate (once per iteration)
   void update() {
-    float physicalPos[N], posCtrlVal[N], physicalVal[N];
+    float posCtrlVal[N], physicalVal[N];
 
     for (int i=0; i<N; ++i)
       physicalPos[i] = motors[i]->getPosition();
@@ -94,7 +94,7 @@ public:
 protected:
   MotorControlMode mode[N];
   // Command
-  float pos[N];
+  float physicalPos[N], pos[N];
   // PD controller
   PD pd[N];
   // Barrier
