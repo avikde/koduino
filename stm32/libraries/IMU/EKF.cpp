@@ -44,8 +44,10 @@ EKF::EKF() : dt(0.001) {
   w.setZero();
   dx.setZero();
 
-  wCov = 10 * mat3::Identity();
-  aCov = 0.01 * mat3::Identity();
+  // state noise
+  wCov = 1 * mat3::Identity();
+  // measurement noise
+  aCov = 1 * mat3::Identity();
   // estBias_ = false;
   // ignoreZ_ = false;
   // useMag_ = false;
@@ -154,6 +156,11 @@ const EulerState *EKF::getEuler() {
     euler.angles[0] = atan2f(R(2, 1), R(2, 2));
     euler.angles[2] = atan2f(R(1, 0), R(0, 0));
   }
+
+  // ang rates
+  euler.angRates[0] = w[0];
+  euler.angRates[1] = w[1];
+  euler.angRates[2] = w[2];
   
   return &euler;
 }
