@@ -51,10 +51,12 @@ $(info Compiling for $(VARIANT), MCU = $(MCU), project = $(PROJNAME), upload met
 # Compile options
 STD_PERIPH_MODULES = adc exti flash gpio i2c misc pwr rcc spi syscfg tim usart
 
-# Cygwin needs a prefix
+# Cygwin needs a prefix, also if not windows, get kernel name
+UNAME := 
 ifeq ($(OS),Windows_NT)
 	PREF := /cygwin64
 else
+	UNAME := $(shell uname)
 	PREF := 
 endif
 
@@ -114,7 +116,11 @@ all: flash
 flash: $(BUILDDIR)/$(PROJNAME).bin
 ifeq ($(UPLOAD_METHOD), SERIAL)
 ifeq ($(strip $(UPLOAD_PORT)),)
+ifeq ($(UNAME), Linux)
+	@python $(KODUINO_DIR)/system/stm32loader.py -p /dev/ttyUSB -b $(UPLOAD_BAUD) -E $(EEP_START) -L $(EEP_LEN) -ew $<
+else
 	@python $(KODUINO_DIR)/system/stm32loader.py -b $(UPLOAD_BAUD) -E $(EEP_START) -L $(EEP_LEN) -ew $<
+endif
 else
 	@python $(KODUINO_DIR)/system/stm32loader.py -p $(UPLOAD_PORT) -b $(UPLOAD_BAUD) -E $(EEP_START) -L $(EEP_LEN) -ew $<
 endif

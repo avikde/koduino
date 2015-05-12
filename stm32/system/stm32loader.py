@@ -476,7 +476,7 @@ if __name__ == "__main__":
       conf['eeplen'] = eval(a)
     else:
       assert False, "unhandled option"
-
+  
   # Try and find the port automatically
   if conf['port'] == 'auto':
     ports = []
@@ -489,6 +489,21 @@ if __name__ == "__main__":
 
     if ports:
       # Found something - take it
+      conf['port'] = ports[0]
+
+  # Find a port assuming a partial name was passed in, mostly this is to allow make to work
+  # on different opertaing systems without specifying an upload port
+  else: 
+    # Get a list of ports that start with the passed in argument
+    ports = glob.glob('%s*' % conf['port'])
+    ports = sorted(ports)
+
+    # If the argument is actually in the port list, use the argument, otherwise grab
+    # the highest sorted port. E.g. if the port list is ttyUSB0, ttyUSB1, ttyUSB10 and the 
+    # argument is ttyUSB1, then ports = ['ttyUSB1', 'ttyUSB10'] and ttyUSB1 will be used. 
+    # If ttyUSB is the argument, ports = ['ttyUSB0', ttyUSB1', 'ttyUSB10'] and 
+    # ttyUSB0 will be used
+    if conf['port'] not in ports:
       conf['port'] = ports[0]
 
   cmd = CommandInterface()
