@@ -7,62 +7,6 @@ import sys
 import os, fnmatch
 import argparse
 
-
-# class OpenLog(object):
-
-#   def __init__(self, filename, hasAlignmentWord = True):
-#     f = open(filename, 'rb')
-#     print('Opened'),
-#     print(filename)
-
-#     # First two lines are special
-#     self.keys = f.readline().rstrip('\n').split(',')
-#     fmt = f.readline().rstrip('\n')
-
-#     sz = struct.calcsize(fmt)
-#     ncols = len(fmt)
-
-#     print('Keys:'),
-#     print(self.keys)
-#     print('Format:'),
-#     print(fmt),
-#     print(', size:'),
-#     print(sz)
-
-#     for i in range(ncols):
-#       vars(self)[self.keys[i]] = zeros((0))
-
-#     # Now just data
-#     if not hasAlignmentWord:
-#       line = f.read(sz)
-#       while len(line) == sz:
-#         tup = struct.unpack(fmt, line)
-
-#         for i in range(ncols):
-#           vars(self)[self.keys[i]] = r_[vars(self)[self.keys[i]],tup[i]]
-#         line = f.read(sz)
-
-#     else:
-#       wholeFile = f.read()
-#       # split by alignment word
-#       chunks = wholeFile.split('\xaa\xbb')
-#       for chunk in chunks:
-#         if len(chunk) == sz:
-#           # good chunk
-#           tup = struct.unpack(fmt, chunk)
-#           for i in range(ncols):
-#             vars(self)[self.keys[i]] = r_[vars(self)[self.keys[i]],tup[i]]
-
-#     print('Read data of length'),
-#     print(getattr(self, self.keys[0]).shape[0])
-
-
-#   def trim(inds):
-#     for key in self.keys:
-#       getattr(self, key) = getattr(self, key)[inds]
-
-
-
 def findFileByTrialNum(pattern, pathRoot):
   pattern = '*' + str(pattern) + '.TXT'
   if pathRoot is None:
@@ -162,7 +106,7 @@ def drawRegions(tCol, stateCol = None):
     return
 
   regions = getRegions(tCol, stateCol)
-  cm = get_cmap('PuBu')
+  cm = get_cmap('brg')
 
   for r in regions:
     bb = interp(r[0], r_[min(stateCol), max(stateCol)], r_[0,1])
@@ -217,72 +161,7 @@ def plotTrial(filename, pathRoot = None, trialType = None, trimRange = None, vli
     nrows = 2 if (trialType == 'dwhop') else 9
 
   if (trialType == 'hop'):
-
-    # subplot(211)
-    # plot(data['t'],data['phi'])
-    # # plot(data['t'],data['phid'])
-    # plot(r_[min(data['t']),max(data['t'])],r_[0,0],'--')
-    # subplot(212)
-    # plot(data['t'],data['vl'])
-
-    # #CABIRENERGY
-    # q4d = data['q4d']
-    # # plot(data['t'],data['q4d'])
-    # # figure()
-    # # print(fabs(q4d))
-    # q4d[where(fabs(q4d)>15)[0]]=0
-    # # CABIR2
-    # bodyenergy = 2.1 * 9.81 * (data['ht'] - 9.5) * 0.01
-    # tailenergy = 0.5 * 0.15 * 0.3**2 * q4d * q4d
-    # subplot(211)
-    # plot(data['t'], bodyenergy)
-    # plot(data['t'], 0 * ones(size(data['t'])),'--')
-    # drawRegions(data['t'], data['st'])
-    # drawVLines(data['t'], vlineEvery)
-    # ylabel('body PE')
-    # subplot(212)
-    # plot(data['t'], tailenergy)
-    # # plot(data['t'], bodyenergy + tailenergy)
-    # plot(data['t'], 0 * ones(size(data['t'])),'--')
-    # drawRegions(data['t'], data['st'])
-    # drawVLines(data['t'], vlineEvery)
-    # xlabel('t')
-    # ylabel('tail KE')
-
-    # # CABIR1
-    # subplot(4,1,1)
-    # plot(data['t'], qa[0,:])
-    # plot(data['t'], qa[1,:])
-    # plot(data['t'], 0 * ones(size(data['t'])),'--')
-    # plot(data['t'], math.pi/2.0 * ones(size(data['t'])),'--')
-    # drawRegions(data['t'], data['st'])
-    # drawVLines(data['t'], vlineEvery)
-    # ylabel('q3, q4')
-    # subplot(4,1,2)
-    # #0.2 * data['q3'] - 0.02 * data['q4dot']
-    # plot(data['t'], data['az'])
-    # # plot(data['t'], corraz)
-    # plot(data['t'], 0 * ones(size(data['t'])),'--')
-    # plot(data['t'], -1 * ones(size(data['t'])),'--')
-    # drawRegions(data['t'], data['st'])
-    # drawVLines(data['t'], vlineEvery)
-    # ylabel('az')
-    # subplot(4,1,3)
-    # #0.2 * data['q3'] - 0.02 * data['q4dot']
-    # plot(data['t'], data['ht'])
-    # # plot(data['t'], corraz)
-    # plot(data['t'], 0 * ones(size(data['t'])),'--')
-    # plot(data['t'], 9.5 * ones(size(data['t'])),'--')
-    # drawRegions(data['t'], data['st'])
-    # drawVLines(data['t'], vlineEvery)
-    # ylabel('ht')
-    # subplot(4,1,4)
-    # plot(data['t'], clip(data['vt'],-1,1))
-    # plot(data['t'], 0 * ones(size(data['t'])),'k--')
-    # drawRegions(data['t'], data['st'])
-    # drawVLines(data['t'], vlineEvery)
-    # ylabel('vt')
-
+    
     ''' ORIGINAL HOPPING '''
     subplot(nrows,1,1)
     data['st'][where(data['st'] > 6)] = 0
@@ -629,15 +508,27 @@ def plotTrial(filename, pathRoot = None, trialType = None, trimRange = None, vli
     # tight_layout()
 
   else:
+    close('all')
     # Just plot all the data in rows
-    nrows = size(data.keys()) - 1
+    # nrows = size(data.keys()) - 1
+    nrows = 4
     currow = 1
+
     for key in data.keys():
-      if key != 't':
+      # For legibility open a new figure after 4
+      if currow > 4:
+        figure()
+        currow = 1
+      if key != 't' and key != 'st' and key != 'mo':
         subplot(nrows,1,currow)
-        plot(data['t'], data[key])
+        plot(0.001*data['t'], data[key])
+        if 'mo' in data.keys():
+          drawRegions(0.001*data['t'], data['mo'])
+        if 'st' in data.keys():
+          drawRegions(0.001*data['t'], data['st'])
         ylabel(key)
         currow = currow+1
+        tight_layout()
 
   return data
 
