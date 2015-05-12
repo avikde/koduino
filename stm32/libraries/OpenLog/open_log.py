@@ -77,6 +77,7 @@ def readLogFile(filename, hasAlignmentWord = True, quiet = False):
   if not quiet:
     print('Read data of length'),
     print(data[keys[0]].shape[0])
+    print 'Avg data rate = '+str(1000/float(mean(diff(data['t']))))+' Hz'
 
   return data
 
