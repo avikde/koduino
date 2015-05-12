@@ -37,13 +37,13 @@ void Motor::setBarrier(float ll, float ul) {
 float Motor::getPosition() {
   // FIXME: the "with gear ratio" could should work in general but there's a bug
   // without gear ratio:
-  if (abs(gearRatio-1) < 0.0001)
-    return fmodf_mpi_pi(getRawPosition() * direction - zero);
+  // if (abs(gearRatio-1) < 0.0001)
+  //   return fmodf_mpi_pi(getRawPosition() * direction - zero);
   
   // with gear ratio
   // need previous position
   static float curPos;
-  curPos = fmodf_mpi_pi(getRawPosition());
+  curPos = fmodf_mpi_pi(getRawPosition()-zero);
   if (!isnan(prevPosition)) {
     if (curPos - prevPosition < -PI)
       unwrapOffset += TWO_PI;
@@ -53,11 +53,12 @@ float Motor::getPosition() {
   // This is meant to fix the jerboa tail startup problem. One of the motors needs
   // this unwrapOffset value but doesn't get it because there is no previous position 
   // on startup
-  if (isnan(prevPosition) && curPos < 0) {
-    unwrapOffset += TWO_PI;
-  }
+  // if (isnan(prevPosition) && curPos < 0) {
+  //   unwrapOffset += TWO_PI;
+  // }
   prevPosition = curPos;
-  return (unwrapOffset + curPos) * direction / gearRatio - zero;
+  // return (unwrapOffset + curPos) * direction / gearRatio;
+  return fmodf_mpi_pi((unwrapOffset + curPos) * direction / gearRatio);
 }
 
 float Motor::getVelocity() {
