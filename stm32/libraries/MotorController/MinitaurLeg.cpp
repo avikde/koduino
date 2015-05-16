@@ -29,16 +29,16 @@ void meanDiffAngles(const float motPos[2], float *meanAng, float *diffAng) {
     *meanAng += PI;
 }
 
+float MinitaurLeg::FKext(float meanAng) {
+  // convert mean angle to r
+  float l1proj = l1*arm_sin_f32(meanAng);
+  return sqrtf(l2*l2 - l1proj*l1proj) - l1*arm_cos_f32(meanAng);
+}
+
 void MinitaurLeg::physicalToAbstract(const float joints[2], float toe[2]) {
   float meanAng = 0;
   meanDiffAngles(joints, &meanAng, &toe[ANGLE]);
-
-  if (useLengths) {
-    // convert mean angle to r
-    float l1proj = l1*arm_sin_f32(meanAng);
-    toe[EXTENSION] = sqrtf(l2*l2 - l1proj*l1proj) - l1*arm_cos_f32(meanAng);
-  } else
-    toe[EXTENSION] = meanAng;
+  toe[EXTENSION] = (useLengths) ? FKext(meanAng) : meanAng;
 }
 
 void MinitaurLeg::abstractToPhysical(const float toeForce[2], float jointTorque[2]) {
@@ -58,8 +58,22 @@ void MinitaurLeg::abstractToPhysical(const float toeForce[2], float jointTorque[
   jointTorque[1] = fmean - toeForce[ANGLE];
 }
 
-float MinitaurLeg::getSpeed() {
-  float rdot = getVelocity(EXTENSION), thetadot = getVelocity(ANGLE), r = getPosition(EXTENSION), theta = getPosition(ANGLE);
+float MinitaurLeg::getSpeed(float bodyPitch) {
+  float theta = getPosition(ANGLE) + bodyPitch, thetadot = getVelocity(ANGLE);
+  float r, rdot;
+  if (useLengths) {
+    r = getPosition(EXTENSION);
+    rdot = getVelocity(EXTENSION);
+  } else {
+    float meanAng = getPosition(EXTENSION), meanAngDot = getVelocity(EXTENSION);
+    // Copying FKext here to reuse some terms
+    float l1proj = l1*arm_sin_f32(meanAng);
+    float term1 = sqrtf(l2*l2 - l1proj*l1proj), term2 = l1*arm_cos_f32(meanAng);
+    r = term1 - term2;
+    // jacobian
+    float DFKext = l1proj * (1 - term2 / term1);
+    rdot = DFKext * meanAngDot;
+  }
 
   return rdot * arm_sin_f32(theta) + r * arm_cos_f32(theta) * thetadot;
 }
