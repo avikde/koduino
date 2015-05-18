@@ -24,7 +24,11 @@ public:
   void abstractToPhysical(const float toeForce[2], float jointTorque[2]);
 
   // Return forward speed
-  float getSpeed();
+  float getSpeed(float bodyPitch);
+
+protected:
+  // this does the full FK irrespective of if useLengths is false
+  float FKext(float meanAng);
 };
 
 #endif

@@ -22,11 +22,14 @@ MinitaurLeg::MinitaurLeg(Motor *M0, Motor *M1) {
 // returns meanAng in [0,PI], diffAng in [-PI/2, PI/2]
 void meanDiffAngles(const float motPos[2], float *meanAng, float *diffAng) {
   // a version of circleMeanDiff
-  float r = fmodf_mpi_pi(motPos[0] - motPos[1]);
+  // float r = fmodf_mpi_pi(motPos[0] - motPos[1]);
+  float r = motPos[0] - motPos[1];
   *diffAng = 0.5 * r;
   *meanAng = fmodf(motPos[1] + (*diffAng), PI);
-  if (*meanAng < 0.0)
+  if (*meanAng < 0.0) {
     *meanAng += PI;
+    *diffAng = fmodf_mpi_pi(*diffAng + PI);
+  }
 }
 
 float MinitaurLeg::FKext(float meanAng) {
