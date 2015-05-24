@@ -72,6 +72,8 @@ void analogWrite(uint8_t pin, uint32_t duty);
  */
 float pwmIn(uint8_t pin);
 
+void pwmInRaw(uint8_t name, int *period, int *pulseWidth);
+
 /** @} */ // end of addtogroup
 
 void timerInit(uint8_t timer, int freqHz);

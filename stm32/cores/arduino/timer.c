@@ -102,6 +102,14 @@ float pwmIn(uint8_t name) {
   // return C->period;
 }
 
+void pwmInRaw(uint8_t name, int *period, int *pulseWidth) {
+  uint8_t timer = PIN_MAP[name].timer;
+  TimerChannelData *C = &TIMER_MAP[ timer ].channelData[ PIN_MAP[name].channel-1];
+
+  *period = C->period;
+  *pulseWidth = C->pulseWidth;
+}
+
 // Main ISR =============================================
 
 // Helper for each channel
@@ -113,17 +121,17 @@ void timerCCxISR(TIM_TypeDef *TIMx, TimerChannelData *C, int current, uint32_t c
 
     if (digitalRead(C->pin)) {
       // This was a rising edge
-      C->period = current + TIMx->ARR * newRollovers - C->risingEdge;
-      // if (C->period < 0) C->period += 65535;
+      int newPeriod = current + TIMx->ARR * newRollovers - C->risingEdge;
+      // HACK: 
+      // symptom: sometimes the period is ~double what expected
+      // compare to previous period
+      if (!(abs(newPeriod - 2*C->period) < 1000))
+        C->period = newPeriod;
       C->risingEdge = current;
-
       C->lastRollover = currRollover;
     } else {
       // This was a falling edge
       C->pulseWidth = current + TIMx->ARR * newRollovers - C->risingEdge;
-      // if (C->pulseWidth < 0) C->pulseWidth += 65535;
-  
-      // HACK
       
       // HACK: sometimes it is greater than the period
       if (C->pulseWidth > C->period)
