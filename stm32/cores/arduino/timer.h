@@ -72,6 +72,12 @@ void analogWrite(uint8_t pin, uint32_t duty);
  */
 float pwmIn(uint8_t pin);
 
+// To try and reduce position reading bugs, fix pwmIn period
+// 36000 -> 1ms (1KHz PWM)
+// Set = 0 to autodetect period
+extern int PWM_IN_FIXED_PERIOD;
+
+// Helper functions
 void pwmInRaw(uint8_t name, int *period, int *pulseWidth);
 
 /** @} */ // end of addtogroup

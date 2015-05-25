@@ -18,6 +18,8 @@
 TIM_OCInitTypeDef  TIM_OCInitStructure;
 uint8_t _analogWriteResolution = 8;
 
+int PWM_IN_FIXED_PERIOD = 0;
+
 //------------------------------------------------------------------
 
 void timerInitHelper(uint8_t timer, uint16_t prescaler, uint32_t period) {
@@ -98,8 +100,10 @@ float pwmIn(uint8_t name) {
   if (TIMER_MAP[timer].numRollovers - C->lastRollover > 5)
     return 0;
 
-  return (C->period > 0 && C->period >= C->pulseWidth) ? C->pulseWidth/(float)C->period : 0;
-  // return C->period;
+  if (PWM_IN_FIXED_PERIOD == 0)
+    return (C->period > 0 && C->period >= C->pulseWidth) ? C->pulseWidth/(float)C->period : 0;
+  else
+    return C->pulseWidth/(float)PWM_IN_FIXED_PERIOD;
 }
 
 void pwmInRaw(uint8_t name, int *period, int *pulseWidth) {
@@ -120,24 +124,29 @@ void timerCCxISR(TIM_TypeDef *TIMx, TimerChannelData *C, int current, uint32_t c
     int newRollovers = currRollover - C->lastRollover;
 
     if (digitalRead(C->pin)) {
-      // This was a rising edge
-      int newPeriod = current + TIMx->ARR * newRollovers - C->risingEdge;
-      // HACK: 
-      // symptom: sometimes the period is ~double what expected
-      // compare to previous period
-      if (!(abs(newPeriod - 2*C->period) < 1000))
-        C->period = newPeriod;
+      if (PWM_IN_FIXED_PERIOD == 0) {
+        // This was a rising edge
+        int newPeriod = current + TIMx->ARR * newRollovers - C->risingEdge;
+        // HACK: 
+        // symptom: sometimes the period is ~double what expected
+        // compare to previous period
+        // if (!(abs(newPeriod - 2*C->period) < 1000))
+          C->period = newPeriod;
+      }
       C->risingEdge = current;
       C->lastRollover = currRollover;
     } else {
       // This was a falling edge
       C->pulseWidth = current + TIMx->ARR * newRollovers - C->risingEdge;
       
-      // HACK: sometimes it is greater than the period
-      if (C->pulseWidth > C->period)
-        C->pulseWidth -= C->period;
-      if (C->pulseWidth < 0)
-        C->pulseWidth += C->period;
+      if (PWM_IN_FIXED_PERIOD == 0) {
+        // HACK: sometimes it is greater than the period
+        if (C->pulseWidth > C->period)
+          C->pulseWidth -= C->period;
+        if (C->pulseWidth < 0)
+          C->pulseWidth += C->period;
+      } else 
+        C->pulseWidth = (C->pulseWidth % PWM_IN_FIXED_PERIOD);
     }
   }
 }
