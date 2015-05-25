@@ -271,9 +271,10 @@ void variantInit() {
 
   // ADC(s)
   RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1, ENABLE);
-  adcInit(ADC1);
   RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC2, ENABLE);
-  adcInit(ADC2);
   RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC3, ENABLE);
+  // adcCommonInit();
+  adcInit(ADC1);
+  adcInit(ADC2);
   adcInit(ADC3);
 }

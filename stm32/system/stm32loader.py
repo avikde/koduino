@@ -78,7 +78,7 @@ class CommandInterface(object):
       stopbits=1,
       xonxoff=0,              # enable software flow control
       rtscts=0,               # disable RTS/CTS flow control
-      timeout=0.5             # set a timeout value, None for waiting forever
+      timeout=0.25             # set a timeout value, None for waiting forever
     )
 
 
