@@ -110,7 +110,7 @@ void pwmInRaw(uint8_t name, int *period, int *pulseWidth) {
   uint8_t timer = PIN_MAP[name].timer;
   TimerChannelData *C = &TIMER_MAP[ timer ].channelData[ PIN_MAP[name].channel-1];
 
-  *period = C->period;
+  *period = (PWM_IN_FIXED_PERIOD > 0) ? PWM_IN_FIXED_PERIOD : C->period;
   *pulseWidth = C->pulseWidth;
 }
 
@@ -132,6 +132,8 @@ void timerCCxISR(TIM_TypeDef *TIMx, TimerChannelData *C, int current, uint32_t c
         // compare to previous period
         // if (!(abs(newPeriod - 2*C->period) < 1000))
           C->period = newPeriod;
+      } else {
+        C->period = PWM_IN_FIXED_PERIOD;
       }
       C->risingEdge = current;
       C->lastRollover = currRollover;
@@ -139,14 +141,14 @@ void timerCCxISR(TIM_TypeDef *TIMx, TimerChannelData *C, int current, uint32_t c
       // This was a falling edge
       C->pulseWidth = current + TIMx->ARR * newRollovers - C->risingEdge;
       
-      if (PWM_IN_FIXED_PERIOD == 0) {
-        // HACK: sometimes it is greater than the period
-        if (C->pulseWidth > C->period)
-          C->pulseWidth -= C->period;
-        if (C->pulseWidth < 0)
-          C->pulseWidth += C->period;
-      } else 
-        C->pulseWidth = (C->pulseWidth % PWM_IN_FIXED_PERIOD);
+      // HACK: sometimes it is greater than the period
+      if (C->pulseWidth > C->period)
+        C->pulseWidth -= C->period;
+      if (C->pulseWidth < 0)
+        C->pulseWidth += C->period;
+      // if (PWM_IN_FIXED_PERIOD == 0) {
+      // } else 
+      //   C->pulseWidth = (C->pulseWidth % PWM_IN_FIXED_PERIOD);
     }
   }
 }
