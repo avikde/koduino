@@ -80,9 +80,13 @@ public:
 
   // Static params - for every instance
   static int updateRate;
-  static float velSmooth;
+  static float velSmooth, rpsLimit;
 
   float gearRatio, unwrapOffset, prevPosition;
+
+  // used to ignore readings corresponding to physically impossible changes in motor position 
+  float posLimit;
+
 protected:
   MotorControlMode mode;
   // Properties

@@ -8,6 +8,7 @@
 // Static members - can be overridden
 int Motor::updateRate = 1000;
 float Motor::velSmooth = 0.8;
+float Motor::rpsLimit = 500; // speed limit in radians per second
 
 void Motor::init(float zero, int8_t direction, float gearRatio) {
   this->zero = zero;
@@ -19,6 +20,7 @@ void Motor::init(float zero, int8_t direction, float gearRatio) {
   this->gearRatio = gearRatio;
   this->unwrapOffset = 0;
   this->prevPosition = NAN;
+  this->posLimit = Motor::rpsLimit/float(Motor::updateRate);
 
   mode = OPEN_LOOP_MODE;
   val = correctedVal = setpoint = 0;
@@ -36,16 +38,31 @@ void Motor::setBarrier(float ll, float ul) {
 
 float Motor::getPosition() {
   // Returns the position AFTER the gearbox in the range (-pi, pi). Since there is no
-  // calibraton routine, the output must be within (-pi,pi)/gearRatio of the zero. 
+  // calibraton routine, the output must start within (-pi,pi)/gearRatio of the zero. 
   // E.g. with a 2:1 gear ratio, the output shaft must start in the range (-pi/2, pi/2) of
   // your desired output zero.
   static float curPos;
   curPos = fmodf_mpi_pi(getRawPosition()-zero*direction);
   if (!isnan(prevPosition)) {
-    if (curPos - prevPosition < -PI)
-      unwrapOffset += TWO_PI;
-    else if (curPos - prevPosition > PI)
-      unwrapOffset -= TWO_PI;
+    // if (curPos - prevPosition < -PI)
+    //   unwrapOffset += TWO_PI;
+    // else if (curPos - prevPosition > PI)
+    //   unwrapOffset -= TWO_PI;
+    
+    // Handle unwrapping around +/- PI
+    if (abs(curPos - prevPosition) > PI) {
+      unwrapOffset += TWO_PI*((curPos < prevPosition) - (curPos > prevPosition));
+
+      // If unwrapped values apart by too much, revert unwrapOffset and ignore curPos
+      if (TWO_PI - abs(curPos - prevPosition) > posLimit) {
+        unwrapOffset -= TWO_PI*((curPos < prevPosition) - (curPos > prevPosition));
+        curPos = prevPosition;
+      }
+    }
+    // Separate posLimit check needed if not near +/- PI
+    else if (abs(curPos - prevPosition) > posLimit)
+      curPos = prevPosition;
+    
   }
 
   prevPosition = curPos;
