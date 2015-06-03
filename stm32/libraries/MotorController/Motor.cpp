@@ -51,11 +51,11 @@ float Motor::getPosition() {
     
     // Handle unwrapping around +/- PI
     if (abs(curPos - prevPosition) > PI) {
-      unwrapOffset += TWO_PI*((curPos < prevPosition) - (curPos > prevPosition));
+      unwrapOffset += (curPos < prevPosition) - (curPos > prevPosition);
 
       // If unwrapped values apart by too much, revert unwrapOffset and ignore curPos
       if (TWO_PI - abs(curPos - prevPosition) > posLimit) {
-        unwrapOffset -= TWO_PI*((curPos < prevPosition) - (curPos > prevPosition));
+        unwrapOffset -= (curPos < prevPosition) - (curPos > prevPosition);
         curPos = prevPosition;
       }
     }
@@ -66,7 +66,7 @@ float Motor::getPosition() {
   }
 
   prevPosition = curPos;
-  return fmodf_mpi_pi((unwrapOffset + curPos) * direction / gearRatio);
+  return fmodf_mpi_pi((TWO_PI*unwrapOffset + curPos) * direction / gearRatio);
 }
 
 float Motor::getVelocity() {

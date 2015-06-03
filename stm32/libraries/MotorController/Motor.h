@@ -82,8 +82,9 @@ public:
   static int updateRate;
   static float velSmooth, rpsLimit;
 
-  float gearRatio, unwrapOffset, prevPosition;
-
+  float gearRatio, prevPosition;
+  int unwrapOffset;
+  
   // used to ignore readings corresponding to physically impossible changes in motor position 
   float posLimit;
 
