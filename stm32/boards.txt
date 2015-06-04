@@ -2,6 +2,8 @@
 menu.hse=HSE
 menu.bootloader=Bootloader
 
+###########################################################
+
 f37x.name=f37x
 f37x.build.mcu=STM32F37x
 f37x.build.series=STM32F37x
@@ -45,4 +47,27 @@ f37x.upload.maximum_size=262144
 
 # f37x.build.vid=0x2341
 # f37x.build.pid=0x003e
+
+
+###########################################################
+
+f40_41x.name=f40_41x
+f40_41x.build.mcu=STM32F40_41xxx
+f40_41x.build.series=STM32F4xx
+f40_41x.build.f_cpu=168000000L
+f40_41x.build.core=arduino
+f40_41x.build.extra_flags=
+f40_41x.build.ldscript=STM32F417IG_FLASH.ld
+f40_41x.build.variant=f40_41x
+
+# HSE choices
+f40_41x.build.hse_value=16000000UL
+f40_41x.build.hse_clock=0
+
+# Upload choices
+f40_41x.upload.tool=stm32ld
+f40_41x.upload.protocol=serial
+# f40_41x.upload.sequence=-rts,-dtr,dtr:rts,-dtr,dtr
+f40_41x.upload.baud=230400
+f40_41x.upload.maximum_size=262144
 
