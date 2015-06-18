@@ -466,7 +466,7 @@ if __name__ == "__main__":
     usage()
     sys.exit(2)
 
-  print(opts)
+  # print(opts)
 
   for o, a in opts:
     if o == '-V':
