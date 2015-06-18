@@ -8,7 +8,7 @@ $(error VARIANT is not defined!)
 endif
 
 # Options that are optional
-UPLOAD_BAUD ?= 230400
+UPLOAD_FLAGS ?= 
 HSE_VALUE ?= 16000000UL
 HSE_CLOCK ?= 0
 UPLOAD_METHOD ?= SERIAL
@@ -117,12 +117,12 @@ flash: $(BUILDDIR)/$(PROJNAME).bin
 ifeq ($(UPLOAD_METHOD), SERIAL)
 ifeq ($(strip $(UPLOAD_PORT)),)
 ifeq ($(UNAME), Linux)
-	@python $(KODUINO_DIR)/system/stm32loader.py -p /dev/ttyUSB -b $(UPLOAD_BAUD) -E $(EEP_START) -L $(EEP_LEN) -ew $<
+	@python $(KODUINO_DIR)/system/stm32loader.py -p /dev/ttyUSB -E $(EEP_START) -L $(EEP_LEN) $(UPLOAD_FLAGS) -ew $<
 else
-	@python $(KODUINO_DIR)/system/stm32loader.py -b $(UPLOAD_BAUD) -E $(EEP_START) -L $(EEP_LEN) -ew $<
+	python $(KODUINO_DIR)/system/stm32loader.py -E $(EEP_START) -L $(EEP_LEN) $(UPLOAD_FLAGS) -ew $<
 endif
 else
-	@python $(KODUINO_DIR)/system/stm32loader.py -p $(UPLOAD_PORT) -b $(UPLOAD_BAUD) -E $(EEP_START) -L $(EEP_LEN) -ew $<
+	@python $(KODUINO_DIR)/system/stm32loader.py -p $(UPLOAD_PORT) -E $(EEP_START) -L $(EEP_LEN) $(UPLOAD_FLAGS) -ew $<
 endif
 else
 ifeq ($(UPLOAD_METHOD), NUCLEO)
@@ -147,7 +147,7 @@ disassemble: $(BUILDDIR)/$(PROJNAME).bin
 	@$(OBJDMP) -x --syms $(PREF)$< > $(BUILDDIR)/$(PROJNAME).dmp
 	@$(OBJDMP) -dS $(PREF)$< > $(BUILDDIR)/$(PROJNAME).dis
 
-# $(info $(STD_PERIPH_OBJS))
+# $(info $(UPLOAD_FLAGS))
 
 # Make a static lib to use with the arduino IDE (don't make binary)
 # WARNING: the stmxxx_rcc.c file uses the HSE_VALUE for some functions, so those will be

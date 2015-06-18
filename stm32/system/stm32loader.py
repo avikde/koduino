@@ -112,11 +112,24 @@ class CommandInterface(object):
     self.sp.setDTR(False)
     time.sleep(0.1)
 
-  def initChip(self):
-    # Set boot
+  def pulseRTS(self, delay):
+    self.sp.setRTS(True)
+    time.sleep(delay)
     self.sp.setRTS(False)
     time.sleep(0.1)
-    self.reset()
+
+  def initChip(self, entry):
+    # print(entry)
+    if entry == 'dtr_rts':
+      # Set boot
+      self.sp.setRTS(False)
+      time.sleep(0.1)
+      self.reset()
+    elif entry == 'rts_trpl_inv':
+      # print('ENTRYYYYY')
+      self.pulseRTS(0.1)
+    # else:
+    #   print('BAD BAD')
 
     # Be a bit more persistent when trying to initialise the chip
     stop = time.time() + 5
@@ -124,8 +137,8 @@ class CommandInterface(object):
     # sys.stdout.write('Initing: ')
 
     while time.time() <= stop:
-      # Was uncommented for F3
-      self.reset()
+      if entry == 'dtr_rts':
+        self.reset()
 
       self.sp.flushInput()
       self.sp.write('\x7f')
@@ -141,10 +154,13 @@ class CommandInterface(object):
 
     raise CmdException('No response while trying to sync')
 
-  def releaseChip(self):
-    self.sp.setRTS(True)
-    time.sleep(0.1)
-    self.reset()
+  def releaseChip(self, entry):
+    if entry == 'dtr_rts':
+      self.sp.setRTS(True)
+      time.sleep(0.1)
+      self.reset()
+    elif entry == 'rts_trpl_inv':
+      self.pulseRTS(0.02)
 
   def cmdGeneric(self, cmd):
     self.sp.write(chr(cmd))
@@ -422,6 +438,9 @@ def read(filename):
 
 if __name__ == "__main__":
 
+  # added "entry" property: can be dtr_rts (connected to NRST, BOOT0)
+  #  or rts_trpl_inv (only RTS connected with triple inverter)
+
   conf = {
       'port': 'auto',
       'baud': 57600,
@@ -434,6 +453,7 @@ if __name__ == "__main__":
       'fname':'',
       'eepstart': 0x08010000,
       'eeplen': 0,
+      'entry': 'dtr_rts',
     }
 
 # http://www.python.org/doc/2.5.2/lib/module-getopt.html
@@ -445,6 +465,8 @@ if __name__ == "__main__":
     print(str(err)) # will print something like "option -a not recognized"
     usage()
     sys.exit(2)
+
+  print(opts)
 
   for o, a in opts:
     if o == '-V':
@@ -474,8 +496,11 @@ if __name__ == "__main__":
       conf['eepstart'] = eval(a)
     elif o == '-L':
       conf['eeplen'] = eval(a)
+    # elif o == '-y':
+    #   conf['entry'] = a
     else:
       assert False, "unhandled option"
+    conf['entry'] = 'rts_trpl_inv'
   
   # Try and find the port automatically
   if conf['port'] == 'auto':
@@ -513,7 +538,7 @@ if __name__ == "__main__":
   
   try:
     try:
-      cmd.initChip()
+      cmd.initChip(conf['entry'])
     except CmdException:
       print("Can't init. Ensure BOOT0=1, BOOT1=0, and reset device")
       raise
@@ -578,5 +603,5 @@ if __name__ == "__main__":
       file(args[0], 'wb').write(''.join(map(chr,rdata)))
 
   finally:
-    cmd.releaseChip()
+    cmd.releaseChip(conf['entry'])
 
