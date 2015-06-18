@@ -459,7 +459,7 @@ if __name__ == "__main__":
 # http://www.python.org/doc/2.5.2/lib/module-getopt.html
 
   try:
-    opts, args = getopt.getopt(sys.argv[1:], "hqVewvrp:b:a:l:E:L:")
+    opts, args = getopt.getopt(sys.argv[1:], "hqVewvrp:b:a:l:E:L:y:")
   except getopt.GetoptError as err:
     # print help information and exit:
     print(str(err)) # will print something like "option -a not recognized"
@@ -496,11 +496,10 @@ if __name__ == "__main__":
       conf['eepstart'] = eval(a)
     elif o == '-L':
       conf['eeplen'] = eval(a)
-    # elif o == '-y':
-    #   conf['entry'] = a
+    elif o == '-y':
+      conf['entry'] = a
     else:
       assert False, "unhandled option"
-    conf['entry'] = 'rts_trpl_inv'
   
   # Try and find the port automatically
   if conf['port'] == 'auto':
