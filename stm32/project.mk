@@ -8,7 +8,8 @@ $(error VARIANT is not defined!)
 endif
 
 # Options that are optional
-UPLOAD_FLAGS ?= 
+UPLOAD_BAUD ?= 230400
+UPLOAD_ENTRY ?= dtr_rts
 HSE_VALUE ?= 16000000UL
 HSE_CLOCK ?= 0
 UPLOAD_METHOD ?= SERIAL
@@ -117,12 +118,12 @@ flash: $(BUILDDIR)/$(PROJNAME).bin
 ifeq ($(UPLOAD_METHOD), SERIAL)
 ifeq ($(strip $(UPLOAD_PORT)),)
 ifeq ($(UNAME), Linux)
-	@python $(KODUINO_DIR)/system/stm32loader.py -p /dev/ttyUSB -E $(EEP_START) -L $(EEP_LEN) $(UPLOAD_FLAGS) -ew $<
+	@python $(KODUINO_DIR)/system/stm32loader.py -p /dev/ttyUSB -E $(EEP_START) -L $(EEP_LEN) -b $(UPLOAD_BAUD) -y $(UPLOAD_ENTRY) -ew $<
 else
-	python $(KODUINO_DIR)/system/stm32loader.py -E $(EEP_START) -L $(EEP_LEN) $(UPLOAD_FLAGS) -ew $<
+	@python $(KODUINO_DIR)/system/stm32loader.py -E $(EEP_START) -L $(EEP_LEN)  -b $(UPLOAD_BAUD) -y $(UPLOAD_ENTRY) -ew $<
 endif
 else
-	@python $(KODUINO_DIR)/system/stm32loader.py -p $(UPLOAD_PORT) -E $(EEP_START) -L $(EEP_LEN) $(UPLOAD_FLAGS) -ew $<
+	@python $(KODUINO_DIR)/system/stm32loader.py -p $(UPLOAD_PORT) -E $(EEP_START) -L $(EEP_LEN) -b $(UPLOAD_BAUD) -y $(UPLOAD_ENTRY) -ew $<
 endif
 else
 ifeq ($(UPLOAD_METHOD), NUCLEO)
