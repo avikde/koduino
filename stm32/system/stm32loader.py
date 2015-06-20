@@ -36,6 +36,7 @@ import tempfile
 import os
 import subprocess
 import sys
+import struct
 
 try:
   from progressbar import *
@@ -277,20 +278,36 @@ class CommandInterface(object):
       raise CmdException("Erase memory (0x43) failed")
 
 
-  # TODO support for non-global mass erase
+  # TODO support for non-global mass erase (partially implemented by Garrett)
   GLOBAL_ERASE_TIMEOUT_SECONDS = 20   # This takes a while
-  def cmdExtendedEraseMemory(self):
+  def cmdExtendedEraseMemory(self, sectors = None):
     if self.cmdGeneric(0x44):
       mdebug(10, "*** Extended erase memory command")
-      # Global mass erase
-      mdebug(5, "Global mass erase; this may take a while")
-      self.sp.write(chr(0xFF))
-      self.sp.write(chr(0xFF))
-      # Checksum
-      self.sp.write(chr(0x00))
-      self._wait_for_ack("0x44 extended erase failed",
-                 timeout=self.GLOBAL_ERASE_TIMEOUT_SECONDS)
-      mdebug(10, "    Extended erase memory done")
+      if sectors is None:
+        # Global mass erase
+        mdebug(5, "Global mass erase; this may take a while")
+        self.sp.write(chr(0xFF))
+        self.sp.write(chr(0xFF))
+        # Checksum
+        self.sp.write(chr(0x00))
+        self._wait_for_ack("0x44 global extended erase failed",
+                   timeout=self.GLOBAL_ERASE_TIMEOUT_SECONDS)
+        mdebug(10, "    Global extended erase memory done")
+      else:
+        # Erase sector numbers given as input
+        mdebug(5, "Erasing sectors %s" % (sectors,))
+        sectors = (len(sectors)-1,)+sectors
+        # Convert sector numbers to 2 byte, MSB first
+        sector_bytes = struct.pack('>%sH'%len(sectors), *sectors)
+        crc = 0x00
+        for i in range(len(sector_bytes)):
+          # Calculate checksum
+          crc = crc ^ ord(sector_bytes[i])
+          self.sp.write(sector_bytes[i])
+        self.sp.write(chr(crc))
+        self._wait_for_ack("0x44 sector erase failed", 
+                    timeout=self.GLOBAL_ERASE_TIMEOUT_SECONDS)
+        mdebug(10, "    Sector extended erase memory done")
     else:
       raise CmdException("Extended erase memory (0x44) failed")
 
@@ -454,12 +471,13 @@ if __name__ == "__main__":
       'eepstart': 0x08010000,
       'eeplen': 0,
       'entry': 'dtr_rts',
+      'sector_erase': 0,
     }
 
 # http://www.python.org/doc/2.5.2/lib/module-getopt.html
 
   try:
-    opts, args = getopt.getopt(sys.argv[1:], "hqVewvrp:b:a:l:E:L:y:")
+    opts, args = getopt.getopt(sys.argv[1:], "hqVewvrsp:b:a:l:E:L:y:")
   except getopt.GetoptError as err:
     # print help information and exit:
     print(str(err)) # will print something like "option -a not recognized"
@@ -478,6 +496,8 @@ if __name__ == "__main__":
       sys.exit(0)
     elif o == '-e':
       conf['erase'] = 1
+    elif o == '-s': # enables sector erase as opposed to mass erase
+      conf['sector_erase'] = 1 
     elif o == '-w':
       conf['write'] = 1
     elif o == '-v':
@@ -575,7 +595,16 @@ if __name__ == "__main__":
       if bootversion < 0x30:
         cmd.cmdEraseMemory()
       else:
-        cmd.cmdExtendedEraseMemory()
+        # Allow for quick erase instead of global mass erase (to save time)
+        if conf['sector_erase'] and chip_id_num == 0x0413:
+          # Currently hardcoded to only erase correct sectors for F405,
+          # will need further improvements to work for other chips
+          cmd.cmdExtendedEraseMemory(sectors = (0,1,2))
+        elif conf['sector_erase']:
+          mdebug(0, 'Warning: sector erase currently does nothing for this chip version, defaulting to global mass erase')
+          cmd.cmdExtendedEraseMemory()
+        else:
+          cmd.cmdExtendedEraseMemory()
 
     #cmd.cmdWriteUnprotect()
     
