@@ -477,7 +477,7 @@ if __name__ == "__main__":
 # http://www.python.org/doc/2.5.2/lib/module-getopt.html
 
   try:
-    opts, args = getopt.getopt(sys.argv[1:], "hqVewvrsp:b:a:l:E:L:y:")
+    opts, args = getopt.getopt(sys.argv[1:], "hqVewvrs:p:b:a:l:E:L:y:")
   except getopt.GetoptError as err:
     # print help information and exit:
     print(str(err)) # will print something like "option -a not recognized"
@@ -497,7 +497,7 @@ if __name__ == "__main__":
     elif o == '-e':
       conf['erase'] = 1
     elif o == '-s': # enables sector erase as opposed to mass erase
-      conf['sector_erase'] = 1 
+      conf['sector_erase'] = eval(a) 
     elif o == '-w':
       conf['write'] = 1
     elif o == '-v':

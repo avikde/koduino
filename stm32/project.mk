@@ -14,6 +14,7 @@ HSE_VALUE ?= 16000000UL
 HSE_CLOCK ?= 0
 UPLOAD_METHOD ?= SERIAL
 UPLOAD_PORT ?= 
+SECTOR_ERASE ?= 0
 LIBRARIES ?=
 
 
@@ -118,12 +119,12 @@ flash: $(BUILDDIR)/$(PROJNAME).bin
 ifeq ($(UPLOAD_METHOD), SERIAL)
 ifeq ($(strip $(UPLOAD_PORT)),)
 ifeq ($(UNAME), Linux)
-	@python $(KODUINO_DIR)/system/stm32loader.py -p /dev/ttyUSB -E $(EEP_START) -L $(EEP_LEN) -b $(UPLOAD_BAUD) -y $(UPLOAD_ENTRY) -ew $<
+	@python $(KODUINO_DIR)/system/stm32loader.py -p /dev/ttyUSB -E $(EEP_START) -L $(EEP_LEN) -b $(UPLOAD_BAUD) -y $(UPLOAD_ENTRY) -s $(SECTOR_ERASE) -ew $<
 else
-	@python $(KODUINO_DIR)/system/stm32loader.py -E $(EEP_START) -L $(EEP_LEN)  -b $(UPLOAD_BAUD) -y $(UPLOAD_ENTRY) -ew $<
+	@python $(KODUINO_DIR)/system/stm32loader.py -E $(EEP_START) -L $(EEP_LEN)  -b $(UPLOAD_BAUD) -y $(UPLOAD_ENTRY) -s $(SECTOR_ERASE) -ew $<
 endif
 else
-	@python $(KODUINO_DIR)/system/stm32loader.py -p $(UPLOAD_PORT) -E $(EEP_START) -L $(EEP_LEN) -b $(UPLOAD_BAUD) -y $(UPLOAD_ENTRY) -ew $<
+	@python $(KODUINO_DIR)/system/stm32loader.py -p $(UPLOAD_PORT) -E $(EEP_START) -L $(EEP_LEN) -b $(UPLOAD_BAUD) -y $(UPLOAD_ENTRY) -s $(SECTOR_ERASE) -ew $<
 endif
 else
 ifeq ($(UPLOAD_METHOD), NUCLEO)
