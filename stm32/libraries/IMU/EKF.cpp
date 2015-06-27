@@ -36,7 +36,7 @@ static inline mat3 crossSkew(const vec3 &w) {
   return W;
 }
 
-EKF::EKF() : dt(0.001) {
+EKF::EKF(float stateNoise, float measNoise) : dt(0.001) {
   gravity << 0, 0, kOneG;
 
   P.setZero();
@@ -45,9 +45,9 @@ EKF::EKF() : dt(0.001) {
   dx.setZero();
 
   // state noise
-  wCov = 1 * mat3::Identity();
+  wCov = stateNoise * mat3::Identity();
   // measurement noise
-  aCov = 1 * mat3::Identity();
+  aCov = measNoise * mat3::Identity();
   // estBias_ = false;
   // ignoreZ_ = false;
   // useMag_ = false;

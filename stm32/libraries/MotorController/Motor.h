@@ -15,6 +15,10 @@ enum MotorControlMode {
   OPEN_LOOP_MODE, POSITION_MODE
 };
 
+struct MotorConnector {
+  uint8_t outPin, inPin;
+  MotorConnector(uint8_t o, uint8_t i) : outPin(o), inPin(i) {}
+} __attribute__ ((packed));
 
 // cldoc:begin-category(MotorController)
 
@@ -120,6 +124,12 @@ public:
   void init(uint8_t outPin_, uint8_t inPin_, float zero, int8_t dir, float gearRatio);
   void init(uint8_t outPin_, uint8_t inPin_, float zero, int8_t dir) {
     init(outPin_, inPin_, zero, dir, 1.0);
+  }
+  void init(const MotorConnector& J, float zero, int8_t dir, float gearRatio) {
+    init(J.outPin, J.inPin, zero, dir, gearRatio);
+  }
+  void init(const MotorConnector& J, float zero, int8_t dir) {
+    init(J.outPin, J.inPin, zero, dir, 1.0);
   }
   // From base class
   void enable(bool flag);
