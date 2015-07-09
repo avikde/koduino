@@ -135,7 +135,8 @@ int USARTClass::read(void) {
 }
 
 bool USARTClass::writeComplete() {
-  return (_txBuf.head == _txBuf.tail);
+  // return (_txBuf.head == _txBuf.tail);
+  return (USART_GetITStatus(usartMap->USARTx, USART_IT_TXE) == RESET);
 }
 
 void USARTClass::flush() {
@@ -186,14 +187,13 @@ void USARTClass::detachInterrupt() {
 //  return USARTSerial_Enabled;
 // }
 
-// ============================================================================
+// ==========================================================
 // Custom USART interrupt handler
-// ============================================================================
+// ==========================================================
 
 extern "C"{
 
-// Shared Interrupt Handler for USART2/Serial1 and USART1/Serial2
-// WARNING: This function MUST remain reentrance compliant -- no local static variables etc.
+// interrupt handler
 void wirishUSARTInterruptHandler(USARTInfo *usartMap)
 {
   if(USART_GetITStatus(usartMap->USARTx, USART_IT_RXNE) != RESET) {
