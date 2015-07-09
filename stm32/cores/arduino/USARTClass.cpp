@@ -52,9 +52,16 @@ void USARTClass::init(uint32_t baud, uint32_t wordLength, uint32_t parity, uint3
 // Public Methods //////////////////////////////////////////////////////////////
 
 void USARTClass::begin(uint32_t baud, uint8_t config) {
-  // Always AF7 for USART
-  pinModeAlt(usartMap->txPin, GPIO_OType_PP, GPIO_PuPd_UP, 7);
-  pinModeAlt(usartMap->rxPin, GPIO_OType_PP, GPIO_PuPd_UP, 7);
+  // Need to check datasheet
+  uint8_t af = 7;
+#if defined(SERIES_STM32F4xx)
+  // FIXME: this will need to be expanded
+  if (usartMap->USARTx == USART6) {
+    af = 8;
+  }
+#endif
+  pinModeAlt(usartMap->txPin, GPIO_OType_PP, GPIO_PuPd_UP, af);
+  pinModeAlt(usartMap->rxPin, GPIO_OType_PP, GPIO_PuPd_UP, af);
 
   switch (config) {
     case SERIAL_8N1: init(baud, USART_WordLength_8b, USART_Parity_No, USART_StopBits_1);
