@@ -3,8 +3,7 @@
 
 
 void DxlNode::init() {
-  // Ser.begin(1000000);
-  Ser.begin(500000);
+  Ser.begin(2500000);
   pinMode(DE, OUTPUT);
   digitalWrite(DE, LOW);
 }
@@ -44,27 +43,53 @@ void DxlNode::sendStatus(uint8_t datalength, uint8_t error, uint8_t *data) {
   setRX();
 }
 
+bool DxlNode::checkPacket() {
+  // check checksum
+  uint8_t checksum = 0;
+  uint8_t len = buf[3];
+  // check inds
+  for (int i=2; i<len+3; ++i) {
+    checksum += buf[i];
+  }
+  checksum = ~checksum;
+  if (buf[len+3] != checksum)
+    return false;
+
+  // good packet received
+  if (isMaster) {
+    return true;
+    // if (buf == 0xbb) {
+    //   // sendInstruction(1, 0, 0, 0);
+    //   return true;
+    //   // Serial1 << "RECEIVED\n";
+    // }
+  } else {
+    // SLAVE 
+    if (buf[2] == myAddress) {
+      // need to respond
+      sendStatus(1, 0, 0);
+      return true;
+    }
+  }
+}
+
 // both master/slave
 bool DxlNode::listenForPacket() {
   // if last two bytes in buffer are 0xff, 0xff, clear the rx buffer
 
   // uint8_t checksum = 0;
 
-  // USARTxData * s = serialGetStruct(seriali);
-
-  if (Ser.available()) {
-    if (isMaster) {
-      if (Ser.read() == 0xbb) {
-        // sendInstruction(1, 0, 0, 0);
-        return true;
-        // Serial1 << "RECEIVED\n";
-      }
-    } else {
-      // not sure yet 
-      if (Ser.read() == 0xaa) {
-        sendStatus(1, 0, 0);
-        return true;
-        // Serial1 << "RECEIVED\n";
+  // the smallest packet size
+  if (Ser.available() >= 4) {
+    if (Ser.peekAt(0) == 0xff && Ser.peekAt(1) == 0xff) {
+      uint8_t len = Ser.peekAt(3);
+      if (Ser.available() >= len) {
+        // read this packet
+        for (int i=0; i<len; ++i) {
+          buf[i] = Ser.read();
+        }
+        // check this packet
+        return checkPacket();
       }
     }
   }

@@ -183,6 +183,12 @@ void USARTClass::detachInterrupt() {
   usartMap->rxCallback = NULL;
 }
 
+// CUSTOM FUNCTIONS
+
+uint8_t USARTClass::peekAt(uint8_t pos) {
+  return _rxBuf.buffer[(_rxBuf.tail + pos) % SERIAL_BUFFER_SIZE];
+}
+
 // bool USARTClass::isEnabled() {
 //  return USARTSerial_Enabled;
 // }
