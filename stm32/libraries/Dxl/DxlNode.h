@@ -14,8 +14,8 @@ public:
   uint8_t buf[32];
 
   // functions
-  DxlNode(uint8_t rts, USARTClass& ser, uint8_t myAddress) : DE(rts), myAddress(myAddress), Ser(ser), isMaster(false), mode(DXL_LISTENING) {}
-  DxlNode(uint8_t rts, USARTClass& ser) : DE(rts), myAddress(0), Ser(ser), isMaster(true), mode(DXL_LISTENING) {}
+  DxlNode(uint8_t rts, USARTClass& ser, uint8_t myAddress) : DE(rts), myAddress(myAddress), Ser(ser), isMaster(false) {}
+  DxlNode(uint8_t rts, USARTClass& ser) : DE(rts), myAddress(0), Ser(ser), isMaster(true) {}
 
 
   void init();
@@ -23,7 +23,8 @@ public:
   void sendStatus(uint8_t datalength, uint8_t error, uint8_t *data);
   // both master/slave
   bool listenForPacket();
-  
+  bool checkPacket();
+
 
 protected:
   void setTX();
