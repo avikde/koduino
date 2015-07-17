@@ -105,6 +105,7 @@ public:
 
   // peekAt(0) should return the same as peek()
   uint8_t peekAt(uint8_t pos);
+  void flushInput();
 
   // override a block write from Print
   // virtual size_t write(const uint8_t *buffer, size_t size);

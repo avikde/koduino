@@ -146,6 +146,10 @@ void USARTClass::flush() {
 	while (USART_GetFlagStatus(usartMap->USARTx, USART_FLAG_TC) == RESET);
 }
 
+void USARTClass::flushInput() {
+  _rxBuf.tail = _rxBuf.head;
+}
+
 size_t USARTClass::write(uint8_t c) {
   // HACK: to stop bootloading problems, don't output to Serial1 for the first second
   if (usartMap->USARTx == USART1 && millis() < 1000)

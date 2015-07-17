@@ -11,7 +11,7 @@ public:
   const bool isMaster;
   
   // incoming packet
-  uint8_t buf[32];
+  uint8_t packet[32];
 
   // functions
   DxlNode(uint8_t rts, USARTClass& ser, uint8_t myAddress) : DE(rts), myAddress(myAddress), Ser(ser), isMaster(false) {}
@@ -19,10 +19,12 @@ public:
 
 
   void init();
-  void sendInstruction(uint8_t id, uint8_t datalength, uint8_t instruction, uint8_t *data);
-  void sendStatus(uint8_t datalength, uint8_t error, uint8_t *data);
-  // both master/slave
-  bool listenForPacket();
+  // instErr can be instruction (instruction packet) or error code (status packet)
+  // params is of length N
+  void sendPacket(uint8_t id, uint8_t instErr, uint8_t N, uint8_t *params);
+
+  // Update function that should be called as often as possible
+  bool listen();
   bool checkPacket();
 
 

@@ -8,85 +8,55 @@ void DxlNode::init() {
   digitalWrite(DE, LOW);
 }
 
-void DxlNode::sendInstruction(uint8_t id, uint8_t datalength, uint8_t instruction, uint8_t *data) {
-  if (!isMaster) return;
+void DxlNode::sendPacket(uint8_t id, uint8_t instErr, uint8_t N, uint8_t *params) {
+  // if (!isMaster) return;
   uint8_t checksum = 0;
   setTX();
-  writeByte(0xaa);
-  // writeByte(0xFF);
-  // writeByte(0xFF);
-  // checksum += writeByte(id);
-  // checksum += writeByte(datalength + 2);
-  // checksum += writeByte(instruction);
-  // for (uint8_t i=0; i<datalength; ++i) {
-  //   checksum += writeByte(data[i]);
-  // }
-  // writeByte(~checksum);
-  setRX();
-}
-
-void DxlNode::sendStatus(uint8_t datalength, uint8_t error, uint8_t *data) {
-  if (isMaster) return;
-  uint8_t checksum = 0;
-  setTX();
-  // writeByte(0xFF);
-  // writeByte(0xFF);
-  // checksum += writeByte(myAddress);
-  // checksum += writeByte(datalength + 2);
-  // checksum += writeByte(error);
-  // for (uint8_t i=0; i<datalength; ++i) {
-  //   checksum += writeByte(data[i]);
-  // }
-  // writeByte(~checksum);
-  writeByte(0xbb);
-
+  // writeByte(0xaa);
+  writeByte(0xff);
+  writeByte(0xff);
+  checksum += writeByte(id);
+  checksum += writeByte(N + 2);
+  checksum += writeByte(instErr);
+  for (uint8_t i=0; i<N; ++i) {
+    checksum += writeByte(params[i]);
+  }
+  writeByte(~checksum);
   setRX();
 }
 
 bool DxlNode::checkPacket() {
   // check checksum
   uint8_t checksum = 0;
-  uint8_t len = buf[3];
-  // check inds
+  uint8_t len = packet[3];
   for (int i=2; i<len+3; ++i) {
-    checksum += buf[i];
+    checksum += packet[i];
   }
   checksum = ~checksum;
-  if (buf[len+3] != checksum)
+  if (packet[len+3] != checksum)
     return false;
 
   // good packet received
   if (isMaster) {
     return true;
-    // if (buf == 0xbb) {
-    //   // sendInstruction(1, 0, 0, 0);
-    //   return true;
-    //   // Serial1 << "RECEIVED\n";
-    // }
   } else {
-    // SLAVE 
-    if (buf[2] == myAddress) {
-      // need to respond
-      sendStatus(1, 0, 0);
-      return true;
-    }
+    // slave should only respond if addressed
+    return (packet[2] == myAddress);
   }
+
 }
 
 // both master/slave
-bool DxlNode::listenForPacket() {
-  // if last two bytes in buffer are 0xff, 0xff, clear the rx buffer
-
-  // uint8_t checksum = 0;
-
+bool DxlNode::listen() {
   // the smallest packet size
   if (Ser.available() >= 4) {
     if (Ser.peekAt(0) == 0xff && Ser.peekAt(1) == 0xff) {
-      uint8_t len = Ser.peekAt(3);
+      // packet[3] = N+2, whereas total bytes = N+6
+      uint8_t len = Ser.peekAt(3) + 4;
       if (Ser.available() >= len) {
         // read this packet
         for (int i=0; i<len; ++i) {
-          buf[i] = Ser.read();
+          packet[i] = Ser.read();
         }
         // check this packet
         return checkPacket();
