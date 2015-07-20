@@ -2,6 +2,7 @@
 #include "DxlNode.h"
 
 
+
 void DxlNode::init() {
   Ser.begin(2500000);
   pinMode(DE, OUTPUT);
@@ -50,6 +51,7 @@ bool DxlNode::checkPacket() {
 bool DxlNode::listen() {
   // the smallest packet size
   if (Ser.available() >= 4) {
+    // packet might be aligned with start of buffer
     if (Ser.peekAt(0) == 0xff && Ser.peekAt(1) == 0xff) {
       // packet[3] = N+2, whereas total bytes = N+6
       uint8_t len = Ser.peekAt(3) + 4;
@@ -61,6 +63,10 @@ bool DxlNode::listen() {
         // check this packet
         return checkPacket();
       }
+    } else {
+      // there are bytes in the buffer but not 0xffff
+      // get rid of the first byte and try again
+      Ser.read();
     }
   }
   return false;
