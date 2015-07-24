@@ -109,6 +109,8 @@ protected:
   Barrier barrier;
   //
   bool enableFlag;
+  //
+  float curPos;
 };
 
 // ===============================================================================
