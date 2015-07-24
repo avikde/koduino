@@ -37,43 +37,34 @@ void Motor::setBarrier(float ll, float ul) {
 }
 
 float Motor::getPosition() {
-  return fmodf_mpi_pi(getRawPosition()-zero*direction);
-  // NOTES TO GARRETT
-  // - need fabsf instead of abs
-  // - can't use static! static means that there is 1 copy of the variable for the whole program, including all motor class instances
-  // - what does "(curPos < prevPosition) - (curPos > prevPosition)" i.e. subtracting two booleans mean?
+  // Returns the position AFTER the gearbox in the range (-pi, pi). Since there is no
+  // calibraton routine, the output must start within (-pi,pi)/gearRatio of the zero. 
+  // E.g. with a 2:1 gear ratio, the output shaft must start in the range (-pi/2, pi/2) of
+  // your desired output zero.
+  curPos = fmodf_mpi_pi(getRawPosition()-zero*direction);
+  if (!isnan(prevPosition)) {
+    // if (curPos - prevPosition < -PI)
+    //   unwrapOffset += 1;
+    // else if (curPos - prevPosition > PI)
+    //   unwrapOffset -= 1;
+    // Handle unwrapping around +/- PI, does same thing as lines above, but without branching
+    if (fabsf(curPos - prevPosition) > PI) {
+      unwrapOffset += (curPos < prevPosition) - (curPos > prevPosition);
 
-
-  // // Returns the position AFTER the gearbox in the range (-pi, pi). Since there is no
-  // // calibraton routine, the output must start within (-pi,pi)/gearRatio of the zero. 
-  // // E.g. with a 2:1 gear ratio, the output shaft must start in the range (-pi/2, pi/2) of
-  // // your desired output zero.
-  // static float curPos;
-  // curPos = fmodf_mpi_pi(getRawPosition()-zero*direction);
-  // if (!isnan(prevPosition)) {
-  //   // if (curPos - prevPosition < -PI)
-  //   //   unwrapOffset += TWO_PI;
-  //   // else if (curPos - prevPosition > PI)
-  //   //   unwrapOffset -= TWO_PI;
+      // If unwrapped values apart by too much, revert unwrapOffset and ignore curPos
+      if (TWO_PI - fabsf(curPos - prevPosition) > posLimit) {
+        unwrapOffset -= (curPos < prevPosition) - (curPos > prevPosition);
+        curPos = prevPosition;
+      }
+    }
+    // Separate posLimit check needed if not near +/- PI
+    else if (fabsf(curPos - prevPosition) > posLimit)
+      curPos = prevPosition;
     
-  //   // Handle unwrapping around +/- PI
-  //   if (abs(curPos - prevPosition) > PI) {
-  //     unwrapOffset += (curPos < prevPosition) - (curPos > prevPosition);
+  }
 
-  //     // If unwrapped values apart by too much, revert unwrapOffset and ignore curPos
-  //     if (TWO_PI - fabsf(curPos - prevPosition) > posLimit) {
-  //       unwrapOffset -= (curPos < prevPosition) - (curPos > prevPosition);
-  //       curPos = prevPosition;
-  //     }
-  //   }
-  //   // Separate posLimit check needed if not near +/- PI
-  //   else if (fabsf(curPos - prevPosition) > posLimit)
-  //     curPos = prevPosition;
-    
-  // }
-
-  // prevPosition = curPos;
-  // return fmodf_mpi_pi((TWO_PI*unwrapOffset + curPos) * direction / gearRatio);
+  prevPosition = curPos;
+  return fmodf_mpi_pi((TWO_PI*unwrapOffset + curPos) * direction / gearRatio);
 }
 
 float Motor::getVelocity() {
