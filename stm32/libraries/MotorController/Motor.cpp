@@ -37,7 +37,7 @@ void Motor::setBarrier(float ll, float ul) {
 }
 
 float Motor::getPosition() {
-  return fmodf_mpi_pi(getRawPosition()-zero*direction);
+  return fmodf_mpi_pi(getRawPosition() * direction - zero);
   // Returns the position AFTER the gearbox in the range (-pi, pi). Since there is no
   // calibraton routine, the output must start within (-pi,pi)/gearRatio of the zero. 
   // E.g. with a 2:1 gear ratio, the output shaft must start in the range (-pi/2, pi/2) of
