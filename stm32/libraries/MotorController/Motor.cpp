@@ -37,12 +37,13 @@ void Motor::setBarrier(float ll, float ul) {
 }
 
 float Motor::getPosition() {
-  return fmodf_mpi_pi(getRawPosition() * direction - zero);
   // Returns the position AFTER the gearbox in the range (-pi, pi). Since there is no
-  // calibraton routine, the output must start within (-pi,pi)/gearRatio of the zero. 
+  // calibraton routine, the output must start within (-pi,pi)/gearRatio of the zero.
+  // Additionally, this won't work if the output shaft can complete a full revolution. 
   // E.g. with a 2:1 gear ratio, the output shaft must start in the range (-pi/2, pi/2) of
   // your desired output zero.
-  // curPos = fmodf_mpi_pi(getRawPosition()-zero*direction);
+  curPos = fmodf_mpi_pi(getRawPosition()-zero);
+  // curPos = getRawPosition()-zero*direction;
   if (!isnan(prevPosition)) {
     // if (curPos - prevPosition < -PI)
     //   unwrapOffset += 1;
@@ -53,14 +54,14 @@ float Motor::getPosition() {
       unwrapOffset += (curPos < prevPosition) - (curPos > prevPosition);
 
       // If unwrapped values apart by too much, revert unwrapOffset and ignore curPos
-      if (TWO_PI - fabsf(curPos - prevPosition) > posLimit) {
-        unwrapOffset -= (curPos < prevPosition) - (curPos > prevPosition);
-        curPos = prevPosition;
-      }
+      // if (TWO_PI - fabsf(curPos - prevPosition) > posLimit) {
+      //   unwrapOffset -= (curPos < prevPosition) - (curPos > prevPosition);
+      //   curPos = prevPosition;
+      // }
     }
     // Separate posLimit check needed if not near +/- PI
-    else if (fabsf(curPos - prevPosition) > posLimit)
-      curPos = prevPosition;
+    // else if (fabsf(curPos - prevPosition) > posLimit)
+    //   curPos = prevPosition;
     
   }
 
