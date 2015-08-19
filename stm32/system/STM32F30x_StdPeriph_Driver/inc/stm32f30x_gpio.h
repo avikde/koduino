@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32f30x_gpio.h
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    23-October-2012
+  * @version V1.2.2
+  * @date    27-February-2015
   * @brief   This file contains all the functions prototypes for the GPIO 
   *          firmware library. 
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT 2012 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT 2015 STMicroelectronics</center></h2>
   *
   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
   * You may not use this file except in compliance with the License.
@@ -52,11 +52,15 @@
                                     ((PERIPH) == GPIOC) || \
                                     ((PERIPH) == GPIOD) || \
                                     ((PERIPH) == GPIOE) || \
-                                    ((PERIPH) == GPIOF))  
+                                    ((PERIPH) == GPIOF) || \
+                                    ((PERIPH) == GPIOG) || \
+                                    ((PERIPH) == GPIOH))  
                                     
 #define IS_GPIO_LIST_PERIPH(PERIPH) (((PERIPH) == GPIOA) || \
                                      ((PERIPH) == GPIOB) || \
-                                     ((PERIPH) == GPIOD))  
+                                     ((PERIPH) == GPIOC)|| \
+                                     ((PERIPH) == GPIOD) || \
+                                     ((PERIPH) == GPIOF))  
 /** @defgroup Configuration_Mode_enumeration 
   * @{
   */ 
@@ -263,12 +267,12 @@ typedef struct
 /** 
   * @brief  AF 2 selection
   */ 
-#define GPIO_AF_2            ((uint8_t)0x02) /* COMP1_OUT, TIM1, TIM2, TIM3, TIM4, TIM8, TIM15 */
+#define GPIO_AF_2            ((uint8_t)0x02) /* COMP1_OUT, TIM1, TIM2, TIM3, TIM4, TIM8, TIM15, TIM16 */
 
 /** 
   * @brief  AF 3 selection
   */ 
-#define GPIO_AF_3            ((uint8_t)0x03) /* COMP7_OUT, TIM8, TIM15, Touch */
+#define GPIO_AF_3            ((uint8_t)0x03) /* COMP7_OUT, TIM8, TIM15, Touch, HRTIM1 */
 
 /** 
   * @brief  AF 4 selection
@@ -315,7 +319,12 @@ typedef struct
 /** 
    * @brief  AF 12 selection
    */ 
-#define GPIO_AF_12            ((uint8_t)0x0E) /* TIM1 */
+#define GPIO_AF_12            ((uint8_t)0x0C) /* TIM1, HRTIM1 */
+
+/** 
+   * @brief  AF 13 selection
+   */ 
+#define GPIO_AF_13            ((uint8_t)0x0D) /* HRTIM1, AOP2_OUT */
 
 /** 
   * @brief  AF 14 selection
@@ -333,6 +342,7 @@ typedef struct
                           ((AF) == GPIO_AF_6)||((AF) == GPIO_AF_7)||\
                           ((AF) == GPIO_AF_8)||((AF) == GPIO_AF_9)||\
                           ((AF) == GPIO_AF_10)||((AF) == GPIO_AF_11)||\
+                          ((AF) == GPIO_AF_12)||((AF) == GPIO_AF_13)||\
                           ((AF) == GPIO_AF_14)||((AF) == GPIO_AF_15))
 
 /**
