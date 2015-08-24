@@ -11,6 +11,8 @@
 uint8_t ADC_SAMPLE_TIME = ADC_SampleTime_13Cycles5;
 #elif defined(SERIES_STM32F4xx)
 uint8_t ADC_SAMPLE_TIME = ADC_SampleTime_15Cycles;
+#elif defined(SERIES_STM32F30x)
+uint8_t ADC_SAMPLE_TIME = ADC_SampleTime_19Cycles5;
 #endif
 #define ADC_TIMEOUT 50
 
@@ -38,10 +40,12 @@ void adcInit(ADC_TypeDef *ADCx) {
   ADC_DeInit(ADCx);
 #endif
 
+#if defined(SERIES_STM32F37x) || defined(SERIES_STM32F10x) || defined(SERIES_STM32F4xx)
   ADC_InitStructure.ADC_ScanConvMode = DISABLE;
+#endif
   ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;
   ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
-#if defined(SERIES_STM32F37x) || defined(SERIES_STM32F10x)
+#if defined(SERIES_STM32F37x) || defined(SERIES_STM32F10x) || defined(SERIES_STM32F30x)
   ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
   ADC_InitStructure.ADC_NbrOfChannel = 1;
 #else
