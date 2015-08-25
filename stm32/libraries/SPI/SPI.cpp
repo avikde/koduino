@@ -186,7 +186,7 @@ void SPIClass::setClockDivider(uint8_t rate)
 }
 
 // Helper functions
-#if defined(STM32F37x)
+#if defined(SERIES_STM32F37x) || defined(SERIES_STM32F30x)
 uint8_t spiRX(SPI_TypeDef *SPIx) {
 	return SPI_ReceiveData8(SPIx);
 }

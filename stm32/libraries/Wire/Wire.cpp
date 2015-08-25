@@ -15,6 +15,12 @@ uint8_t SCL1 = PB6;
 uint8_t SDA2 = PB11;
 uint8_t SCL2 = PB10;
 #define WIRE_TIMEOUT 1000
+#elif defined(STM32F302x8)
+uint8_t SDA1 = PA14;
+uint8_t SCL1 = PA15;
+uint8_t SDA2 = PF0;
+uint8_t SCL2 = PF1;
+#define WIRE_TIMEOUT 1000
 #endif
 
 // Constructors ////////////////////////////////////////////////////////////////
@@ -36,7 +42,7 @@ void TwoWire::stretchClock(bool stretch) {
 
 void TwoWire::begin(void) {
   if (I2Cx == I2C1) {
-#if defined(SERIES_STM32F37x)
+#if defined(SERIES_STM32F37x) || defined(SERIES_STM32F30x)
     SYSCFG_I2CFastModePlusConfig(SYSCFG_I2CFastModePlus_I2C1, ENABLE);
     RCC_I2CCLKConfig(RCC_I2C1CLK_SYSCLK);
 #endif
@@ -47,7 +53,7 @@ void TwoWire::begin(void) {
     pinModeAlt(SDA1, GPIO_OType_OD, GPIO_PuPd_NOPULL, 4);
   }
   else if (I2Cx == I2C2) {
-#if defined(SERIES_STM32F37x)
+#if defined(SERIES_STM32F37x) || defined(SERIES_STM32F30x)
     SYSCFG_I2CFastModePlusConfig(SYSCFG_I2CFastModePlus_I2C2, ENABLE);
     RCC_I2CCLKConfig(RCC_I2C2CLK_SYSCLK);
 #endif
@@ -60,7 +66,7 @@ void TwoWire::begin(void) {
 
   I2C_InitTypeDef I2C_InitStructure;
 
-#if defined(SERIES_STM32F37x)
+#if defined(SERIES_STM32F37x) || defined(SERIES_STM32F30x)
   I2C_DeInit(I2Cx);
 #endif
 
@@ -68,7 +74,7 @@ void TwoWire::begin(void) {
   I2C_InitStructure.I2C_AcknowledgedAddress = I2C_AcknowledgedAddress_7bit;
   I2C_InitStructure.I2C_Ack = I2C_Ack_Enable;
 
-#if defined(SERIES_STM32F37x)
+#if defined(SERIES_STM32F37x) || defined(SERIES_STM32F30x)
   I2C_InitStructure.I2C_AnalogFilter = I2C_AnalogFilter_Enable;
   I2C_InitStructure.I2C_DigitalFilter = 0x00;
   I2C_InitStructure.I2C_Timing = clockSpeed;
@@ -120,7 +126,7 @@ uint8_t TwoWire::endTransmission(bool stop) {
     if ((timeout--) == 0) return 4;
   }
 
-#if defined(SERIES_STM32F37x)
+#if defined(SERIES_STM32F37x) || defined(SERIES_STM32F30x)
   I2C_TransferHandling(I2Cx, txAddress << 1, txBufferLength, (stop) ? I2C_AutoEnd_Mode : I2C_SoftEnd_Mode, I2C_Generate_Start_Write);
 
   for (int i=0; i<txBufferLength; ++i) {
@@ -189,7 +195,7 @@ uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, bool stop) {
 
   rxBufferIndex = rxBufferLength = 0;
 
-#if defined(SERIES_STM32F37x)
+#if defined(SERIES_STM32F37x) || defined(SERIES_STM32F30x)
   //As per, start another transfer, we want to read DCnt
   //amount of bytes. Generate a start condition and
   //indicate that we want to read.

@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32f30x_gpio.h
   * @author  MCD Application Team
-  * @version V1.2.2
-  * @date    27-February-2015
+  * @version V1.1.1
+  * @date    04-April-2014
   * @brief   This file contains all the functions prototypes for the GPIO 
   *          firmware library. 
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
   *
   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
   * You may not use this file except in compliance with the License.
@@ -52,15 +52,11 @@
                                     ((PERIPH) == GPIOC) || \
                                     ((PERIPH) == GPIOD) || \
                                     ((PERIPH) == GPIOE) || \
-                                    ((PERIPH) == GPIOF) || \
-                                    ((PERIPH) == GPIOG) || \
-                                    ((PERIPH) == GPIOH))  
+                                    ((PERIPH) == GPIOF))  
                                     
 #define IS_GPIO_LIST_PERIPH(PERIPH) (((PERIPH) == GPIOA) || \
                                      ((PERIPH) == GPIOB) || \
-                                     ((PERIPH) == GPIOC)|| \
-                                     ((PERIPH) == GPIOD) || \
-                                     ((PERIPH) == GPIOF))  
+                                     ((PERIPH) == GPIOD))  
 /** @defgroup Configuration_Mode_enumeration 
   * @{
   */ 

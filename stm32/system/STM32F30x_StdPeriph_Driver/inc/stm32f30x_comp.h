@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32f30x_comp.h
   * @author  MCD Application Team
-  * @version V1.2.2
-  * @date    27-February-2015
+  * @version V1.1.1
+  * @date    04-April-2014
   * @brief   This file contains all the functions prototypes for the COMP firmware 
   *          library.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
   *
   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
   * You may not use this file except in compliance with the License.
@@ -123,8 +123,7 @@ typedef struct
                                                                             PC0 for COMP7) connected to comparator inverting input */
 
 #define COMP_InvertingInput_IO2                 COMP_CSR_COMPxINSEL    /*!< I/O2 (PB12 for COMP3, PB2 for COMP4, PB10 for COMP5,
-                                                                            PB15 for COMP6) connected to comparator inverting input. 
-																			It is valid only for STM32F303xC devices */
+                                                                            PB15 for COMP6) connected to comparator inverting input */
 
 #define COMP_InvertingInput_DAC2OUT1            COMP_CSR_COMPxINSEL_3  /*!< DAC2_OUT1 (PA6) connected to comparator inverting input */
 
@@ -162,71 +161,67 @@ typedef struct
   * @{
   */
 
-#define COMP_Output_None                            ((uint32_t)0x00000000)   /*!< COMP output isn't connected to other peripherals */
+#define COMP_Output_None                  ((uint32_t)0x00000000)   /*!< COMP output isn't connected to other peripherals */
 
 /* Output Redirection common for all comparators COMP1...COMP7 */
-#define COMP_Output_TIM1BKIN                        COMP_CSR_COMPxOUTSEL_0   /*!< COMP output connected to TIM1 Break Input (BKIN) */
-#define COMP_Output_TIM1BKIN2                       ((uint32_t)0x00000800)   /*!< COMP output connected to TIM1 Break Input 2 (BKIN2) */
-#define COMP_Output_TIM8BKIN                        ((uint32_t)0x00000C00)   /*!< COMP output connected to TIM8 Break Input (BKIN) */
-#define COMP_Output_TIM8BKIN2                       ((uint32_t)0x00001000)   /*!< COMP output connected to TIM8 Break Input 2 (BKIN2) */
-#define COMP_Output_TIM1BKIN2_TIM8BKIN2             ((uint32_t)0x00001400)   /*!< COMP output connected to TIM1 Break Input 2 and TIM8 Break Input 2 */
-#define COMP_Output_TIM20BKIN                       ((uint32_t)0x00003000)   /*!< COMP output connected to TIM20 Break Input (BKIN) */
-#define COMP_Output_TIM20BKIN2                      ((uint32_t)0x00003400)  /*!< COMP output connected to TIM20 Break Input 2 (BKIN2) */
-#define COMP_Output_TIM1BKIN2_TIM8BKIN2_TIM20BKIN2  ((uint32_t)0x00001400)   /*!< COMP output connected to TIM1 Break Input 2, TIM8 Break Input 2 and TIM20 Break Input2 */
+#define COMP_Output_TIM1BKIN              COMP_CSR_COMPxOUTSEL_0   /*!< COMP output connected to TIM1 Break Input (BKIN) */
+#define COMP_Output_TIM1BKIN2             ((uint32_t)0x00000800)   /*!< COMP output connected to TIM1 Break Input 2 (BKIN2) */
+#define COMP_Output_TIM8BKIN              ((uint32_t)0x00000C00)   /*!< COMP output connected to TIM8 Break Input (BKIN) */
+#define COMP_Output_TIM8BKIN2             ((uint32_t)0x00001000)   /*!< COMP output connected to TIM8 Break Input 2 (BKIN2) */
+#define COMP_Output_TIM1BKIN2_TIM8BKIN2   ((uint32_t)0x00001400)   /*!< COMP output connected to TIM1 Break Input 2 and TIM8 Break Input 2 */
 
 /* Output Redirection common for COMP1 and COMP2 */
-#define COMP_Output_TIM1OCREFCLR                    ((uint32_t)0x00001800)   /*!< COMP output connected to TIM1 OCREF Clear */
-#define COMP_Output_TIM1IC1                         ((uint32_t)0x00001C00)   /*!< COMP output connected to TIM1 Input Capture 1 */
-#define COMP_Output_TIM2IC4                         ((uint32_t)0x00002000)   /*!< COMP output connected to TIM2 Input Capture 4 */
-#define COMP_Output_TIM2OCREFCLR                    ((uint32_t)0x00002400)   /*!< COMP output connected to TIM2 OCREF Clear */
-#define COMP_Output_TIM3IC1                         ((uint32_t)0x00002800)   /*!< COMP output connected to TIM3 Input Capture 1 */
-#define COMP_Output_TIM3OCREFCLR                    ((uint32_t)0x00002C00)   /*!< COMP output connected to TIM3 OCREF Clear */
+#define COMP_Output_TIM1OCREFCLR          ((uint32_t)0x00001800)   /*!< COMP output connected to TIM1 OCREF Clear */
+#define COMP_Output_TIM1IC1               ((uint32_t)0x00001C00)   /*!< COMP output connected to TIM1 Input Capture 1 */
+#define COMP_Output_TIM2IC4               ((uint32_t)0x00002000)   /*!< COMP output connected to TIM2 Input Capture 4 */
+#define COMP_Output_TIM2OCREFCLR          ((uint32_t)0x00002400)   /*!< COMP output connected to TIM2 OCREF Clear */
+#define COMP_Output_TIM3IC1               ((uint32_t)0x00002800)   /*!< COMP output connected to TIM3 Input Capture 1 */
+#define COMP_Output_TIM3OCREFCLR          ((uint32_t)0x00002C00)   /*!< COMP output connected to TIM3 OCREF Clear */
 
 /* Output Redirection specific to COMP2 */
-#define COMP_Output_HRTIM1_FLT6                     ((uint32_t)0x00003000)   /*!< COMP output connected to HRTIM1 FLT6 */
-#define COMP_Output_HRTIM1_EE1_2                    ((uint32_t)0x00003400)   /*!< COMP output connected to HRTIM1 EE1_2*/
-#define COMP_Output_HRTIM1_EE6_2                    ((uint32_t)0x00003800)   /*!< COMP output connected to HRTIM1 EE6_2 */
-#define COMP_Output_TIM20OCREFCLR                   ((uint32_t)0x00003C00)   /*!< COMP output connected to TIM20 OCREF Clear */
+#define COMP_Output_HRTIM1_FLT6           ((uint32_t)0x00003000)   /*!< COMP output connected to HRTIM1 FLT6 */
+#define COMP_Output_HRTIM1_EE1_2          ((uint32_t)0x00003400)   /*!< COMP output connected to HRTIM1 EE1_2*/
+#define COMP_Output_HRTIM1_EE6_2          ((uint32_t)0x00003800)   /*!< COMP output connected to HRTIM1 EE6_2 */
 
 /* Output Redirection specific to COMP3 */
-#define COMP_Output_TIM4IC1                         ((uint32_t)0x00001C00)   /*!< COMP output connected to TIM4 Input Capture 1 */
-#define COMP_Output_TIM3IC2                         ((uint32_t)0x00002000)   /*!< COMP output connected to TIM3 Input Capture 2 */
-#define COMP_Output_TIM15IC1                        ((uint32_t)0x00002800)   /*!< COMP output connected to TIM15 Input Capture 1 */
-#define COMP_Output_TIM15BKIN                       ((uint32_t)0x00002C00)   /*!< COMP output connected to TIM15 Break Input (BKIN) */
+#define COMP_Output_TIM4IC1               ((uint32_t)0x00001C00)   /*!< COMP output connected to TIM4 Input Capture 1 */
+#define COMP_Output_TIM3IC2               ((uint32_t)0x00002000)   /*!< COMP output connected to TIM3 Input Capture 2 */
+#define COMP_Output_TIM15IC1              ((uint32_t)0x00002800)   /*!< COMP output connected to TIM15 Input Capture 1 */
+#define COMP_Output_TIM15BKIN             ((uint32_t)0x00002C00)   /*!< COMP output connected to TIM15 Break Input (BKIN) */
 
 /* Output Redirection specific to COMP4 */
-#define COMP_Output_TIM3IC3                         ((uint32_t)0x00001800)   /*!< COMP output connected to TIM3 Input Capture 3 */
-#define COMP_Output_TIM8OCREFCLR                    ((uint32_t)0x00001C00)   /*!< COMP output connected to TIM8 OCREF Clear */
-#define COMP_Output_TIM15IC2                        ((uint32_t)0x00002000)   /*!< COMP output connected to TIM15 Input Capture 2 */
-#define COMP_Output_TIM4IC2                         ((uint32_t)0x00002400)   /*!< COMP output connected to TIM4 Input Capture 2 */
-#define COMP_Output_TIM15OCREFCLR                   ((uint32_t)0x00002800)   /*!< COMP output connected to TIM15 OCREF Clear */
+#define COMP_Output_TIM3IC3               ((uint32_t)0x00001800)   /*!< COMP output connected to TIM3 Input Capture 3 */
+#define COMP_Output_TIM8OCREFCLR          ((uint32_t)0x00001C00)   /*!< COMP output connected to TIM8 OCREF Clear */
+#define COMP_Output_TIM15IC2              ((uint32_t)0x00002000)   /*!< COMP output connected to TIM15 Input Capture 2 */
+#define COMP_Output_TIM4IC2               ((uint32_t)0x00002400)   /*!< COMP output connected to TIM4 Input Capture 2 */
+#define COMP_Output_TIM15OCREFCLR         ((uint32_t)0x00002800)   /*!< COMP output connected to TIM15 OCREF Clear */
 
-#define COMP_Output_HRTIM1_FLT7                     ((uint32_t)0x00003000)   /*!< COMP output connected to HRTIM1 FLT7 */
-#define COMP_Output_HRTIM1_EE2_2                    ((uint32_t)0x00003400)   /*!< COMP output connected to HRTIM1 EE2_2*/
-#define COMP_Output_HRTIM1_EE7_2                    ((uint32_t)0x00003800)   /*!< COMP output connected to HRTIM1 EE7_2 */
+#define COMP_Output_HRTIM1_FLT7           ((uint32_t)0x00003000)   /*!< COMP output connected to HRTIM1 FLT7 */
+#define COMP_Output_HRTIM1_EE2_2          ((uint32_t)0x00003400)   /*!< COMP output connected to HRTIM1 EE2_2*/
+#define COMP_Output_HRTIM1_EE7_2          ((uint32_t)0x00003800)   /*!< COMP output connected to HRTIM1 EE7_2 */
 
 /* Output Redirection specific to COMP5 */
-#define COMP_Output_TIM2IC1                         ((uint32_t)0x00001800)   /*!< COMP output connected to TIM2 Input Capture 1 */
-#define COMP_Output_TIM17IC1                        ((uint32_t)0x00002000)   /*!< COMP output connected to TIM17 Input Capture 1 */
-#define COMP_Output_TIM4IC3                         ((uint32_t)0x00002400)   /*!< COMP output connected to TIM4 Input Capture 3 */
-#define COMP_Output_TIM16BKIN                       ((uint32_t)0x00002800)   /*!< COMP output connected to TIM16 Break Input (BKIN) */
+#define COMP_Output_TIM2IC1               ((uint32_t)0x00001800)   /*!< COMP output connected to TIM2 Input Capture 1 */
+#define COMP_Output_TIM17IC1              ((uint32_t)0x00002000)   /*!< COMP output connected to TIM17 Input Capture 1 */
+#define COMP_Output_TIM4IC3               ((uint32_t)0x00002400)   /*!< COMP output connected to TIM4 Input Capture 3 */
+#define COMP_Output_TIM16BKIN             ((uint32_t)0x00002800)   /*!< COMP output connected to TIM16 Break Input (BKIN) */
 
 /* Output Redirection specific to COMP6 */
-#define COMP_Output_TIM2IC2                         ((uint32_t)0x00001800)   /*!< COMP output connected to TIM2 Input Capture 2 */
-#define COMP_Output_COMP6TIM2OCREFCLR               ((uint32_t)0x00002000)   /*!< COMP output connected to TIM2 OCREF Clear */
-#define COMP_Output_TIM16OCREFCLR                   ((uint32_t)0x00002400)   /*!< COMP output connected to TIM16 OCREF Clear */
-#define COMP_Output_TIM16IC1                        ((uint32_t)0x00002800)   /*!< COMP output connected to TIM16 Input Capture 1 */
-#define COMP_Output_TIM4IC4                         ((uint32_t)0x00002C00)   /*!< COMP output connected to TIM4 Input Capture 4 */
+#define COMP_Output_TIM2IC2               ((uint32_t)0x00001800)   /*!< COMP output connected to TIM2 Input Capture 2 */
+#define COMP_Output_COMP6TIM2OCREFCLR     ((uint32_t)0x00002000)   /*!< COMP output connected to TIM2 OCREF Clear */
+#define COMP_Output_TIM16OCREFCLR         ((uint32_t)0x00002400)   /*!< COMP output connected to TIM16 OCREF Clear */
+#define COMP_Output_TIM16IC1              ((uint32_t)0x00002800)   /*!< COMP output connected to TIM16 Input Capture 1 */
+#define COMP_Output_TIM4IC4               ((uint32_t)0x00002C00)   /*!< COMP output connected to TIM4 Input Capture 4 */
 
-#define COMP_Output_HRTIM1_FLT8                     ((uint32_t)0x00003000)   /*!< COMP output connected to HRTIM1 FLT8 */
-#define COMP_Output_HRTIM1_EE3_2                    ((uint32_t)0x00003400)   /*!< COMP output connected to HRTIM1 EE3_2*/
-#define COMP_Output_HRTIM1_EE8_2                    ((uint32_t)0x00003800)   /*!< COMP output connected to HRTIM1 EE8_2 */
+#define COMP_Output_HRTIM1_FLT8           ((uint32_t)0x00003000)   /*!< COMP output connected to HRTIM1 FLT8 */
+#define COMP_Output_HRTIM1_EE3_2          ((uint32_t)0x00003400)   /*!< COMP output connected to HRTIM1 EE3_2*/
+#define COMP_Output_HRTIM1_EE8_2          ((uint32_t)0x00003800)   /*!< COMP output connected to HRTIM1 EE8_2 */
 
 /* Output Redirection specific to COMP7 */
-#define COMP_Output_TIM2IC3                         ((uint32_t)0x00002000)   /*!< COMP output connected to TIM2 Input Capture 3 */
-#define COMP_Output_TIM1IC2                         ((uint32_t)0x00002400)   /*!< COMP output connected to TIM1 Input Capture 2 */
-#define COMP_Output_TIM17OCREFCLR                   ((uint32_t)0x00002800)   /*!< COMP output connected to TIM16 OCREF Clear */
-#define COMP_Output_TIM17BKIN                       ((uint32_t)0x00002C00)   /*!< COMP output connected to TIM16 Break Input (BKIN) */
+#define COMP_Output_TIM2IC3               ((uint32_t)0x00002000)   /*!< COMP output connected to TIM2 Input Capture 3 */
+#define COMP_Output_TIM1IC2               ((uint32_t)0x00002400)   /*!< COMP output connected to TIM1 Input Capture 2 */
+#define COMP_Output_TIM17OCREFCLR         ((uint32_t)0x00002800)   /*!< COMP output connected to TIM16 OCREF Clear */
+#define COMP_Output_TIM17BKIN             ((uint32_t)0x00002C00)   /*!< COMP output connected to TIM16 Break Input (BKIN) */
 
 #define IS_COMP_OUTPUT(OUTPUT) (((OUTPUT) == COMP_Output_None)                || \
                                 ((OUTPUT) == COMP_Output_TIM1BKIN)            || \
@@ -270,11 +265,7 @@ typedef struct
                                 ((OUTPUT) == COMP_Output_HRTIM1_EE7_2)        || \
                                 ((OUTPUT) == COMP_Output_HRTIM1_FLT8)         || \
                                 ((OUTPUT) == COMP_Output_HRTIM1_EE3_2)        || \
-                                ((OUTPUT) == COMP_Output_HRTIM1_EE8_2)        || \
-                                ((OUTPUT) == COMP_Output_TIM20BKIN)           || \
-                                ((OUTPUT) == COMP_Output_TIM20BKIN2)         || \
-                                ((OUTPUT) == COMP_Output_TIM1BKIN2_TIM8BKIN2_TIM20BKIN2)|| \
-                                ((OUTPUT) == COMP_Output_TIM20OCREFCLR))
+                                ((OUTPUT) == COMP_Output_HRTIM1_EE8_2))
                                 
 /**
   * @}

@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f30x_adc.c
   * @author  MCD Application Team
-  * @version V1.2.2
-  * @date    27-February-2015
+  * @version V1.1.1
+  * @date    04-April-2014
   * @brief   This file provides firmware functions to manage the following 
   *          functionalities of the Analog to Digital Convertor (ADC) peripheral:
   *           + Initialization and Configuration
@@ -55,7 +55,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
   *
   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
   * You may not use this file except in compliance with the License.
@@ -552,7 +552,7 @@ void ADC_VoltageRegulatorCmd(ADC_TypeDef* ADCx, FunctionalState NewState)
 }
 
 /**
-  * @brief  Selects the differential mode for a specific channel
+  * @brief  Selectes the differential mode for a specific channel
   * @param  ADCx: where x can be 1, 2, 3 or 4 to select the ADC peripheral.
   * @param  ADC_Channel: the ADC channel to configure for the analog watchdog. 
   *   This parameter can be one of the following values:
@@ -1043,7 +1043,7 @@ void ADC_VbatCmd(ADC_TypeDef* ADCx, FunctionalState NewState)
    
   [..] To configure a regular sequence of channels use:
    (#) ADC_RegularChannelConfig()
-       this function allows:
+       this fuction allows:
        (++) Configure the rank in the regular group sequencer for each channel
        (++) Configure the sampling time for each channel
 
@@ -1058,7 +1058,7 @@ void ADC_VbatCmd(ADC_TypeDef* ADCx, FunctionalState NewState)
    (#) ADC_StopConversion()
     
    [..] 
-   (@)Please Note that the following features for regular channels are configured
+   (@)Please Note that the following features for regular channels are configurated
      using the ADC_Init() function : 
           (++) continuous mode activation
           (++) Resolution  
@@ -1070,7 +1070,7 @@ void ADC_VbatCmd(ADC_TypeDef* ADCx, FunctionalState NewState)
      regular channel. When the Conversion value is read, the EOC Flag is 
      automatically cleared.
 
-  [..] To configure the  discontinuous mode, the following functions should be used:
+  [..] To configure the  discontinous mode, the following functions should be used:
    (#) ADC_DiscModeChannelCountConfig() to configure the number of discontinuous channel to be converted.
    (#) ADC_DiscModeCmd() to enable the discontinuous mode.
 

@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f30x_usart.c
   * @author  MCD Application Team
-  * @version V1.2.2
-  * @date    27-February-2015
+  * @version V1.1.1
+  * @date    04-April-2014
   * @brief   This file provides firmware functions to manage the following
   *          functionalities of the Universal synchronous asynchronous receiver
   *          transmitter (USART):
@@ -60,7 +60,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
   *
   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
   * You may not use this file except in compliance with the License.
@@ -1036,7 +1036,7 @@ void USART_MuteModeWakeUpConfig(USART_TypeDef* USARTx, uint32_t USART_WakeUp)
 }
 
 /**
-  * @brief  Configure the USART Address detection length.
+  * @brief  Configure the the USART Address detection length.
   * @param  USARTx: Select the USART peripheral. This parameter can be one of the 
   *         following values: USART1 or USART2 or USART3 or UART4 or UART5.
   * @param  USART_AddressLength: specifies the USART address length detection.
@@ -1224,7 +1224,7 @@ void USART_HalfDuplexCmd(USART_TypeDef* USARTx, FunctionalState NewState)
          SCLK is not associated to the communication but is simply derived from 
          the internal peripheral input clock through a 5-bit prescaler.
     [..] Smartcard communication is possible through the following procedure:
-         (#) Configures the Smartcard Prescaler using the USART_SetPrescaler() 
+         (#) Configures the Smartcard Prsecaler using the USART_SetPrescaler() 
              function.
          (#) Configures the Smartcard Guard Time using the USART_SetGuardTime() 
              function.
@@ -1726,7 +1726,7 @@ void USART_DMAReceptionErrorConfig(USART_TypeDef* USARTx, uint32_t USART_DMAOnEr
              (##) USART_IT_CTS: specifies the interrupt source for CTS change interrupt.
              (##) USART_IT_LBD: specifies the interrupt source for LIN Break 
                   detection interrupt.
-             (##) USART_IT_TXE: specifies the interrupt source for Transmit Data 
+             (##) USART_IT_TXE: specifies the interrupt source for Tansmit Data 
                   Register empty interrupt.
              (##) USART_IT_TC: specifies the interrupt source for Transmission 
                   complete interrupt.
@@ -1760,7 +1760,7 @@ void USART_DMAReceptionErrorConfig(USART_TypeDef* USARTx, uint32_t USART_DMAOnEr
   *         @arg USART_IT_RTO:  Receive time out interrupt.
   *         @arg USART_IT_CTS:  CTS change interrupt.
   *         @arg USART_IT_LBD:  LIN Break detection interrupt.
-  *         @arg USART_IT_TXE:  Transmit Data Register empty interrupt.
+  *         @arg USART_IT_TXE:  Tansmit Data Register empty interrupt.
   *         @arg USART_IT_TC:  Transmission complete interrupt.
   *         @arg USART_IT_RXNE:  Receive Data register not empty interrupt.
   *         @arg USART_IT_IDLE:  Idle line detection interrupt.
@@ -1971,7 +1971,7 @@ void USART_ClearFlag(USART_TypeDef* USARTx, uint32_t USART_FLAG)
   *         @arg USART_IT_RTO:  Receive time out interrupt.
   *         @arg USART_IT_CTS:  CTS change interrupt.
   *         @arg USART_IT_LBD:  LIN Break detection interrupt.
-  *         @arg USART_IT_TXE:  Transmit Data Register empty interrupt.
+  *         @arg USART_IT_TXE:  Tansmit Data Register empty interrupt.
   *         @arg USART_IT_TC:  Transmission complete interrupt.
   *         @arg USART_IT_RXNE:  Receive Data register not empty interrupt.
   *         @arg USART_IT_IDLE:  Idle line detection interrupt.

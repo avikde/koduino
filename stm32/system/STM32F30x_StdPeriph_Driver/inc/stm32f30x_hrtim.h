@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32f30x_hrtim.h
   * @author  MCD Application Team
-  * @version V1.2.2
-  * @date    27-February-2015
+  * @version V1.1.1
+  * @date    04-April-2014
   * @brief   This file contains all the functions prototypes for the HRTIM firmware 
   *          library.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
   *
   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
   * You may not use this file except in compliance with the License.
@@ -425,16 +425,16 @@ typedef struct {
   * @{
   * @brief Constants defining timer output identifiers
   */  
-#define HRTIM_OUTPUT_TA1  (uint32_t)0x00000001  /*!< Timer A - Output 1 identifier */
-#define HRTIM_OUTPUT_TA2  (uint32_t)0x00000002  /*!< Timer A - Output 2 identifier */
-#define HRTIM_OUTPUT_TB1  (uint32_t)0x00000004  /*!< Timer B - Output 1 identifier */
-#define HRTIM_OUTPUT_TB2  (uint32_t)0x00000008  /*!< Timer B - Output 2 identifier */
-#define HRTIM_OUTPUT_TC1  (uint32_t)0x00000010  /*!< Timer C - Output 1 identifier */
-#define HRTIM_OUTPUT_TC2  (uint32_t)0x00000020  /*!< Timer C - Output 2 identifier */
-#define HRTIM_OUTPUT_TD1  (uint32_t)0x00000040  /*!< Timer D - Output 1 identifier */
-#define HRTIM_OUTPUT_TD2  (uint32_t)0x00000080  /*!< Timer D - Output 2 identifier */
-#define HRTIM_OUTPUT_TE1  (uint32_t)0x00000100  /*!< Timer E - Output 1 identifier */
-#define HRTIM_OUTPUT_TE2  (uint32_t)0x00000200  /*!< Timer E - Output 2 identifier */
+#define HRTIM_OUTPUT_TA1  (uint32_t)0x00000001  /*!< Timer A - Ouput 1 identifier */
+#define HRTIM_OUTPUT_TA2  (uint32_t)0x00000002  /*!< Timer A - Ouput 2 identifier */
+#define HRTIM_OUTPUT_TB1  (uint32_t)0x00000004  /*!< Timer B - Ouput 1 identifier */
+#define HRTIM_OUTPUT_TB2  (uint32_t)0x00000008  /*!< Timer B - Ouput 2 identifier */
+#define HRTIM_OUTPUT_TC1  (uint32_t)0x00000010  /*!< Timer C - Ouput 1 identifier */
+#define HRTIM_OUTPUT_TC2  (uint32_t)0x00000020  /*!< Timer C - Ouput 2 identifier */
+#define HRTIM_OUTPUT_TD1  (uint32_t)0x00000040  /*!< Timer D - Ouput 1 identifier */
+#define HRTIM_OUTPUT_TD2  (uint32_t)0x00000080  /*!< Timer D - Ouput 2 identifier */
+#define HRTIM_OUTPUT_TE1  (uint32_t)0x00000100  /*!< Timer E - Ouput 1 identifier */
+#define HRTIM_OUTPUT_TE2  (uint32_t)0x00000200  /*!< Timer E - Ouput 2 identifier */
       
 #define IS_HRTIM_OUTPUT(OUTPUT)\
     (((OUTPUT) == HRTIM_OUTPUT_TA1)   || \
@@ -605,7 +605,7 @@ typedef struct {
               
 /** @defgroup HRTIM_StartOnSyncInputEvent 
   * @{
-  * @brief Constants defining the timer behaviour following the synchronization event
+  * @brief Constants defining the timer behavior following the synchronization event
   */
 #define HRTIM_SYNCSTART_DISABLED ((uint32_t)0x00000000)  /*!< Synchronization input event has effect on the timer */
 #define HRTIM_SYNCSTART_ENABLED  (HRTIM_MCR_SYNCSTRTM)   /*!< Synchronization input event starts the timer */
@@ -619,7 +619,7 @@ typedef struct {
               
 /** @defgroup HRTIM_ResetOnSyncInputEvent 
   * @{
-  * @brief Constants defining the timer behaviour following the synchronization event
+  * @brief Constants defining the timer behavior following the synchronization event
   */  
 #define HRTIM_SYNCRESET_DISABLED ((uint32_t)0x00000000)  /*!< Synchronization input event has effect on the timer */
 #define HRTIM_SYNCRESET_ENABLED  (HRTIM_MCR_SYNCRSTM)    /*!< Synchronization input event resets the timer */
@@ -906,7 +906,7 @@ typedef struct {
   *        or in auto-delayed mode
   */
 #define HRTIM_AUTODELAYEDMODE_REGULAR                 ((uint32_t)0x00000000)                          /*!< standard compare mode */    
-#define HRTIM_AUTODELAYEDMODE_AUTODELAYED_NOTIMEOUT   (HRTIM_TIMCR_DELCMP2_0)                         /*!< Compare event generated only if a capture has occurred */    
+#define HRTIM_AUTODELAYEDMODE_AUTODELAYED_NOTIMEOUT   (HRTIM_TIMCR_DELCMP2_0)                         /*!< Compare event generated only if a capture has occured */    
 #define HRTIM_AUTODELAYEDMODE_AUTODELAYED_TIMEOUTCMP1 (HRTIM_TIMCR_DELCMP2_1)                         /*!< Compare event generated if a capture has occurred or after a Compare 1 match (timeout if capture event is missing) */    
 #define HRTIM_AUTODELAYEDMODE_AUTODELAYED_TIMEOUTCMP3 (HRTIM_TIMCR_DELCMP2_1 | HRTIM_TIMCR_DELCMP2_0) /*!< Compare event generated if a capture has occurred or after a Compare 3 match (timeout if capture event is missing) */    
          
@@ -941,7 +941,7 @@ typedef struct {
 
 /** @defgroup HRTIM_BasicOCMode
   * @{
-  * @brief Constants defining the behaviour of the output signal when the timer
+  * @brief Constants defining the behavior of the output signal when the timer
            operates in basic output compare mode
   */              
 #define HRTIM_BASICOCMODE_TOGGLE    ((uint32_t)0x00000001)  /*!< Output toggles when the timer counter reaches the compare value */
@@ -2445,7 +2445,7 @@ typedef struct {
   
 /** @brief  Enables or disables the timer counter(s)
   * @param  __HANDLE__: specifies the HRTIM Handle.
-  * @param  __TIMERS__: timers to enable/disable
+  * @param  __TIMERS__: timersto enable/disable
   *        This parameter can be any combinations of the following values:
   *            @arg HRTIM_TIMERID_MASTER: Master timer identifier
   *            @arg HRTIM_TIMERID_TIMER_A: Timer A identifier
@@ -2602,6 +2602,11 @@ void HRTIM_WaveformCaptureConfig(HRTIM_TypeDef *HRTIMx,
                                                   uint32_t CaptureUnit,
                                                   HRTIM_CaptureCfgTypeDef* pCaptureCfg);
 
+void HRTIM_WaveformOuputConfig(HRTIM_TypeDef *HRTIMx,
+                                                uint32_t TimerIdx,
+                                                uint32_t Output,
+                                               HRTIM_OutputCfgTypeDef * pOutputCfg);
+
 void HRTIM_TimerEventFilteringConfig(HRTIM_TypeDef *HRTIMx,
                                                       uint32_t TimerIdx,
                                                       uint32_t Event,
@@ -2651,9 +2656,9 @@ void HRTIM_WaveformCounterStop(HRTIM_TypeDef *HRTIMx,
                                                  uint32_t TimersToStop);
 
 void HRTIM_WaveformOutputStart(HRTIM_TypeDef *HRTIMx,
-                                                uint32_t OutputsToStart);
+                                                uint32_t OuputsToStart);
 void HRTIM_WaveformOutputStop(HRTIM_TypeDef * HRTIM_,
-                                               uint32_t OutputsToStop);
+                                               uint32_t OuputsToStop);
 
 void HRTIM_DLLCalibrationStart(HRTIM_TypeDef *HRTIMx,
                                                 uint32_t CalibrationRate);

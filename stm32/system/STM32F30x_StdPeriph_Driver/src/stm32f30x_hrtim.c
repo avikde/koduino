@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f30x_hrtim.c
   * @author  MCD Application Team
-  * @version V1.2.2
-  * @date    27-February-2015
+  * @version V1.1.1
+  * @date    04-April-2014
   * @brief   HRTIMx module driver.
   *    
   *          This file provides firmware functions to manage the following 
@@ -55,25 +55,25 @@
        (#) HRTIM simple Output Compare management: this group includes all needed 
            functions to configure the Compare unit used in Output compare mode: 
                  (++) Initializes the HRTIMx timer time base unit 
-                 (++) Configure the compare unit in simple Output Compare mode
+                 (++) Configure the compare unit in in simple Output Compare mode
                  (++) Start/Stop the Output compare generation    
                     
        (#) HRTIM simple PWM management: this group includes all needed 
            functions to configure the Compare unit used in PWM mode: 
                  (++) Initializes the HRTIMx timer time base unit 
-                 (++) Configure the compare unit in simple PWM mode
+                 (++) Configure the compare unit in in simple PWM mode
                  (++) Start/Stop the PWM generation      
                      
        (#) HRTIM simple Capture management: this group includes all needed 
            functions to configure the Capture unit used in Capture mode: 
                  (++) Initializes the HRTIMx timer time base unit 
-                 (++) Configure the compare unit in simple Capture mode
+                 (++) Configure the compare unit in in simple Capture mode
                  (++) Start/Stop the Capture mode
 
        (#) HRTIM simple One Pulse management: this group includes all needed 
            functions to configure the Capture unit and Compare unit used in One Pulse mode: 
                  (++) Initializes the HRTIMx timer time base unit 
-                 (++) Configure the compare unit and the capture unit in simple One Pulse mode
+                 (++) Configure the compare unit and the capture unit in in simple One Pulse mode
                  (++) Start/Stop the One Pulse mode generation 
                    
        (#) HRTIM Waveform management: this group includes all needed 
@@ -105,7 +105,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
   *
   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
   * You may not use this file except in compliance with the License.
@@ -1435,8 +1435,8 @@ void HRTIM_DMACmd(HRTIM_TypeDef* HRTIMx, uint32_t TimerIdx, uint32_t HRTIM_DMA, 
   *                    @arg HRTIM_OUTPUT_TE2: Timer E - Output 2 
   * @param  pBasicOCChannelCfg: pointer to the basic output compare output configuration structure
   * @note When the timer operates in basic output compare mode:
-  *         Output 1 is  implicitly controlled by the compare unit 1
-  *         Output 2 is  implicitly controlled by the compare unit 2
+  *         Output 1 is implicitely controled by the compare unit 1
+  *         Output 2 is implicitely controled by the compare unit 2
   *       Output Set/Reset crossbar is set according to the selected output compare mode:
   *         Toggle: SETxyR = RSTxyR = CMPy
   *         Active: SETxyR = CMPy, RSTxyR = 0
@@ -1568,8 +1568,8 @@ void HRTIM_SimpleOCChannelConfig(HRTIM_TypeDef * HRTIMx,
   *                    @arg HRTIM_OUTPUT_TE2: Timer E - Output 2 
   * @param  pBasicPWMChannelCfg: pointer to the basic PWM output configuration structure
   * @note When the timer operates in basic PWM output mode:
-  *         Output 1 is implicitly controlled by the compare unit 1
-  *         Output 2 is implicitly controlled by the compare unit 2
+  *         Output 1 is implicitly controled by the compare unit 1
+  *         Output 2 is implicitly controled by the compare unit 2
   *         Output Set/Reset crossbar is set as follows:
   *         Output 1: SETx1R = CMP1, RSTx1R = PER
   *         Output 2: SETx2R = CMP2, RST2R = PER
@@ -1657,7 +1657,7 @@ void HRTIM_SimplePWMChannelConfig(HRTIM_TypeDef * HRTIMx,
   * @param  pBasicCaptureChannelCfg: pointer to the basic capture configuration structure
   * @note When the timer operates in basic capture mode the capture is triggered
   *       by the designated external event and GPIO input is implicitly used as event source.
-  *       The capture can be triggered by a rising edge, a falling edge or both
+  *       The cature can be triggered by a rising edge, a falling edge or both
   *       edges on event channel.
   * @retval None
   */
@@ -1717,8 +1717,8 @@ void HRTIM_SimpleCaptureChannelConfig(HRTIM_TypeDef * HRTIMx,
   *         the timer counter is implicitly started by the reset event,
   *         the reset of the timer counter is triggered by the designated external event
   *         GPIO input is implicitly used as event source,
-  *         Output 1 is implicitly controlled by the compare unit 1,
-  *         Output 2 is implicitly controlled by the compare unit 2.
+  *         Output 1 is implicitly controled by the compare unit 1,
+  *         Output 2 is implicitly controled by the compare unit 2.
   *         Output Set/Reset crossbar is set as follows:
   *         Output 1: SETx1R = CMP1, RSTx1R = PER
   *         Output 2: SETx2R = CMP2, RST2R = PER
@@ -2892,7 +2892,7 @@ void HRTIM_BurstModeCtl(HRTIM_TypeDef * HRTIMx, uint32_t Enable)
   *                    @arg HRTIM_CAPTUREUNIT_1: Capture unit 1
   *                    @arg HRTIM_CAPTUREUNIT_2: Capture unit 2
   * @retval None
-  * @note The 'software capture' bit in the capture configuration register is
+  * @note The 'software capture' bit in the capure configuration register is
   *       automatically reset by hardware
   */
 void HRTIM_SoftwareCapture(HRTIM_TypeDef * HRTIMx,
@@ -3276,7 +3276,7 @@ uint32_t HRTIM_WaveformGetOutputState(HRTIM_TypeDef * HRTIMx,
   
   if ((HRTIMx->HRTIM_COMMON.OENR & output_bit) != RESET)
   {
-    /* Output is enabled: output in RUN state (whatever output disable status is)*/
+    /* Output is enabled: output in RUN state (whatever ouput disable status is)*/
     output_state = HRTIM_OUTPUTSTATE_RUN;
   }
   else

@@ -13,7 +13,7 @@ extern "C" {
  *  according to the device. Ideally, it should be placed just under the FLASH top address
  *  to minimize it's impact on other code.
  */
-#if defined(STM32F37x) || defined(STM32F30x)
+#if defined(SERIES_STM32F37x) || defined(SERIES_STM32F30x)
   #define PAGE_SIZE  (uint16_t)0x800 // 2K
   #define EEPROM_START_ADDRESS    ((uint32_t)0x08010000) // 64K
 #elif defined(STM32F40_41xxx) || defined(STM32F411xE)

@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32f30x_syscfg.h
   * @author  MCD Application Team
-  * @version V1.2.2
-  * @date    27-February-2015
+  * @version V1.1.1
+  * @date    04-April-2014
   * @brief   This file contains all the functions prototypes for the SYSCFG firmware 
   *          library.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
   *
   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
   * You may not use this file except in compliance with the License.
@@ -61,17 +61,13 @@
 #define EXTI_PortSourceGPIOD       ((uint8_t)0x03)
 #define EXTI_PortSourceGPIOE       ((uint8_t)0x04)
 #define EXTI_PortSourceGPIOF       ((uint8_t)0x05)
-#define EXTI_PortSourceGPIOG       ((uint8_t)0x06)
-#define EXTI_PortSourceGPIOH       ((uint8_t)0x07)
 
 #define IS_EXTI_PORT_SOURCE(PORTSOURCE) (((PORTSOURCE) == EXTI_PortSourceGPIOA) || \
                                          ((PORTSOURCE) == EXTI_PortSourceGPIOB) || \
                                          ((PORTSOURCE) == EXTI_PortSourceGPIOC) || \
                                          ((PORTSOURCE) == EXTI_PortSourceGPIOD) || \
                                          ((PORTSOURCE) == EXTI_PortSourceGPIOE) || \
-                                         ((PORTSOURCE) == EXTI_PortSourceGPIOF)|| \
-                                         ((PORTSOURCE) == EXTI_PortSourceGPIOG)|| \
-                                         ((PORTSOURCE) == EXTI_PortSourceGPIOH)) 
+                                         ((PORTSOURCE) == EXTI_PortSourceGPIOF)) 
 /**
   * @}
   */
@@ -122,13 +118,11 @@
 #define SYSCFG_MemoryRemap_Flash                ((uint8_t)0x00)
 #define SYSCFG_MemoryRemap_SystemMemory         ((uint8_t)0x01)
 #define SYSCFG_MemoryRemap_SRAM                 ((uint8_t)0x03)
-#define SYSCFG_MemoryRemap_FMC                  ((uint8_t)0x04)
 
 
 #define IS_SYSCFG_MEMORY_REMAP(REMAP) (((REMAP) == SYSCFG_MemoryRemap_Flash)        || \
                                        ((REMAP) == SYSCFG_MemoryRemap_SystemMemory) || \
-                                       ((REMAP) == SYSCFG_MemoryRemap_SRAM) || \
-                                       ((REMAP) == SYSCFG_MemoryRemap_FMC))
+                                       ((REMAP) == SYSCFG_MemoryRemap_SRAM))
 
 /**
   * @}
@@ -236,15 +230,13 @@
 #define SYSCFG_I2CFastModePlus_PB9       SYSCFG_CFGR1_I2C_PB9_FMP  /*!< Enable Fast Mode Plus on PB9 */
 #define SYSCFG_I2CFastModePlus_I2C1      SYSCFG_CFGR1_I2C1_FMP     /*!< Enable Fast Mode Plus on I2C1 pins */
 #define SYSCFG_I2CFastModePlus_I2C2      SYSCFG_CFGR1_I2C2_FMP     /*!< Enable Fast Mode Plus on I2C2 pins */
-#define SYSCFG_I2CFastModePlus_I2C3      SYSCFG_CFGR1_I2C3_FMP     /*!< Enable Fast Mode Plus on I2C3 pins */
 
 #define IS_SYSCFG_I2C_FMP(PIN) (((PIN) == SYSCFG_I2CFastModePlus_PB6)  || \
                                 ((PIN) == SYSCFG_I2CFastModePlus_PB7)  || \
                                 ((PIN) == SYSCFG_I2CFastModePlus_PB8)  || \
                                 ((PIN) == SYSCFG_I2CFastModePlus_PB9)  || \
                                 ((PIN) == SYSCFG_I2CFastModePlus_I2C1) || \
-                                ((PIN) == SYSCFG_I2CFastModePlus_I2C2)|| \
-                                ((PIN) == SYSCFG_I2CFastModePlus_I2C3))
+                                ((PIN) == SYSCFG_I2CFastModePlus_I2C2))
 
 /**
   * @}
@@ -281,92 +273,19 @@
   * @}
   */
 
-/** @defgroup ADC_Trigger_Remapping
-  * @{
-  */
-#define REMAPADCTRIGGER_ADC12_EXT2        SYSCFG_CFGR4_ADC12_EXT2_RMP   /*!< Input trigger of ADC12 regular channel EXT2
-                                                                                 0: No remap (TIM1_CC3)
-                                                                                 1: Remap (TIM20_TRGO) */
-#define REMAPADCTRIGGER_ADC12_EXT3        SYSCFG_CFGR4_ADC12_EXT3_RMP   /*!< Input trigger of ADC12 regular channel EXT3
-                                                                                 0: No remap (TIM2_CC2)
-                                                                                 1: Remap (TIM20_TRGO2) */
-#define REMAPADCTRIGGER_ADC12_EXT5        SYSCFG_CFGR4_ADC12_EXT5_RMP   /*!< Input trigger of ADC12 regular channel EXT5
-                                                                                 0: No remap (TIM4_CC4)
-                                                                                 1: Remap (TIM20_CC1) */
-#define REMAPADCTRIGGER_ADC12_EXT13       SYSCFG_CFGR4_ADC12_EXT13_RMP  /*!< Input trigger of ADC12 regular channel EXT13
-                                                                                 0: No remap (TIM6_TRGO)
-                                                                                 1: Remap (TIM20_CC2) */
-#define REMAPADCTRIGGER_ADC12_EXT15       SYSCFG_CFGR4_ADC12_EXT15_RMP  /*!< Input trigger of ADC12 regular channel EXT15
-                                                                                 0: No remap (TIM3_CC4)
-                                                                                 1: Remap (TIM20_CC3) */
-#define REMAPADCTRIGGER_ADC12_JEXT3       SYSCFG_CFGR4_ADC12_JEXT3_RMP  /*!< Input trigger of ADC12 injected channel JEXT3
-                                                                                 0: No remap (TIM2_CC1)
-                                                                                 1: Remap (TIM20_TRGO) */
-#define REMAPADCTRIGGER_ADC12_JEXT6       SYSCFG_CFGR4_ADC12_JEXT6_RMP  /*!< Input trigger of ADC12 injected channel JEXT6
-                                                                                 0: No remap (EXTI line 15)
-                                                                                 1: Remap (TIM20_TRGO2) */
-#define REMAPADCTRIGGER_ADC12_JEXT13      SYSCFG_CFGR4_ADC12_JEXT13_RMP  /*!< Input trigger of ADC12 injected channel JEXT13
-                                                                                 0: No remap (TIM3_CC1)
-                                                                                 1: Remap (TIM20_CC4) */
-#define REMAPADCTRIGGER_ADC34_EXT5        SYSCFG_CFGR4_ADC34_EXT5_RMP   /*!< Input trigger of ADC34 regular channel EXT5
-                                                                                 0: No remap (EXTI line 2)
-                                                                                 1: Remap (TIM20_TRGO) */
-#define REMAPADCTRIGGER_ADC34_EXT6        SYSCFG_CFGR4_ADC34_EXT6_RMP   /*!< Input trigger of ADC34 regular channel EXT6
-                                                                                 0: No remap (TIM4_CC1)
-                                                                                 1: Remap (TIM20_TRGO2) */
-#define REMAPADCTRIGGER_ADC34_EXT15       SYSCFG_CFGR4_ADC34_EXT15_RMP  /*!< Input trigger of ADC34 regular channel EXT15
-                                                                                 0: No remap (TIM2_CC1)
-                                                                                 1: Remap (TIM20_CC1) */
-#define REMAPADCTRIGGER_ADC34_JEXT5       SYSCFG_CFGR4_ADC34_JEXT5_RMP  /*!< Input trigger of ADC34 injected channel JEXT5
-                                                                                 0: No remap (TIM4_CC3)
-                                                                                 1: Remap (TIM20_TRGO) */
-#define REMAPADCTRIGGER_ADC34_JEXT11      SYSCFG_CFGR4_ADC34_JEXT11_RMP /*!< Input trigger of ADC34 injected channel JEXT11
-                                                                                 0: No remap (TIM1_CC3)
-                                                                                 1: Remap (TIM20_TRGO2) */
-#define REMAPADCTRIGGER_ADC34_JEXT14      SYSCFG_CFGR4_ADC34_JEXT14_RMP /*!< Input trigger of ADC34 injected channel JEXT14
-                                                                                 0: No remap (TIM7_TRGO)
-                                                                                 1: Remap (TIM20_CC2) */
-
-#define IS_SYSCFG_ADC_TRIGGER_REMAP(RMP) (((RMP) == REMAPADCTRIGGER_ADC12_EXT2)   || \
-                                          ((RMP) == REMAPADCTRIGGER_ADC12_EXT3)   || \
-                                          ((RMP) == REMAPADCTRIGGER_ADC12_EXT5)   || \
-                                          ((RMP) == REMAPADCTRIGGER_ADC12_EXT13)  || \
-                                          ((RMP) == REMAPADCTRIGGER_ADC12_EXT15)  || \
-                                          ((RMP) == REMAPADCTRIGGER_ADC12_JEXT3)  || \
-                                          ((RMP) == REMAPADCTRIGGER_ADC12_JEXT6)  || \
-                                          ((RMP) == REMAPADCTRIGGER_ADC12_JEXT13) || \
-                                          ((RMP) == REMAPADCTRIGGER_ADC34_EXT5)   || \
-                                          ((RMP) == REMAPADCTRIGGER_ADC34_EXT6)   || \
-                                          ((RMP) == REMAPADCTRIGGER_ADC34_EXT15)  || \
-                                          ((RMP) == REMAPADCTRIGGER_ADC34_JEXT5)  || \
-                                          ((RMP) == REMAPADCTRIGGER_ADC34_JEXT11) || \
-                                          ((RMP) == REMAPADCTRIGGER_ADC34_JEXT14))
-                                      
-/**
-  * @}
-  */
-  
 /** @defgroup SYSCFG_SRAMWRP_Config
   * @{
   */
-#define SYSCFG_SRAMWRP_Page0                 SYSCFG_RCR_PAGE0  /*!< ICODE SRAM Write protection page 0 */
-#define SYSCFG_SRAMWRP_Page1                 SYSCFG_RCR_PAGE1  /*!< ICODE SRAM Write protection page 1 */
-#define SYSCFG_SRAMWRP_Page2                 SYSCFG_RCR_PAGE2  /*!< ICODE SRAM Write protection page 2 */
-#define SYSCFG_SRAMWRP_Page3                 SYSCFG_RCR_PAGE3  /*!< ICODE SRAM Write protection page 3 */
-#define SYSCFG_SRAMWRP_Page4                 SYSCFG_RCR_PAGE4  /*!< ICODE SRAM Write protection page 4 */
-#define SYSCFG_SRAMWRP_Page5                 SYSCFG_RCR_PAGE5  /*!< ICODE SRAM Write protection page 5 */
-#define SYSCFG_SRAMWRP_Page6                 SYSCFG_RCR_PAGE6  /*!< ICODE SRAM Write protection page 6 */
-#define SYSCFG_SRAMWRP_Page7                 SYSCFG_RCR_PAGE7  /*!< ICODE SRAM Write protection page 7 */
-#define SYSCFG_SRAMWRP_Page8                 SYSCFG_RCR_PAGE8  /*!< ICODE SRAM Write protection page 8 */
-#define SYSCFG_SRAMWRP_Page9                 SYSCFG_RCR_PAGE9  /*!< ICODE SRAM Write protection page 9 */
-#define SYSCFG_SRAMWRP_Page10                SYSCFG_RCR_PAGE10 /*!< ICODE SRAM Write protection page 10 */
-#define SYSCFG_SRAMWRP_Page11                SYSCFG_RCR_PAGE11 /*!< ICODE SRAM Write protection page 11 */
-#define SYSCFG_SRAMWRP_Page12                SYSCFG_RCR_PAGE12 /*!< ICODE SRAM Write protection page 12 */
-#define SYSCFG_SRAMWRP_Page13                SYSCFG_RCR_PAGE13 /*!< ICODE SRAM Write protection page 13 */
-#define SYSCFG_SRAMWRP_Page14                SYSCFG_RCR_PAGE14 /*!< ICODE SRAM Write protection page 14 */
-#define SYSCFG_SRAMWRP_Page15                SYSCFG_RCR_PAGE15 /*!< ICODE SRAM Write protection page 15 */
+#define SYSCFG_SRAMWRP_Page0                 SYSCFG_RCR_PAGE0 /*!< ICODE SRAM Write protection page 0 */
+#define SYSCFG_SRAMWRP_Page1                 SYSCFG_RCR_PAGE1 /*!< ICODE SRAM Write protection page 1 */
+#define SYSCFG_SRAMWRP_Page2                 SYSCFG_RCR_PAGE2 /*!< ICODE SRAM Write protection page 2 */
+#define SYSCFG_SRAMWRP_Page3                 SYSCFG_RCR_PAGE3 /*!< ICODE SRAM Write protection page 3 */
+#define SYSCFG_SRAMWRP_Page4                 SYSCFG_RCR_PAGE4 /*!< ICODE SRAM Write protection page 4 */
+#define SYSCFG_SRAMWRP_Page5                 SYSCFG_RCR_PAGE5 /*!< ICODE SRAM Write protection page 5 */
+#define SYSCFG_SRAMWRP_Page6                 SYSCFG_RCR_PAGE6 /*!< ICODE SRAM Write protection page 6 */
+#define SYSCFG_SRAMWRP_Page7                 SYSCFG_RCR_PAGE7 /*!< ICODE SRAM Write protection page 7 */
 
-#define IS_SYSCFG_PAGE(PAGE)((((PAGE) & (uint32_t)0xFFFF0000) == 0x00000000) && ((PAGE) != 0x00000000))
+#define IS_SYSCFG_PAGE(PAGE)((((PAGE) & (uint32_t)0xFFFFFF00) == 0x00000000) && ((PAGE) != 0x00000000))
 
 /**
   * @}
@@ -405,7 +324,6 @@ void SYSCFG_ITConfig(uint32_t SYSCFG_IT, FunctionalState NewState);
 void SYSCFG_EXTILineConfig(uint8_t EXTI_PortSourceGPIOx, uint8_t EXTI_PinSourcex);
 void SYSCFG_BreakConfig(uint32_t SYSCFG_Break);
 void SYSCFG_BypassParityCheckDisable(void);
-void SYSCFG_ADCTriggerRemapConfig(uint32_t SYSCFG_ADCTriggerRemap, FunctionalState NewState);
 void SYSCFG_SRAMWRPEnable(uint32_t SYSCFG_SRAMWRP);
 FlagStatus SYSCFG_GetFlagStatus(uint32_t SYSCFG_Flag);
 void SYSCFG_ClearFlag(uint32_t SYSCFG_Flag);
