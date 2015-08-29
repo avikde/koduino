@@ -149,5 +149,40 @@ void SysTick_Handler(void)
 {
 }*/
 
+// General purpose timers
+void TIM1_CC_IRQHandler() {
+  timerISR(TIMER1);
+}
+
+void TIM2_IRQHandler() {
+  timerISR(TIMER2);
+}
+
+void TIM1_UP_TIM16_IRQHandler() {
+  timerISR(TIMER16);
+}
+
+void TIM1_TRG_COM_TIM17_IRQHandler() {
+  timerISR(TIMER17);
+}
+
+// Timebase
+void TIM6_DAC_IRQHandler() {
+  timebaseISR(0, TIMER6);
+}
+void TIM1_BRK_TIM15_IRQHandler() {
+  timebaseISR(1, TIMER15);
+}
+
+// EXTI
+
+// USART
+void USART1_IRQHandler() {
+  wirishUSARTInterruptHandler(&USART_MAP[0]);
+}
+void USART2_IRQHandler() {
+  wirishUSARTInterruptHandler(&USART_MAP[1]);
+}
+
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 
