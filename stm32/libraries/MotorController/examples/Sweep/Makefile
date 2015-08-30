@@ -1,8 +1,0 @@
-# VARIANT = f40_41x
-VARIANT = f37x
-HSE_VALUE = 16000000UL
-UPLOAD_METHOD = SERIAL
-UPLOAD_BAUD	= 230400
-LIBRARIES = SPI IMU Encoder Eigen Wire MotorController OpenLog Nunchuck
-
-include $(KODUINO_DIR)/project.mk
