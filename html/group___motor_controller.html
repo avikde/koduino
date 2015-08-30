@@ -87,29 +87,86 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <h3>Usage</h3>
 <ol type="1">
-<li>Call pinMode() to set the pin to <code>OUTPUT</code>, <code>OUTPUT_OPEN_DRAIN</code>, <code>INPUT</code>, <code>INPUT_PULLUP</code>, or <code>INPUT_PULLDOWN</code></li>
-<li>Call digitalWrite() with <code>HIGH</code>, <code>LOW</code> or <code>TOGGLE</code> on <code>OUTPUT</code> pins</li>
-<li>Call digitalRead() on <code>INPUT</code> pins</li>
+<li>TODO. mostly, see example</li>
 </ol>
-<h3>Example: Blink</h3>
-<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Arduino.h&gt;</span></div>
+<h3>Setting motor zero for various directions and/or gear ratios</h3>
+<ol type="1">
+<li>TODO Garrett</li>
+</ol>
+<h3>Example: Motor test</h3>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Motor.h&gt;</span></div>
 <div class="line"></div>
-<div class="line"><span class="comment">// Change to whatever pin an LED is connected to</span></div>
-<div class="line"><span class="keyword">const</span> PinName led = PC13;</div>
+<div class="line"><span class="comment">// All connectors on Mainboard v1.1</span></div>
+<div class="line"><span class="keyword">const</span> uint8_t pwm1 = PA0;</div>
+<div class="line"><span class="keyword">const</span> uint8_t pulse1 = PA6;</div>
+<div class="line"><span class="keyword">const</span> uint8_t pwm2 = PA11;</div>
+<div class="line"><span class="keyword">const</span> uint8_t pulse2 = PB5;</div>
+<div class="line"><span class="keyword">const</span> uint8_t pwm3 = PA2;</div>
+<div class="line"><span class="keyword">const</span> uint8_t pulse3 = PB6;</div>
+<div class="line"><span class="keyword">const</span> uint8_t pwm4 = PA3;</div>
+<div class="line"><span class="keyword">const</span> uint8_t pulse4 = PB7;</div>
+<div class="line"><span class="keyword">const</span> uint8_t pwm5 = PB0;</div>
+<div class="line"><span class="keyword">const</span> uint8_t pulse5 = PB1;</div>
+<div class="line"><span class="keyword">const</span> uint8_t pwm6 = PB8;</div>
+<div class="line"><span class="keyword">const</span> uint8_t pulse6 = PB9;</div>
+<div class="line"><span class="keyword">const</span> uint8_t pwm7 = PA14;</div>
+<div class="line"><span class="keyword">const</span> uint8_t pulse7 = PA15;</div>
+<div class="line"><span class="keyword">const</span> uint8_t pwm8 = PA1;</div>
+<div class="line"><span class="keyword">const</span> uint8_t pulse8 = PA5;</div>
+<div class="line"></div>
+<div class="line"><span class="keyword">const</span> <span class="keywordtype">int</span> CONTROL_RATE = 1000;</div>
+<div class="line">BlCon34 M1;</div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">void</span> controlLoop() {</div>
+<div class="line">  M1.update();</div>
+<div class="line">}</div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> setup() {</div>
+<div class="line">  Serial1.begin(115200);</div>
 <div class="line">  pinMode(led, OUTPUT);</div>
+<div class="line"></div>
+<div class="line">  Motor::updateRate = CONTROL_RATE;</div>
+<div class="line">  Motor::velSmooth = 0.55;</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">// Arguments are pwmPin, pulsePin, zero(rad), direction(+/- 1)</span></div>
+<div class="line">  M1.init(pwm1, pulse1, 0, 1);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">// Also can specify a gearRatio (e.g. 23)</span></div>
+<div class="line">  <span class="comment">// M1.init(pwm1, pulse1, 0, 1, 23);</span></div>
+<div class="line"></div>
+<div class="line">  attachTimerInterrupt(0, controlLoop, CONTROL_RATE);</div>
 <div class="line">}</div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> loop() {</div>
-<div class="line">  digitalWrite(led, TOGGLE);</div>
+<div class="line">  <span class="comment">// set P-gain of 0.5/rad</span></div>
+<div class="line">  M1.setGain(0.5);</div>
+<div class="line">  <span class="comment">// can also set D-gain like the following:</span></div>
+<div class="line">  <span class="comment">// M1.setGain(0.5, 0.01);</span></div>
+<div class="line"></div>
+<div class="line">  <span class="comment">// Must call this to enable motor controller</span></div>
+<div class="line">  M1.enable(<span class="keyword">true</span>);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">// go to 0 radians</span></div>
+<div class="line">  M1.setPosition(0);</div>
+<div class="line">  delay(1000);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">// go to 1 radians</span></div>
+<div class="line">  M1.setPosition(1);</div>
+<div class="line">  delay(1000);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">// spin freely in the + direction</span></div>
+<div class="line">  M1.setOpenLoop(0.5);</div>
+<div class="line">  delay(1000);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">// spin freely in the - direction</span></div>
+<div class="line">  M1.setOpenLoop(-0.5);</div>
 <div class="line">  delay(1000);</div>
 <div class="line">}</div>
 </div><!-- fragment --> </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 30 2015 12:54:40 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 30 2015 13:06:17 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.9.1
 </small></address>
