@@ -46,6 +46,8 @@ The API functions here are in general optimized for speed and concurrency, at th
 * [Reading a quadrature encoder](@ref Encoder)
 * [Data logging: OpenLog driver](@ref OpenLog)
 
+### Robotics-oriented libraries
+* [Motor controller library with multi-motor coordination](@ref MotorController)
 
 ---
 
@@ -53,9 +55,7 @@ Documentation complete till here
 
 ---
 
-### Robotics-oriented libraries
 
 * [Basic and advanced Math (+Eigen)](@ref Math)
 * [Brushless commutation (field-oriented control)](@ref Brushless)
 * [IMU drivers and attitude estimation](@ref IMU)
-* [Motor controller library with multi-motor coordination](@ref MotorController)
