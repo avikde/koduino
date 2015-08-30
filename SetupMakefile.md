@@ -3,7 +3,7 @@
 
 ### 1. Get the code
 
-* Clone the [repository](https://github.com/avikde/koduino), or get a [zipball of the code](http://github.com/avikde/koduino/zipball/master/).
+* Clone the [repository](https://github.com/avikde/koduino) (using git on the command line, or Sourcetree)
 * Add to `.bash_profile` (Mac) or `.bashrc` (Linux / Cygwin)
 ~~~
 export KODUINO_DIR=<koduino_location>/stm32
@@ -11,7 +11,7 @@ export KODUINO_DIR=<koduino_location>/stm32
 
 ### 2. Toolchain setup
 
-If you have the [Arduino IDE](http://arduino.cc/en/main/software#toc3) **1.6.1** or **1.5.8 BETA**, 
+If you have the [Arduino IDE](http://arduino.cc/en/main/software) **1.6.1**
 
 * Add to `.bash_profile` (Mac) or `.bashrc` (Linux / Cygwin)
 ~~~
@@ -20,7 +20,7 @@ export PATH=$PATH:/Applications/Arduino.app/Contents/Java/hardware/tools/gcc-arm
 
 ...otherwise, 
 
-* [Download](https://launchpad.net/gcc-arm-embedded) the version for your platform, extract it
+* Download [gcc-arm-embedded 4.8 2014 q1](https://launchpad.net/gcc-arm-embedded/4.8/4.8-2014-q1-update) for your platform
 * Add to `.bash_profile` (Mac) or `.bashrc` (Linux / Cygwin)
 ~~~
 export PATH=$PATH:<directory_you_extracted>/bin
@@ -39,7 +39,7 @@ from a new terminal window.
 In a new directory, create a file called `Makefile` with the following contents.
 
 ~~~{.sh}
-VARIANT = f37x # a variant name
+VARIANT = f37x
 HSE_VALUE = 16000000UL
 UPLOAD_METHOD = SERIAL
 UPLOAD_BAUD = 230400

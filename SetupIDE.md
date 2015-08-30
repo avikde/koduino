@@ -3,13 +3,12 @@
 
 ### 1. Get the IDE
 
-* Get **1.6.1** version of the [Arduino IDE](http://arduino.cc/en/Main/Software) (you may have to click "Previous Releases"), and install it.
+* Get Arduino 1.6.1: [Windows](http://arduino.cc/download.php?f=/arduino-1.6.1-windows.zip), etc.
 
 ### 2. Get the code
 
-* Clone the [repository](https://github.com/avikde/koduino), or get a [zipball of the code](http://github.com/avikde/koduino/zipball/master/), unzip it, and rename to `koduino`.
-* Quit the Arduino IDE if it is running.
-* Move the koduino code into the Arduino IDE `hardware` directory (`C:\Program Files (x86)\Arduino\hardware` on Windows, `/Applications/Arduino.app/Contents/Java/hardware` on Mac).
+* Create a directory called `koduino` under `Arduino\hardware` (next to `arduino`)
+* Clone the [repository](https://github.com/avikde/koduino) using Sourcetree (or whatever) into the `koduino` directory.
 * The file/folder structure should match
 ![IDE file structure](../ide_file_structure.png "IDE file structure")
 

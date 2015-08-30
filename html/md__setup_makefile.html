@@ -87,19 +87,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <div class="textblock"><h3>1. Get the code</h3>
 <ul>
-<li>Clone the <a href="https://github.com/avikde/koduino">repository</a>, or get a <a href="http://github.com/avikde/koduino/zipball/master/">zipball of the code</a>.</li>
+<li>Clone the <a href="https://github.com/avikde/koduino">repository</a> (using git on the command line, or Sourcetree)</li>
 <li>Add to <code>.bash_profile</code> (Mac) or <code>.bashrc</code> (Linux / Cygwin) <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;export KODUINO_DIR=&lt;koduino_location&gt;/stm32</div>
 </div><!-- fragment --></li>
 </ul>
 <h3>2. Toolchain setup</h3>
-<p>If you have the <a href="http://arduino.cc/en/main/software#toc3">Arduino IDE</a> <b>1.6.1</b> or <b>1.5.8 BETA</b>,</p>
+<p>If you have the <a href="http://arduino.cc/en/main/software">Arduino IDE</a> <b>1.6.1</b></p>
 <ul>
 <li>Add to <code>.bash_profile</code> (Mac) or <code>.bashrc</code> (Linux / Cygwin) <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;export PATH=$PATH:/Applications/Arduino.app/Contents/Java/hardware/tools/gcc-arm-none-eabi-4.8.3-2014q1/bin</div>
 </div><!-- fragment --></li>
 </ul>
 <p>...otherwise,</p>
 <ul>
-<li><a href="https://launchpad.net/gcc-arm-embedded">Download</a> the version for your platform, extract it</li>
+<li>Download <a href="https://launchpad.net/gcc-arm-embedded/4.8/4.8-2014-q1-update">gcc-arm-embedded 4.8 2014 q1</a> for your platform</li>
 <li>Add to <code>.bash_profile</code> (Mac) or <code>.bashrc</code> (Linux / Cygwin) <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;export PATH=$PATH:&lt;directory_you_extracted&gt;/bin</div>
 </div><!-- fragment --></li>
 </ul>
@@ -108,7 +108,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h3>3. Write your first program</h3>
 <h4>Makefile template</h4>
 <p>In a new directory, create a file called <code>Makefile</code> with the following contents.</p>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;VARIANT = f37x # a variant name</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;VARIANT = f37x</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;HSE_VALUE = 16000000UL</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;UPLOAD_METHOD = SERIAL</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;UPLOAD_BAUD = 230400</div>
@@ -137,7 +137,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 31 2015 21:35:37 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 30 2015 12:49:26 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.9.1
 </small></address>
