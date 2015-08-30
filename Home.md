@@ -6,8 +6,8 @@ This is a library of code for boards developed using the STM32 F3/F4 series of m
 The microcontrollers currently targeted are:
 
 * [F301K6](http://www.st.com/web/en/catalog/mmc/FM141/SC1169/SS1576/LN1825/PF259037)
-* [F373xC](http://www.st.com/web/catalog/mmc/FM141/SC1169/SS1576/LN10)
-* [F4xxRG](http://www.st.com/web/en/catalog/mmc/FM141/SC1169/SS1577?sc=stm32f4)
+* [F373CC](http://www.st.com/web/catalog/mmc/FM141/SC1169/SS1576/LN10)
+* [F405RG](http://www.st.com/web/en/catalog/mmc/FM141/SC1169/SS1577?sc=stm32f4)
 
 The API functions here are in general optimized for speed and concurrency, at the expense of being slightly less fool-proof than Arduino (e.g. see [pin configuration](@ref Pins), [PWM output and input](@ref PWM)).
 
