@@ -89,7 +89,21 @@ f301.build.hse_value=16000000UL
 f301.build.hse_clock=0
 
 # Upload choices
-f301.upload.tool=stlink
-f301.upload.protocol=stlink
-f301.upload.maximum_size=262144
+# f301.upload.tool=stlink
+# f301.upload.protocol=stlink
+# f301.upload.maximum_size=262144
+
+f301.menu.bootloader.stlink=ST-LINK
+f301.menu.bootloader.stlink.upload.tool=stlink
+f301.menu.bootloader.stlink.upload.protocol=stlink
+f301.menu.bootloader.stlink.upload.options=
+
+f301.menu.bootloader.stlinkur=ST-LINK (UR)
+f301.menu.bootloader.stlinkur.upload.tool=stlink
+f301.menu.bootloader.stlinkur.upload.protocol=stlink
+f301.menu.bootloader.stlinkur.upload.options=-c UR
+
+# f301.menu.bootloader.dfu_util=DFU
+# f301.menu.bootloader.dfu_util.upload.tool=dfu_util
+# f301.menu.bootloader.dfu_util.upload.protocol=dfu
 

@@ -128,4 +128,4 @@ tools.stlink.cmd.windows=ST-LINK_CLI.exe
 tools.stlink.path=C:/Program Files (x86)/STMicroelectronics/STM32 ST-LINK Utility/ST-LINK Utility
 tools.stlink.upload.params.verbose=
 tools.stlink.upload.params.quiet=
-tools.stlink.upload.pattern="{path}/{cmd}" -ME -P "{build.path}/{build.project_name}.bin" 0x08000000 -V while_programming -Rst
+tools.stlink.upload.pattern="{path}/{cmd}" {upload.options} -ME -P "{build.path}/{build.project_name}.bin" 0x08000000 -Rst

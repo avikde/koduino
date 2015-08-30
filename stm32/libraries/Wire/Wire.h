@@ -22,6 +22,10 @@ enum WireClockSpeed {
   WIRE_400K = 0x6043070E, // 400KHz; works
   // WIRE_FAST_MODE_PLUS = 0x2043070E // 933KHz; works
   WIRE_1M = 0x00C71030 // 1MHz; works
+#elif defined(SERIES_STM32F30x)
+  WIRE_100K = 0x10805E89, // 100KHz standard
+  WIRE_400K = 0x10400CDB, // 400KHz fast mode
+  WIRE_1M = 0x10300CDB // 1MHz fast mode+
 #else
   WIRE_100K = 100000, // 100KHz; ?
   WIRE_200K = 200000, // 200KHz; ?
