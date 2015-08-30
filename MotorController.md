@@ -41,7 +41,6 @@ void controlLoop() {
 
 void setup() {
   Serial1.begin(115200);
-  pinMode(led, OUTPUT);
 
   Motor::updateRate = CONTROL_RATE;
   Motor::velSmooth = 0.55;
