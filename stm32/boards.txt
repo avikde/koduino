@@ -71,3 +71,25 @@ f40_41x.upload.protocol=serial
 f40_41x.upload.baud=230400
 f40_41x.upload.maximum_size=262144
 
+
+###########################################################
+
+f301.name=f301
+f301.build.mcu=STM32F302x8
+f301.build.series=STM32F30x
+f301.build.f_cpu=48000000L
+f301.build.core=arduino
+f301.build.extra_flags=
+f301.build.ldscript=STM32F302R8_FLASH.ld
+f301.build.variant=f301
+f301.build.dependency=true
+
+# HSE choices
+f301.build.hse_value=16000000UL
+f301.build.hse_clock=0
+
+# Upload choices
+f301.upload.tool=stlink
+f301.upload.protocol=stlink
+f301.upload.maximum_size=262144
+
