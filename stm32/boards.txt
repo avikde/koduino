@@ -36,7 +36,7 @@ f37x.upload.tool=stm32ld
 f37x.upload.protocol=serial
 # f37x.upload.sequence=-rts,-dtr,dtr:rts,-dtr,dtr
 f37x.upload.baud=230400
-f37x.upload.maximum_size=262144
+f37x.upload.maximum_size=65536
 # f37x.menu.bootloader.serial=Serial
 # f37x.menu.bootloader.serial.upload.tool=stm32loader
 # f37x.menu.bootloader.serial.upload.protocol=serial
@@ -69,7 +69,7 @@ f40_41x.upload.tool=stm32ld
 f40_41x.upload.protocol=serial
 # f40_41x.upload.sequence=-rts,-dtr,dtr:rts,-dtr,dtr
 f40_41x.upload.baud=230400
-f40_41x.upload.maximum_size=262144
+f40_41x.upload.maximum_size=16384
 
 
 ###########################################################
@@ -91,7 +91,7 @@ f301.build.hse_clock=0
 # Upload choices
 # f301.upload.tool=stlink
 # f301.upload.protocol=stlink
-# f301.upload.maximum_size=262144
+f301.upload.maximum_size=49152
 
 f301.menu.bootloader.stlink=ST-LINK
 f301.menu.bootloader.stlink.upload.tool=stlink

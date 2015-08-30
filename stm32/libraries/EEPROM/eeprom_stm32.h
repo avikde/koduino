@@ -13,12 +13,15 @@ extern "C" {
  *  according to the device. Ideally, it should be placed just under the FLASH top address
  *  to minimize it's impact on other code.
  */
-#if defined(SERIES_STM32F37x) || defined(SERIES_STM32F30x)
+#if defined(SERIES_STM32F37x)
   #define PAGE_SIZE  (uint16_t)0x800 // 2K
-  #define EEPROM_START_ADDRESS    ((uint32_t)0x08010000) // 64K
+  #define EEPROM_START_ADDRESS    ((uint32_t)0x08010000) // total = 256K, eeprom after 64K
+#elif defined(SERIES_STM32F30x)
+  #define PAGE_SIZE  (uint16_t)0x800 // 2K
+  #define EEPROM_START_ADDRESS    ((uint32_t)0x0800C000) // total = 64K, eeprom after 48K
 #elif defined(STM32F40_41xxx) || defined(STM32F411xE)
   #define PAGE_SIZE  (uint16_t)0x4000 // 16K
-  #define EEPROM_START_ADDRESS    ((uint32_t)0x08008000) // 16K
+  #define EEPROM_START_ADDRESS    ((uint32_t)0x08008000) // total = 1M, eeprom after 16K
   #define PAGE0_ID               FLASH_Sector_2
   #define PAGE1_ID               FLASH_Sector_3
   // Device voltage range supposed to be [2.7V to 3.6V], the operation will be done by word
