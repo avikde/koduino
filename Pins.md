@@ -11,8 +11,9 @@ The STM32 series allows multiplexing its pins for various purposes, but the proc
 
 There are some default assignments for all the pins which are linked to below for different variants:
 
-* [f37xcc](https://docs.google.com/spreadsheet/pub?key=0Ai-vm-to9OcDdG1zMzR5WFhweGVwNlNnZmtQdlpsb2c&single=true&gid=1&output=html)
-* [f4xxrg test (Teensy pinout)](https://docs.google.com/spreadsheet/pub?key=0Ai-vm-to9OcDdG1zMzR5WFhweGVwNlNnZmtQdlpsb2c&single=true&gid=5&output=html)
+* [f301](https://docs.google.com/spreadsheets/d/1i6Nu9H6AWvqNkzLulU8trWi4Xu-QKJetNUbhWPFlroU/edit?usp=sharing)
+* [f37x](https://docs.google.com/spreadsheet/pub?key=0Ai-vm-to9OcDdG1zMzR5WFhweGVwNlNnZmtQdlpsb2c&single=true&gid=1&output=html)
+* [f40_41x](https://docs.google.com/spreadsheet/pub?key=0Ai-vm-to9OcDdG1zMzR5WFhweGVwNlNnZmtQdlpsb2c&single=true&gid=5&output=html)
 
 ### Pin remapping
 

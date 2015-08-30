@@ -3,7 +3,7 @@
 
 ### 1. Get the code
 
-* Clone the [repository](https://github.com/avikde/koduino) (using git on the command line, or Sourcetree)
+* Clone the [repository](https://github.com/avikde/koduino) (using git on the command line, or Sourcetree, etc.)
 * Add to `.bash_profile` (Mac) or `.bashrc` (Linux / Cygwin)
 ~~~
 export KODUINO_DIR=<koduino_location>/stm32
