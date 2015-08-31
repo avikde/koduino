@@ -89,9 +89,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <ol type="1">
 <li>TODO. mostly, see example</li>
 </ol>
-<h3>Setting motor zero for various directions and/or gear ratios</h3>
+<h3>Setting motor zero (independent of physical setup)</h3>
 <ol type="1">
-<li>TODO Garrett</li>
+<li>To calibrate a motor's zero position, rotate the output shaft of the motor (or gearbox) at the desired zero location.</li>
+<li>Take the output of getRawPosition() (a number that will be between 0 and 2 PI), and use that as the zero argument for the motor initialization function. The direction of the motor and the gear box do not have any effect on the zeroing routine.</li>
+<li>For startup, the motor's output shaft must be within (-PI, PI)/gearRatio of the calibrated zero position. This means that in direct drive, the motor can be at an arbitrary position, but when using a gearbox the startup angle is decreased since there are no absolute enocders.</li>
+<li>For any gear box with a ratio that is an integer, the motor/gear box assembly can be allowed to recirculate and still work correctly as long as the startup positioning is taken into account. However, for gear boxes with non-integer ratios (which seems to be most gear boxes), the motor/gear box assembly should NOT be allowed to recirculate ever because one full rotation of the output shaft results in a different getRawPosition() value.</li>
 </ol>
 <h3>Example: Motor test</h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Motor.h&gt;</span></div>
@@ -165,7 +168,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 30 2015 13:10:58 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Aug 31 2015 10:33:52 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.9.1
 </small></address>
