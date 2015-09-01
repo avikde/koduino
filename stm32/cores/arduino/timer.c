@@ -7,8 +7,10 @@
 
 // PWM period needed for a certain PWM frequency
 // assuming prescaler=1 => TIMER_PERIPH_CLOCK / 2
-#if defined(STM32F37x)
+#if defined(SERIES_STM32F37x)
 #define TIMER_BASE_CLOCK 36000000
+#elif defined(SERIES_STM32F30x)
+#define TIMER_BASE_CLOCK 24000000
 #else
 #define TIMER_BASE_CLOCK 42000000
 #endif

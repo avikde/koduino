@@ -103,6 +103,11 @@ f301.menu.bootloader.stlinkur.upload.tool=stlink
 f301.menu.bootloader.stlinkur.upload.protocol=stlink
 f301.menu.bootloader.stlinkur.upload.options=-c UR
 
+f301.menu.bootloader.texanestlink=texane/stlink
+f301.menu.bootloader.texanestlink.upload.tool=texanestlink
+f301.menu.bootloader.texanestlink.upload.protocol=stlink
+f301.menu.bootloader.texanestlink.upload.options=
+
 # f301.menu.bootloader.dfu_util=DFU
 # f301.menu.bootloader.dfu_util.upload.tool=dfu_util
 # f301.menu.bootloader.dfu_util.upload.protocol=dfu
