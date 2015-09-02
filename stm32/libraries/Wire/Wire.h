@@ -73,6 +73,9 @@ public:
   void begin(uint8_t);
   void begin(int);
 
+  // dumb function: call only when bus is free
+  void end();
+
   /**
    * @brief Command to begin a write operation
    * @details Queues the slave address in the write buffer

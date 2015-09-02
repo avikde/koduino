@@ -187,8 +187,10 @@ void timerISR(uint8_t timer) {
 // ==================
 
 
-void complementaryPWM(uint8_t timer, uint16_t deadtime) {
+void complementaryPWM(uint8_t timer, int freqHz, uint16_t deadtime) {
 #if defined(SERIES_STM32F30x)
+  // init timebase
+  timerInit(timer, freqHz);
 
   TIM_OCInitTypeDef  TIM_OCInitStructure;
   TIM_BDTRInitTypeDef TIM_BDTRInitStructure;
@@ -197,8 +199,8 @@ void complementaryPWM(uint8_t timer, uint16_t deadtime) {
   TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
   TIM_OCInitStructure.TIM_OutputNState = TIM_OutputNState_Enable;
 
-  TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_Low;
-  TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_Low;
+  TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
+  TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_High;
   TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Set;
   TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCIdleState_Reset;
 

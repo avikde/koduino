@@ -97,6 +97,20 @@ void TwoWire::begin(int address) {
   begin((uint8_t)address);
 }
 
+void TwoWire::end() {
+  I2C_Cmd(I2Cx, DISABLE);
+  I2C_DeInit(I2Cx);
+
+  // put pins back to highZ
+  if (I2Cx == I2C1) {
+    pinMode(SDA1, INPUT_PULLUP);
+    pinMode(SCL1, INPUT_PULLUP);
+  } else if (I2Cx == I2C2) {
+    pinMode(SDA2, INPUT_PULLUP);
+    pinMode(SCL2, INPUT_PULLUP);
+  } 
+}
+
 // Arduino API ===============================================================
 
 
