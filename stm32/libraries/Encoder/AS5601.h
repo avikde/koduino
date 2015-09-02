@@ -11,7 +11,7 @@ public:
   
   AS5601() {}
   void init() {
-    Wire.setSpeed(WIRE_400K);
+    Wire.setSpeed(WIRE_100K);
     Wire.begin();
   }
   
