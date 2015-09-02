@@ -41,6 +41,8 @@ public:
 
   void calibrate(float sweepAmplitude);
   void update(float pwmInput);
+
+  void setEncoderCPR(uint16_t cpr) {encoderCPR = cpr;}
   void setDebuggingAmplitude(float a) {debuggingAmplitude = a;}
   void setMode(ControlMode theMode) {mode = theMode;}
   void setWaveform(CommutationType wave) {waveform = wave;}
