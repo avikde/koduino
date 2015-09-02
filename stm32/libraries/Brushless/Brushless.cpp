@@ -147,8 +147,8 @@ void Brushless::init(uint32_t absPos) {
 
 void Brushless::calibrate(float sweepAmplitude) {
   // 
-  const uint32_t sweepDuration = 400;
-  const uint32_t pauseDuration = 400;
+  const uint32_t sweepDuration = 300;
+  const uint32_t pauseDuration = 300;
 
   motorEnableFlag = false;
   CommutationType waveSave = waveform;
@@ -220,8 +220,8 @@ void Brushless::update(float pwmInput) {
       // TEST
       motorEnableFlag = true;
       // amplitude = 1;//(millis() < 10000) ? 0.1 : 10000;
-      amplitude = debuggingAmplitude*arm_sin_f32(millis()/2000.0);
-      // amplitude = debuggingAmplitude;
+      // amplitude = debuggingAmplitude*arm_sin_f32(millis()/2000.0);
+      amplitude = debuggingAmplitude;
       // debugging
       // float pwmInput = 0.5 + 0.1 * sin(millis()/1000.0);
       // pwmInput = 0.6;
@@ -230,19 +230,21 @@ void Brushless::update(float pwmInput) {
 }
 
 
-void Brushless::openLoopTest(uint32_t pause) {
+void Brushless::openLoopTest(uint32_t pause, float amplitude) {
+  float highval = 0.5 + 0.5 * amplitude;
+  float lowval = 0.5 - 0.5 * amplitude;
   while (true) {
-    setOutputs(HIGH, 0, LOW, 0.5, HIGH, 1);
+    setOutputs(true, lowval, false, 0.5, true, highval);
     delay(pause);
-    setOutputs(LOW, 0.5, HIGH, 0, HIGH, 1);
+    setOutputs(false, 0.5, true, lowval, true, highval);
     delay(pause);
-    setOutputs(HIGH, 1, HIGH, 0, LOW, 0.5);
+    setOutputs(true, highval, true, lowval, false, 0.5);
     delay(pause);
-    setOutputs(HIGH, 1, LOW, 0.5, HIGH, 0);
+    setOutputs(true, highval, false, 0.5, true, lowval);
     delay(pause);
-    setOutputs(LOW, 0.5, HIGH, 1, HIGH, 0);
+    setOutputs(false, 0.5, true, highval, true, lowval);
     delay(pause);
-    setOutputs(HIGH, 0, HIGH, 1, LOW, 0.5);
+    setOutputs(true, lowval, true, highval, false, 0.5);
     delay(pause);
   }
 }

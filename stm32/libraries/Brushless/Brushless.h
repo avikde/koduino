@@ -50,7 +50,7 @@ public:
   float getPosition() { return posRad; }
   float getVelocity() { return motorVel; }
 
-  void openLoopTest(uint32_t pause);
+  void openLoopTest(uint32_t pause, float amplitude);
 
   // Modified from Piccoli
   void calcSpaceVector(float electricalAngle, float amplitude, uint8_t *enables, float *pwms, CommutationType commutation);
