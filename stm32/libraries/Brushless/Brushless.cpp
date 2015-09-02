@@ -147,8 +147,8 @@ void Brushless::init(uint32_t absPos) {
 
 void Brushless::calibrate(float sweepAmplitude) {
   // 
-  const uint32_t sweepDuration = 300;
-  const uint32_t pauseDuration = 300;
+  const uint32_t sweepDuration = 400;
+  const uint32_t pauseDuration = 400;
 
   motorEnableFlag = false;
   CommutationType waveSave = waveform;
@@ -259,7 +259,7 @@ void Brushless::setMotorPhases(float electricalAngle, float amplitude, Commutati
   calcSpaceVector(electricalAngle, amplitude, enables, pwms, waveform);
   uint8_t overallEnable = (motorEnableFlag && abs(amplitude)>amplitudeThresh);
 
-  // call the user-define function
+  // call the user-defined function
   setOutputs(
     enables[0] && overallEnable, pwms[0], 
     enables[1] && overallEnable, pwms[1], 
