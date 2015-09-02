@@ -145,10 +145,10 @@ void Brushless::init(uint32_t absPos) {
   velF.init(0.99, 25000, DLPF_ANGRATE);
 }
 
-void Brushless::calibrate(float sweepAmplitude) {
+void Brushless::calibrate(float sweepAmplitude, float convergenceThreshold) {
   // 
-  const uint32_t sweepDuration = 300;
-  const uint32_t pauseDuration = 300;
+  const uint32_t sweepDuration = 200;
+  const uint32_t pauseDuration = 500;
 
   motorEnableFlag = false;
   CommutationType waveSave = waveform;
@@ -166,11 +166,11 @@ void Brushless::calibrate(float sweepAmplitude) {
     motorEnableFlag = true;
     delay(sweepDuration);
     motorEnableFlag = false;
-    if (velInt < 0) {
-      // way off, try something quite different
-      pos_zer = (pos_zer+countsPerElecRev/2)%countsPerElecRev;
-      continue;
-    }
+    // if (velInt < 0) {
+    //   // way off, try something quite different
+    //   pos_zer = (pos_zer+countsPerElecRev/2)%countsPerElecRev;
+    //   continue;
+    // }
     vi1 = velInt;
 
     delay(pauseDuration);
@@ -181,10 +181,12 @@ void Brushless::calibrate(float sweepAmplitude) {
     motorEnableFlag = false;
     vi2 = velInt;
 
-    float dzero = 0.001*(vi1+vi2);
-    // float dzero = 0.00001*(vi1+vi2);
-    // Serial3 << dzero << "\n";
-    if (fabsf(dzero) < 1) {
+    // float dzero = 0.001*(vi1+vi2);
+    float dzero = 0.0002*(vi1+vi2);
+
+    // debug
+    Serial1 << "vi1=" << vi1 << ",vi2="<<vi2<< ",dzero="<<dzero << "\n";
+    if (fabsf(dzero) < convergenceThreshold) {
       EEPROM.write(0, pos_zer);
       // delay(100);
       break;

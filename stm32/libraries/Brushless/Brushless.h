@@ -39,7 +39,8 @@ public:
   void commutate();
   int16_t readCurrent();
 
-  void calibrate(float sweepAmplitude);
+  void calibrate(float sweepAmplitude, float convergenceThreshold);
+  void calibrate(float sweepAmplitude) {calibrate(sweepAmplitude, 1);}
   void update(float pwmInput);
 
   void setEncoderCPR(uint16_t cpr) {encoderCPR = cpr;}
@@ -51,6 +52,7 @@ public:
   float getVelocity() { return motorVel; }
 
   void openLoopTest(uint32_t pause, float amplitude);
+  void openLoopTest(uint32_t pause) {openLoopTest(pause, 1);}
 
   // Modified from Piccoli
   void calcSpaceVector(float electricalAngle, float amplitude, uint8_t *enables, float *pwms, CommutationType commutation);
