@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f30x_adc.c
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    23-October-2012
+  * @version V1.1.1
+  * @date    04-April-2014
   * @brief   This file provides firmware functions to manage the following 
   *          functionalities of the Analog to Digital Convertor (ADC) peripheral:
   *           + Initialization and Configuration
@@ -35,7 +35,7 @@
     ========================================    
     [..] 
     (+) To configure the ADC channels features, use ADC_Init(), ADC_InjectedInit()
-        and ADC_RegularChannelConfig() functions or/and ADC_InjectedChannelConfig()
+        and/or ADC_RegularChannelConfig() functions.
     (+) To activate the continuous mode, use the ADC_ContinuousModeCmd()
         function.
     (+) To activate the Discontinuous mode, use the ADC_DiscModeCmd() functions. 
@@ -55,7 +55,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT 2012 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
   *
   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
   * You may not use this file except in compliance with the License.
@@ -940,7 +940,7 @@ void ADC_AnalogWatchdog3SingleChannelConfig(ADC_TypeDef* ADCx, uint8_t ADC_Chann
 
 /**
   * @brief  Enables or disables the temperature sensor channel.
-  * @param  ADCx: where x can be 1 or 4 to select the ADC peripheral.
+  * @param  ADCx: where x can be 1 to select the ADC peripheral.
   * @param  NewState: new state of the temperature sensor.
   *   This parameter can be: ENABLE or DISABLE.
   * @retval None
@@ -948,35 +948,18 @@ void ADC_AnalogWatchdog3SingleChannelConfig(ADC_TypeDef* ADCx, uint8_t ADC_Chann
 void ADC_TempSensorCmd(ADC_TypeDef* ADCx, FunctionalState NewState)
 {
   /* Check the parameters */
-  assert_param(IS_ADC_ALL_PERIPH(ADCx));
   assert_param(IS_FUNCTIONAL_STATE(NewState));
 
-  if((ADCx == ADC1) || (ADCx == ADC2))
-  {
-    if (NewState != DISABLE)
-    {
-      /* Enable the temperature sensor channel*/
-      ADC1_2->CCR |= ADC12_CCR_TSEN;
-    }
-    else
-    {
-      /* Disable the temperature sensor channel*/
-      ADC1_2->CCR &= ~(uint32_t)ADC12_CCR_TSEN;
-    }
-  }
+  if (NewState != DISABLE)
+   {
+     /* Enable the temperature sensor channel*/
+     ADC1_2->CCR |= ADC12_CCR_TSEN;
+   }
   else
-  {
-    if (NewState != DISABLE)
-    {
-      /* Enable the temperature sensor channel*/
-      ADC3_4->CCR |= ADC34_CCR_TSEN;
-    }
-    else
-    {
-      /* Disable the temperature sensor channel*/
-      ADC3_4->CCR &= ~(uint32_t)ADC34_CCR_TSEN;
-    }
-  }
+   {
+     /* Disable the temperature sensor channel*/
+     ADC1_2->CCR &= ~(uint32_t)ADC12_CCR_TSEN;
+   }
 }
 
 /**
@@ -1022,7 +1005,7 @@ void ADC_VrefintCmd(ADC_TypeDef* ADCx, FunctionalState NewState)
 
 /**
   * @brief  Enables or disables the Vbat channel.
-  * @param  ADCx: where x can be 1 or 4 to select the ADC peripheral.
+  * @param  ADCx: where x can be 1 to select the ADC peripheral.
   * @param  NewState: new state of the Vbat.
   *   This parameter can be: ENABLE or DISABLE.
   * @retval None
@@ -1030,35 +1013,18 @@ void ADC_VrefintCmd(ADC_TypeDef* ADCx, FunctionalState NewState)
 void ADC_VbatCmd(ADC_TypeDef* ADCx, FunctionalState NewState)
 {
   /* Check the parameters */
-  assert_param(IS_ADC_ALL_PERIPH(ADCx));
   assert_param(IS_FUNCTIONAL_STATE(NewState));
 
-  if((ADCx == ADC1) || (ADCx == ADC2))
-  {
-    if (NewState != DISABLE)
-    {
-      /* Enable the Vbat channel*/
-      ADC1_2->CCR |= ADC12_CCR_VBATEN;
-    }
-    else
-    {
-      /* Disable the Vbat channel*/
-      ADC1_2->CCR &= ~(uint32_t)ADC12_CCR_VBATEN;
-    }
-  }
+  if (NewState != DISABLE)
+   {
+     /* Enable the Vbat channel*/
+     ADC1_2->CCR |= ADC12_CCR_VBATEN;
+   }
   else
-  {
-    if (NewState != DISABLE)
-    {
-      /* Enable the Vbat channel*/
-      ADC3_4->CCR |= ADC34_CCR_VBATEN;
-    }
-    else
-    {
-      /* Disable the Vbat channel*/
-      ADC3_4->CCR &= ~(uint32_t)ADC34_CCR_VBATEN;
-    }
-  }
+   {
+     /* Disable the Vbat channel*/
+     ADC1_2->CCR &= ~(uint32_t)ADC12_CCR_VBATEN;
+   }
 }
 
 /**
@@ -1758,7 +1724,7 @@ void ADC_ChannelOffset4Cmd(ADC_TypeDef* ADCx, FunctionalState NewState)
   
   (#) ADC_DMACmd() function is used to enable the ADC DMA mode, after each
       conversion of a regular channel, a DMA request is generated.
-  (#) ADC_DMAConfig() function is used to select between the oneshot DMA mode 
+  (#) ADC_DMAConfig() function is used to select between the one shot DMA mode 
       or the circular DMA mode
 
 @endverbatim
@@ -1790,10 +1756,12 @@ void ADC_DMACmd(ADC_TypeDef* ADCx, FunctionalState NewState)
 }
 
 /**
-  * @brief  Enables or disables the specified ADC DMA request.
+  * @brief  Configure ADC DMA mode.
   * @param  ADCx: where x can be 1, 2, 3 or 4 to select the ADC peripheral.
-  * @param  NewState: new state of the selected ADC DMA transfer.
-  *   This parameter can be: ENABLE or DISABLE.
+  * @param  ADC_DMAMode: select the ADC DMA mode.
+  *   This parameter can be one of the following values:
+  *     @arg ADC_DMAMode_OneShot: ADC DMA Oneshot mode
+  *     @arg ADC_DMAMode_Circular: ADC DMA circular mode
   * @retval None
   */
 void ADC_DMAConfig(ADC_TypeDef* ADCx, uint32_t ADC_DMAMode)
@@ -2411,7 +2379,7 @@ void ADC_ClearITPendingBit(ADC_TypeDef* ADCx, uint32_t ADC_IT)
   assert_param(IS_ADC_ALL_PERIPH(ADCx));
   assert_param(IS_ADC_IT(ADC_IT));
   /* Clear the selected ADC interrupt pending bit */
-  ADCx->ISR |= (uint32_t)ADC_IT;
+  ADCx->ISR = (uint32_t)ADC_IT;
 }
 
 /**

@@ -11,6 +11,8 @@
 uint8_t ADC_SAMPLE_TIME = ADC_SampleTime_13Cycles5;
 #elif defined(SERIES_STM32F4xx)
 uint8_t ADC_SAMPLE_TIME = ADC_SampleTime_15Cycles;
+#elif defined(SERIES_STM32F30x)
+uint8_t ADC_SAMPLE_TIME = ADC_SampleTime_19Cycles5;
 #endif
 #define ADC_TIMEOUT 50
 
@@ -38,14 +40,22 @@ void adcInit(ADC_TypeDef *ADCx) {
   ADC_DeInit(ADCx);
 #endif
 
+#if defined(SERIES_STM32F37x) || defined(SERIES_STM32F10x) || defined(SERIES_STM32F4xx)
   ADC_InitStructure.ADC_ScanConvMode = DISABLE;
+#endif
   ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;
   ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
 #if defined(SERIES_STM32F37x) || defined(SERIES_STM32F10x)
-  ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
   ADC_InitStructure.ADC_NbrOfChannel = 1;
+#elif defined(SERIES_STM32F30x)
+  ADC_InitStructure.ADC_NbrOfRegChannel = 1;
 #else
   ADC_InitStructure.ADC_NbrOfConversion = 1;
+#endif
+#if defined(SERIES_STM32F37x) || defined(SERIES_STM32F10x)
+  ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
+#elif defined(SERIES_STM32F30x)
+  ADC_InitStructure.ADC_ExternalTrigEventEdge = ADC_ExternalTrigEventEdge_None;
 #endif
   ADC_Init(ADCx, &ADC_InitStructure);
   ADC_Cmd(ADCx, ENABLE);
@@ -67,6 +77,8 @@ uint16_t analogRead(uint8_t pin) {
   // Start the conversion
 #if defined(SERIES_STM32F10x)
   ADC_SoftwareStartConvCmd(ADC1, ENABLE);
+#elif defined(SERIES_STM32F30x)
+  ADC_StartConversion(ADC1);
 #else
   ADC_SoftwareStartConv(ADC1);
 #endif

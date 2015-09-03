@@ -36,7 +36,7 @@ f37x.upload.tool=stm32ld
 f37x.upload.protocol=serial
 # f37x.upload.sequence=-rts,-dtr,dtr:rts,-dtr,dtr
 f37x.upload.baud=230400
-f37x.upload.maximum_size=262144
+f37x.upload.maximum_size=65536
 # f37x.menu.bootloader.serial=Serial
 # f37x.menu.bootloader.serial.upload.tool=stm32loader
 # f37x.menu.bootloader.serial.upload.protocol=serial
@@ -69,5 +69,46 @@ f40_41x.upload.tool=stm32ld
 f40_41x.upload.protocol=serial
 # f40_41x.upload.sequence=-rts,-dtr,dtr:rts,-dtr,dtr
 f40_41x.upload.baud=230400
-f40_41x.upload.maximum_size=262144
+f40_41x.upload.maximum_size=16384
+
+
+###########################################################
+
+f301.name=f301
+f301.build.mcu=STM32F302x8
+f301.build.series=STM32F30x
+f301.build.f_cpu=48000000L
+f301.build.core=arduino
+f301.build.extra_flags=
+f301.build.ldscript=STM32F302R8_FLASH.ld
+f301.build.variant=f301
+f301.build.dependency=true
+
+# HSE choices
+f301.build.hse_value=16000000UL
+f301.build.hse_clock=0
+
+# Upload choices
+# f301.upload.tool=stlink
+# f301.upload.protocol=stlink
+f301.upload.maximum_size=49152
+
+f301.menu.bootloader.stlink=ST-LINK
+f301.menu.bootloader.stlink.upload.tool=stlink
+f301.menu.bootloader.stlink.upload.protocol=stlink
+f301.menu.bootloader.stlink.upload.options=
+
+f301.menu.bootloader.stlinkur=ST-LINK (UR)
+f301.menu.bootloader.stlinkur.upload.tool=stlink
+f301.menu.bootloader.stlinkur.upload.protocol=stlink
+f301.menu.bootloader.stlinkur.upload.options=-c UR
+
+f301.menu.bootloader.texanestlink=texane/stlink
+f301.menu.bootloader.texanestlink.upload.tool=texanestlink
+f301.menu.bootloader.texanestlink.upload.protocol=stlink
+f301.menu.bootloader.texanestlink.upload.options=
+
+# f301.menu.bootloader.dfu_util=DFU
+# f301.menu.bootloader.dfu_util.upload.tool=dfu_util
+# f301.menu.bootloader.dfu_util.upload.protocol=dfu
 

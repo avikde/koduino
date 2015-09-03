@@ -31,7 +31,7 @@ const uint32_t extiLines[] = {
 const uint8_t extiIRQn[] = {
   EXTI0_IRQn,     //0
   EXTI1_IRQn,     //1
-#if defined(STM32F37x)
+#if defined(SERIES_STM32F37x) || defined(SERIES_STM32F30x)
   EXTI2_TS_IRQn,  //2
 #else
   EXTI2_IRQn,     //2

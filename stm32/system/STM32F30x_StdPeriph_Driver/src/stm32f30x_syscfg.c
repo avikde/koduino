@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f30x_syscfg.c
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    23-October-2012
+  * @version V1.1.1
+  * @date    04-April-2014
   * @brief   This file provides firmware functions to manage the following 
   *          functionalities of the SYSCFG peripheral:
   *           + Remapping the memory mapped at 0x00000000  
@@ -28,7 +28,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT 2012 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
   *
   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
   * You may not use this file except in compliance with the License.
@@ -120,6 +120,8 @@ void SYSCFG_DeInit(void)
   SYSCFG->EXTICR[3] = 0;
   /* Set CFGR2 register to reset value */
   SYSCFG->CFGR2 = 0;
+  /* Set CFGR3 register to reset value */
+  SYSCFG->CFGR3 = 0;
 }
 
 /**
@@ -157,9 +159,24 @@ void SYSCFG_MemoryRemapConfig(uint32_t SYSCFG_MemoryRemap)
   *   This parameter can be one of the following values:
   *     @arg SYSCFG_DMARemap_TIM17: Remap TIM17 DMA requests from DMA1 channel1 to channel2
   *     @arg SYSCFG_DMARemap_TIM16: Remap TIM16 DMA requests from DMA1 channel3 to channel4
-  *     @arg SYSCFG_DMARemap_TIM6DAC1: Remap TIM6/DAC1 DMA requests from DMA2 channel 3 to DMA1 channel 3
-  *     @arg SYSCFG_DMARemap_TIM7DAC2: Remap TIM7/DAC2 DMA requests from DMA2 channel 4 to DMA1 channel 4
+  *     @arg SYSCFG_DMARemap_TIM6DAC1Ch1: Remap TIM6/DAC1 DMA requests from DMA2 channel 3 to DMA1 channel 3
+  *     @arg SYSCFG_DMARemap_TIM7DAC1Ch2: Remap TIM7/DAC2 DMA requests from DMA2 channel 4 to DMA1 channel 4
   *     @arg SYSCFG_DMARemap_ADC2ADC4: Remap ADC2 and ADC4 DMA requests from DMA2 channel1/channel3 to channel3/channel4
+  *     @arg SYSCFG_DMARemap_DAC2Ch1: Remap DAC2 DMA requests to DMA1 channel5
+  *     @arg SYSCFG_DMARemapCh2_SPI1_RX: Remap SPI1 RX DMA1 CH2 requests
+  *     @arg SYSCFG_DMARemapCh4_SPI1_RX: Remap SPI1 RX DMA CH4 requests        
+  *     @arg SYSCFG_DMARemapCh6_SPI1_RX: Remap SPI1 RX DMA CH6 requests       
+  *     @arg SYSCFG_DMARemapCh3_SPI1_TX: Remap SPI1 TX DMA CH2 requests      
+  *     @arg SYSCFG_DMARemapCh5_SPI1_TX: Remap SPI1 TX DMA CH5 requests       
+  *     @arg SYSCFG_DMARemapCh7_SPI1_TX: Remap SPI1 TX DMA CH7 requests       
+  *     @arg SYSCFG_DMARemapCh7_I2C1_RX: Remap I2C1 RX DMA CH7 requests
+  *     @arg SYSCFG_DMARemapCh3_I2C1_RX: Remap I2C1 RX DMA CH3 requests       
+  *     @arg SYSCFG_DMARemapCh5_I2C1_RX: Remap I2C1 RX DMA CH5 requests      
+  *     @arg SYSCFG_DMARemapCh6_I2C1_TX: Remap I2C1 TX DMA CH6 requests       
+  *     @arg SYSCFG_DMARemapCh2_I2C1_TX: Remap I2C1 TX DMA CH2 requests       
+  *     @arg SYSCFG_DMARemapCh4_I2C1_TX: Remap I2C1 TX DMA CH4 requests   
+  *     @arg SYSCFG_DMARemapCh4_ADC2: Remap ADC2 DMA1 Ch4 requests    
+  *     @arg SYSCFG_DMARemapCh2_ADC2: Remap ADC2 DMA1 Ch2 requests
   * @param  NewState: new state of the DMA channel remapping. 
   *         This parameter can be: Enable or Disable.
   * @note   When enabled, DMA channel of the selected peripheral is remapped
@@ -178,15 +195,31 @@ void SYSCFG_DMAChannelRemapConfig(uint32_t SYSCFG_DMARemap, FunctionalState NewS
   assert_param(IS_SYSCFG_DMA_REMAP(SYSCFG_DMARemap));
   assert_param(IS_FUNCTIONAL_STATE(NewState));
 
-  if (NewState != DISABLE)
+  if ((SYSCFG_DMARemap & 0x80000000)!= 0x80000000)
   {
-    /* Remap the DMA channel */
-    SYSCFG->CFGR1 |= (uint32_t)SYSCFG_DMARemap;
+    if (NewState != DISABLE)
+    {
+      /* Remap the DMA channel */
+      SYSCFG->CFGR1 |= (uint32_t)SYSCFG_DMARemap;
+    }
+    else
+    {
+      /* use the default DMA channel mapping */
+      SYSCFG->CFGR1 &= (uint32_t)(~SYSCFG_DMARemap);
+    }
   }
   else
   {
-    /* use the default DMA channel mapping */
-    SYSCFG->CFGR1 &= (uint32_t)(~SYSCFG_DMARemap);
+    if (NewState != DISABLE)
+    {
+      /* Remap the DMA channel */
+      SYSCFG->CFGR3 |= (uint32_t)SYSCFG_DMARemap;
+    }
+    else
+    {
+      /* use the default DMA channel mapping */
+      SYSCFG->CFGR3 &= (uint32_t)(~SYSCFG_DMARemap);
+    }
   }
 }
 
@@ -196,6 +229,8 @@ void SYSCFG_DMAChannelRemapConfig(uint32_t SYSCFG_DMARemap, FunctionalState NewS
   *   This parameter can be one of the following values:
   *     @arg SYSCFG_TriggerRemap_DACTIM3: Remap DAC trigger from TIM8 to TIM3
   *     @arg SYSCFG_TriggerRemap_TIM1TIM17: Remap TIM1 ITR3 from TIM4 TRGO to TIM17 OC
+  *     @arg SYSCFG_TriggerRemap_DACHRTIM1_TRIG1: Remap DAC trigger to HRTIM1 TRIG1
+  *     @arg SYSCFG_TriggerRemap_DACHRTIM1_TRIG2: Remap DAC trigger to HRTIM1 TRIG2    
   * @param  NewState: new state of the trigger mapping. 
   *         This parameter can be: ENABLE or DISABLE.
   * @note   ENABLE:  Enable fast mode plus driving capability for selected pin
@@ -207,16 +242,32 @@ void SYSCFG_TriggerRemapConfig(uint32_t SYSCFG_TriggerRemap, FunctionalState New
   /* Check the parameters */
   assert_param(IS_SYSCFG_TRIGGER_REMAP(SYSCFG_TriggerRemap));
   assert_param(IS_FUNCTIONAL_STATE(NewState));
-
-  if (NewState != DISABLE)
+  
+  if ((SYSCFG_TriggerRemap & 0x80000000)!= 0x80000000)
   {
-    /* Remap the trigger */
-    SYSCFG->CFGR1 |= (uint32_t)SYSCFG_TriggerRemap;
+    if (NewState != DISABLE)
+    {
+      /* Remap the trigger */
+      SYSCFG->CFGR1 |= (uint32_t)SYSCFG_TriggerRemap;
+    }
+    else
+    {
+      /* Use the default trigger mapping */
+      SYSCFG->CFGR1 &= (uint32_t)(~SYSCFG_TriggerRemap);
+    }
   }
   else
   {
-    /* Use the default trigger mapping */
-    SYSCFG->CFGR1 &= (uint32_t)(~SYSCFG_TriggerRemap);
+    if (NewState != DISABLE)
+    {
+      /* Remap the trigger */
+      SYSCFG->CFGR3 |= (uint32_t)SYSCFG_TriggerRemap;
+    }
+    else
+    {
+      /* Use the default trigger mapping */
+      SYSCFG->CFGR3 &= (uint32_t)(~SYSCFG_TriggerRemap);
+    }
   }
 }
 

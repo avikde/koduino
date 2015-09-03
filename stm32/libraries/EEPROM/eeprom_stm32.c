@@ -20,7 +20,7 @@ static uint16_t EE_FindValidPage(uint8_t Operation);
 
 FLASH_Status eraseHelper(uint32_t pageAddress)
 {  
-#if defined(STM32F37x) || defined(STM32F30x)
+#if defined(SERIES_STM32F37x) || defined(SERIES_STM32F30x)
   return FLASH_ErasePage(pageAddress);
 #else
   if (pageAddress == PAGE0_BASE_ADDRESS)

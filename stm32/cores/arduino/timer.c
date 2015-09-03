@@ -7,8 +7,10 @@
 
 // PWM period needed for a certain PWM frequency
 // assuming prescaler=1 => TIMER_PERIPH_CLOCK / 2
-#if defined(STM32F37x)
+#if defined(SERIES_STM32F37x)
 #define TIMER_BASE_CLOCK 36000000
+#elif defined(SERIES_STM32F30x)
+#define TIMER_BASE_CLOCK 24000000
 #else
 #define TIMER_BASE_CLOCK 42000000
 #endif
@@ -182,4 +184,47 @@ void timerISR(uint8_t timer) {
   }
 }
 
+// ==================
+
+
+void complementaryPWM(uint8_t timer, int freqHz, uint16_t deadtime) {
+#if defined(SERIES_STM32F30x)
+  // init timebase
+  timerInit(timer, freqHz);
+
+  TIM_OCInitTypeDef  TIM_OCInitStructure;
+  TIM_BDTRInitTypeDef TIM_BDTRInitStructure;
+  /* Channel 1, 2 and 3 Configuration in PWM mode */
+  TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM2;
+  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+  TIM_OCInitStructure.TIM_OutputNState = TIM_OutputNState_Enable;
+
+  TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
+  TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_High;
+  TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Set;
+  TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCIdleState_Reset;
+
+  TIM_OC1Init(TIMER_MAP[timer].TIMx, &TIM_OCInitStructure);
+  TIM_OC2Init(TIMER_MAP[timer].TIMx, &TIM_OCInitStructure);
+  TIM_OC3Init(TIMER_MAP[timer].TIMx, &TIM_OCInitStructure);
+
+  /* Automatic Output enable, Break, dead time and lock configuration*/
+  TIM_BDTRInitStructure.TIM_OSSRState = TIM_OSSRState_Enable;
+  TIM_BDTRInitStructure.TIM_OSSIState = TIM_OSSIState_Enable;
+  TIM_BDTRInitStructure.TIM_LOCKLevel = TIM_LOCKLevel_1;
+  TIM_BDTRInitStructure.TIM_DeadTime = deadtime;
+  TIM_BDTRInitStructure.TIM_Break = TIM_Break_Enable;
+  TIM_BDTRInitStructure.TIM_BreakPolarity = TIM_BreakPolarity_High;
+  TIM_BDTRInitStructure.TIM_AutomaticOutput = TIM_AutomaticOutput_Enable;
+
+  TIM_BDTRConfig(TIMER_MAP[timer].TIMx, &TIM_BDTRInitStructure);
+
+  /* counter enable */
+  TIM_Cmd(TIMER_MAP[timer].TIMx, ENABLE);
+
+  /* Main Output Enable */
+  TIM_CtrlPWMOutputs(TIMER_MAP[timer].TIMx, ENABLE);
+  
+#endif
+}
 

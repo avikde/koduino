@@ -122,4 +122,19 @@ tools.stm32ld.upload.params.verbose=
 tools.stm32ld.upload.params.quiet=
 tools.stm32ld.upload.pattern="{path}/{cmd}" {serial.port} {upload.baud} "{build.path}/{build.project_name}.bin" 1
 
+# ST-LINK (Windows)
+tools.stlink.cmd=ST-LINK_CLI.exe
+tools.stlink.cmd.windows=C:/Program Files (x86)/STMicroelectronics/STM32 ST-LINK Utility/ST-LINK Utility/ST-LINK_CLI.exe
+tools.stlink.upload.params.verbose=
+tools.stlink.upload.params.quiet=
+tools.stlink.upload.pattern="{cmd}" {upload.options} -ME -P "{build.path}/{build.project_name}.bin" 0x08000000 -Rst
 
+# stlink
+tools.texanestlink.cmd=st-flash
+tools.texanestlink.cmd.windows=st-flash.exe
+tools.texanestlink.cmd.macosx=st-flash.osx
+tools.texanestlink.path={runtime.ide.path}/hardware/koduino/stm32/system/stlink
+
+tools.texanestlink.upload.params.verbose=
+tools.texanestlink.upload.params.quiet=
+tools.texanestlink.upload.pattern="{path}/{cmd}" write "{build.path}/{build.project_name}.bin" 0x08000000

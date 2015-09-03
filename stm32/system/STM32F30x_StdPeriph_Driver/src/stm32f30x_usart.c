@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f30x_usart.c
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    23-October-2012
+  * @version V1.1.1
+  * @date    04-April-2014
   * @brief   This file provides firmware functions to manage the following
   *          functionalities of the Universal synchronous asynchronous receiver
   *          transmitter (USART):
@@ -44,12 +44,12 @@
              function.
           (#) For synchronous mode, enable the clock and program the polarity,
              phase and last bit using the USART_ClockInit() function.
+          (#) Enable the USART using the USART_Cmd() function.
           (#) Enable the NVIC and the corresponding interrupt using the function
              USART_ITConfig() if you need to use interrupt mode.
           (#) When using the DMA mode:
               (++) Configure the DMA using DMA_Init() function.
-              (++) Active the needed channel Request using USART_DMACmd() function.
-          (#) Enable the USART using the USART_Cmd() function.
+              (++) Activate the needed channel Request using USART_DMACmd() function.
           (#) Enable the DMA using the DMA_Cmd() function, when using DMA mode.
       [..]
               Refer to Multi-Processor, LIN, half-duplex, Smartcard, IrDA sub-sections
@@ -60,7 +60,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT 2012 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
   *
   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
   * You may not use this file except in compliance with the License.
@@ -501,12 +501,12 @@ void USART_OneBitMethodCmd(USART_TypeDef* USARTx, FunctionalState NewState)
 
   if (NewState != DISABLE)
   {
-    /* Enable the one bit method by setting the ONEBITE bit in the CR3 register */
+    /* Enable the one bit method by setting the ONEBIT bit in the CR3 register */
     USARTx->CR3 |= USART_CR3_ONEBIT;
   }
   else
   {
-    /* Disable the one bit method by clearing the ONEBITE bit in the CR3 register */
+    /* Disable the one bit method by clearing the ONEBIT bit in the CR3 register */
     USARTx->CR3 &= (uint32_t)~((uint32_t)USART_CR3_ONEBIT);
   }
 }

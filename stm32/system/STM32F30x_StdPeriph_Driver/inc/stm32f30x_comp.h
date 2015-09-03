@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32f30x_comp.h
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    23-October-2012
+  * @version V1.1.1
+  * @date    04-April-2014
   * @brief   This file contains all the functions prototypes for the COMP firmware 
   *          library.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT 2012 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
   *
   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
   * You may not use this file except in compliance with the License.
@@ -66,16 +66,15 @@ typedef struct
   uint32_t COMP_BlankingSrce;      /*!< Selects the output blanking source of the comparator.
                                           This parameter can be a value of @ref COMP_BlankingSrce */
 
-  uint32_t COMP_OutputPol;           /*!< Selects the output polarity of the comparator.
+  uint32_t COMP_OutputPol;         /*!< Selects the output polarity of the comparator.
                                           This parameter can be a value of @ref COMP_OutputPoloarity */
 
-  uint32_t COMP_Hysteresis;         /*!< Selects the hysteresis voltage of the comparator.
+  uint32_t COMP_Hysteresis;        /*!< Selects the hysteresis voltage of the comparator.
                                           This parameter can be a value of @ref COMP_Hysteresis */
 
-  uint32_t COMP_Mode;               /*!< Selects the operating mode of the comparator
+  uint32_t COMP_Mode;              /*!< Selects the operating mode of the comparator
                                          and allows to adjust the speed/consumption.
-                                          This parameter can be a value of @ref COMP_Mode */
-
+                                         This parameter can be a value of @ref COMP_Mode */
 }COMP_InitTypeDef;
 
 /* Exported constants --------------------------------------------------------*/
@@ -116,8 +115,9 @@ typedef struct
 #define COMP_InvertingInput_1_2VREFINT          COMP_CSR_COMPxINSEL_0  /*!< 1/2 VREFINT connected to comparator inverting input */
 #define COMP_InvertingInput_3_4VREFINT          COMP_CSR_COMPxINSEL_1  /*!< 3/4 VREFINT connected to comparator inverting input */
 #define COMP_InvertingInput_VREFINT             ((uint32_t)0x00000030) /*!< VREFINT connected to comparator inverting input */
-#define COMP_InvertingInput_DAC1                COMP_CSR_COMPxINSEL_2  /*!< DAC1_OUT (PA4) connected to comparator inverting input */
-#define COMP_InvertingInput_DAC2                ((uint32_t)0x00000050) /*!< DAC2_OUT (PA5) connected to comparator inverting input */
+#define COMP_InvertingInput_DAC1OUT1            COMP_CSR_COMPxINSEL_2  /*!< DAC1_OUT1 (PA4) connected to comparator inverting input */
+#define COMP_InvertingInput_DAC1OUT2            ((uint32_t)0x00000050) /*!< DAC1_OUT2 (PA5) connected to comparator inverting input */
+
 #define COMP_InvertingInput_IO1                 ((uint32_t)0x00000060) /*!< I/O1 (PA0 for COMP1, PA2 for COMP2, PD15 for COMP3, 
                                                                             PE8 for COMP4, PD13 for COMP5, PD10 for COMP6,
                                                                             PC0 for COMP7) connected to comparator inverting input */
@@ -125,14 +125,17 @@ typedef struct
 #define COMP_InvertingInput_IO2                 COMP_CSR_COMPxINSEL    /*!< I/O2 (PB12 for COMP3, PB2 for COMP4, PB10 for COMP5,
                                                                             PB15 for COMP6) connected to comparator inverting input */
 
+#define COMP_InvertingInput_DAC2OUT1            COMP_CSR_COMPxINSEL_3  /*!< DAC2_OUT1 (PA6) connected to comparator inverting input */
+
 #define IS_COMP_INVERTING_INPUT(INPUT) (((INPUT) == COMP_InvertingInput_1_4VREFINT) || \
                                         ((INPUT) == COMP_InvertingInput_1_2VREFINT) || \
                                         ((INPUT) == COMP_InvertingInput_3_4VREFINT) || \
                                         ((INPUT) == COMP_InvertingInput_VREFINT)    || \
-                                        ((INPUT) == COMP_InvertingInput_DAC1)       || \
-                                        ((INPUT) == COMP_InvertingInput_DAC2)       || \
+                                        ((INPUT) == COMP_InvertingInput_DAC1OUT1)   || \
+                                        ((INPUT) == COMP_InvertingInput_DAC1OUT2)   || \
                                         ((INPUT) == COMP_InvertingInput_IO1)        || \
-                                        ((INPUT) == COMP_InvertingInput_IO2))
+                                        ((INPUT) == COMP_InvertingInput_IO2)        || \
+                                        ((INPUT) == COMP_InvertingInput_DAC2OUT1))
 /**
   * @}
   */ 
@@ -175,6 +178,11 @@ typedef struct
 #define COMP_Output_TIM3IC1               ((uint32_t)0x00002800)   /*!< COMP output connected to TIM3 Input Capture 1 */
 #define COMP_Output_TIM3OCREFCLR          ((uint32_t)0x00002C00)   /*!< COMP output connected to TIM3 OCREF Clear */
 
+/* Output Redirection specific to COMP2 */
+#define COMP_Output_HRTIM1_FLT6           ((uint32_t)0x00003000)   /*!< COMP output connected to HRTIM1 FLT6 */
+#define COMP_Output_HRTIM1_EE1_2          ((uint32_t)0x00003400)   /*!< COMP output connected to HRTIM1 EE1_2*/
+#define COMP_Output_HRTIM1_EE6_2          ((uint32_t)0x00003800)   /*!< COMP output connected to HRTIM1 EE6_2 */
+
 /* Output Redirection specific to COMP3 */
 #define COMP_Output_TIM4IC1               ((uint32_t)0x00001C00)   /*!< COMP output connected to TIM4 Input Capture 1 */
 #define COMP_Output_TIM3IC2               ((uint32_t)0x00002000)   /*!< COMP output connected to TIM3 Input Capture 2 */
@@ -188,6 +196,10 @@ typedef struct
 #define COMP_Output_TIM4IC2               ((uint32_t)0x00002400)   /*!< COMP output connected to TIM4 Input Capture 2 */
 #define COMP_Output_TIM15OCREFCLR         ((uint32_t)0x00002800)   /*!< COMP output connected to TIM15 OCREF Clear */
 
+#define COMP_Output_HRTIM1_FLT7           ((uint32_t)0x00003000)   /*!< COMP output connected to HRTIM1 FLT7 */
+#define COMP_Output_HRTIM1_EE2_2          ((uint32_t)0x00003400)   /*!< COMP output connected to HRTIM1 EE2_2*/
+#define COMP_Output_HRTIM1_EE7_2          ((uint32_t)0x00003800)   /*!< COMP output connected to HRTIM1 EE7_2 */
+
 /* Output Redirection specific to COMP5 */
 #define COMP_Output_TIM2IC1               ((uint32_t)0x00001800)   /*!< COMP output connected to TIM2 Input Capture 1 */
 #define COMP_Output_TIM17IC1              ((uint32_t)0x00002000)   /*!< COMP output connected to TIM17 Input Capture 1 */
@@ -200,6 +212,10 @@ typedef struct
 #define COMP_Output_TIM16OCREFCLR         ((uint32_t)0x00002400)   /*!< COMP output connected to TIM16 OCREF Clear */
 #define COMP_Output_TIM16IC1              ((uint32_t)0x00002800)   /*!< COMP output connected to TIM16 Input Capture 1 */
 #define COMP_Output_TIM4IC4               ((uint32_t)0x00002C00)   /*!< COMP output connected to TIM4 Input Capture 4 */
+
+#define COMP_Output_HRTIM1_FLT8           ((uint32_t)0x00003000)   /*!< COMP output connected to HRTIM1 FLT8 */
+#define COMP_Output_HRTIM1_EE3_2          ((uint32_t)0x00003400)   /*!< COMP output connected to HRTIM1 EE3_2*/
+#define COMP_Output_HRTIM1_EE8_2          ((uint32_t)0x00003800)   /*!< COMP output connected to HRTIM1 EE8_2 */
 
 /* Output Redirection specific to COMP7 */
 #define COMP_Output_TIM2IC3               ((uint32_t)0x00002000)   /*!< COMP output connected to TIM2 Input Capture 3 */
@@ -240,7 +256,17 @@ typedef struct
                                 ((OUTPUT) == COMP_Output_TIM2IC3)             || \
                                 ((OUTPUT) == COMP_Output_TIM1IC2)             || \
                                 ((OUTPUT) == COMP_Output_TIM17BKIN)           || \
-                                ((OUTPUT) == COMP_Output_TIM17OCREFCLR))
+                                ((OUTPUT) == COMP_Output_TIM17OCREFCLR)       || \
+                                ((OUTPUT) == COMP_Output_HRTIM1_FLT6)         || \
+                                ((OUTPUT) == COMP_Output_HRTIM1_EE1_2)        || \
+                                ((OUTPUT) == COMP_Output_HRTIM1_EE6_2)        || \
+                                ((OUTPUT) == COMP_Output_HRTIM1_FLT7)         || \
+                                ((OUTPUT) == COMP_Output_HRTIM1_EE2_2)        || \
+                                ((OUTPUT) == COMP_Output_HRTIM1_EE7_2)        || \
+                                ((OUTPUT) == COMP_Output_HRTIM1_FLT8)         || \
+                                ((OUTPUT) == COMP_Output_HRTIM1_EE3_2)        || \
+                                ((OUTPUT) == COMP_Output_HRTIM1_EE8_2))
+                                
 /**
   * @}
   */ 

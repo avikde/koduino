@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f30x_flash.c
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    23-October-2012
+  * @version V1.1.1
+  * @date    04-April-2014
   * @brief   This file provides firmware functions to manage the following 
   *          functionalities of the FLASH peripheral:
   *            + FLASH Interface configuration
@@ -55,7 +55,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT 2012 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
   *
   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
   * You may not use this file except in compliance with the License.
@@ -91,7 +91,6 @@
 #define RDPRT_MASK                 ((uint32_t)0x00000002)
 #define WRP01_MASK                 ((uint32_t)0x0000FFFF)
 #define WRP23_MASK                 ((uint32_t)0xFFFF0000)
- 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
@@ -623,7 +622,6 @@ FLASH_Status FLASH_OB_EnableWRP(uint32_t OB_WRP)
       /* Wait for last operation to be completed */
       status = FLASH_WaitForLastOperation(FLASH_ER_PRG_TIMEOUT);
     }
-          
     if(status != FLASH_TIMEOUT)
     {
       /* if the program operation is completed, disable the OPTPG Bit */

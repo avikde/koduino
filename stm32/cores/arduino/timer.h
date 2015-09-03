@@ -93,6 +93,10 @@ void timerInitHelper(uint8_t timer, uint16_t prescaler, uint32_t period);
 void timerISR(uint8_t timer);
 
 
+// Special timer features
+void complementaryPWM(uint8_t timer, int freqHz, uint16_t deadtime);
+
+
 #ifdef __cplusplus
 } // extern "C"
 #endif // __cplusplus

@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32f30x_syscfg.h
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    23-October-2012
+  * @version V1.1.1
+  * @date    04-April-2014
   * @brief   This file contains all the functions prototypes for the SYSCFG firmware 
   *          library.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT 2012 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
   *
   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
   * You may not use this file except in compliance with the License.
@@ -133,15 +133,55 @@
   */ 
 #define SYSCFG_DMARemap_TIM17              SYSCFG_CFGR1_TIM17_DMA_RMP        /*!< Remap TIM17 DMA requests from channel1 to channel2 */
 #define SYSCFG_DMARemap_TIM16              SYSCFG_CFGR1_TIM16_DMA_RMP        /*!< Remap TIM16 DMA requests from channel3 to channel4 */
-#define SYSCFG_DMARemap_TIM6DAC1           SYSCFG_CFGR1_TIM6DAC1_DMA_RMP     /*!< Remap TIM6/DAC1 DMA requests from DMA2 channel3 to DMA1 channel3 */
-#define SYSCFG_DMARemap_TIM7DAC2           SYSCFG_CFGR1_TIM7DAC2_DMA_RMP     /*!< Remap TIM7/DAC2 DMA requests from DMA2 channel4 to DMA1 channel4 */
-#define SYSCFG_DMARemap_ADC2ADC4           SYSCFG_CFGR1_ADC24_DMA_RMP        /*!< Remap ADC2 and ADC4 DMA requests from DMA2 channel1/channel3 to channel3/channel4 */
+#define SYSCFG_DMARemap_ADC2ADC4           SYSCFG_CFGR1_ADC24_DMA_RMP        /*!< Remap ADC2 and ADC4 DMA requests */
 
+#define SYSCFG_DMARemap_TIM6DAC1Ch1        SYSCFG_CFGR1_TIM6DAC1Ch1_DMA_RMP  /* Remap TIM6/DAC1 Ch1 DMA requests */
+#define SYSCFG_DMARemap_TIM7DAC1Ch2        SYSCFG_CFGR1_TIM7DAC1Ch2_DMA_RMP  /* Remap TIM7/DAC1 Ch2 DMA requests */
+#define SYSCFG_DMARemap_DAC2Ch1            SYSCFG_CFGR1_DAC2Ch1_DMA_RMP      /* Remap DAC2 Ch1 DMA requests */
+
+#define SYSCFG_DMARemapCh2_SPI1_RX         ((uint32_t)0x80000003)            /* Remap SPI1 RX DMA CH2 requests */
+#define SYSCFG_DMARemapCh4_SPI1_RX         ((uint32_t)0x80000001)            /* Remap SPI1 RX DMA CH4 requests */
+#define SYSCFG_DMARemapCh6_SPI1_RX         ((uint32_t)0x80000002)            /* Remap SPI1 RX DMA CH6 requests */
+
+#define SYSCFG_DMARemapCh3_SPI1_TX         ((uint32_t)0x8000000C)            /* Remap SPI1 TX DMA CH2 requests */
+#define SYSCFG_DMARemapCh5_SPI1_TX         ((uint32_t)0x80000004)            /* Remap SPI1 TX DMA CH5 requests */
+#define SYSCFG_DMARemapCh7_SPI1_TX         ((uint32_t)0x80000008)            /* Remap SPI1 TX DMA CH7 requests */
+
+#define SYSCFG_DMARemapCh7_I2C1_RX         ((uint32_t)0x80000030)            /* Remap I2C1 RX DMA CH7 requests */
+#define SYSCFG_DMARemapCh3_I2C1_RX         ((uint32_t)0x80000010)            /* Remap I2C1 RX DMA CH3 requests */
+#define SYSCFG_DMARemapCh5_I2C1_RX         ((uint32_t)0x80000020)            /* Remap I2C1 RX DMA CH5 requests */
+
+#define SYSCFG_DMARemapCh6_I2C1_TX         ((uint32_t)0x800000C0)            /* Remap I2C1 TX DMA CH6 requests */
+#define SYSCFG_DMARemapCh2_I2C1_TX         ((uint32_t)0x80000040)            /* Remap I2C1 TX DMA CH2 requests */
+#define SYSCFG_DMARemapCh4_I2C1_TX         ((uint32_t)0x80000080)            /* Remap I2C1 TX DMA CH4 requests */
+
+#define SYSCFG_DMARemapCh4_ADC2            ((uint32_t)0x80000300)            /* Remap ADC2 DMA1 Ch4 requests */
+#define SYSCFG_DMARemapCh2_ADC2            ((uint32_t)0x80000200)            /* Remap ADC2 DMA1 Ch2 requests */
+
+/* SYSCFG_DMA_Remap_Legacy */ 
+#define SYSCFG_DMARemap_TIM6DAC1           SYSCFG_DMARemap_TIM6DAC1Ch1       /*!< Remap TIM6/DAC1 DMA requests */
+#define SYSCFG_DMARemap_TIM7DAC2           SYSCFG_DMARemap_TIM7DAC1Ch2       /*!< Remap TIM7/DAC2 DMA requests */
+    
 #define IS_SYSCFG_DMA_REMAP(REMAP) (((REMAP) == SYSCFG_DMARemap_TIM17)    || \
                                     ((REMAP) == SYSCFG_DMARemap_TIM16)    || \
-                                    ((REMAP) == SYSCFG_DMARemap_TIM6DAC1) || \
-                                    ((REMAP) == SYSCFG_DMARemap_TIM7DAC2) || \
-                                    ((REMAP) == SYSCFG_DMARemap_ADC2ADC4))
+                                    ((REMAP) == SYSCFG_DMARemap_ADC2ADC4) || \
+                                    ((REMAP) == SYSCFG_DMARemap_TIM6DAC1Ch1) || \
+                                    ((REMAP) == SYSCFG_DMARemap_TIM7DAC1Ch2) || \
+                                    ((REMAP) == SYSCFG_DMARemap_DAC2Ch1)    || \
+                                    ((REMAP) == SYSCFG_DMARemapCh2_SPI1_RX) || \
+                                    ((REMAP) == SYSCFG_DMARemapCh4_SPI1_RX) || \
+                                    ((REMAP) == SYSCFG_DMARemapCh6_SPI1_RX) || \
+                                    ((REMAP) == SYSCFG_DMARemapCh5_SPI1_TX) || \
+                                    ((REMAP) == SYSCFG_DMARemapCh5_SPI1_TX) || \
+                                    ((REMAP) == SYSCFG_DMARemapCh7_SPI1_TX) || \
+                                    ((REMAP) == SYSCFG_DMARemapCh7_I2C1_RX) || \
+                                    ((REMAP) == SYSCFG_DMARemapCh3_I2C1_RX) || \
+                                    ((REMAP) == SYSCFG_DMARemapCh5_I2C1_RX) || \
+                                    ((REMAP) == SYSCFG_DMARemapCh6_I2C1_TX) || \
+                                    ((REMAP) == SYSCFG_DMARemapCh2_I2C1_TX) || \
+                                    ((REMAP) == SYSCFG_DMARemapCh4_I2C1_TX) || \
+                                    ((REMAP) == SYSCFG_DMARemapCh4_ADC2)    || \
+                                    ((REMAP) == SYSCFG_DMARemapCh2_ADC2))
 
 /**
   * @}
@@ -150,10 +190,14 @@
 /** @defgroup SYSCFG_Trigger_Remap_Config 
   * @{
   */ 
-#define SYSCFG_TriggerRemap_DACTIM3              SYSCFG_CFGR1_DAC_TRIG_RMP     /*!< Remap DAC trigger to TIM3 */
-#define SYSCFG_TriggerRemap_TIM1TIM17            SYSCFG_CFGR1_TIM1_ITR3_RMP    /*!< Remap TIM1 ITR3 to TIM17 OC */
+#define SYSCFG_TriggerRemap_DACTIM3              SYSCFG_CFGR1_DAC1_TRIG1_RMP     /*!< Remap DAC trigger to TIM3 */
+#define SYSCFG_TriggerRemap_TIM1TIM17            SYSCFG_CFGR1_TIM1_ITR3_RMP      /*!< Remap TIM1 ITR3 to TIM17 OC */
+#define SYSCFG_TriggerRemap_DACHRTIM1_TRIG1      ((uint32_t)0x80010000)          /*!< Remap DAC trigger to HRTIM1 TRIG1 */
+#define SYSCFG_TriggerRemap_DACHRTIM1_TRIG2      ((uint32_t)0x80020000)          /*!< Remap DAC trigger to HRTIM1 TRIG2 */
 
-#define IS_SYSCFG_TRIGGER_REMAP(REMAP) (((REMAP) == SYSCFG_TriggerRemap_DACTIM3)  || \
+#define IS_SYSCFG_TRIGGER_REMAP(REMAP) (((REMAP) == SYSCFG_TriggerRemap_DACTIM3)         || \
+                                        ((REMAP) == SYSCFG_TriggerRemap_DACHRTIM1_TRIG1) || \
+                                        ((REMAP) == SYSCFG_TriggerRemap_DACHRTIM1_TRIG2) || \
                                         ((REMAP) == SYSCFG_TriggerRemap_TIM1TIM17))
 
 /**

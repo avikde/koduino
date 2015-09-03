@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    stm32f30x_tim.h
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    23-October-2012
+  * @version V1.1.1
+  * @date    04-April-2014
   * @brief   This file contains all the functions prototypes for the TIM firmware 
   *          library.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT 2012 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
   *
   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
   * You may not use this file except in compliance with the License.
@@ -27,8 +27,8 @@
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __stm32f30x_TIM_H
-#define __stm32f30x_TIM_H
+#ifndef __STM32F30x_TIM_H
+#define __STM32F30x_TIM_H
 
 #ifdef __cplusplus
  extern "C" {
@@ -67,7 +67,7 @@ typedef struct
   uint16_t TIM_ClockDivision;     /*!< Specifies the clock division.
                                       This parameter can be a value of @ref TIM_Clock_Division_CKD */
 
-  uint8_t TIM_RepetitionCounter;  /*!< Specifies the repetition counter value. Each time the RCR downcounter
+  uint16_t TIM_RepetitionCounter;  /*!< Specifies the repetition counter value. Each time the RCR downcounter
                                        reaches zero, an update event is generated and counting restarts
                                        from the RCR value (N).
                                        This means in PWM mode that (N+1) corresponds to:
@@ -1321,7 +1321,7 @@ void TIM_RemapConfig(TIM_TypeDef* TIMx, uint16_t TIM_Remap);
 }
 #endif
 
-#endif /*__stm32f30x_TIM_H */
+#endif /*__STM32F30x_TIM_H */
 
 /**
   * @}

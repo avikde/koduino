@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f30x_gpio.c
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    23-October-2012
+  * @version V1.1.1
+  * @date    04-April-2014
   * @brief   This file provides firmware functions to manage the following 
   *          functionalities of the GPIO peripheral:
   *           + Initialization and Configuration functions
@@ -56,7 +56,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT 2012 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
   *
   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
   * You may not use this file except in compliance with the License.
@@ -174,6 +174,7 @@ void GPIO_DeInit(GPIO_TypeDef* GPIOx)
 void GPIO_Init(GPIO_TypeDef* GPIOx, GPIO_InitTypeDef* GPIO_InitStruct)
 { 
   uint32_t pinpos = 0x00, pos = 0x00 , currentpin = 0x00;
+  uint32_t tmpreg = 0x00;
 
   /* Check the parameters */
   assert_param(IS_GPIO_ALL_PERIPH(GPIOx));
@@ -213,9 +214,12 @@ void GPIO_Init(GPIO_TypeDef* GPIOx, GPIO_InitTypeDef* GPIO_InitStruct)
 
       GPIOx->MODER |= (((uint32_t)GPIO_InitStruct->GPIO_Mode) << (pinpos * 2));
 
-      /* Pull-up Pull down resistor configuration */
-      GPIOx->PUPDR &= ~(GPIO_PUPDR_PUPDR0 << ((uint16_t)pinpos * 2));
-      GPIOx->PUPDR |= (((uint32_t)GPIO_InitStruct->GPIO_PuPd) << (pinpos * 2));
+      /* Use temporary variable to update PUPDR register configuration, to avoid 
+         unexpected transition in the GPIO pin configuration. */
+      tmpreg = GPIOx->PUPDR;
+      tmpreg &= ~(GPIO_PUPDR_PUPDR0 << ((uint16_t)pinpos * 2));
+      tmpreg |= (((uint32_t)GPIO_InitStruct->GPIO_PuPd) << (pinpos * 2));
+      GPIOx->PUPDR = tmpreg;
     }
   }
 }
@@ -473,8 +477,8 @@ void GPIO_Write(GPIO_TypeDef* GPIOx, uint16_t PortVal)
   *     @arg GPIO_AF_0:  JTCK-SWCLK, JTDI, JTDO/TRACESW0, JTMS-SWDAT, MCO, NJTRST, 
   *                      TRACED, TRACECK.
   *     @arg GPIO_AF_1:  OUT, TIM2, TIM15, TIM16, TIM17.
-  *     @arg GPIO_AF_2:  COMP1_OUT, TIM1, TIM2, TIM3, TIM4, TIM8, TIM15.
-  *     @arg GPIO_AF_3:  COMP7_OUT, TIM8, TIM15, Touch.
+  *     @arg GPIO_AF_2:  COMP1_OUT, TIM1, TIM2, TIM3, TIM4, TIM8, TIM15, TIM16.
+  *     @arg GPIO_AF_3:  COMP7_OUT, TIM8, TIM15, Touch, HRTIM.
   *     @arg GPIO_AF_4:  I2C1, I2C2, TIM1, TIM8, TIM16, TIM17.
   *     @arg GPIO_AF_5:  IR_OUT, I2S2, I2S3, SPI1, SPI2, TIM8, USART4, USART5
   *     @arg GPIO_AF_6:  IR_OUT, I2S2, I2S3, SPI2, SPI3, TIM1, TIM8
@@ -485,7 +489,8 @@ void GPIO_Write(GPIO_TypeDef* GPIOx, uint16_t PortVal)
   *     @arg GPIO_AF_9:  AOP4_OUT, CAN, TIM1, TIM8, TIM15.
   *     @arg GPIO_AF_10: AOP1_OUT, AOP3_OUT, TIM2, TIM3, TIM4, TIM8, TIM17. 
   *     @arg GPIO_AF_11: TIM1, TIM8.
-  *     @arg GPIO_AF_12: TIM1.
+  *     @arg GPIO_AF_12: TIM1, HRTIM.
+  *     @arg GPIO_AF_13: HRTIM, AOP2_OUT.
   *     @arg GPIO_AF_14: USBDM, USBDP.
   *     @arg GPIO_AF_15: OUT.             
   * @note  The pin should already been configured in Alternate Function mode(AF)

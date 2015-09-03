@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f30x_tim.c
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    23-October-2012
+  * @version V1.1.1
+  * @date    04-April-2014
   * @brief   This file provides firmware functions to manage the following 
   *          functionalities of the TIM peripheral:
   *            + TimeBase management
@@ -99,7 +99,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT 2012 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
   *
   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
   * You may not use this file except in compliance with the License.
@@ -1226,7 +1226,7 @@ void TIM_OCStructInit(TIM_OCInitTypeDef* TIM_OCInitStruct)
   *            @arg TIM_OCMode_Asymmetric_PWM2            
   * @retval None
   */
-void TIM_SelectOCxM(TIM_TypeDef* TIMx, uint16_t TIM_Channel, uint32_t TIM_OCMode) /* to be updated*/
+void TIM_SelectOCxM(TIM_TypeDef* TIMx, uint16_t TIM_Channel, uint32_t TIM_OCMode)
 {
   uint32_t tmp = 0;
   uint16_t tmp1 = 0;
@@ -1262,7 +1262,7 @@ void TIM_SelectOCxM(TIM_TypeDef* TIMx, uint16_t TIM_Channel, uint32_t TIM_OCMode
     *(__IO uint32_t *) tmp &= CCMR_OC24M_MASK;
     
     /* Configure the OCxM bits in the CCMRx register */
-    *(__IO uint32_t *) tmp |= (uint16_t)(TIM_OCMode << 8);
+    *(__IO uint32_t *) tmp |= (uint32_t)(TIM_OCMode << 8);
   }
 }
 
