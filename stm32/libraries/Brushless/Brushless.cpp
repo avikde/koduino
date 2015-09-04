@@ -147,7 +147,7 @@ void Brushless::init(uint32_t absPos) {
 
 void Brushless::calibrate(float sweepAmplitude, float convergenceThreshold) {
   // 
-  const uint32_t sweepDuration = 200;
+  const uint32_t sweepDuration = 500;
   const uint32_t pauseDuration = 500;
 
   motorEnableFlag = false;
@@ -182,7 +182,7 @@ void Brushless::calibrate(float sweepAmplitude, float convergenceThreshold) {
     vi2 = velInt;
 
     // float dzero = 0.001*(vi1+vi2);
-    float dzero = 0.0002*(vi1+vi2);
+    float dzero = 0.0001*(vi1+vi2);
 
     // debug
     Serial1 << "vi1=" << vi1 << ",vi2="<<vi2<< ",dzero="<<dzero << "\n";
@@ -236,16 +236,22 @@ void Brushless::openLoopTest(uint32_t pause, float amplitude) {
   float highval = 0.5 + 0.5 * amplitude;
   float lowval = 0.5 - 0.5 * amplitude;
   while (true) {
+  	digitalWrite(PA2, LOW);
     setOutputs(true, lowval, false, 0.5, true, highval);
     delay(pause);
+  	digitalWrite(PA2, HIGH);
     setOutputs(false, 0.5, true, lowval, true, highval);
     delay(pause);
+    digitalWrite(PA2, HIGH);
     setOutputs(true, highval, true, lowval, false, 0.5);
     delay(pause);
+    digitalWrite(PA2, HIGH);
     setOutputs(true, highval, false, 0.5, true, lowval);
     delay(pause);
+    digitalWrite(PA2, HIGH);
     setOutputs(false, 0.5, true, highval, true, lowval);
     delay(pause);
+    digitalWrite(PA2, HIGH);
     setOutputs(true, lowval, true, highval, false, 0.5);
     delay(pause);
   }
