@@ -2,7 +2,6 @@
 #define Brushless_h
 
 #include <Arduino.h>
-#include <Encoder.h>
 
 enum CommutationType {
   BLOCK, SINUSOIDAL, TRAPEZOIDAL
@@ -15,11 +14,12 @@ enum ControlMode {
 // TO use this class:
 // 1. define a setOutputs function globally
 void setOutputs(bool e1, float p1, bool e2, float p2, bool e3, float p3);
-// 2. ??
+// 2. define posRead, posWrite functions globally that read and write rotor position very quickly. generalizations of encoder.read(), encoder.write()
+uint16_t posRead();
+void posWrite(uint16_t pos);
 
 class Brushless {
 public:
-  Encoder encoder;
   volatile float amplitude = 0;
   volatile float pos_act_01 = 0;
   volatile int commutationTime = 0;

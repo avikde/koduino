@@ -11,7 +11,8 @@ void Brushless::commutate() {
   tic = micros();
 
   // Get position
-  pos_act = encoderCPR - encoder.read();
+  // pos_act = encoderCPR - encoder.read();
+  uint32_t pos_act = encoderCPR - posRead();
   posRad = posToRadians(pos_act);
   motorVel = velF.update(posRad);
   velInt += motorVel; // Used by calibration routine
@@ -135,7 +136,8 @@ void Brushless::setMotorProps(int polePairs, float leadFactor) {
 }
 
 void Brushless::init(uint32_t absPos) {
-  encoder.write(encoderCPR - absPos);
+  // encoder.write(encoderCPR - absPos);
+  posWrite(encoderCPR - absPos);
   pos_zer = EEPROM.read(0);
 
   // TODO: Read pole pairs from EEPROM
@@ -236,22 +238,22 @@ void Brushless::openLoopTest(uint32_t pause, float amplitude) {
   float highval = 0.5 + 0.5 * amplitude;
   float lowval = 0.5 - 0.5 * amplitude;
   while (true) {
-  	digitalWrite(PA2, LOW);
+  	// digitalWrite(PA2, LOW);
     setOutputs(true, lowval, false, 0.5, true, highval);
     delay(pause);
-  	digitalWrite(PA2, HIGH);
+  	// digitalWrite(PA2, HIGH);
     setOutputs(false, 0.5, true, lowval, true, highval);
     delay(pause);
-    digitalWrite(PA2, HIGH);
+    // digitalWrite(PA2, HIGH);
     setOutputs(true, highval, true, lowval, false, 0.5);
     delay(pause);
-    digitalWrite(PA2, HIGH);
+    // digitalWrite(PA2, HIGH);
     setOutputs(true, highval, false, 0.5, true, lowval);
     delay(pause);
-    digitalWrite(PA2, HIGH);
+    // digitalWrite(PA2, HIGH);
     setOutputs(false, 0.5, true, highval, true, lowval);
     delay(pause);
-    digitalWrite(PA2, HIGH);
+    // digitalWrite(PA2, HIGH);
     setOutputs(true, lowval, true, highval, false, 0.5);
     delay(pause);
   }
