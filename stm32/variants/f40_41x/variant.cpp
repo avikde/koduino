@@ -192,14 +192,13 @@ TimerInfo TIMER_MAP[] = {
 
 // Use the 3 basic timers and two others
 TimebaseChannel TIMEBASE_MAP[] = {
-  {.timer = NOT_SET, .isr = 0}, // 0:user
-  {.timer = NOT_SET, .isr = 0}, // 1:user
-  {.timer = NOT_SET, .isr = 0}, // 2:user
-  {.timer = NOT_SET, .isr = 0}, // 3:user
-  {.timer = NOT_SET, .isr = 0}, // 4:user
-  {.timer = NOT_SET, .isr = 0} // 5:System clock, i.e. millis
+  {.timer = NOT_SET, .isr = 0}, // 0
+  {.timer = NOT_SET, .isr = 0}, // 1
+  {.timer = NOT_SET, .isr = 0}, // 2
+  {.timer = NOT_SET, .isr = 0}, // 3
+  {.timer = NOT_SET, .isr = 0}, // 4
+  {.timer = NOT_SET, .isr = 0} // 5
 };
-const uint8_t SYSCLK_TIMEBASE = 5;
 
 // Serial
 USARTInfo USART_MAP[4] = {

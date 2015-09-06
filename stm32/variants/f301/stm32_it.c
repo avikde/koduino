@@ -119,17 +119,6 @@ void PendSV_Handler(void)
 {
 }
 
-/*******************************************************************************
-* Function Name  : SysTick_Handler
-* Description    : This function handles SysTick Handler.
-* Input          : None
-* Output         : None
-* Return         : None
-*******************************************************************************/
-void SysTick_Handler(void)
-{
-}
-
 
 /******************************************************************************/
 /*                 STM32 Peripherals Interrupt Handlers                   */

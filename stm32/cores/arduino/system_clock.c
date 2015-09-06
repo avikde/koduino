@@ -9,20 +9,32 @@
 
 // Global
 volatile uint32_t _millis = 0;
-
-// // How fast is loop() running? This is useful for speed-dependent calculations like D-gains. This is used in main.c
-// RateMeasurerType loopRate;
-// float loopRateHz = 0;
+int microsDivider = 1;
 
 void systemClockInit()
 {
-  attachSysClkInterrupt(systemClockISR);
+  // OLD--using timer
+  // attachSysClkInterrupt(systemClockISR);
+
+  // 1ms / interrupt
+  SysTick_Config(SystemCoreClock / 1000);
+  // reset time
+  _millis = 0;
+  microsDivider = SystemCoreClock / 1000000;
+  // highest priority
+  nvicEnable(SysTick_IRQn, 0);
 }
 
-void systemClockISR()
-{
+// stm32 interrupt: present on all MCUs?
+void SysTick_Handler() {
   _millis++;
 }
+
+// OLD--using timer
+// void systemClockISR()
+// {
+//   // _millis++;
+// }
 
 uint32_t millis()
 {
@@ -31,8 +43,10 @@ uint32_t millis()
 
 uint32_t micros()
 {
-  // return _millis * 1000 + TIM_GetCounter(TIMER_MAP[sysClkTimer].TIMx);
-  return _millis * 1000 + TIM_GetCounter(TIMER_MAP[ TIMEBASE_MAP[ SYSCLK_TIMEBASE ].timer ].TIMx);
+  // OLD--using timer
+  // return _millis * 1000 + TIM_GetCounter(TIMER_MAP[ TIMEBASE_MAP[ SYSCLK_TIMEBASE ].timer ].TIMx);
+  // systick is a downcounter
+  return _millis * 1000 + 1000 - SysTick->VAL/microsDivider;
 }
 
 

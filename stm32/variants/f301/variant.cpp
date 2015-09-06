@@ -97,10 +97,9 @@ TimerInfo TIMER_MAP[] = {
 
 // Use the 3 basic timers and two others
 TimebaseChannel TIMEBASE_MAP[] = {
-  {.timer = NOT_SET, .isr = 0}, // 0:user
-  {.timer = NOT_SET, .isr = 0} // 1:System clock, i.e. millis
+  {.timer = NOT_SET, .isr = 0}, // 0
+  {.timer = NOT_SET, .isr = 0} // 1
 };
-const uint8_t SYSCLK_TIMEBASE = 1;
 // Serial
 USARTInfo USART_MAP[2] = {
   { USART1, USART1_IRQn, PA9, PA10 },
