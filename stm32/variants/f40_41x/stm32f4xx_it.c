@@ -169,10 +169,10 @@ void TIM8_CC_IRQHandler() {
   timerISR(TIMER8);
 }
 void TIM1_BRK_TIM9_IRQHandler() {
-  timebaseISR(0, TIMER9);
+  timerISR(TIMER9);
 }
 void TIM8_BRK_TIM12_IRQHandler() {
-  timebaseISR(0, TIMER12);
+  timerISR(TIMER12);
 }
 
 // TIMEBASE TIMERS
