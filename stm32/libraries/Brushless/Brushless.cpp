@@ -168,11 +168,11 @@ void Brushless::calibrate(float sweepAmplitude, float convergenceThreshold) {
     motorEnableFlag = true;
     delay(sweepDuration);
     motorEnableFlag = false;
-    // if (velInt < 0) {
-    //   // way off, try something quite different
-    //   pos_zer = (pos_zer+countsPerElecRev/2)%countsPerElecRev;
-    //   continue;
-    // }
+    if (fabsf(velInt) < 10000) {
+      // way off, try something quite different
+      pos_zer = (pos_zer+countsPerElecRev/2)%countsPerElecRev;
+      continue;
+    }
     vi1 = velInt;
 
     delay(pauseDuration);
@@ -223,13 +223,23 @@ void Brushless::update(float pwmInput) {
     case DEBUGGING:
       // TEST
       motorEnableFlag = true;
-      // amplitude = 1;//(millis() < 10000) ? 0.1 : 10000;
-      // amplitude = debuggingAmplitude*arm_sin_f32(millis()/2000.0);
       amplitude = debuggingAmplitude;
-      // debugging
-      // float pwmInput = 0.5 + 0.1 * sin(millis()/1000.0);
-      // pwmInput = 0.6;
       break;
+    case DEBUGGING_SIN:
+      motorEnableFlag = true;
+      amplitude = debuggingAmplitude*arm_sin_f32(millis()/2000.0);
+      break;
+  }
+  // speed limit
+  if (speedLimit > 0.001) {
+    float barrier = 1/(speedLimit + motorVel) - 1/(speedLimit - motorVel);
+    if (motorVel > speedLimit)
+      barrier = -1;
+    if (motorVel < -speedLimit)
+      barrier = 1;
+    // with speedLimit = 45, @40, the barrier is 0.18
+    barrier = constrain(barrier, -fabsf(amplitude), fabsf(amplitude));
+    amplitude += barrier;
   }
 }
 

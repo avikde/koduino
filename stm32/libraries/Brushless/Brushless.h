@@ -8,7 +8,7 @@ enum CommutationType {
 };
 
 enum ControlMode {
-  VOLTAGE_CONTROL, POSITION_CONTROL, CURRENT_CONTROL, DEBUGGING
+  VOLTAGE_CONTROL, POSITION_CONTROL, CURRENT_CONTROL, DEBUGGING, DEBUGGING_SIN
 };
 
 // TO use this class:
@@ -47,6 +47,7 @@ public:
   void setDebuggingAmplitude(float a) {debuggingAmplitude = a;}
   void setMode(ControlMode theMode) {mode = theMode;}
   void setWaveform(CommutationType wave) {waveform = wave;}
+  void setSpeedLimit(float vlim) {speedLimit = vlim;}
 
   float getPosition() { return posRad; }
   float getVelocity() { return motorVel; }
@@ -76,6 +77,7 @@ protected:
   ControlMode mode;
   CommutationType waveform = SINUSOIDAL;
   uint16_t encoderCPR = 4096;
+  float speedLimit = 0;
 };
 
 
