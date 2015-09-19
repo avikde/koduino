@@ -82,13 +82,19 @@ TimerChannelData timer15ch[2] = {
   {0, false, 0, 0, 0, 0},
   {0, false, 0, 0, 0, 0}
 };
+TimerChannelData timer16ch[1] = {
+  {0, false, 0, 0, 0, 0}
+};
+TimerChannelData timer17ch[1] = {
+  {0, false, 0, 0, 0, 0}
+};
 
 TimerInfo TIMER_MAP[] = {
   {TIM1, TIM1_CC_IRQn, 1000, 0, timer1ch},
   {TIM2, TIM2_IRQn, 1000, 0, timer2ch},
   {TIM15, TIM1_BRK_TIM15_IRQn, 1000, 0, timer15ch},
-  {TIM16, TIM1_UP_TIM16_IRQn, 1000, 0, (TimerChannelData *)0},
-  {TIM17, TIM1_TRG_COM_TIM17_IRQn, 1000, 0, (TimerChannelData *)0},
+  {TIM16, TIM1_UP_TIM16_IRQn, 1000, 0, timer16ch},
+  {TIM17, TIM1_TRG_COM_TIM17_IRQn, 1000, 0, timer17ch},
   {TIM6, TIM6_DAC_IRQn, 1000, 0, (TimerChannelData *)0},
   // ^^^ Look up IRQn names from CMSIS device header ^^^
 };
