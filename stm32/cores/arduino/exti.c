@@ -51,32 +51,24 @@ const uint8_t extiIRQn[] = {
   EXTI15_10_IRQn  //15
 };
 
-// Create a structure for user ISR function pointers
-typedef struct {
-  void (*handler)();
-  uint8_t bPwmIn;
-  volatile int risingedge, pulsewidth, period;
-  volatile uint8_t pinName;
-} EXTIChannel;
-
 //Array to hold user ISR function pointers
-static EXTIChannel extiChannels[] = {
-  { .handler = (ISRType)0, .bPwmIn = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI0
-  { .handler = (ISRType)0, .bPwmIn = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI1
-  { .handler = (ISRType)0, .bPwmIn = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI2
-  { .handler = (ISRType)0, .bPwmIn = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI3
-  { .handler = (ISRType)0, .bPwmIn = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI4
-  { .handler = (ISRType)0, .bPwmIn = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI5
-  { .handler = (ISRType)0, .bPwmIn = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI6
-  { .handler = (ISRType)0, .bPwmIn = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI7
-  { .handler = (ISRType)0, .bPwmIn = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI8
-  { .handler = (ISRType)0, .bPwmIn = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI9
-  { .handler = (ISRType)0, .bPwmIn = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI10
-  { .handler = (ISRType)0, .bPwmIn = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI11
-  { .handler = (ISRType)0, .bPwmIn = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI12
-  { .handler = (ISRType)0, .bPwmIn = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI13
-  { .handler = (ISRType)0, .bPwmIn = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI14
-  { .handler = (ISRType)0, .bPwmIn = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI15
+EXTIChannel EXTI_MAP[] = {
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI0
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI1
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI2
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI3
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI4
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI5
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI6
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI7
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI8
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI9
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI10
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI11
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI12
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI13
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI14
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI15
 };
 
 void attachInterrupt(uint8_t pinName, ISRType ISR, InterruptTrigger mode) {
@@ -125,7 +117,7 @@ void attachInterrupt(uint8_t pinName, ISRType ISR, InterruptTrigger mode) {
   EXTI_Init(&EXTI_InitStructure);
 
   // Local code
-  extiChannels[pinfo->pin].handler = ISR;
+  EXTI_MAP[pinfo->pin].handler = ISR;
 
   // Enable the interrupt with low priority.
   // TODO: check https://github.com/spark/core-firmware/blob/master/src/spark_wiring_interrupts.cpp does something peculiar with special cases??
@@ -147,7 +139,7 @@ void detachInterrupt(uint8_t pinName) {
   EXTI_Init(&EXTI_InitStructure);
 
   //unregister the user's handler
-  extiChannels[pinfo->pin].handler = (ISRType)0;
+  EXTI_MAP[pinfo->pin].handler = (ISRType)0;
 }
 
 void noInterrupts() {
@@ -163,91 +155,131 @@ void interrupts() {
 }
 
 void wirishExternalInterruptHandler(uint8_t EXTI_Line_Number) {
-  EXTIChannel *S = &extiChannels[EXTI_Line_Number];
-  // // pwmIn pin?
-  // if (S->bPwmIn == 1) {
-  //   // uint32_t current = micros();
-  //   // if (digitalRead(S->pinName)) {
-  //   //   // This was a rising edge
-  //   //   S->period = current - S->risingedge;
-  //   //   S->risingedge = current;
-  //   // } else {
-  //   //   // This was a falling edge
-  //   //   S->pulsewidth = current - S->risingedge;
-  //   //   if (S->pulsewidth < 0)
-  //   //     S->pulsewidth += S->period;
-  //   // }
-  //   uint32_t current = pwmInTicks();
-  //   // Check for zeros?
-  //   if (current == S->risingedge) return;
-
-  //   if (digitalRead(S->pinName)) {
-  //     // This was a rising edge
-  //     S->period = current - S->risingedge;
-  //     if (S->period < 0) S->period += 65536;
-  //     if (S->period > 65535) S->period -= 65536;
-  //     S->risingedge = current;
-  //   } else {
-  //     // This was a falling edge
-  //     S->pulsewidth = current - S->risingedge;
-  //     if (S->pulsewidth < 0) S->pulsewidth += 65536;
-  //     if (S->pulsewidth > 65535) S->pulsewidth -= 65536;
-  //   }
-  // } else {
+  EXTIChannel *S = &EXTI_MAP[EXTI_Line_Number];
+  // PWM_IN_EXTI pin?
+  if (S->bPwmIn == 1) {
+    uint32_t current = micros();
+    if (digitalRead(S->pinName)) {
+      // This was a rising edge
+      S->period = current - S->risingedge;
+      S->risingedge = current;
+    } else {
+      // This was a falling edge
+      S->pulsewidth = current - S->risingedge;
+      if (S->pulsewidth < 0)
+        S->pulsewidth += S->period;
+    }
+  } else {
     // ELSE fetch the user function pointer from the array
     ISRType handler = S->handler;
     //Check to see if the user handle is NULL
     if (handler != 0)
       handler();
-  // }
+  }
 }
 
-// ===========================================================================
 
-// // Global
-// volatile uint32_t _pwmInClkRollovers = 0;
+// EXTI interrupts: these seem to be the same for every series, so goes here instead of in variant
 
-// // Private timekeeping (like system clock, but higher resolution)
-// // Each tick is 0.25us
-// void pwmInClkISR() {
-//   _pwmInClkRollovers++;
-// }
-
-// void pwmInClkInit() {
-//   attachHighResClkUpdate(pwmInClkISR);
-// }
-
-// uint32_t pwmInTicks() {
-//   return _pwmInClkRollovers * 65536 + TIM_GetCounter(TIM17);
-// }
-
-// // Public API
-// void pinModePwmIn(uint8_t pinName) {
-//   EXTIChannel *S = &extiChannels[ PIN_MAP[pinName].pin ];
-//   S->bPwmIn = 1;
-//   S->pinName = pinName;
-//   attachInterrupt(pinName, (ISRType)0, CHANGE);
-// }
-
-// // This is the function the user should call
-// float pwmIn(uint8_t pinName) {
-//   EXTIChannel *S = &extiChannels[ PIN_MAP[pinName].pin ];
-
-//   // Pin configured for pwmIn?
-//   if (S->pinName != pinName)
-//     pinModePwmIn(pinName);
-
-//   // HACK: need to detect if the signal goes flat. 5ms = 5000us = 200000 ticks
-//   static int timediff;
-//   timediff = pwmInTicks() - S->risingedge;
-//   if (timediff < 0) timediff += 65536;
-//   if (timediff > 65535) timediff -= 65536;
-//   if (timediff > 20000)
-//     return 0;
-
-//   return (S->period > 0) ? S->pulsewidth/(float)S->period : 0;
-//   // return S->pulsewidth/(float)S->period;
-//   // return S->period;
-// }
-
+void EXTI0_IRQHandler()
+{
+  if(EXTI_GetITStatus(EXTI_Line0) != RESET)
+  {
+    wirishExternalInterruptHandler(0);
+    EXTI_ClearITPendingBit(EXTI_Line0);
+  }
+}
+void EXTI1_IRQHandler()
+{
+  if(EXTI_GetITStatus(EXTI_Line1) != RESET)
+  {
+    wirishExternalInterruptHandler(1);
+    EXTI_ClearITPendingBit(EXTI_Line1);
+  }
+}
+void EXTI2_TS_IRQHandler()
+{
+  if(EXTI_GetITStatus(EXTI_Line2) != RESET)
+  {
+    wirishExternalInterruptHandler(2);
+    EXTI_ClearITPendingBit(EXTI_Line2);
+  }
+}
+void EXTI3_IRQHandler()
+{
+  if(EXTI_GetITStatus(EXTI_Line3) != RESET)
+  {
+    wirishExternalInterruptHandler(3);
+    EXTI_ClearITPendingBit(EXTI_Line3);
+  }
+}
+void EXTI4_IRQHandler()
+{
+  if(EXTI_GetITStatus(EXTI_Line4) != RESET)
+  {
+    wirishExternalInterruptHandler(4);
+    EXTI_ClearITPendingBit(EXTI_Line4);
+  }
+}
+void EXTI9_5_IRQHandler()
+{
+  if(EXTI_GetITStatus(EXTI_Line5) != RESET)
+  {
+    wirishExternalInterruptHandler(5);
+    EXTI_ClearITPendingBit(EXTI_Line5);
+  }
+  if(EXTI_GetITStatus(EXTI_Line6) != RESET)
+  {
+    wirishExternalInterruptHandler(6);
+    EXTI_ClearITPendingBit(EXTI_Line6);
+  }
+  if(EXTI_GetITStatus(EXTI_Line7) != RESET)
+  {
+    wirishExternalInterruptHandler(7);
+    EXTI_ClearITPendingBit(EXTI_Line7);
+  }
+  if(EXTI_GetITStatus(EXTI_Line8) != RESET)
+  {
+    wirishExternalInterruptHandler(8);
+    EXTI_ClearITPendingBit(EXTI_Line8);
+  }
+  if(EXTI_GetITStatus(EXTI_Line9) != RESET)
+  {
+    wirishExternalInterruptHandler(9);
+    EXTI_ClearITPendingBit(EXTI_Line9);
+  }
+}
+void EXTI15_10_IRQHandler()
+{
+  if(EXTI_GetITStatus(EXTI_Line10) != RESET)
+  {
+    wirishExternalInterruptHandler(10);
+    EXTI_ClearITPendingBit(EXTI_Line10);
+  }
+  if(EXTI_GetITStatus(EXTI_Line11) != RESET)
+  {
+    wirishExternalInterruptHandler(11);
+    EXTI_ClearITPendingBit(EXTI_Line11);
+  }
+  if(EXTI_GetITStatus(EXTI_Line12) != RESET)
+  {
+    wirishExternalInterruptHandler(12);
+    EXTI_ClearITPendingBit(EXTI_Line12);
+  }
+  if(EXTI_GetITStatus(EXTI_Line13) != RESET)
+  {
+    wirishExternalInterruptHandler(13);
+    EXTI_ClearITPendingBit(EXTI_Line13);
+  }
+  if(EXTI_GetITStatus(EXTI_Line14) != RESET)
+  {
+    wirishExternalInterruptHandler(14);
+    EXTI_ClearITPendingBit(EXTI_Line14);
+  }
+  if(EXTI_GetITStatus(EXTI_Line15) != RESET)
+  {
+    wirishExternalInterruptHandler(15);
+    EXTI_ClearITPendingBit(EXTI_Line15);
+  }
+}
 

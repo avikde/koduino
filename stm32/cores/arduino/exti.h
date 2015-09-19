@@ -2,8 +2,7 @@
 #ifndef _exti_h_
 #define _exti_h_
 
-// #include "types.h"
-#include "timer.h"
+#include "types.h"
 
 #ifdef __cplusplus
 extern "C"{

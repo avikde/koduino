@@ -62,8 +62,8 @@ void timebaseISR(uint8_t i, uint8_t timer);
 
 // Specialized timer interrupt initialization functions
 // 
-// Uses a basic timer to setup up millisecond interrupts such that the period is 1000
-void attachSysClkInterrupt(ISRType ISR);
+// Uses a basic timer to setup up millisecond interrupts such that the period is 1000. OLD...now SysTick
+// void attachSysClkInterrupt(ISRType ISR);
 // Highest resolution for PWM in
 // TIM_TypeDef *attachHighResClkUpdate(ISRType ISR);
 

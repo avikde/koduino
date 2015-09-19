@@ -2,6 +2,8 @@
 #include "timer.h"
 #include "nvic.h"
 #include "gpio.h"
+#include "exti.h"
+#include "system_clock.h"
 
 // Globals ---------------------------------------------------------
 
@@ -95,6 +97,20 @@ void analogWrite(uint8_t pin, uint32_t duty) {
 }
 
 float pwmIn(uint8_t name) {
+  EXTIChannel *S = &EXTI_MAP[ PIN_MAP[name].pin ];
+  // Pin configured for PWM_IN_EXTI?
+  if (S->pinName == name) {
+    static int timediff;
+    timediff = micros() - S->risingedge;
+    // HACK: need to detect if the signal goes flat. 5ms = 5000us
+    if (timediff > 5000)
+      return 0;
+
+    return (S->period > 0) ? S->pulsewidth/(float)S->period : 0;
+  }
+
+  // assume this is a PWM_IN pin using timer input channels
+
   uint8_t timer = PIN_MAP[name].timer;
   TimerChannelData *C = &TIMER_MAP[ timer ].channelData[ PIN_MAP[name].channel-1];
 

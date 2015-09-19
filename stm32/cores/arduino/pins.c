@@ -1,6 +1,7 @@
 
 #include "pins.h"
 #include "timer.h"
+#include "exti.h"
 
 // Global variable
 GPIO_InitTypeDef  GPIO_InitStruct;
@@ -89,6 +90,13 @@ void pinMode(uint8_t pin, WiringPinMode wiringMode) {
       TIM_ICInit(TIMER_MAP[timer].TIMx, &TIM_ICInitStructure);
       // Enable the CCx interrupt
       TIM_ITConfig(TIMER_MAP[timer].TIMx, TIM_IT, ENABLE);
+    } else if (wiringMode == PWM_IN_EXTI) {
+      // configure pin change interrupt
+      EXTIChannel *S = &EXTI_MAP[ PIN_MAP[pin].pin ];
+      S->bPwmIn = 1;
+      S->pinName = pin;
+      // wirishExternalInterruptHandler detects that this is a PWM_IN_EXTI pin, and does not attempt to run the handler, so this can be NULL
+      attachInterrupt(pin, (ISRType)0, CHANGE);
     }
   }
 

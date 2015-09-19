@@ -27,10 +27,11 @@ void setupTimerUpdateInterrupt(uint8_t i, ISRType ISR, uint16_t prescaler, uint3
   TIMEBASE_MAP[i].isr = ISR;
 }
 
-void attachSysClkInterrupt(ISRType ISR) {
-  // 1MHz base clock, millisecond interrupts, microsecond counts
-  setupTimerUpdateInterrupt(SYSCLK_TIMEBASE, ISR, (TIMER_PERIPH_CLOCK / 1000000)-1, 1000-1);
-}
+// OLD...now using SysTick
+// void attachSysClkInterrupt(ISRType ISR) {
+//   // 1MHz base clock, millisecond interrupts, microsecond counts
+//   setupTimerUpdateInterrupt(SYSCLK_TIMEBASE, ISR, (TIMER_PERIPH_CLOCK / 1000000)-1, 1000-1);
+// }
 
 // void attachHighResClkUpdate(ISRType ISR) {
 //   // Highest resolution - 16bit
