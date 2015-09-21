@@ -71,7 +71,7 @@ with open(PIN_MAP, 'rb') as csvfile:
       print('NOT_SET,'),
     # adcConvIndex
     print('NOT_SET,'),
-    # ioConfig
+    # ioConfigtimer
     print('NOT_SET},')
 print('};')
 
@@ -95,7 +95,7 @@ with open(TIMER_MAP, 'rb') as csvfile:
   for line in reader:
     for tim in line[1:]:
       numChan = line[0][0]
-      if tim != '' and int(numChan) > 1:
+      if tim != '' and int(numChan) > 0:
         print('TimerChannelData timer'+tim+'ch['+numChan+'] = {')
         for i in range(int(numChan)-1):
           print('  {0, false, 0, 0, 0, 0},')
