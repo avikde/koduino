@@ -70,6 +70,11 @@ void pinTimerInit(uint8_t pin) {
     TIM_CtrlPWMOutputs(TIM1, ENABLE);
   }
 #endif
+#if defined(SERIES_STM32F30x)
+  if (IS_TIM_LIST6_PERIPH(TIMER_MAP[timer].TIMx)) {
+    TIM_CtrlPWMOutputs(TIMER_MAP[timer].TIMx, ENABLE);
+  }
+#endif
 }
 
 

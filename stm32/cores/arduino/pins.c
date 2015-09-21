@@ -29,6 +29,15 @@ void pinMode(uint8_t pin, WiringPinMode wiringMode) {
       TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
       TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
       TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
+
+#if defined(SERIES_STM32F30x)
+      // had a problem with TIM17 PWM not working without these
+      TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Set;
+      TIM_OCInitStructure.TIM_OutputNState = TIM_OutputNState_Enable;
+      TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_High;
+      TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCIdleState_Reset;
+#endif
+
       TIM_OCInitStructure.TIM_Pulse = 0;
       switch (channel) {
         case 1:
@@ -98,31 +107,31 @@ void pinMode(uint8_t pin, WiringPinMode wiringMode) {
     S->pinName = pin;
     // wirishExternalInterruptHandler detects that this is a PWM_IN_EXTI pin, and does not attempt to run the handler, so this can be NULL
     attachInterrupt(pin, (ISRType)0, CHANGE);
+  } else {
+    // Regular GPIO
+    // default is no pull
+    GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_NOPULL;
+
+    if (wiringMode == INPUT || wiringMode == INPUT_PULLUP || wiringMode == INPUT_PULLDOWN) {
+      GPIO_InitStruct.GPIO_Mode = GPIO_Mode_IN;
+      if (wiringMode == INPUT_PULLUP)
+        GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_UP;
+      else if (wiringMode == INPUT_PULLDOWN)
+        GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_DOWN;
+    } else if (wiringMode == OUTPUT_OPEN_DRAIN || wiringMode == OUTPUT) {
+      GPIO_InitStruct.GPIO_Mode = GPIO_Mode_OUT;
+      if (wiringMode == OUTPUT_OPEN_DRAIN)
+        GPIO_InitStruct.GPIO_OType = GPIO_OType_OD;
+      else
+        GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
+    } else if (wiringMode == INPUT_ANALOG) {
+      GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AN;
+    }
+
+    GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_InitStruct.GPIO_Pin = (1 << PIN_MAP[pin].pin);
+    GPIO_Init(PIN_MAP[pin].port, &GPIO_InitStruct);
   }
-
-  // Regular GPIO
-  // default is no pull
-  GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_NOPULL;
-
-  if (wiringMode == INPUT || wiringMode == INPUT_PULLUP || wiringMode == INPUT_PULLDOWN) {
-    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_IN;
-    if (wiringMode == INPUT_PULLUP)
-      GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_UP;
-    else if (wiringMode == INPUT_PULLDOWN)
-      GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_DOWN;
-  } else if (wiringMode == OUTPUT_OPEN_DRAIN || wiringMode == OUTPUT) {
-    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_OUT;
-    if (wiringMode == OUTPUT_OPEN_DRAIN)
-      GPIO_InitStruct.GPIO_OType = GPIO_OType_OD;
-    else
-      GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
-  } else if (wiringMode == INPUT_ANALOG) {
-    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AN;
-  }
-
-  GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
-  GPIO_InitStruct.GPIO_Pin = (1 << PIN_MAP[pin].pin);
-  GPIO_Init(PIN_MAP[pin].port, &GPIO_InitStruct);
 }
 
 // Helper function used by wirish
