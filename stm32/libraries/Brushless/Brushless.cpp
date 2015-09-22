@@ -155,8 +155,10 @@ void Brushless::calibrate(float sweepAmplitude, float convergenceThreshold) {
   motorEnableFlag = false;
   CommutationType waveSave = waveform;
   float leadSave = leadFactor;
+  float speedLimitSave = speedLimit;
   waveform = SINUSOIDAL;
   leadFactor = 0;
+  speedLimit = 0;
   float vi1, vi2;
   // first stop
   motorEnableFlag = false;
@@ -168,7 +170,7 @@ void Brushless::calibrate(float sweepAmplitude, float convergenceThreshold) {
     motorEnableFlag = true;
     delay(sweepDuration);
     motorEnableFlag = false;
-    if (fabsf(velInt) < 10000) {
+    if (fabsf(velInt) < 100000) {
       // way off, try something quite different
       pos_zer = (pos_zer+countsPerElecRev/2)%countsPerElecRev;
       continue;
@@ -198,6 +200,7 @@ void Brushless::calibrate(float sweepAmplitude, float convergenceThreshold) {
   }
   waveform = waveSave;
   leadFactor = leadSave;
+  speedLimit = speedLimitSave;
 }
 
 void Brushless::update(float pwmInput) {
@@ -232,7 +235,7 @@ void Brushless::update(float pwmInput) {
   }
   // speed limit
   if (speedLimit > 0.001) {
-    float barrier = 1/(speedLimit + motorVel) - 1/(speedLimit - motorVel);
+    float barrier = 0.01 * (1/(speedLimit + motorVel) - 1/(speedLimit - motorVel));
     if (motorVel > speedLimit)
       barrier = -1;
     if (motorVel < -speedLimit)
