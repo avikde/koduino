@@ -145,12 +145,13 @@ void Brushless::init(uint32_t absPos) {
 
   // this is just 25000 for now
   velF.init(0.99, 25000, DLPF_ANGRATE);
+  speedLimF.init(0.99999, 25000, DLPF_RATE);
 }
 
 void Brushless::calibrate(float sweepAmplitude, float convergenceThreshold) {
   // 
-  const uint32_t sweepDuration = 500;
-  const uint32_t pauseDuration = 500;
+  const uint32_t sweepDuration = 300;
+  const uint32_t pauseDuration = 300;
 
   motorEnableFlag = false;
   CommutationType waveSave = waveform;
@@ -170,12 +171,13 @@ void Brushless::calibrate(float sweepAmplitude, float convergenceThreshold) {
     motorEnableFlag = true;
     delay(sweepDuration);
     motorEnableFlag = false;
-    if (fabsf(velInt) < 100000) {
+    vi1 = velInt;
+    // +amp => -vel
+    if (velInt > -10000) {
       // way off, try something quite different
       pos_zer = (pos_zer+countsPerElecRev/2)%countsPerElecRev;
       continue;
     }
-    vi1 = velInt;
 
     delay(pauseDuration);
     amplitude = -sweepAmplitude;
@@ -234,15 +236,22 @@ void Brushless::update(float pwmInput) {
       break;
   }
   // speed limit
+  // +amplitude produces -ve speed
   if (speedLimit > 0.001) {
-    float barrier = 0.01 * (1/(speedLimit + motorVel) - 1/(speedLimit - motorVel));
+    float barrier = speedLimF.update(-1 * (1/(speedLimit + motorVel) - 1/(speedLimit - motorVel)));
+    // float barrier = -1 * (1/(speedLimit + motorVel) - 1/(speedLimit - motorVel));
+    // last ditch
     if (motorVel > speedLimit)
-      barrier = -1;
+      barrier = 10;
     if (motorVel < -speedLimit)
-      barrier = 1;
-    // with speedLimit = 45, @40, the barrier is 0.18
+      barrier = -10;
     barrier = constrain(barrier, -fabsf(amplitude), fabsf(amplitude));
     amplitude += barrier;
+    // // last ditch
+    // if (motorVel > speedLimit)
+    //   amplitude = 0.1 * (motorVel - speedLimit);
+    // if (motorVel < -speedLimit)
+    //   amplitude = 0.1 * (motorVel + speedLimit);
   }
 }
 

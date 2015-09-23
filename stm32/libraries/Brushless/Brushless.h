@@ -64,7 +64,7 @@ public:
   // TODO: write a initialization part that uses Serial to ask for this and any other motor-specific parameters?
   int pos_zer=0;
 protected:
-  DLPF velF;
+  DLPF velF, speedLimF;
   int POLE_PAIRS;
   float leadFactor = 0;
   float posctrl0 = 0, motorVel = 0, posDes = 0;
