@@ -193,11 +193,7 @@ TimerInfo TIMER_MAP[] = {
 // Use the 3 basic timers and two others
 TimebaseChannel TIMEBASE_MAP[] = {
   {.timer = NOT_SET, .isr = 0}, // 0
-  {.timer = NOT_SET, .isr = 0}, // 1
-  {.timer = NOT_SET, .isr = 0}, // 2
-  {.timer = NOT_SET, .isr = 0}, // 3
-  {.timer = NOT_SET, .isr = 0}, // 4
-  {.timer = NOT_SET, .isr = 0} // 5
+  {.timer = NOT_SET, .isr = 0} // 1
 };
 
 // Serial
@@ -232,12 +228,8 @@ bool isAnalogPin(uint8_t pin) {
 }
 
 void variantInit() {
-  TIMEBASE_MAP[0].timer = TIMER10;
-  TIMEBASE_MAP[1].timer = TIMER11;
-  TIMEBASE_MAP[2].timer = TIMER13;
-  TIMEBASE_MAP[3].timer = TIMER14;
-  TIMEBASE_MAP[4].timer = TIMER6;
-  TIMEBASE_MAP[5].timer = TIMER7;
+  TIMEBASE_MAP[0].timer = TIMER6;
+  TIMEBASE_MAP[1].timer = TIMER7;
 
   // GPIO
   RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);

@@ -179,24 +179,25 @@ void TIM8_BRK_TIM12_IRQHandler() {
 // For timekeeping (millis etc.), timer interrupts (attachTimerInterrupt)
 // See timebase.c
 
-void TIM1_UP_TIM10_IRQHandler() {
-  timebaseISR(0, TIMER10);
-}
-void TIM1_TRG_COM_TIM11_IRQHandler() {
-  timebaseISR(1, TIMER11);
-}
-void TIM8_UP_TIM13_IRQHandler() {
-  timebaseISR(2, TIMER13);
-}
-void TIM8_TRG_COM_TIM14_IRQHandler() {
-  timebaseISR(3, TIMER14);
-}
 void TIM6_DAC_IRQHandler() {
-  timebaseISR(4, TIMER6);
+  timebaseISR(0, TIMER6);
 }
 void TIM7_IRQHandler() {
-  timebaseISR(5, TIMER7);
+  timebaseISR(1, TIMER7);
 }
+// // problems??
+// void TIM1_UP_TIM10_IRQHandler() {
+//   timebaseISR(0, TIMER10);
+// }
+// void TIM1_TRG_COM_TIM11_IRQHandler() {
+//   timebaseISR(1, TIMER11);
+// }
+// void TIM8_UP_TIM13_IRQHandler() {
+//   timebaseISR(2, TIMER13);
+// }
+// void TIM8_TRG_COM_TIM14_IRQHandler() {
+//   timebaseISR(3, TIMER14);
+// }
 
 // UNUSED TIMERS
 // For future use?
