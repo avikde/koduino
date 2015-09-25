@@ -71,7 +71,7 @@ EXTIChannel EXTI_MAP[] = {
   { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI15
 };
 
-void attachInterrupt(uint8_t pinName, ISRType ISR, InterruptTrigger mode, uint8_t priority) {
+void attachInterruptWithPriority(uint8_t pinName, ISRType ISR, InterruptTrigger mode, uint8_t priority) {
   // Connect EXTIi to this pin
   const PinInfo *pinfo = &PIN_MAP[pinName];
 #if defined(SERIES_STM32F10x)
@@ -122,6 +122,10 @@ void attachInterrupt(uint8_t pinName, ISRType ISR, InterruptTrigger mode, uint8_
   // Enable the interrupt with low priority.
   // TODO: check https://github.com/spark/core-firmware/blob/master/src/spark_wiring_interrupts.cpp does something peculiar with special cases??
   nvicEnable(extiIRQn[pinfo->pin], priority);
+}
+
+void attachInterrupt(uint8_t pinName, ISRType ISR, InterruptTrigger mode) {
+  attachInterruptWithPriority(pinName, ISR, mode, 0x0f);
 }
 
 void detachInterrupt(uint8_t pinName) {

@@ -16,6 +16,8 @@ void wirishExternalInterruptHandler(uint8_t EXTI_Line_Number);
  *  @{
  */
 
+void attachInterruptWithPriority(uint8_t pinName, ISRType ISR, InterruptTrigger mode, uint8_t priority);
+
 /**
  * @brief Enable an interrupt with default priority
  * @details **Note:** There is only ONE EXTI per *pinSource*, i.e. 
@@ -26,20 +28,7 @@ void wirishExternalInterruptHandler(uint8_t EXTI_Line_Number);
  * @param ISR Callback function to call when interrupt is triggered
  * @param mode One of InterruptTrigger
  */
-void attachInterrupt(uint8_t pinName, ISRType ISR, InterruptTrigger mode) {
-  attachInterrupt(pinName, ISR, mode, 0x0f);
-}
-
-/**
- * @brief Enable an interrupt with a specific priority
- * @details see attachInterrupt()
- * 
- * @param pinName Name of pin interrupt is connected to
- * @param ISR Callback function to call when interrupt is triggered
- * @param mode One of InterruptTrigger
- * @param priority 0x00 is high, 0x0f is low priority
- */
-void attachInterrupt(uint8_t pinName, ISRType ISR, InterruptTrigger mode, uint8_t priority);
+void attachInterrupt(uint8_t pinName, ISRType ISR, InterruptTrigger mode);
 
 /**
  * @brief Disable an interrupt
