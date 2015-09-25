@@ -106,7 +106,8 @@ void pinMode(uint8_t pin, WiringPinMode wiringMode) {
     S->bPwmIn = 1;
     S->pinName = pin;
     // wirishExternalInterruptHandler detects that this is a PWM_IN_EXTI pin, and does not attempt to run the handler, so this can be NULL
-    attachInterrupt(pin, (ISRType)0, CHANGE);
+    // setting this to high priority
+    attachInterrupt(pin, (ISRType)0, CHANGE, 0);
   } else {
     // Regular GPIO
     // default is no pull
