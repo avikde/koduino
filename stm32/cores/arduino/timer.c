@@ -111,7 +111,11 @@ float pwmIn(uint8_t name) {
     if (timediff > 5000)
       return 0;
 
-    return (S->period > 0) ? S->pulsewidth/(float)S->period : 0;
+    // HACK: test fixed period
+    if (S->pulsewidth > 1000)
+      S->pulsewidth -= 1000;
+    return S->pulsewidth * 0.001;
+    // return (S->period > 0) ? S->pulsewidth/(float)S->period : 0;
   }
 
   // assume this is a PWM_IN pin using timer input channels
