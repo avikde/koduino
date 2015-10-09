@@ -26,6 +26,10 @@ f301.menu.hse.8m=72MHz (from 8MHz HSE)
 f301.menu.hse.8m.build.hse_value=8000000UL
 f301.menu.hse.8m.build.clksrc=HSE_8M
 
+f301.menu.hse.16m=72MHz (from 16MHz HSE)
+f301.menu.hse.16m.build.hse_value=16000000UL
+f301.menu.hse.16m.build.clksrc=HSE_16M
+
 # Upload choices
 # f301.upload.tool=stlink
 # f301.upload.protocol=stlink
