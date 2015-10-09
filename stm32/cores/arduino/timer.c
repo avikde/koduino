@@ -12,7 +12,7 @@
 #if defined(SERIES_STM32F37x)
 #define TIMER_BASE_CLOCK 36000000
 #elif defined(SERIES_STM32F30x)
-#define TIMER_BASE_CLOCK 24000000
+#define TIMER_BASE_CLOCK (SystemCoreClock/2)
 #else
 #define TIMER_BASE_CLOCK 42000000
 #endif

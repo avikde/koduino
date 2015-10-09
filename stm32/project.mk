@@ -11,7 +11,7 @@ endif
 UPLOAD_BAUD ?= 230400
 UPLOAD_ENTRY ?= dtr_rts
 HSE_VALUE ?= 16000000UL
-HSE_CLOCK ?= 0
+CLKSRC ?= HSI
 UPLOAD_METHOD ?= SERIAL
 UPLOAD_PORT ?= 
 SECTOR_ERASE ?= 0
@@ -78,7 +78,7 @@ BFLAGS = -O3 -Os -Wall -Werror-implicit-function-declaration -Wno-sign-compare -
 -mlittle-endian -mthumb \
 $(BFLAGSMCU) \
 -fno-common -fno-exceptions -ffunction-sections -fdata-sections -nostartfiles \
--DHSE_VALUE=$(HSE_VALUE) -D$(MCU) -DUSE_STDPERIPH_DRIVER -DSERIES_$(SERIES)
+-DHSE_VALUE=$(HSE_VALUE) -DCLKSRC_$(CLKSRC) -D$(MCU) -DUSE_STDPERIPH_DRIVER -DSERIES_$(SERIES)
 
 INCFLAGS = -I$(CMSIS_DIR)/Device/ST/$(SERIES)/Include -I$(CMSIS_DIR)/Include -I$(STD_PERIPH_DIR)/inc -I$(VARIANT_DIR) -I$(CORE_DIR) $(EXTRA_LIB_INCS)
 
