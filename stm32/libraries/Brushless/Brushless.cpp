@@ -172,12 +172,12 @@ void Brushless::calibrate(float sweepAmplitude, float convergenceThreshold) {
     delay(sweepDuration);
     motorEnableFlag = false;
     vi1 = velInt;
-    // +amp => -vel
-    if (velInt > -10000) {
-      // way off, try something quite different
-      pos_zer = (pos_zer+countsPerElecRev/2)%countsPerElecRev;
-      continue;
-    }
+    // // +amp => -vel
+    // if (velInt > -10000) {
+    //   // way off, try something quite different
+    //   pos_zer = (pos_zer+countsPerElecRev/2)%countsPerElecRev;
+    //   continue;
+    // }
 
     delay(pauseDuration);
     amplitude = -sweepAmplitude;
@@ -216,7 +216,7 @@ void Brushless::update(float pwmInput) {
     case POSITION_CONTROL:
       // motorEnableFlag = (pwmInput > 0.1 && pwmInput < 0.9);
       motorEnableFlag = true;
-      posDes = -0.35;//map(constrain(pwmInput, 0.1, 0.9), 0.1, 0.9, 0, TWO_PI);
+      posDes = 3;//map(constrain(pwmInput, 0.1, 0.9), 0.1, 0.9, 0, TWO_PI);
       amplitude = -1 * fmodf_mpi_pi(posRad - posDes);// - 0.01 * motorVel;
       // amplitude = 0.1;
       break;
