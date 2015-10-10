@@ -23,7 +23,27 @@ SPIClass::SPIClass(SPI_TypeDef *SPIx) {
 	SPI_Clock_Divider_Set = false;
 	SPI_Enabled = false;
 
-#if defined(SERIES_STM32F37x)
+#if defined(SERIES_STM32F30x)
+	// Initialize default pin config
+	if (SPIx == SPI2) {
+		// Mainboard default (MPU6000 on that board)
+		SCK = PB13;
+		afSCK = 5;
+		MISO = PB14;
+		afMISO = 5;
+		MOSI = PB15;
+		afMOSI = 5;
+	}
+	else if (SPIx == SPI3) {
+		// Mainboard default (SPI header)
+		SCK = PC10;
+		afSCK = 6;
+		MISO = PC11;
+		afMISO = 6;
+		MOSI = PC12;
+		afMOSI = 6;
+	}
+#elif defined(SERIES_STM32F37x)
 	// Initialize default pin config
 	if (SPIx == SPI1) {
 		// Mainboard default (MPU6000 on that board)
@@ -119,7 +139,7 @@ void SPIClass::begin() {
 
 	// Important, but not sure what it does
   SPI_SSOutputCmd(SPIx, ENABLE);
-#if defined(STM32F37x)
+#if defined(SERIES_STM32F30x) || defined(SERIES_STM32F37x)
   SPI_RxFIFOThresholdConfig(SPIx, SPI_RxFIFOThreshold_QF);
 #endif
 
@@ -245,6 +265,10 @@ void Wiring_SPI1_Interrupt_Handler(void)
 
 
 // Initialize 
+#if defined(SERIES_STM32F30x)
+SPIClass SPI(SPI3);
+#else
 SPIClass SPI(SPI1);
+#endif
 SPIClass SPI_2(SPI2);
 
