@@ -87,7 +87,9 @@ union MPUData {
 
 class MPU6000 : public IMU {
 public:
-  // MPU6000(PinName csPin) : csPin(csPin), csDelay(1) {}
+  // constructors set up which SPI
+  MPU6000(SPIClass& theSPI) : theSPI(theSPI) {}
+  MPU6000() : theSPI(SPI) {}
 
   bool init(uint8_t csPin);
   void read(byte reg, unsigned int length, byte *data);
@@ -101,6 +103,7 @@ public:
   MPUData data;
   uint8_t csPin;
   unsigned long csDelay;
+  SPIClass& theSPI;
 };
 
 /** @} */ // end of addtogroup

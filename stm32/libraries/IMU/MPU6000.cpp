@@ -8,10 +8,10 @@ bool MPU6000::init(uint8_t csPin) {
   // init SPI
   pinMode(csPin, OUTPUT);
   digitalWrite(csPin, HIGH);
-  SPI.begin();
-  SPI.setClockDivider(SPI_CLOCK_DIV2);
-  SPI.setBitOrder(MSBFIRST);
-  SPI.setDataMode(SPI_MODE0);
+  theSPI.begin();
+  theSPI.setClockDivider(SPI_CLOCK_DIV2);
+  theSPI.setBitOrder(MSBFIRST);
+  theSPI.setDataMode(SPI_MODE0);
 
   // Start communicating
   byte result = read(MPUREG_WHOAMI);
@@ -42,9 +42,9 @@ bool MPU6000::init(uint8_t csPin) {
 void MPU6000::read(byte reg, unsigned int length, byte *data) {
   digitalWrite(csPin, LOW);
   delayMicroseconds(csDelay);
-  SPI.transfer(reg | 0x80);
+  theSPI.transfer(reg | 0x80);
   for (int i = 0; i < length; ++i) {
-    data[i] = SPI.transfer(0);
+    data[i] = theSPI.transfer(0);
   }
   digitalWrite(csPin, HIGH);
 }
@@ -58,9 +58,9 @@ byte MPU6000::read(byte reg) {
 void MPU6000::write(byte reg, unsigned int length, const byte *data) {
   digitalWrite(csPin, LOW);
   delayMicroseconds(csDelay);
-  SPI.transfer(reg);
+  theSPI.transfer(reg);
   for (int i = 0; i < length; ++i) {
-    SPI.transfer(data[i]);
+    theSPI.transfer(data[i]);
   }
   digitalWrite(csPin, HIGH);
 }
