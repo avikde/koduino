@@ -10,6 +10,14 @@ Nunchuck::Nunchuck() {
   joyZeros[1] = 132;
 
   isPaired = false;
+  hasPairPin = false;
+}
+
+void Nunchuck::begin(TwoWire *tw, uint8_t pairPin) {
+  pinMode(pairPin, INPUT);
+  hasPairPin = true;
+  this->pairPin = pairPin;
+  begin(tw);
 }
 
 void Nunchuck::begin(TwoWire *tw) {
@@ -36,6 +44,12 @@ void Nunchuck::update() {
   static const float ONE_OVER_128 = 1/(float)128;
   static const float RADIUS = 210.0;
 
+  if (hasPairPin) {
+    isPaired = (digitalRead(pairPin) == HIGH);
+    if (!isPaired)
+      return;
+  }
+
   tw->requestFrom(0x52, 6); // request data from nunchuck
   int cnt = 0;
   while (tw->available()) {
@@ -44,21 +58,24 @@ void Nunchuck::update() {
     cnt++;
   }
 
-  if (data[0] == 0 && data[1] == 0) {
-    // not paired
-    isPaired = false;
-    return;
-  }
+  if (!hasPairPin) {
+    // try to guess pairing based on type of garbage
+    if (data[0] == 0 && data[1] == 0) {
+      // not paired
+      isPaired = false;
+      return;
+    }
 
-  if (data[0] == 0xff && data[1] == 0xff) {
-    // someone synced but need to re-init
-    isPaired = false;
-    sendInit();
-    return;
-  }
+    if (data[0] == 0xff && data[1] == 0xff) {
+      // someone synced but need to re-init
+      isPaired = false;
+      sendInit();
+      return;
+    }
 
-  // data is probably OK
-  isPaired = true;
+    // data is probably OK
+    isPaired = true;
+  }
 
   // Process the data
   buttonZ = !(data[5] & 0B00000001);

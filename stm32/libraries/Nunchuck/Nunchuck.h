@@ -23,11 +23,16 @@ public:
   Nunchuck();
 
   // Functions that communicate with the Nunchuck
+  // pair pin not connected: try to guess when paired from the kind of garbage
   void begin(TwoWire *tw);
+  // pair pin connected
+  void begin(TwoWire *tw, uint8_t pairPin);
   void update();
 
 protected:
   TwoWire *tw;
+  bool hasPairPin;
+  uint8_t pairPin;
 
   void sendInit();
 };
