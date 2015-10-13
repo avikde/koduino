@@ -11,14 +11,14 @@ extern "C" {
 /**
  *  These are set to the defaults in ST's EEPROM emulation examples, but should be revised
  *  according to the device. Ideally, it should be placed just under the FLASH top address
- *  to minimize it's impact on other code.
+ *  to minimize its impact on other code.
  */
 #if defined(SERIES_STM32F37x)
   #define PAGE_SIZE  (uint16_t)0x800 // 2K
   #define EEPROM_START_ADDRESS    ((uint32_t)0x08010000) // total = 256K, eeprom after 64K
 #elif defined(SERIES_STM32F30x)
   #define PAGE_SIZE  (uint16_t)0x800 // 2K
-  #define EEPROM_START_ADDRESS    ((uint32_t)0x0800C000) // total = 64K, eeprom after 48K
+  #define EEPROM_START_ADDRESS    ((uint32_t)(0x08000000 + MAX_PROGRAM_SIZE)) // specified in boards.txt (end of flash - 2*page size)
 #elif defined(STM32F40_41xxx) || defined(STM32F411xE)
   #define PAGE_SIZE  (uint16_t)0x4000 // 16K
   #define EEPROM_START_ADDRESS    ((uint32_t)0x08008000) // total = 1M, eeprom after 16K
