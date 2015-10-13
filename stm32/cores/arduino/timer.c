@@ -47,7 +47,7 @@ void analogWriteResolution(uint8_t nbits) {
 
 void timerInit(uint8_t timer, int freqHz) {
   // Enable interrupts for the timer (but not any of the timer updates yet)
-  nvicEnable(TIMER_MAP[timer].IRQn, 0);
+  nvicEnable(TIMER_MAP[timer].IRQn, 2);
 
   timerInitHelper(timer, 1, TIMER_PERIOD(freqHz));
   TIM_Cmd(TIMER_MAP[timer].TIMx, ENABLE);
@@ -57,7 +57,7 @@ void timerInit(uint8_t timer, int freqHz) {
 void pinTimerInit(uint8_t pin) {
   uint8_t timer = PIN_MAP[pin].timer;
 
-  nvicEnable(TIMER_MAP[timer].IRQn, 0);
+  nvicEnable(TIMER_MAP[timer].IRQn, 2);
   // Use the frequency set using analogWriteFrequency
   timerInitHelper(timer, 1, TIMER_PERIOD(TIMER_MAP[timer].freqHz));
   TIM_Cmd(TIMER_MAP[timer].TIMx, ENABLE);
@@ -111,11 +111,11 @@ float pwmIn(uint8_t name) {
     if (timediff > 5000)
       return 0;
 
-    // HACK: test fixed period
-    if (S->pulsewidth > 1000)
-      S->pulsewidth -= 1000;
-    return S->pulsewidth * 0.001;
-    // return (S->period > 0) ? S->pulsewidth/(float)S->period : 0;
+    // // HACK: test fixed period
+    // if (S->pulsewidth > 1000)
+    //   S->pulsewidth -= 1000;
+    // return S->pulsewidth * 0.001;
+    return (S->period > 0) ? S->pulsewidth/(float)S->period : 0;
   }
 
   // assume this is a PWM_IN pin using timer input channels
