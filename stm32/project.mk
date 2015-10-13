@@ -51,7 +51,7 @@ PROJNAME  = $(subst $(SPACE),_,$(shell basename $(CURDIR_NOSP)))
 $(info Compiling for $(VARIANT), MCU = $(MCU), project = $(PROJNAME), upload method is $(UPLOAD_METHOD))
 
 # Compile options
-STD_PERIPH_MODULES = adc exti flash gpio i2c misc pwr rcc spi syscfg tim usart dma sdio
+STD_PERIPH_MODULES = adc exti flash gpio i2c misc pwr rcc spi syscfg tim usart dma
 
 # Cygwin needs a prefix, also if not windows, get kernel name
 UNAME := 
