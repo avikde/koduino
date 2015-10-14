@@ -159,19 +159,33 @@ void interrupts() {
 }
 
 void wirishExternalInterruptHandler(uint8_t EXTI_Line_Number) {
-  EXTIChannel *S = &EXTI_MAP[EXTI_Line_Number];
+  static EXTIChannel *S;
+  static int current, delta;
+  // HACK
+  const float maxPeriod = 1800;
+  S = &EXTI_MAP[EXTI_Line_Number];
   // PWM_IN_EXTI pin?
   if (S->bPwmIn == 1) {
-    uint32_t current = micros();
+    current = micros();
+    delta = current - S->risingedge;
+
     if (digitalRead(S->pinName)) {
       // This was a rising edge
-      S->period = current - S->risingedge;
+      if (delta > 0) {
+        //  sometimes period is 1000+what it should be
+        if (delta > maxPeriod)
+          S->period = delta - 1000;
+        else
+          S->period = delta;
+      }
       S->risingedge = current;
     } else {
       // This was a falling edge
-      S->pulsewidth = current - S->risingedge;
+      S->pulsewidth = delta;
       if (S->pulsewidth < 0)
         S->pulsewidth += S->period;
+      if (S->pulsewidth > S->period)
+        S->pulsewidth -= S->period;
     }
   } else {
     // ELSE fetch the user function pointer from the array
@@ -189,101 +203,101 @@ void EXTI0_IRQHandler()
 {
   if(EXTI_GetITStatus(EXTI_Line0) != RESET)
   {
-    wirishExternalInterruptHandler(0);
     EXTI_ClearITPendingBit(EXTI_Line0);
+    wirishExternalInterruptHandler(0);
   }
 }
 void EXTI1_IRQHandler()
 {
   if(EXTI_GetITStatus(EXTI_Line1) != RESET)
   {
-    wirishExternalInterruptHandler(1);
     EXTI_ClearITPendingBit(EXTI_Line1);
+    wirishExternalInterruptHandler(1);
   }
 }
 void EXTI2_TS_IRQHandler()
 {
   if(EXTI_GetITStatus(EXTI_Line2) != RESET)
   {
-    wirishExternalInterruptHandler(2);
     EXTI_ClearITPendingBit(EXTI_Line2);
+    wirishExternalInterruptHandler(2);
   }
 }
 void EXTI3_IRQHandler()
 {
   if(EXTI_GetITStatus(EXTI_Line3) != RESET)
   {
-    wirishExternalInterruptHandler(3);
     EXTI_ClearITPendingBit(EXTI_Line3);
+    wirishExternalInterruptHandler(3);
   }
 }
 void EXTI4_IRQHandler()
 {
   if(EXTI_GetITStatus(EXTI_Line4) != RESET)
   {
-    wirishExternalInterruptHandler(4);
     EXTI_ClearITPendingBit(EXTI_Line4);
+    wirishExternalInterruptHandler(4);
   }
 }
 void EXTI9_5_IRQHandler()
 {
   if(EXTI_GetITStatus(EXTI_Line5) != RESET)
   {
-    wirishExternalInterruptHandler(5);
     EXTI_ClearITPendingBit(EXTI_Line5);
+    wirishExternalInterruptHandler(5);
   }
   if(EXTI_GetITStatus(EXTI_Line6) != RESET)
   {
-    wirishExternalInterruptHandler(6);
     EXTI_ClearITPendingBit(EXTI_Line6);
+    wirishExternalInterruptHandler(6);
   }
   if(EXTI_GetITStatus(EXTI_Line7) != RESET)
   {
-    wirishExternalInterruptHandler(7);
     EXTI_ClearITPendingBit(EXTI_Line7);
+    wirishExternalInterruptHandler(7);
   }
   if(EXTI_GetITStatus(EXTI_Line8) != RESET)
   {
-    wirishExternalInterruptHandler(8);
     EXTI_ClearITPendingBit(EXTI_Line8);
+    wirishExternalInterruptHandler(8);
   }
   if(EXTI_GetITStatus(EXTI_Line9) != RESET)
   {
-    wirishExternalInterruptHandler(9);
     EXTI_ClearITPendingBit(EXTI_Line9);
+    wirishExternalInterruptHandler(9);
   }
 }
 void EXTI15_10_IRQHandler()
 {
   if(EXTI_GetITStatus(EXTI_Line10) != RESET)
   {
-    wirishExternalInterruptHandler(10);
     EXTI_ClearITPendingBit(EXTI_Line10);
+    wirishExternalInterruptHandler(10);
   }
   if(EXTI_GetITStatus(EXTI_Line11) != RESET)
   {
-    wirishExternalInterruptHandler(11);
     EXTI_ClearITPendingBit(EXTI_Line11);
+    wirishExternalInterruptHandler(11);
   }
   if(EXTI_GetITStatus(EXTI_Line12) != RESET)
   {
-    wirishExternalInterruptHandler(12);
     EXTI_ClearITPendingBit(EXTI_Line12);
+    wirishExternalInterruptHandler(12);
   }
   if(EXTI_GetITStatus(EXTI_Line13) != RESET)
   {
-    wirishExternalInterruptHandler(13);
     EXTI_ClearITPendingBit(EXTI_Line13);
+    wirishExternalInterruptHandler(13);
   }
   if(EXTI_GetITStatus(EXTI_Line14) != RESET)
   {
-    wirishExternalInterruptHandler(14);
     EXTI_ClearITPendingBit(EXTI_Line14);
+    wirishExternalInterruptHandler(14);
   }
   if(EXTI_GetITStatus(EXTI_Line15) != RESET)
   {
-    wirishExternalInterruptHandler(15);
     EXTI_ClearITPendingBit(EXTI_Line15);
+    wirishExternalInterruptHandler(15);
   }
 }
 
