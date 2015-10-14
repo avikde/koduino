@@ -45,6 +45,12 @@ f301.menu.hse.8m.build.clksrc=HSE_8M
 # f301.upload.protocol=stlink
 # f301.upload.maximum_size=49152
 
+f301.menu.bootloader.stm32ld=Serial
+f301.menu.bootloader.stm32ld.upload.tool=stm32ld
+f301.menu.bootloader.stm32ld.upload.baud=230400
+f301.menu.bootloader.stm32ld.upload.protocol=serial
+f301.menu.bootloader.stm32ld.upload.options=mblc
+
 f301.menu.bootloader.stlink=ST-LINK
 f301.menu.bootloader.stlink.upload.tool=stlink
 f301.menu.bootloader.stlink.upload.protocol=stlink
@@ -98,6 +104,7 @@ f37x.build.hse_clock=0
 f37x.upload.tool=stm32ld
 f37x.upload.protocol=serial
 # f37x.upload.sequence=-rts,-dtr,dtr:rts,-dtr,dtr
+f37x.upload.options=dtr_rts
 f37x.upload.baud=230400
 f37x.upload.maximum_size=65536
 # f37x.menu.bootloader.serial=Serial

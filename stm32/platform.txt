@@ -120,7 +120,7 @@ tools.stm32ld.path={runtime.ide.path}/hardware/koduino/stm32/system/stm32ld
 
 tools.stm32ld.upload.params.verbose=
 tools.stm32ld.upload.params.quiet=
-tools.stm32ld.upload.pattern="{path}/{cmd}" {serial.port} {upload.baud} "{build.path}/{build.project_name}.bin" 1
+tools.stm32ld.upload.pattern="{path}/{cmd}" {serial.port} {upload.baud} {upload.options} "{build.path}/{build.project_name}.bin" 1
 
 # ST-LINK (Windows)
 tools.stlink.cmd=ST-LINK_CLI.exe
