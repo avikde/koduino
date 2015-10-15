@@ -1,6 +1,6 @@
 
-menu.flashsize=Flash size
-menu.hse=Clock setup
+menu.flashsize=Flash Size
+menu.hse=CPU Speed
 menu.bootloader=Bootloader
 
 ###########################################################
@@ -86,7 +86,6 @@ f37x.build.variant=f37x
 
 # HSE choices
 f37x.build.hse_value=16000000UL
-f37x.build.hse_clock=0
 
 # f37x.menu.hse.8mhz=8MHz clock
 # f37x.menu.hse.8mhz.build.hse_value=8000000UL
@@ -132,12 +131,12 @@ f40_41x.build.variant=f40_41x
 
 # HSE choices
 f40_41x.build.hse_value=16000000UL
-f40_41x.build.hse_clock=0
 
 # Upload choices
 f40_41x.upload.tool=stm32ld
 f40_41x.upload.protocol=serial
 # f40_41x.upload.sequence=-rts,-dtr,dtr:rts,-dtr,dtr
+f40_41x.upload.options=rts_trpl_inv
 f40_41x.upload.baud=230400
-f40_41x.upload.maximum_size=16384
+f40_41x.upload.maximum_size=65536
 

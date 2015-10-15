@@ -105,17 +105,9 @@ recipe.size.regex=\.text\s+([0-9]+).*
 # tools.dfu_util.upload.params.quiet=
 # tools.dfu_util.upload.pattern="{path}/{cmd}" -d 0483:df11 -a 0 -s 0x08000000 -D "{build.path}/{build.project_name}.bin"
 
-# Serial
-# tools.stm32flash.cmd=stm32flash
-# tools.stm32flash.cmd.windows=stm32flash.exe
-# tools.stm32flash.path={runtime.ide.path}/hardware/koduino/stm32/system/stm32flash
-
-# tools.stm32flash.upload.params.verbose=-V
-# tools.stm32flash.upload.params.quiet=
-# tools.stm32flash.upload.pattern="{path}/{cmd}" -i {upload.sequence} -w "{build.path}/{build.project_name}.bin" -R -b {upload.baud} {serial.port}
 tools.stm32ld.cmd=stm32ld
 tools.stm32ld.cmd.windows=stm32ld.exe
-tools.stm32ld.cmd.macosx=stm32ld.osx
+tools.stm32ld.cmd.macosx=stm32ld.mac
 tools.stm32ld.path={runtime.ide.path}/hardware/koduino/stm32/system/stm32ld
 
 tools.stm32ld.upload.params.verbose=
@@ -132,7 +124,7 @@ tools.stlink.upload.pattern="{cmd}" {upload.options} -ME -P "{build.path}/{build
 # stlink
 tools.texanestlink.cmd=st-flash
 tools.texanestlink.cmd.windows=st-flash.exe
-tools.texanestlink.cmd.macosx=st-flash.osx
+tools.texanestlink.cmd.macosx=st-flash.mac
 tools.texanestlink.path={runtime.ide.path}/hardware/koduino/stm32/system/stlink
 
 tools.texanestlink.upload.params.verbose=
