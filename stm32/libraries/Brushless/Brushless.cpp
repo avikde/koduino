@@ -14,14 +14,13 @@ void Brushless::commutate() {
   // pos_act = encoderCPR - encoder.read();
   uint32_t pos_act = encoderCPR - posRead();
   posRad = posToRadians(pos_act);
+  pos_act_01 = pos_act/((float)encoderCPR);
   motorVel = velF.update(posRad);
   velInt += motorVel; // Used by calibration routine
-  pos_act_01 = pos_act/((float)encoderCPR);
+
   // Get electrical angle
-  int pos_mod=(pos_act-pos_zer) % countsPerElecRev;//map to a single electrical revolution
-  if (pos_mod < 0)
-    pos_mod += countsPerElecRev;
-  elang = pos_mod / ((float)countsPerElecRev);
+  elang = ((pos_act-pos_zer + encoderCPR) % encoderCPR) / countsPerElecRev;
+  elang = fmodf(elang, 1);
   
   // Inductance lag compensation
   elang += leadFactor * motorVel;
@@ -141,7 +140,7 @@ void Brushless::init(uint32_t absPos) {
   pos_zer = EEPROM.read(0);
 
   // TODO: Read pole pairs from EEPROM
-  countsPerElecRev = encoderCPR / POLE_PAIRS;
+  countsPerElecRev = encoderCPR / ((float)POLE_PAIRS);
 
   // this is just 25000 for now
   velF.init(0.99, 25000, DLPF_ANGRATE);
@@ -172,12 +171,12 @@ void Brushless::calibrate(float sweepAmplitude, float convergenceThreshold) {
     delay(sweepDuration);
     motorEnableFlag = false;
     vi1 = velInt;
-    // // +amp => -vel
-    // if (velInt > -10000) {
-    //   // way off, try something quite different
-    //   pos_zer = (pos_zer+countsPerElecRev/2)%countsPerElecRev;
-    //   continue;
-    // }
+    // +amp => -vel
+    if (velInt > -10000) {
+      // way off, try something quite different
+      pos_zer = (pos_zer+(int)countsPerElecRev/2)%((int)countsPerElecRev);
+      continue;
+    }
 
     delay(pauseDuration);
     amplitude = -sweepAmplitude;
@@ -198,7 +197,7 @@ void Brushless::calibrate(float sweepAmplitude, float convergenceThreshold) {
       break;
     }
     else
-      pos_zer = (int)(pos_zer + (int)dzero) % countsPerElecRev;
+      pos_zer = (int)(pos_zer + (int)dzero) % ((int)countsPerElecRev);
   }
   waveform = waveSave;
   leadFactor = leadSave;
@@ -289,9 +288,10 @@ float Brushless::posToRadians(uint32_t pos) {
 void Brushless::setMotorPhases(float electricalAngle, float amplitude, CommutationType waveform) {
   static uint8_t enables[3];
   static float pwms[3];
-  static float amplitudeThresh = 0.01;
   calcSpaceVector(electricalAngle, amplitude, enables, pwms, waveform);
-  uint8_t overallEnable = (motorEnableFlag && abs(amplitude)>amplitudeThresh);
+  // static float amplitudeThresh = 0.01;
+  // uint8_t overallEnable = (motorEnableFlag && abs(amplitude)>amplitudeThresh);
+  uint8_t overallEnable = motorEnableFlag;
 
   // call the user-defined function
   setOutputs(

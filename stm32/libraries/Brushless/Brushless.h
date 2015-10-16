@@ -63,14 +63,15 @@ public:
   // This should be in EEPROM
   // TODO: write a initialization part that uses Serial to ask for this and any other motor-specific parameters?
   int pos_zer=0;
-protected:
+// protected:
+  
   DLPF velF, speedLimF;
   int POLE_PAIRS;
   float leadFactor = 0;
   float posctrl0 = 0, motorVel = 0, posDes = 0;
   float velInt = 0;
   bool motorEnableFlag = false;
-  int countsPerElecRev = 0; // calculated
+  float countsPerElecRev = 0; // calculated
   volatile uint8_t section = 0;
   volatile int pos_act;
   float debuggingAmplitude;
