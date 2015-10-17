@@ -139,6 +139,8 @@ void Brushless::init(uint32_t absPos) {
   posWrite(encoderCPR - absPos);
   pos_zer = EEPROM.read(0);
 
+  flipWires = (EEPROM.read(1) == 1);
+
   // TODO: Read pole pairs from EEPROM
   countsPerElecRev = encoderCPR / ((float)POLE_PAIRS);
 
@@ -150,19 +152,47 @@ void Brushless::init(uint32_t absPos) {
 void Brushless::calibrate(float sweepAmplitude, float convergenceThreshold) {
   // 
   const uint32_t sweepDuration = 300;
-  const uint32_t pauseDuration = 300;
+  const uint32_t pauseDuration = 200;
 
+  // detect if motor wires need to be swapped
+  noTimerInterrupts();
+  float lowval = 0.4, highval = 0.6;
+  setOutputs(true, lowval, false, 0.5, true, highval);
+  delay(100);
+  setOutputs(false, 0.5, true, lowval, true, highval);
+  delay(100);
+  int pos1 = posRead();
+  setOutputs(true, highval, true, lowval, false, 0.5);
+  delay(100);
+  int pos2 = posRead();
+  // pos1 should be > pos2 (but need to check wrapping)
+  int posdiff = pos1 - pos2;
+  // check if pos1 = small, pos2 = encoderCPR - small
+  if (posdiff < -encoderCPR/2)
+    posdiff += encoderCPR;
+  if (posdiff < 0) {
+    // need to flip
+    flipWires = true;
+    EEPROM.write(1, 1);
+  } else {
+    flipWires = false;
+    EEPROM.write(1, 0);
+  }
+  timerInterrupts();
+
+  // first stop
   motorEnableFlag = false;
+  delay(pauseDuration);
+
   CommutationType waveSave = waveform;
   float leadSave = leadFactor;
   float speedLimitSave = speedLimit;
   waveform = SINUSOIDAL;
   leadFactor = 0;
   speedLimit = 0;
+
+  // sweep back and forth
   float vi1, vi2;
-  // first stop
-  motorEnableFlag = false;
-  delay(pauseDuration);
   while(1) {
     delay(pauseDuration);
     amplitude = sweepAmplitude;
@@ -294,11 +324,19 @@ void Brushless::setMotorPhases(float electricalAngle, float amplitude, Commutati
   uint8_t overallEnable = motorEnableFlag;
 
   // call the user-defined function
-  setOutputs(
-    enables[0] && overallEnable, pwms[0], 
-    enables[1] && overallEnable, pwms[1], 
-    enables[2] && overallEnable, pwms[2]
-    );
+  if (flipWires) {
+    setOutputs(
+      enables[1] && overallEnable, pwms[1], 
+      enables[0] && overallEnable, pwms[0], 
+      enables[2] && overallEnable, pwms[2]
+      );
+  } else {
+    setOutputs(
+      enables[0] && overallEnable, pwms[0], 
+      enables[1] && overallEnable, pwms[1], 
+      enables[2] && overallEnable, pwms[2]
+      );
+  }
 }
 
 

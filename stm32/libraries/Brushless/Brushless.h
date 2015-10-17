@@ -79,6 +79,7 @@ public:
   CommutationType waveform = SINUSOIDAL;
   uint16_t encoderCPR = 4096;
   float speedLimit = 0;
+  volatile bool flipWires = false;
 };
 
 
