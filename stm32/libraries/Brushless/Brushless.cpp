@@ -49,7 +49,7 @@ void Brushless::calcSpaceVector(float electricalAngle, float amplitude, uint8_t 
   section = (uint8_t) (electricalAngle * 6.0);
 
   // Constrain so it makes sense
-  amplitude = constrain(amplitude, -1, 1);
+  amplitude = constrain(amplitude, -ampLim, ampLim);
 
   if (commutation == BLOCK)
   {

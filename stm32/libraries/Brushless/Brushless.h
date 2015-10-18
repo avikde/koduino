@@ -48,6 +48,7 @@ public:
   void setMode(ControlMode theMode) {mode = theMode;}
   void setWaveform(CommutationType wave) {waveform = wave;}
   void setSpeedLimit(float vlim) {speedLimit = vlim;}
+  void setAmplitudeLimit(float alim) {ampLim = alim;}
 
   float getPosition() { return posRad; }
   float getVelocity() { return motorVel; }
@@ -79,7 +80,8 @@ public:
   CommutationType waveform = SINUSOIDAL;
   uint16_t encoderCPR = 4096;
   float speedLimit = 0;
-  volatile bool flipWires = false;
+  bool flipWires = false;
+  float ampLim = 1;
 };
 
 
