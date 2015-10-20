@@ -5,9 +5,8 @@ This is a library of code for boards developed using the STM32 F3/F4 microcontro
 
 ### Supported hardware
 
-* **Upload methods:** Serial (incl using USB-Serial adapters), USB using DFU (soon)
-* **Chip families:** F37x, F4xx (soon), F1xx (planned)
-* **Chips tested:** F373CC, F405RG (soon), F1?? (planned)
+* **Upload methods:** Serial (incl using USB-Serial adapters), ST-Link V2
+* **Chip families:** F301, F373, F405
 
 ### Supported software
 
@@ -26,7 +25,7 @@ Roger Clark compiled a [list of other STM32 Arduino compatibility projects](http
 2. Awesome features that are not in Arduino: e.g. 
     1. Hardware floating point, and advanced math libraries (Eigen is included)
     2. Non-blocking PWM input--use PWM as a fast, simple communication method
-    3. Fast SD-card writing using SDIO (soon)
+    3. Fast SD-card writing using SDIO
     4. Timer interrupts (run code with precise timing up to several MHz)
     5. ...
 1. Hands-free programming on boards with hardware support (FTDI chip with NRST/BOOT0 connections)
