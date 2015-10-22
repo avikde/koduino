@@ -136,7 +136,7 @@ void Brushless::setMotorProps(int polePairs, float leadFactor) {
 
 void Brushless::init(uint32_t absPos) {
   // encoder.write(encoderCPR - absPos);
-  posWrite(encoderCPR - absPos);
+  posWrite(absPos);
   pos_zer = EEPROM.read(0);
 
   flipWires = (EEPROM.read(1) == 1);
