@@ -119,6 +119,8 @@ protected:
 
 class BlCon34 : public Motor {
 public:
+  static bool useEXTI;
+
   // Constructor (sets defaults)
   BlCon34() {}
 

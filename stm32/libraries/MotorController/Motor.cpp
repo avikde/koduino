@@ -121,6 +121,8 @@ float Motor::update() {
 // Derived classes: driver / feedback device specific
 // ===============================================================================
 
+bool BlCon34::useEXTI = false;
+
 void BlCon34::initCommon(uint8_t outPin_, float zero, int8_t dir, float gearRatio) {
   pinMode(outPin_, PWM);
   this->outPin = outPin_;
@@ -133,7 +135,10 @@ void BlCon34::initCommon(uint8_t outPin_, float zero, int8_t dir, float gearRati
 void BlCon34::init(uint8_t outPin_, uint8_t inPin_, float zero, int8_t dir, float gearRatio) {
   // usePwmIn = true;
   // pwmIn(inPin_);
-  pinMode(inPin_, PWM_IN);
+  if (BlCon34::useEXTI)
+    pinMode(inPin_, PWM_IN_EXTI);
+  else
+    pinMode(inPin_, PWM_IN);
   this->inPin = inPin_;
   initCommon(outPin_, zero, dir, gearRatio);
 }
