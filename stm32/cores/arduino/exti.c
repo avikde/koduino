@@ -162,7 +162,7 @@ void wirishExternalInterruptHandler(uint8_t EXTI_Line_Number) {
   static EXTIChannel *S;
   static int current, delta;
   // HACK
-  const float maxPeriod = 1800;
+  const int maxPeriod = 1800, minPeriod = 200;
   S = &EXTI_MAP[EXTI_Line_Number];
   // PWM_IN_EXTI pin?
   if (S->bPwmIn == 1) {
@@ -175,7 +175,9 @@ void wirishExternalInterruptHandler(uint8_t EXTI_Line_Number) {
         //  sometimes period is 1000+what it should be
         if (delta > maxPeriod)
           S->period = delta - 1000;
-        else
+        else if (delta < minPeriod)
+          S->period = delta + 1000;
+        else 
           S->period = delta;
       }
       S->risingedge = current;
