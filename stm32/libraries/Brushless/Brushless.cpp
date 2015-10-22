@@ -29,6 +29,20 @@ void Brushless::commutate() {
   if (elang > 1)
     elang -= 1;
 
+
+  // +amplitude produces -ve speed
+  if (speedLimit > 0.001) {
+    float barrier = -0.01 * (1/(speedLimit + motorVel) - 1/(speedLimit - motorVel));
+    // float barrier = -1 * (1/(speedLimit + motorVel) - 1/(speedLimit - motorVel));
+    // last ditch
+    if (motorVel > speedLimit)
+      barrier = 10;
+    if (motorVel < -speedLimit)
+      barrier = -10;
+    barrier = constrain(barrier, -fabsf(amplitude), fabsf(amplitude));
+    amplitude += barrier;
+  }
+
   setMotorPhases(elang, amplitude, waveform);
 
 // #if defined(SERIES_STM32F4xx)
@@ -245,9 +259,8 @@ void Brushless::update(float pwmInput) {
     case POSITION_CONTROL:
       // motorEnableFlag = (pwmInput > 0.1 && pwmInput < 0.9);
       motorEnableFlag = true;
-      posDes = 3;//map(constrain(pwmInput, 0.1, 0.9), 0.1, 0.9, 0, TWO_PI);
-      amplitude = -1 * fmodf_mpi_pi(posRad - posDes);// - 0.01 * motorVel;
-      // amplitude = 0.1;
+      // posDes = map(constrain(pwmInput, 0.1, 0.9), 0.1, 0.9, 0, TWO_PI);
+      amplitude = 0.3 * fmodf_mpi_pi(posRad - posDes);// - 0.01 * motorVel;
       break;
     case CURRENT_CONTROL:
       // motorEnableFlag = (pwmInput > 0.1 && pwmInput < 0.9);
@@ -264,24 +277,24 @@ void Brushless::update(float pwmInput) {
       amplitude = debuggingAmplitude*arm_sin_f32(millis()/2000.0);
       break;
   }
-  // speed limit
-  // +amplitude produces -ve speed
-  if (speedLimit > 0.001) {
-    float barrier = speedLimF.update(-1 * (1/(speedLimit + motorVel) - 1/(speedLimit - motorVel)));
-    // float barrier = -1 * (1/(speedLimit + motorVel) - 1/(speedLimit - motorVel));
-    // last ditch
-    if (motorVel > speedLimit)
-      barrier = 10;
-    if (motorVel < -speedLimit)
-      barrier = -10;
-    barrier = constrain(barrier, -fabsf(amplitude), fabsf(amplitude));
-    amplitude += barrier;
+  // // speed limit
+  // // +amplitude produces -ve speed
+  // if (speedLimit > 0.001) {
+  //   float barrier = speedLimF.update(-1 * (1/(speedLimit + motorVel) - 1/(speedLimit - motorVel)));
+  //   // float barrier = -1 * (1/(speedLimit + motorVel) - 1/(speedLimit - motorVel));
+  //   // last ditch
+  //   if (motorVel > speedLimit)
+  //     barrier = 10;
+  //   if (motorVel < -speedLimit)
+  //     barrier = -10;
+  //   barrier = constrain(barrier, -fabsf(amplitude), fabsf(amplitude));
+  //   amplitude += barrier;
     // // last ditch
     // if (motorVel > speedLimit)
     //   amplitude = 0.1 * (motorVel - speedLimit);
     // if (motorVel < -speedLimit)
     //   amplitude = 0.1 * (motorVel + speedLimit);
-  }
+  // }
 }
 
 
