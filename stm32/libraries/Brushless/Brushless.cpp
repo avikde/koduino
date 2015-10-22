@@ -32,15 +32,15 @@ void Brushless::commutate() {
 
   // +amplitude produces -ve speed
   if (speedLimit > 0.001) {
-    float barrier = -0.01 * (1/(speedLimit + motorVel) - 1/(speedLimit - motorVel));
+    float barrier = -1 * (1/(speedLimit + motorVel) - 1/(speedLimit - motorVel));
     // float barrier = -1 * (1/(speedLimit + motorVel) - 1/(speedLimit - motorVel));
-    // last ditch
-    if (motorVel > speedLimit)
-      barrier = 10;
-    if (motorVel < -speedLimit)
-      barrier = -10;
     barrier = constrain(barrier, -fabsf(amplitude), fabsf(amplitude));
     amplitude += barrier;
+    // last ditch
+    if (motorVel > speedLimit)
+      amplitude = 0;
+    if (motorVel < -speedLimit)
+      amplitude = 0;
   }
 
   setMotorPhases(elang, amplitude, waveform);

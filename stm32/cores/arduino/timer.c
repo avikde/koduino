@@ -227,7 +227,7 @@ void complementaryPWM(uint8_t timer, int freqHz, uint16_t deadtime) {
   TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
   TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_High;
   TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Set;
-  TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCIdleState_Reset;
+  TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCIdleState_Set;
 
   TIM_OC1Init(TIMER_MAP[timer].TIMx, &TIM_OCInitStructure);
   TIM_OC2Init(TIMER_MAP[timer].TIMx, &TIM_OCInitStructure);
@@ -236,9 +236,9 @@ void complementaryPWM(uint8_t timer, int freqHz, uint16_t deadtime) {
   /* Automatic Output enable, Break, dead time and lock configuration*/
   TIM_BDTRInitStructure.TIM_OSSRState = TIM_OSSRState_Enable;
   TIM_BDTRInitStructure.TIM_OSSIState = TIM_OSSIState_Enable;
-  TIM_BDTRInitStructure.TIM_LOCKLevel = TIM_LOCKLevel_1;
+  TIM_BDTRInitStructure.TIM_LOCKLevel = TIM_LOCKLevel_OFF;
   TIM_BDTRInitStructure.TIM_DeadTime = deadtime;
-  TIM_BDTRInitStructure.TIM_Break = TIM_Break_Enable;
+  TIM_BDTRInitStructure.TIM_Break = TIM_Break_Disable;
   TIM_BDTRInitStructure.TIM_BreakPolarity = TIM_BreakPolarity_High;
   TIM_BDTRInitStructure.TIM_AutomaticOutput = TIM_AutomaticOutput_Enable;
 
