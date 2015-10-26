@@ -53,7 +53,7 @@ public:
   vec3 gravity;
   
   EKF(float stateNoise, float measNoise);
-  EKF() : EKF(1, 1) {}
+  EKF() : EKF(0.1, 10) {}
   void init(const float *acc);
 
   // Main function
