@@ -20,6 +20,8 @@
 #include "hse_16.inc"
 #elif defined(CLKSRC_HSE_8M)
 #include "hse_8.inc"
+#elif defined(CLKSRC_HSE_8M_OC96)
+#include "hse_8_oc96.inc"
 #else
 // includes CLKSRC_HSI
 #include "hsi.inc"
