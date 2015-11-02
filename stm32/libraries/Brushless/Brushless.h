@@ -38,7 +38,7 @@ void posWrite(uint16_t pos);
 
 class Brushless {
 public:
-  volatile float amplitude = 0;
+  volatile float amplitude = 0, prevAmplitude = 0;
   volatile float pos_act_01 = 0;
   volatile int commutationTime = 0;
   volatile float elang;
@@ -84,10 +84,10 @@ public:
   int pos_zer=0;
 // protected:
   
-  DLPF velF, speedLimF;
+  DLPF velF, accF;
   int POLE_PAIRS;
   float leadFactor = 0;
-  float posctrl0 = 0, motorVel = 0, posDes = 0;
+  float posctrl0 = 0, motorVel = 0, motorAcc = 0, posDes = 0;
   float velInt = 0;
   bool motorEnableFlag = false;
   float countsPerElecRev = 0; // calculated

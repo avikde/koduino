@@ -33,6 +33,7 @@ void Brushless::commutate() {
   posRad = posToRadians(pos_act);
   pos_act_01 = pos_act/((float)encoderCPR);
   motorVel = velF.update(posRad);
+  motorAcc = accF.update(motorVel);
   velInt += motorVel; // Used by calibration routine
 
   // Get electrical angle
@@ -50,15 +51,25 @@ void Brushless::commutate() {
   // +amplitude produces -ve speed
   if (speedLimit > 0.001) {
     float barrier = -1 * (1/(speedLimit + motorVel) - 1/(speedLimit - motorVel));
-    // float barrier = -1 * (1/(speedLimit + motorVel) - 1/(speedLimit - motorVel));
+
+    // damping out oscillations
+
+    // barrier += 0.00000001 * motorAcc;
+    // barrier = 0.999999 * prevAmplitude + 0.000001 * barrier;
+
     barrier = constrain(barrier, -fabsf(amplitude), fabsf(amplitude));
-    amplitude += barrier;
     // last ditch
-    if (motorVel > speedLimit)
-      amplitude = 0;
-    if (motorVel < -speedLimit)
-      amplitude = 0;
+    if (fabsf(motorVel) > speedLimit)
+      barrier = -amplitude;
+
+    prevAmplitude = barrier;
+
+    amplitude += barrier;
   }
+
+  // rate limiter? 20KHz commutation, 1KHz control loop => 0.9^20 = 0.12
+  // amplitude = 0.999 * prevAmplitude + 0.001 * amplitude;
+  // prevAmplitude = amplitude;
 
   setMotorPhases(elang, amplitude, waveform);
 
@@ -175,9 +186,9 @@ void Brushless::init(uint32_t absPos) {
   // TODO: Read pole pairs from EEPROM
   countsPerElecRev = encoderCPR / ((float)POLE_PAIRS);
 
-  // this is just 25000 for now
-  velF.init(0.99, 25000, DLPF_ANGRATE);
-  speedLimF.init(0.99999, 25000, DLPF_RATE);
+  // this is just 20000 for now
+  velF.init(0.99, 20000, DLPF_ANGRATE);
+  accF.init(0.1, 20000, DLPF_RATE);
 }
 
 void Brushless::calibrate(float sweepAmplitude, float convergenceThreshold) {
