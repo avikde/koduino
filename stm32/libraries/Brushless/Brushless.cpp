@@ -176,7 +176,7 @@ void Brushless::setMotorProps(int polePairs, float leadFactor) {
   POLE_PAIRS = polePairs;
 }
 
-void Brushless::init(uint32_t absPos) {
+void Brushless::init(uint32_t absPos, int commutationRate) {
   // encoder.write(encoderCPR - absPos);
   posWrite(absPos);
   pos_zer = EEPROM.read(0);
@@ -187,8 +187,8 @@ void Brushless::init(uint32_t absPos) {
   countsPerElecRev = encoderCPR / ((float)POLE_PAIRS);
 
   // this is just 20000 for now
-  velF.init(0.99, 20000, DLPF_ANGRATE);
-  accF.init(0.1, 20000, DLPF_RATE);
+  velF.init(0.99, commutationRate, DLPF_ANGRATE);
+  accF.init(0.1, commutationRate, DLPF_RATE);
 }
 
 void Brushless::calibrate(float sweepAmplitude, float convergenceThreshold) {
@@ -302,7 +302,7 @@ void Brushless::update(float pwmInput) {
       break;
     case DEBUGGING_SIN:
       motorEnableFlag = true;
-      amplitude = debuggingAmplitude*arm_sin_f32(millis()/2000.0);
+      amplitude = debuggingAmplitude*arm_sin_f32(millis()/5000.0);
       break;
   }
   // // speed limit
