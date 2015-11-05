@@ -1,7 +1,26 @@
+/**
+ * @authors Avik De <avikde@gmail.com>
 
+  This file is part of koduino <https://github.com/avikde/koduino>
+
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation, either
+  version 3 of the License, or (at your option) any later version.
+
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this library; if not, see <http://www.gnu.org/licenses/>.
+ */
 #include "timer.h"
 #include "nvic.h"
 #include "gpio.h"
+#include "exti.h"
+#include "system_clock.h"
 
 // Globals ---------------------------------------------------------
 
@@ -10,7 +29,7 @@
 #if defined(SERIES_STM32F37x)
 #define TIMER_BASE_CLOCK 36000000
 #elif defined(SERIES_STM32F30x)
-#define TIMER_BASE_CLOCK 24000000
+#define TIMER_BASE_CLOCK (SystemCoreClock/2)
 #else
 #define TIMER_BASE_CLOCK 42000000
 #endif
@@ -45,7 +64,7 @@ void analogWriteResolution(uint8_t nbits) {
 
 void timerInit(uint8_t timer, int freqHz) {
   // Enable interrupts for the timer (but not any of the timer updates yet)
-  nvicEnable(TIMER_MAP[timer].IRQn, 0);
+  nvicEnable(TIMER_MAP[timer].IRQn, 2);
 
   timerInitHelper(timer, 1, TIMER_PERIOD(freqHz));
   TIM_Cmd(TIMER_MAP[timer].TIMx, ENABLE);
@@ -55,7 +74,7 @@ void timerInit(uint8_t timer, int freqHz) {
 void pinTimerInit(uint8_t pin) {
   uint8_t timer = PIN_MAP[pin].timer;
 
-  nvicEnable(TIMER_MAP[timer].IRQn, 0);
+  nvicEnable(TIMER_MAP[timer].IRQn, 2);
   // Use the frequency set using analogWriteFrequency
   timerInitHelper(timer, 1, TIMER_PERIOD(TIMER_MAP[timer].freqHz));
   TIM_Cmd(TIMER_MAP[timer].TIMx, ENABLE);
@@ -66,6 +85,11 @@ void pinTimerInit(uint8_t pin) {
 #if defined(SERIES_STM32F4xx)
   if (TIMER_MAP[timer].TIMx == TIM1) {
     TIM_CtrlPWMOutputs(TIM1, ENABLE);
+  }
+#endif
+#if defined(SERIES_STM32F30x)
+  if (IS_TIM_LIST6_PERIPH(TIMER_MAP[timer].TIMx)) {
+    TIM_CtrlPWMOutputs(TIMER_MAP[timer].TIMx, ENABLE);
   }
 #endif
 }
@@ -95,6 +119,24 @@ void analogWrite(uint8_t pin, uint32_t duty) {
 }
 
 float pwmIn(uint8_t name) {
+  EXTIChannel *S = &EXTI_MAP[ PIN_MAP[name].pin ];
+  // Pin configured for PWM_IN_EXTI?
+  if (S->pinName == name) {
+    static int timediff;
+    timediff = micros() - S->risingedge;
+    // HACK: need to detect if the signal goes flat. 5ms = 5000us
+    if (timediff > 5000)
+      return 0;
+
+    // // HACK: test fixed period
+    // if (S->pulsewidth > 1000)
+    //   S->pulsewidth -= 1000;
+    // return S->pulsewidth * 0.001;
+    return (S->period > 0) ? S->pulsewidth/(float)S->period : 0;
+  }
+
+  // assume this is a PWM_IN pin using timer input channels
+
   uint8_t timer = PIN_MAP[name].timer;
   TimerChannelData *C = &TIMER_MAP[ timer ].channelData[ PIN_MAP[name].channel-1];
 
@@ -202,7 +244,7 @@ void complementaryPWM(uint8_t timer, int freqHz, uint16_t deadtime) {
   TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
   TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_High;
   TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Set;
-  TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCIdleState_Reset;
+  TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCIdleState_Set;
 
   TIM_OC1Init(TIMER_MAP[timer].TIMx, &TIM_OCInitStructure);
   TIM_OC2Init(TIMER_MAP[timer].TIMx, &TIM_OCInitStructure);
@@ -211,9 +253,9 @@ void complementaryPWM(uint8_t timer, int freqHz, uint16_t deadtime) {
   /* Automatic Output enable, Break, dead time and lock configuration*/
   TIM_BDTRInitStructure.TIM_OSSRState = TIM_OSSRState_Enable;
   TIM_BDTRInitStructure.TIM_OSSIState = TIM_OSSIState_Enable;
-  TIM_BDTRInitStructure.TIM_LOCKLevel = TIM_LOCKLevel_1;
+  TIM_BDTRInitStructure.TIM_LOCKLevel = TIM_LOCKLevel_OFF;
   TIM_BDTRInitStructure.TIM_DeadTime = deadtime;
-  TIM_BDTRInitStructure.TIM_Break = TIM_Break_Enable;
+  TIM_BDTRInitStructure.TIM_Break = TIM_Break_Disable;
   TIM_BDTRInitStructure.TIM_BreakPolarity = TIM_BreakPolarity_High;
   TIM_BDTRInitStructure.TIM_AutomaticOutput = TIM_AutomaticOutput_Enable;
 

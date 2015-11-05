@@ -1,10 +1,105 @@
+# @authors Avik De <avikde@gmail.com>
 
-menu.hse=HSE
+# This file is part of koduino <https://github.com/avikde/koduino>
+
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation, either
+# version 3 of the License, or (at your option) any later version.
+
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Lesser General Public License for more details.
+
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+menu.flashsize=Flash Size
+menu.hse=CPU Speed
 menu.bootloader=Bootloader
 
 ###########################################################
 
-f37x.name=f37x
+f301.name=F301/F302
+f301.build.mcu=STM32F302x8
+f301.build.series=STM32F30x
+f301.build.core=arduino
+f301.build.extra_flags=
+f301.build.ldscript=STM32F302R8_FLASH.ld
+f301.build.variant=f301
+f301.build.dependency=true
+
+# Flash size choices
+f301.menu.flashsize.64k = 64KB (F30**8)
+f301.menu.flashsize.64k.upload.maximum_size=61440
+
+f301.menu.flashsize.32k = 32KB (F30**6)
+f301.menu.flashsize.32k.upload.maximum_size=28672
+
+# HSE choices
+# f301.build.hse_value=8000000UL
+# f301.build.clksrc=HSI
+
+f301.menu.hse.hsi=48MHz (from HSI)
+f301.menu.hse.hsi.build.hse_value=8000000UL
+f301.menu.hse.hsi.build.f_cpu=48000000L
+f301.menu.hse.hsi.build.clksrc=HSI
+
+f301.menu.hse.8m=72MHz (from 8MHz HSE)
+f301.menu.hse.8m.build.hse_value=8000000UL
+f301.menu.hse.8m.build.f_cpu=72000000L
+f301.menu.hse.8m.build.clksrc=HSE_8M
+
+f301.menu.hse.8m_oc96=96MHz (overclock from 8MHz HSE)
+f301.menu.hse.8m_oc96.build.hse_value=8000000UL
+f301.menu.hse.8m_oc96.build.f_cpu=96000000L
+f301.menu.hse.8m_oc96.build.clksrc=HSE_8M_OC96
+
+f301.menu.hse.8m_oc128=128MHz (overclock from 8MHz HSE)
+f301.menu.hse.8m_oc128.build.hse_value=8000000UL
+f301.menu.hse.8m_oc128.build.f_cpu=128000000L
+f301.menu.hse.8m_oc128.build.clksrc=HSE_8M_OC128
+
+# f301.menu.hse.16m=72MHz (from 16MHz HSE)
+# f301.menu.hse.16m.build.hse_value=16000000UL
+# f301.menu.hse.16m.build.f_cpu=72000000L
+# f301.menu.hse.16m.build.clksrc=HSE_16M
+
+# Upload choices
+# f301.upload.tool=stlink
+# f301.upload.protocol=stlink
+# f301.upload.maximum_size=49152
+
+f301.menu.bootloader.stm32ld=Serial
+f301.menu.bootloader.stm32ld.upload.tool=stm32ld
+f301.menu.bootloader.stm32ld.upload.baud=230400
+f301.menu.bootloader.stm32ld.upload.protocol=serial
+f301.menu.bootloader.stm32ld.upload.options=mblc
+
+f301.menu.bootloader.stlink=ST-LINK
+f301.menu.bootloader.stlink.upload.tool=stlink
+f301.menu.bootloader.stlink.upload.protocol=stlink
+f301.menu.bootloader.stlink.upload.options=
+
+# f301.menu.bootloader.stlinkur=ST-LINK (UR)
+# f301.menu.bootloader.stlinkur.upload.tool=stlink
+# f301.menu.bootloader.stlinkur.upload.protocol=stlink
+# f301.menu.bootloader.stlinkur.upload.options=-c UR
+
+f301.menu.bootloader.texanestlink=texane/stlink
+f301.menu.bootloader.texanestlink.upload.tool=texanestlink
+f301.menu.bootloader.texanestlink.upload.protocol=stlink
+f301.menu.bootloader.texanestlink.upload.options=
+
+# f301.menu.bootloader.dfu_util=DFU
+# f301.menu.bootloader.dfu_util.upload.tool=dfu_util
+# f301.menu.bootloader.dfu_util.upload.protocol=dfu
+
+
+###########################################################
+
+f37x.name=F373
 f37x.build.mcu=STM32F37x
 f37x.build.series=STM32F37x
 f37x.build.f_cpu=72000000L
@@ -17,7 +112,6 @@ f37x.build.variant=f37x
 
 # HSE choices
 f37x.build.hse_value=16000000UL
-f37x.build.hse_clock=0
 
 # f37x.menu.hse.8mhz=8MHz clock
 # f37x.menu.hse.8mhz.build.hse_value=8000000UL
@@ -35,6 +129,7 @@ f37x.build.hse_clock=0
 f37x.upload.tool=stm32ld
 f37x.upload.protocol=serial
 # f37x.upload.sequence=-rts,-dtr,dtr:rts,-dtr,dtr
+f37x.upload.options=dtr_rts
 f37x.upload.baud=230400
 f37x.upload.maximum_size=65536
 # f37x.menu.bootloader.serial=Serial
@@ -51,7 +146,7 @@ f37x.upload.maximum_size=65536
 
 ###########################################################
 
-f40_41x.name=f40_41x
+f40_41x.name=F405
 f40_41x.build.mcu=STM32F40_41xxx
 f40_41x.build.series=STM32F4xx
 f40_41x.build.f_cpu=168000000L
@@ -62,53 +157,12 @@ f40_41x.build.variant=f40_41x
 
 # HSE choices
 f40_41x.build.hse_value=16000000UL
-f40_41x.build.hse_clock=0
 
 # Upload choices
 f40_41x.upload.tool=stm32ld
 f40_41x.upload.protocol=serial
 # f40_41x.upload.sequence=-rts,-dtr,dtr:rts,-dtr,dtr
+f40_41x.upload.options=rts_trpl_inv
 f40_41x.upload.baud=230400
-f40_41x.upload.maximum_size=16384
-
-
-###########################################################
-
-f301.name=f301
-f301.build.mcu=STM32F302x8
-f301.build.series=STM32F30x
-f301.build.f_cpu=48000000L
-f301.build.core=arduino
-f301.build.extra_flags=
-f301.build.ldscript=STM32F302R8_FLASH.ld
-f301.build.variant=f301
-f301.build.dependency=true
-
-# HSE choices
-f301.build.hse_value=16000000UL
-f301.build.hse_clock=0
-
-# Upload choices
-# f301.upload.tool=stlink
-# f301.upload.protocol=stlink
-f301.upload.maximum_size=49152
-
-f301.menu.bootloader.stlink=ST-LINK
-f301.menu.bootloader.stlink.upload.tool=stlink
-f301.menu.bootloader.stlink.upload.protocol=stlink
-f301.menu.bootloader.stlink.upload.options=
-
-f301.menu.bootloader.stlinkur=ST-LINK (UR)
-f301.menu.bootloader.stlinkur.upload.tool=stlink
-f301.menu.bootloader.stlinkur.upload.protocol=stlink
-f301.menu.bootloader.stlinkur.upload.options=-c UR
-
-f301.menu.bootloader.texanestlink=texane/stlink
-f301.menu.bootloader.texanestlink.upload.tool=texanestlink
-f301.menu.bootloader.texanestlink.upload.protocol=stlink
-f301.menu.bootloader.texanestlink.upload.options=
-
-# f301.menu.bootloader.dfu_util=DFU
-# f301.menu.bootloader.dfu_util.upload.tool=dfu_util
-# f301.menu.bootloader.dfu_util.upload.protocol=dfu
+f40_41x.upload.maximum_size=65536
 

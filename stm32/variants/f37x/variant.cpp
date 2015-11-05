@@ -1,4 +1,21 @@
+/**
+ * @authors Avik De <avikde@gmail.com>
 
+  This file is part of koduino <https://github.com/avikde/koduino>
+
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation, either
+  version 3 of the License, or (at your option) any later version.
+
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this library; if not, see <http://www.gnu.org/licenses/>.
+ */
 #include "variant.h"
 #include "types.h"
 #include "USARTClass.h"
@@ -173,13 +190,12 @@ TimerInfo TIMER_MAP[] = {
 
 // Use the 3 basic timers and two others
 TimebaseChannel TIMEBASE_MAP[] = {
-  {.timer = NOT_SET, .isr = 0}, // 0:user
-  {.timer = NOT_SET, .isr = 0}, // 1:user
-  {.timer = NOT_SET, .isr = 0}, // 2:user
-  {.timer = NOT_SET, .isr = 0}, // 3:user
-  {.timer = NOT_SET, .isr = 0} // 4:System clock, i.e. millis
+  {.timer = NOT_SET, .isr = 0}, // 0
+  {.timer = NOT_SET, .isr = 0}, // 1
+  {.timer = NOT_SET, .isr = 0}, // 2
+  {.timer = NOT_SET, .isr = 0}, // 3
+  {.timer = NOT_SET, .isr = 0} // 4
 };
-const uint8_t SYSCLK_TIMEBASE = 4;
 
 // Serial
 USARTInfo USART_MAP[3] = {

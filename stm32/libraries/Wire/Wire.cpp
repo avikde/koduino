@@ -1,4 +1,21 @@
+/**
+ * @authors Avik De <avikde@gmail.com>
 
+  This file is part of koduino <https://github.com/avikde/koduino>
+
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation, either
+  version 3 of the License, or (at your option) any later version.
+
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this library; if not, see <http://www.gnu.org/licenses/>.
+ */
 #include "Wire.h"
 
 // 1000 gives ~600us block in the requestFrom function when the slave is not connected. 10000 gives ~6000us
@@ -16,8 +33,8 @@ uint8_t SDA2 = PB11;
 uint8_t SCL2 = PB10;
 #define WIRE_TIMEOUT 1000
 #elif defined(STM32F302x8)
-uint8_t SDA1 = PA14;
-uint8_t SCL1 = PA15;
+uint8_t SDA1 = PB7;//PA14;
+uint8_t SCL1 = PB6;//PA15;
 uint8_t SDA2 = PF0;
 uint8_t SCL2 = PF1;
 #define WIRE_TIMEOUT 1000

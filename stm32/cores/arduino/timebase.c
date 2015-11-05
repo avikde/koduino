@@ -1,4 +1,21 @@
+/**
+ * @authors Avik De <avikde@gmail.com>
 
+  This file is part of koduino <https://github.com/avikde/koduino>
+
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation, either
+  version 3 of the License, or (at your option) any later version.
+
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this library; if not, see <http://www.gnu.org/licenses/>.
+ */
 #include <stdio.h>
 #include "chip.h"
 
@@ -27,10 +44,11 @@ void setupTimerUpdateInterrupt(uint8_t i, ISRType ISR, uint16_t prescaler, uint3
   TIMEBASE_MAP[i].isr = ISR;
 }
 
-void attachSysClkInterrupt(ISRType ISR) {
-  // 1MHz base clock, millisecond interrupts, microsecond counts
-  setupTimerUpdateInterrupt(SYSCLK_TIMEBASE, ISR, (TIMER_PERIPH_CLOCK / 1000000)-1, 1000-1);
-}
+// OLD...now using SysTick
+// void attachSysClkInterrupt(ISRType ISR) {
+//   // 1MHz base clock, millisecond interrupts, microsecond counts
+//   setupTimerUpdateInterrupt(SYSCLK_TIMEBASE, ISR, (TIMER_PERIPH_CLOCK / 1000000)-1, 1000-1);
+// }
 
 // void attachHighResClkUpdate(ISRType ISR) {
 //   // Highest resolution - 16bit

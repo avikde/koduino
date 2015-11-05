@@ -1,4 +1,21 @@
+/**
+ * @authors Avik De <avikde@gmail.com>, Matthew Piccoli
 
+  This file is part of koduino <https://github.com/avikde/koduino>
+
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation, either
+  version 3 of the License, or (at your option) any later version.
+
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this library; if not, see <http://www.gnu.org/licenses/>.
+ */
 #include "Brushless.h"
 #include <EEPROM.h>
 
@@ -11,16 +28,17 @@ void Brushless::commutate() {
   tic = micros();
 
   // Get position
-  pos_act = encoderCPR - encoder.read();
+  // pos_act = encoderCPR - encoder.read();
+  uint32_t pos_act = encoderCPR - posRead();
   posRad = posToRadians(pos_act);
-  motorVel = velF.update(posRad);
-  velInt += motorVel; // Used by calibration routine
   pos_act_01 = pos_act/((float)encoderCPR);
+  motorVel = velF.update(posRad);
+  motorAcc = accF.update(motorVel);
+  velInt += motorVel; // Used by calibration routine
+
   // Get electrical angle
-  int pos_mod=(pos_act-pos_zer) % countsPerElecRev;//map to a single electrical revolution
-  if (pos_mod < 0)
-    pos_mod += countsPerElecRev;
-  elang = pos_mod / ((float)countsPerElecRev);
+  elang = ((pos_act-pos_zer + encoderCPR) % encoderCPR) / countsPerElecRev;
+  elang = fmodf(elang, 1);
   
   // Inductance lag compensation
   elang += leadFactor * motorVel;
@@ -28,6 +46,30 @@ void Brushless::commutate() {
     elang += 1;
   if (elang > 1)
     elang -= 1;
+
+
+  // +amplitude produces -ve speed
+  if (speedLimit > 0.001) {
+    float barrier = -1 * (1/(speedLimit + motorVel) - 1/(speedLimit - motorVel));
+
+    // damping out oscillations
+
+    // barrier += 0.00000001 * motorAcc;
+    // barrier = 0.999999 * prevAmplitude + 0.000001 * barrier;
+
+    barrier = constrain(barrier, -fabsf(amplitude), fabsf(amplitude));
+    // last ditch
+    if (fabsf(motorVel) > speedLimit)
+      barrier = -amplitude;
+
+    prevAmplitude = barrier;
+
+    amplitude += barrier;
+  }
+
+  // rate limiter? 20KHz commutation, 1KHz control loop => 0.9^20 = 0.12
+  // amplitude = 0.999 * prevAmplitude + 0.001 * amplitude;
+  // prevAmplitude = amplitude;
 
   setMotorPhases(elang, amplitude, waveform);
 
@@ -49,7 +91,7 @@ void Brushless::calcSpaceVector(float electricalAngle, float amplitude, uint8_t 
   section = (uint8_t) (electricalAngle * 6.0);
 
   // Constrain so it makes sense
-  amplitude = constrain(amplitude, -1, 1);
+  amplitude = constrain(amplitude, -ampLim, ampLim);
 
   if (commutation == BLOCK)
   {
@@ -134,31 +176,65 @@ void Brushless::setMotorProps(int polePairs, float leadFactor) {
   POLE_PAIRS = polePairs;
 }
 
-void Brushless::init(uint32_t absPos) {
-  encoder.write(encoderCPR - absPos);
+void Brushless::init(uint32_t absPos, int commutationRate) {
+  // encoder.write(encoderCPR - absPos);
+  posWrite(absPos);
   pos_zer = EEPROM.read(0);
 
-  // TODO: Read pole pairs from EEPROM
-  countsPerElecRev = encoderCPR / POLE_PAIRS;
+  flipWires = (EEPROM.read(1) == 1);
 
-  // this is just 25000 for now
-  velF.init(0.99, 25000, DLPF_ANGRATE);
+  // TODO: Read pole pairs from EEPROM
+  countsPerElecRev = encoderCPR / ((float)POLE_PAIRS);
+
+  // this is just 20000 for now
+  velF.init(0.99, commutationRate, DLPF_ANGRATE);
+  accF.init(0.1, commutationRate, DLPF_RATE);
 }
 
 void Brushless::calibrate(float sweepAmplitude, float convergenceThreshold) {
   // 
-  const uint32_t sweepDuration = 200;
-  const uint32_t pauseDuration = 500;
+  const uint32_t sweepDuration = 300;
+  const uint32_t pauseDuration = 200;
 
-  motorEnableFlag = false;
-  CommutationType waveSave = waveform;
-  float leadSave = leadFactor;
-  waveform = SINUSOIDAL;
-  leadFactor = 0;
-  float vi1, vi2;
+  // detect if motor wires need to be swapped
+  noTimerInterrupts();
+  float lowval = 0.4, highval = 0.6;
+  setOutputs(true, lowval, false, 0.5, true, highval);
+  delay(100);
+  setOutputs(false, 0.5, true, lowval, true, highval);
+  delay(100);
+  int pos1 = posRead();
+  setOutputs(true, highval, true, lowval, false, 0.5);
+  delay(100);
+  int pos2 = posRead();
+  // pos1 should be > pos2 (but need to check wrapping)
+  int posdiff = pos1 - pos2;
+  // check if pos1 = small, pos2 = encoderCPR - small
+  if (posdiff < -encoderCPR/2)
+    posdiff += encoderCPR;
+  if (posdiff < 0) {
+    // need to flip
+    flipWires = true;
+    EEPROM.write(1, 1);
+  } else {
+    flipWires = false;
+    EEPROM.write(1, 0);
+  }
+  timerInterrupts();
+
   // first stop
   motorEnableFlag = false;
   delay(pauseDuration);
+
+  CommutationType waveSave = waveform;
+  float leadSave = leadFactor;
+  float speedLimitSave = speedLimit;
+  waveform = SINUSOIDAL;
+  leadFactor = 0;
+  speedLimit = 0;
+
+  // sweep back and forth
+  float vi1, vi2;
   while(1) {
     delay(pauseDuration);
     amplitude = sweepAmplitude;
@@ -166,12 +242,13 @@ void Brushless::calibrate(float sweepAmplitude, float convergenceThreshold) {
     motorEnableFlag = true;
     delay(sweepDuration);
     motorEnableFlag = false;
-    // if (velInt < 0) {
+    vi1 = velInt;
+    // +amp => -vel
+    // if (velInt > -10000) {
     //   // way off, try something quite different
-    //   pos_zer = (pos_zer+countsPerElecRev/2)%countsPerElecRev;
+    //   pos_zer = (pos_zer+(int)countsPerElecRev/2)%((int)countsPerElecRev);
     //   continue;
     // }
-    vi1 = velInt;
 
     delay(pauseDuration);
     amplitude = -sweepAmplitude;
@@ -182,7 +259,7 @@ void Brushless::calibrate(float sweepAmplitude, float convergenceThreshold) {
     vi2 = velInt;
 
     // float dzero = 0.001*(vi1+vi2);
-    float dzero = 0.0002*(vi1+vi2);
+    float dzero = 0.0001*(vi1+vi2);
 
     // debug
     Serial1 << "vi1=" << vi1 << ",vi2="<<vi2<< ",dzero="<<dzero << "\n";
@@ -192,10 +269,11 @@ void Brushless::calibrate(float sweepAmplitude, float convergenceThreshold) {
       break;
     }
     else
-      pos_zer = (int)(pos_zer + (int)dzero) % countsPerElecRev;
+      pos_zer = (int)(pos_zer + (int)dzero) % ((int)countsPerElecRev);
   }
   waveform = waveSave;
   leadFactor = leadSave;
+  speedLimit = speedLimitSave;
 }
 
 void Brushless::update(float pwmInput) {
@@ -209,9 +287,8 @@ void Brushless::update(float pwmInput) {
     case POSITION_CONTROL:
       // motorEnableFlag = (pwmInput > 0.1 && pwmInput < 0.9);
       motorEnableFlag = true;
-      posDes = -0.35;//map(constrain(pwmInput, 0.1, 0.9), 0.1, 0.9, 0, TWO_PI);
-      amplitude = -1 * fmodf_mpi_pi(posRad - posDes);// - 0.01 * motorVel;
-      // amplitude = 0.1;
+      // posDes = map(constrain(pwmInput, 0.1, 0.9), 0.1, 0.9, 0, TWO_PI);
+      amplitude = 0.3 * fmodf_mpi_pi(posRad - posDes);// - 0.01 * motorVel;
       break;
     case CURRENT_CONTROL:
       // motorEnableFlag = (pwmInput > 0.1 && pwmInput < 0.9);
@@ -221,14 +298,31 @@ void Brushless::update(float pwmInput) {
     case DEBUGGING:
       // TEST
       motorEnableFlag = true;
-      // amplitude = 1;//(millis() < 10000) ? 0.1 : 10000;
-      // amplitude = debuggingAmplitude*arm_sin_f32(millis()/2000.0);
       amplitude = debuggingAmplitude;
-      // debugging
-      // float pwmInput = 0.5 + 0.1 * sin(millis()/1000.0);
-      // pwmInput = 0.6;
+      break;
+    case DEBUGGING_SIN:
+      motorEnableFlag = true;
+      amplitude = debuggingAmplitude*arm_sin_f32(millis()/5000.0);
       break;
   }
+  // // speed limit
+  // // +amplitude produces -ve speed
+  // if (speedLimit > 0.001) {
+  //   float barrier = speedLimF.update(-1 * (1/(speedLimit + motorVel) - 1/(speedLimit - motorVel)));
+  //   // float barrier = -1 * (1/(speedLimit + motorVel) - 1/(speedLimit - motorVel));
+  //   // last ditch
+  //   if (motorVel > speedLimit)
+  //     barrier = 10;
+  //   if (motorVel < -speedLimit)
+  //     barrier = -10;
+  //   barrier = constrain(barrier, -fabsf(amplitude), fabsf(amplitude));
+  //   amplitude += barrier;
+    // // last ditch
+    // if (motorVel > speedLimit)
+    //   amplitude = 0.1 * (motorVel - speedLimit);
+    // if (motorVel < -speedLimit)
+    //   amplitude = 0.1 * (motorVel + speedLimit);
+  // }
 }
 
 
@@ -236,16 +330,22 @@ void Brushless::openLoopTest(uint32_t pause, float amplitude) {
   float highval = 0.5 + 0.5 * amplitude;
   float lowval = 0.5 - 0.5 * amplitude;
   while (true) {
+  	// digitalWrite(PA2, LOW);
     setOutputs(true, lowval, false, 0.5, true, highval);
     delay(pause);
+  	// digitalWrite(PA2, HIGH);
     setOutputs(false, 0.5, true, lowval, true, highval);
     delay(pause);
+    // digitalWrite(PA2, HIGH);
     setOutputs(true, highval, true, lowval, false, 0.5);
     delay(pause);
+    // digitalWrite(PA2, HIGH);
     setOutputs(true, highval, false, 0.5, true, lowval);
     delay(pause);
+    // digitalWrite(PA2, HIGH);
     setOutputs(false, 0.5, true, highval, true, lowval);
     delay(pause);
+    // digitalWrite(PA2, HIGH);
     setOutputs(true, lowval, true, highval, false, 0.5);
     delay(pause);
   }
@@ -259,16 +359,25 @@ float Brushless::posToRadians(uint32_t pos) {
 void Brushless::setMotorPhases(float electricalAngle, float amplitude, CommutationType waveform) {
   static uint8_t enables[3];
   static float pwms[3];
-  static float amplitudeThresh = 0.01;
   calcSpaceVector(electricalAngle, amplitude, enables, pwms, waveform);
-  uint8_t overallEnable = (motorEnableFlag && abs(amplitude)>amplitudeThresh);
+  // static float amplitudeThresh = 0.01;
+  // uint8_t overallEnable = (motorEnableFlag && abs(amplitude)>amplitudeThresh);
+  uint8_t overallEnable = motorEnableFlag;
 
   // call the user-defined function
-  setOutputs(
-    enables[0] && overallEnable, pwms[0], 
-    enables[1] && overallEnable, pwms[1], 
-    enables[2] && overallEnable, pwms[2]
-    );
+  if (flipWires) {
+    setOutputs(
+      enables[1] && overallEnable, pwms[1], 
+      enables[0] && overallEnable, pwms[0], 
+      enables[2] && overallEnable, pwms[2]
+      );
+  } else {
+    setOutputs(
+      enables[0] && overallEnable, pwms[0], 
+      enables[1] && overallEnable, pwms[1], 
+      enables[2] && overallEnable, pwms[2]
+      );
+  }
 }
 
 

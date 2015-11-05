@@ -1,4 +1,21 @@
+/**
+ * @authors Avik De <avikde@gmail.com>
 
+  This file is part of koduino <https://github.com/avikde/koduino>
+
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation, either
+  version 3 of the License, or (at your option) any later version.
+
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this library; if not, see <http://www.gnu.org/licenses/>.
+ */
 #include "Motor.h"
 
 // ===============================================================================
@@ -121,6 +138,8 @@ float Motor::update() {
 // Derived classes: driver / feedback device specific
 // ===============================================================================
 
+bool BlCon34::useEXTI = false;
+
 void BlCon34::initCommon(uint8_t outPin_, float zero, int8_t dir, float gearRatio) {
   pinMode(outPin_, PWM);
   this->outPin = outPin_;
@@ -133,7 +152,10 @@ void BlCon34::initCommon(uint8_t outPin_, float zero, int8_t dir, float gearRati
 void BlCon34::init(uint8_t outPin_, uint8_t inPin_, float zero, int8_t dir, float gearRatio) {
   // usePwmIn = true;
   // pwmIn(inPin_);
-  pinMode(inPin_, PWM_IN);
+  if (BlCon34::useEXTI)
+    pinMode(inPin_, PWM_IN_EXTI);
+  else
+    pinMode(inPin_, PWM_IN);
   this->inPin = inPin_;
   initCommon(outPin_, zero, dir, gearRatio);
 }

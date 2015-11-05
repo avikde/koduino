@@ -1,3 +1,21 @@
+/**
+ * @authors Avik De <avikde@gmail.com>
+
+  This file is part of koduino <https://github.com/avikde/koduino>
+
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation, either
+  version 3 of the License, or (at your option) any later version.
+
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this library; if not, see <http://www.gnu.org/licenses/>.
+ */
 #include "MPU6000.h"
 
 bool MPU6000::init(uint8_t csPin) {
@@ -8,10 +26,10 @@ bool MPU6000::init(uint8_t csPin) {
   // init SPI
   pinMode(csPin, OUTPUT);
   digitalWrite(csPin, HIGH);
-  SPI.begin();
-  SPI.setClockDivider(SPI_CLOCK_DIV2);
-  SPI.setBitOrder(MSBFIRST);
-  SPI.setDataMode(SPI_MODE0);
+  theSPI.begin();
+  theSPI.setClockDivider(SPI_CLOCK_DIV2);
+  theSPI.setBitOrder(MSBFIRST);
+  theSPI.setDataMode(SPI_MODE0);
 
   // Start communicating
   byte result = read(MPUREG_WHOAMI);
@@ -42,9 +60,9 @@ bool MPU6000::init(uint8_t csPin) {
 void MPU6000::read(byte reg, unsigned int length, byte *data) {
   digitalWrite(csPin, LOW);
   delayMicroseconds(csDelay);
-  SPI.transfer(reg | 0x80);
+  theSPI.transfer(reg | 0x80);
   for (int i = 0; i < length; ++i) {
-    data[i] = SPI.transfer(0);
+    data[i] = theSPI.transfer(0);
   }
   digitalWrite(csPin, HIGH);
 }
@@ -58,9 +76,9 @@ byte MPU6000::read(byte reg) {
 void MPU6000::write(byte reg, unsigned int length, const byte *data) {
   digitalWrite(csPin, LOW);
   delayMicroseconds(csDelay);
-  SPI.transfer(reg);
+  theSPI.transfer(reg);
   for (int i = 0; i < length; ++i) {
-    SPI.transfer(data[i]);
+    theSPI.transfer(data[i]);
   }
   digitalWrite(csPin, HIGH);
 }

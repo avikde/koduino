@@ -1,5 +1,21 @@
+/**
+ * @authors Avik De <avikde@gmail.com>
 
+  This file is part of koduino <https://github.com/avikde/koduino>
 
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation, either
+  version 3 of the License, or (at your option) any later version.
+
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this library; if not, see <http://www.gnu.org/licenses/>.
+ */
 #include "timer.h"
 #include "timebase.h"
 #include "exti.h"
@@ -105,14 +121,6 @@ void PendSV_Handler(void)
 {
 }
 
-/**
-  * @brief  This function handles SysTick Handler.
-  * @param  None
-  * @retval None
-  */
-void SysTick_Handler(void)
-{
-}
 
 /******************************************************************************/
 /*                 STM32F37x Peripherals Interrupt Handlers                   */
@@ -187,111 +195,6 @@ void TIM14_IRQHandler() {
 void TIM15_IRQHandler() {
 }
 
-// EXTI
-// For attachInterrupt
-// See exti.c
-
-void EXTI0_IRQHandler()
-{
-  if(EXTI_GetITStatus(EXTI_Line0) != RESET)
-  {
-    wirishExternalInterruptHandler(0);
-    EXTI_ClearITPendingBit(EXTI_Line0);
-  }
-}
-void EXTI1_IRQHandler()
-{
-  if(EXTI_GetITStatus(EXTI_Line1) != RESET)
-  {
-    wirishExternalInterruptHandler(1);
-    EXTI_ClearITPendingBit(EXTI_Line1);
-  }
-}
-void EXTI2_TS_IRQHandler()
-{
-  if(EXTI_GetITStatus(EXTI_Line2) != RESET)
-  {
-    wirishExternalInterruptHandler(2);
-    EXTI_ClearITPendingBit(EXTI_Line2);
-  }
-}
-void EXTI3_IRQHandler()
-{
-  if(EXTI_GetITStatus(EXTI_Line3) != RESET)
-  {
-    wirishExternalInterruptHandler(3);
-    EXTI_ClearITPendingBit(EXTI_Line3);
-  }
-}
-void EXTI4_IRQHandler()
-{
-  if(EXTI_GetITStatus(EXTI_Line4) != RESET)
-  {
-    wirishExternalInterruptHandler(4);
-    EXTI_ClearITPendingBit(EXTI_Line4);
-  }
-}
-void EXTI9_5_IRQHandler()
-{
-  if(EXTI_GetITStatus(EXTI_Line5) != RESET)
-  {
-    wirishExternalInterruptHandler(5);
-    EXTI_ClearITPendingBit(EXTI_Line5);
-  }
-  if(EXTI_GetITStatus(EXTI_Line6) != RESET)
-  {
-    wirishExternalInterruptHandler(6);
-    EXTI_ClearITPendingBit(EXTI_Line6);
-  }
-  if(EXTI_GetITStatus(EXTI_Line7) != RESET)
-  {
-    wirishExternalInterruptHandler(7);
-    EXTI_ClearITPendingBit(EXTI_Line7);
-  }
-  if(EXTI_GetITStatus(EXTI_Line8) != RESET)
-  {
-    wirishExternalInterruptHandler(8);
-    EXTI_ClearITPendingBit(EXTI_Line8);
-  }
-  if(EXTI_GetITStatus(EXTI_Line9) != RESET)
-  {
-    wirishExternalInterruptHandler(9);
-    EXTI_ClearITPendingBit(EXTI_Line9);
-  }
-}
-void EXTI15_10_IRQHandler()
-{
-  if(EXTI_GetITStatus(EXTI_Line10) != RESET)
-  {
-    wirishExternalInterruptHandler(10);
-    EXTI_ClearITPendingBit(EXTI_Line10);
-  }
-  if(EXTI_GetITStatus(EXTI_Line11) != RESET)
-  {
-    wirishExternalInterruptHandler(11);
-    EXTI_ClearITPendingBit(EXTI_Line11);
-  }
-  if(EXTI_GetITStatus(EXTI_Line12) != RESET)
-  {
-    wirishExternalInterruptHandler(12);
-    EXTI_ClearITPendingBit(EXTI_Line12);
-  }
-  if(EXTI_GetITStatus(EXTI_Line13) != RESET)
-  {
-    wirishExternalInterruptHandler(13);
-    EXTI_ClearITPendingBit(EXTI_Line13);
-  }
-  if(EXTI_GetITStatus(EXTI_Line14) != RESET)
-  {
-    wirishExternalInterruptHandler(14);
-    EXTI_ClearITPendingBit(EXTI_Line14);
-  }
-  if(EXTI_GetITStatus(EXTI_Line15) != RESET)
-  {
-    wirishExternalInterruptHandler(15);
-    EXTI_ClearITPendingBit(EXTI_Line15);
-  }
-}
 
 void USART1_IRQHandler() {
   wirishUSARTInterruptHandler(&USART_MAP[0]);

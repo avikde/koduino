@@ -1,3 +1,19 @@
+# @authors Avik De <avikde@gmail.com>
+
+# This file is part of koduino <https://github.com/avikde/koduino>
+
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation, either
+# version 3 of the License, or (at your option) any later version.
+
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Lesser General Public License for more details.
+
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, see <http://www.gnu.org/licenses/>.
 
 # Options that are required
 ifndef KODUINO_DIR
@@ -11,7 +27,7 @@ endif
 UPLOAD_BAUD ?= 230400
 UPLOAD_ENTRY ?= dtr_rts
 HSE_VALUE ?= 16000000UL
-HSE_CLOCK ?= 0
+CLKSRC ?= HSI
 UPLOAD_METHOD ?= SERIAL
 UPLOAD_PORT ?= 
 SECTOR_ERASE ?= 0
@@ -51,7 +67,7 @@ PROJNAME  = $(subst $(SPACE),_,$(shell basename $(CURDIR_NOSP)))
 $(info Compiling for $(VARIANT), MCU = $(MCU), project = $(PROJNAME), upload method is $(UPLOAD_METHOD))
 
 # Compile options
-STD_PERIPH_MODULES = adc exti flash gpio i2c misc pwr rcc spi syscfg tim usart dma sdio rtc
+STD_PERIPH_MODULES = adc exti flash gpio i2c misc pwr rcc spi syscfg tim usart dma
 
 # Cygwin needs a prefix, also if not windows, get kernel name
 UNAME := 
@@ -78,7 +94,7 @@ BFLAGS = -O3 -Os -Wall -Werror-implicit-function-declaration -Wno-sign-compare -
 -mlittle-endian -mthumb \
 $(BFLAGSMCU) \
 -fno-common -fno-exceptions -ffunction-sections -fdata-sections -nostartfiles \
--DHSE_VALUE=$(HSE_VALUE) -D$(MCU) -DUSE_STDPERIPH_DRIVER -DSERIES_$(SERIES)
+-DHSE_VALUE=$(HSE_VALUE) -DCLKSRC_$(CLKSRC) -D$(MCU) -DUSE_STDPERIPH_DRIVER -DSERIES_$(SERIES)
 
 INCFLAGS = -I$(CMSIS_DIR)/Device/ST/$(SERIES)/Include -I$(CMSIS_DIR)/Include -I$(STD_PERIPH_DIR)/inc -I$(VARIANT_DIR) -I$(CORE_DIR) $(EXTRA_LIB_INCS)
 

@@ -1,4 +1,21 @@
+/**
+ * @authors Avik De <avikde@gmail.com>
 
+  This file is part of koduino <https://github.com/avikde/koduino>
+
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation, either
+  version 3 of the License, or (at your option) any later version.
+
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this library; if not, see <http://www.gnu.org/licenses/>.
+ */
 #ifndef Wire_h
 #define Wire_h
 
@@ -23,10 +40,17 @@ enum WireClockSpeed {
   // WIRE_FAST_MODE_PLUS = 0x2043070E // 933KHz; works
   WIRE_1M = 0x00C71030 // 1MHz; works
 #elif defined(SERIES_STM32F30x)
-  // assuming 48 MHz
+  #if defined(CLKSRC_HSE_8M) || defined(CLKSRC_HSE_16M) || defined(CLKSRC_HSE_8M_OC96) || defined(CLKSRC_HSE_8M_OC128)
+  // 72 MHz clock source
+  WIRE_100K = 0x10C08DCF, // 100KHz standard
+  WIRE_400K = 0x00E0257A, // 400KHz fast mode
+  WIRE_1M = 0x00501030 // 1MHz fast mode+
+  #else
+  // 48 MHz clock source
   WIRE_100K = 0x10805E89, // 100KHz standard
   WIRE_400K = 0x00901850, // 400KHz fast mode
   WIRE_1M = 0x00300A1F // 1MHz fast mode+
+  #endif
 #else
   WIRE_100K = 100000, // 100KHz; ?
   WIRE_200K = 200000, // 200KHz; ?

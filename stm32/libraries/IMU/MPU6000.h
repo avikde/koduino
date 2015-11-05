@@ -1,3 +1,21 @@
+/**
+ * @authors Avik De <avikde@gmail.com>
+
+  This file is part of koduino <https://github.com/avikde/koduino>
+
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation, either
+  version 3 of the License, or (at your option) any later version.
+
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this library; if not, see <http://www.gnu.org/licenses/>.
+ */
 #ifndef MPU6000_h
 #define MPU6000_h
 
@@ -87,7 +105,9 @@ union MPUData {
 
 class MPU6000 : public IMU {
 public:
-  // MPU6000(PinName csPin) : csPin(csPin), csDelay(1) {}
+  // constructors set up which SPI
+  MPU6000(SPIClass& theSPI) : theSPI(theSPI) {}
+  MPU6000() : theSPI(SPI) {}
 
   bool init(uint8_t csPin);
   void read(byte reg, unsigned int length, byte *data);
@@ -101,6 +121,7 @@ public:
   MPUData data;
   uint8_t csPin;
   unsigned long csDelay;
+  SPIClass& theSPI;
 };
 
 /** @} */ // end of addtogroup

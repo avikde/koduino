@@ -1,3 +1,21 @@
+/**
+ * @authors Avik De <avikde@gmail.com>
+
+  This file is part of koduino <https://github.com/avikde/koduino>
+
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation, either
+  version 3 of the License, or (at your option) any later version.
+
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this library; if not, see <http://www.gnu.org/licenses/>.
+ */
 #ifndef types_h
 #define types_h
 
@@ -75,7 +93,7 @@ typedef enum WiringPinMode {
   OUTPUT, OUTPUT_OPEN_DRAIN,
   INPUT, INPUT_ANALOG, INPUT_PULLUP, INPUT_PULLDOWN, 
   PWM, 
-  PWM_IN
+  PWM_IN, PWM_IN_EXTI
 } WiringPinMode;
 
 // Logic levels
@@ -126,6 +144,14 @@ typedef enum InterruptTrigger {
 } InterruptTrigger;
 
 
+// Create a structure for user ISR function pointers
+typedef struct {
+  void (*handler)();
+  uint8_t bPwmIn, pinName;
+  volatile int risingedge, pulsewidth, period;
+} EXTIChannel;
+
+
 /* Define attribute */
 #if defined   ( __CC_ARM   ) /* Keil uVision 4 */
   #define WEAK (__attribute__ ((weak)))
@@ -140,8 +166,9 @@ typedef enum InterruptTrigger {
 extern PinInfo PIN_MAP[];
 extern TimerInfo TIMER_MAP[];
 extern TimebaseChannel TIMEBASE_MAP[];
-extern const uint8_t SYSCLK_TIMEBASE;
+// extern const uint8_t SYSCLK_TIMEBASE;
 extern USARTInfo USART_MAP[];
+extern EXTIChannel EXTI_MAP[];
 
 
 #ifdef __cplusplus

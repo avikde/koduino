@@ -63,7 +63,8 @@ CHIP_ID_STRS = {
   0x420: 'STM32F1, value, medium-density',
   0x428: 'STM32F1, value, high-density',
   0x430: 'STM32F1, performance, XL-density',
-  0x432: 'STM32F37x'
+  0x432: 'F37x',
+  0x439: 'F30x'
 }
 
 class CmdException(Exception):
@@ -126,6 +127,11 @@ class CommandInterface(object):
       self.sp.setRTS(False)
       time.sleep(0.1)
       self.reset()
+    elif entry == 'mblc':
+      self.sp.setRTS(False)
+      self.sp.setDTR(True)
+      time.sleep(0.3)
+      self.sp.setDTR(False)
     elif entry == 'rts_trpl_inv':
       self.pulseRTS(0.1)
 
@@ -157,6 +163,11 @@ class CommandInterface(object):
       self.sp.setRTS(True)
       time.sleep(0.1)
       self.reset()
+    elif entry == 'mblc':
+      self.sp.setRTS(True)
+      self.sp.setDTR(True)
+      time.sleep(0.3)
+      self.sp.setDTR(False)
     elif entry == 'rts_trpl_inv':
       self.pulseRTS(0.02)
 

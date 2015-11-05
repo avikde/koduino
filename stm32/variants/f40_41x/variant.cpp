@@ -1,4 +1,21 @@
+/**
+ * @authors Avik De <avikde@gmail.com>
 
+  This file is part of koduino <https://github.com/avikde/koduino>
+
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation, either
+  version 3 of the License, or (at your option) any later version.
+
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this library; if not, see <http://www.gnu.org/licenses/>.
+ */
 #include "variant.h"
 #include "types.h"
 #include "USARTClass.h"
@@ -192,14 +209,9 @@ TimerInfo TIMER_MAP[] = {
 
 // Use the 3 basic timers and two others
 TimebaseChannel TIMEBASE_MAP[] = {
-  {.timer = NOT_SET, .isr = 0}, // 0:user
-  {.timer = NOT_SET, .isr = 0}, // 1:user
-  {.timer = NOT_SET, .isr = 0}, // 2:user
-  {.timer = NOT_SET, .isr = 0}, // 3:user
-  {.timer = NOT_SET, .isr = 0}, // 4:user
-  {.timer = NOT_SET, .isr = 0} // 5:System clock, i.e. millis
+  {.timer = NOT_SET, .isr = 0}, // 0
+  {.timer = NOT_SET, .isr = 0} // 1
 };
-const uint8_t SYSCLK_TIMEBASE = 5;
 
 // Serial
 USARTInfo USART_MAP[4] = {
@@ -233,12 +245,8 @@ bool isAnalogPin(uint8_t pin) {
 }
 
 void variantInit() {
-  TIMEBASE_MAP[0].timer = TIMER10;
-  TIMEBASE_MAP[1].timer = TIMER11;
-  TIMEBASE_MAP[2].timer = TIMER13;
-  TIMEBASE_MAP[3].timer = TIMER14;
-  TIMEBASE_MAP[4].timer = TIMER6;
-  TIMEBASE_MAP[5].timer = TIMER7;
+  TIMEBASE_MAP[0].timer = TIMER6;
+  TIMEBASE_MAP[1].timer = TIMER7;
 
   // GPIO
   RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
