@@ -53,7 +53,7 @@ public:
 
   void setMotorProps(int polePairs, float leadFactor);
 
-  void init(uint32_t absPos);
+  void init(uint32_t absPos, int commutationRate);
   void commutate();
   int16_t readCurrent();
 
