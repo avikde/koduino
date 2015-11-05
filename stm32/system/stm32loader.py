@@ -127,10 +127,7 @@ class CommandInterface(object):
       time.sleep(0.1)
       self.reset()
     elif entry == 'rts_trpl_inv':
-      # print('ENTRYYYYY')
       self.pulseRTS(0.1)
-    # else:
-    #   print('BAD BAD')
 
     # Be a bit more persistent when trying to initialise the chip
     stop = time.time() + 5
@@ -583,10 +580,7 @@ if __name__ == "__main__":
       mdebug(5, "Reading data from %s" % args[0])
       data = read(args[0])
 
-    # First save EEPROM data
-    if conf['eeplen'] > 0:
-      eepdata = cmd.readMemory(conf['eepstart'], conf['eeplen'])
-      # print(eepdata)
+    copiedEEPROM = False
 
     if conf['erase']:
       # Pre-3.0 bootloaders use the erase memory
@@ -599,11 +593,16 @@ if __name__ == "__main__":
         if conf['sector_erase'] and chip_id_num == 0x0413:
           # Currently hardcoded to only erase correct sectors for F405,
           # will need further improvements to work for other chips
-          cmd.cmdExtendedEraseMemory(sectors = (0,1,2))
-        elif conf['sector_erase']:
-          mdebug(0, 'Warning: sector erase currently does nothing for this chip version, defaulting to global mass erase')
-          cmd.cmdExtendedEraseMemory()
+          cmd.cmdExtendedEraseMemory(sectors = (0,1))
         else:
+          if conf['sector_erase']:
+            mdebug(0, 'Warning: sector erase currently does nothing for this chip version, defaulting to global mass erase')
+
+          # First save EEPROM data
+          if conf['eeplen'] > 0:
+            eepdata = cmd.readMemory(conf['eepstart'], conf['eeplen'])
+            copiedEEPROM = True
+
           cmd.cmdExtendedEraseMemory()
 
     #cmd.cmdWriteUnprotect()
@@ -623,7 +622,7 @@ if __name__ == "__main__":
             print(hex(i) + ': ' + hex(data[i]) + ' vs ' + hex(verify[i]))
 
     # Put back EEPROM data
-    if conf['eeplen'] > 0:
+    if copiedEEPROM:
       cmd.writeMemory(conf['eepstart'], eepdata)
 
     if not conf['write'] and conf['read']:
