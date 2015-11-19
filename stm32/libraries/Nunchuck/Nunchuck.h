@@ -51,6 +51,7 @@ protected:
   TwoWire *tw;
   bool hasPairPin;
   uint8_t pairPin;
+  bool initSent;
 
   void sendInit();
 };

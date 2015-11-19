@@ -74,6 +74,7 @@ const uint8_t PC12 = 46;
 const uint8_t PC13 = 47;
 const uint8_t PC14 = 48;
 const uint8_t PC15 = 49;
+const uint8_t PD2 = 50;
 
 PinInfo PIN_MAP[] = {
   {GPIOA, 0, 1, 1, TIMER2, 1, NOT_SET, NOT_SET},
@@ -126,6 +127,7 @@ PinInfo PIN_MAP[] = {
   {GPIOC, 13, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET},
   {GPIOC, 14, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET},
   {GPIOC, 15, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET},
+  {GPIOD, 2, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET},
 };
 
 const uint8_t TIMER1 = 0;
@@ -213,6 +215,7 @@ void variantInit() {
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOB, ENABLE);
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC, ENABLE);
+  RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOD, ENABLE);
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOF, ENABLE);
   // SYSCFG - needed for EXTI
   RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);

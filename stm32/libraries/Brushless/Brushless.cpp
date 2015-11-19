@@ -193,8 +193,8 @@ void Brushless::init(uint32_t absPos, int commutationRate) {
 
 void Brushless::calibrate(float sweepAmplitude, float convergenceThreshold) {
   // 
-  const uint32_t sweepDuration = 300;
-  const uint32_t pauseDuration = 200;
+  const uint32_t sweepDuration = 500;
+  const uint32_t pauseDuration = 500;
 
   // detect if motor wires need to be swapped
   noTimerInterrupts();
@@ -302,7 +302,7 @@ void Brushless::update(float pwmInput) {
       break;
     case DEBUGGING_SIN:
       motorEnableFlag = true;
-      amplitude = debuggingAmplitude*arm_sin_f32(millis()/5000.0);
+      amplitude = debuggingAmplitude*arm_sin_f32(millis()/2000.0);
       break;
   }
   // // speed limit
