@@ -98,6 +98,7 @@ extern const uint8_t TIMER6;
 
 extern USARTClass Serial1;
 extern USARTClass Serial2;
+extern USARTClass Serial3;
 
 
 bool isTimer32Bit(uint8_t tim);
