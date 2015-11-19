@@ -77,6 +77,7 @@ extern const uint8_t PC12;
 extern const uint8_t PC13;
 extern const uint8_t PC14;
 extern const uint8_t PC15;
+extern const uint8_t PD2;
 
 extern const uint8_t TIMER1;
 extern const uint8_t TIMER2;
