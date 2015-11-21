@@ -189,6 +189,9 @@ void USART1_IRQHandler() {
 void USART2_IRQHandler() {
   wirishUSARTInterruptHandler(&USART_MAP[1]);
 }
+void USART3_IRQHandler() {
+  wirishUSARTInterruptHandler(&USART_MAP[2]);
+}
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 
