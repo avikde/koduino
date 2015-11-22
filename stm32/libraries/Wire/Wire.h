@@ -206,7 +206,9 @@ public:
 
 extern TwoWire Wire;
 extern TwoWire Wire2;
-
+#if defined(SERIES_STM32F30x)
+extern TwoWire Wire3;
+#endif
 
 #endif
 
