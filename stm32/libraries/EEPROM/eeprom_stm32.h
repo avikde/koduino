@@ -37,14 +37,14 @@ extern "C" {
   #define PAGE_SIZE  (uint16_t)0x800 // 2K
   #define EEPROM_START_ADDRESS    ((uint32_t)(0x08000000 + MAX_PROGRAM_SIZE)) // specified in boards.txt (end of flash - 2*page size)
 #elif defined(STM32F40_41xxx) || defined(STM32F411xE)
-  #define PAGE_SIZE (uint16_t) 0x20000 // 128K
-  #define EEPROM_START_ADDRESS ((uint32_t)0x080C0000)
-  #define PAGE0_ID  FLASH_Sector_10
-  #define PAGE1_ID  FLASH_Sector_11
-  // #define PAGE_SIZE  (uint16_t)0x4000 // 16K
-  // #define EEPROM_START_ADDRESS    ((uint32_t)0x08008000) // total = 1M, eeprom after 16K
-  // #define PAGE0_ID               FLASH_Sector_2
-  // #define PAGE1_ID               FLASH_Sector_3
+  // #define PAGE_SIZE (uint16_t) 0x20000 // 128K
+  // #define EEPROM_START_ADDRESS ((uint32_t)0x080C0000)
+  // #define PAGE0_ID  FLASH_Sector_10
+  // #define PAGE1_ID  FLASH_Sector_11
+  #define PAGE_SIZE  (uint16_t)0x4000 // 16K
+  #define EEPROM_START_ADDRESS    ((uint32_t)0x08008000) // total = 1M, eeprom after 16K
+  #define PAGE0_ID               FLASH_Sector_2
+  #define PAGE1_ID               FLASH_Sector_3
   // Device voltage range supposed to be [2.7V to 3.6V], the operation will be done by word
   #define VOLTAGE_RANGE           (uint8_t)VoltageRange_3
 #endif
