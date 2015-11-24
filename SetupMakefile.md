@@ -15,7 +15,7 @@ If you have the [Arduino IDE](http://arduino.cc/en/main/software) **1.6.1**
 
 * Add to `.bash_profile` (Mac) or `.bashrc` (Linux / Cygwin)
 ~~~
-export PATH=$PATH:/Applications/Arduino.app/Contents/Java/hardware/tools/gcc-arm-none-eabi-4.8.3-2014q1/bin
+export PATH=$PATH:/Applications/Arduino.app/Contents/Resources/Java/hardware/tools/gcc-arm-none-eabi-4.8.3-2014q1/bin
 ~~~
 
 ...otherwise, 
