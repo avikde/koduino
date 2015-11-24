@@ -244,11 +244,11 @@ void Brushless::calibrate(float sweepAmplitude, float convergenceThreshold) {
     motorEnableFlag = false;
     vi1 = velInt;
     // +amp => -vel
-    // if (velInt > -10000) {
-    //   // way off, try something quite different
-    //   pos_zer = (pos_zer+(int)countsPerElecRev/2)%((int)countsPerElecRev);
-    //   continue;
-    // }
+    if (velInt > -10000) {
+      // way off, try something quite different
+      pos_zer = (pos_zer+(int)countsPerElecRev/2)%((int)countsPerElecRev);
+      continue;
+    }
 
     delay(pauseDuration);
     amplitude = -sweepAmplitude;
