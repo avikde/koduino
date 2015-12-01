@@ -604,7 +604,7 @@ if __name__ == "__main__":
         if conf['sector_erase'] and chip_id_num == 0x0413:
           # Currently hardcoded to only erase correct sectors for F405,
           # will need further improvements to work for other chips
-          cmd.cmdExtendedEraseMemory(sectors = (0,1))
+          cmd.cmdExtendedEraseMemory(sectors = (0,1,2,3))
         else:
           if conf['sector_erase']:
             mdebug(0, 'Warning: sector erase currently does nothing for this chip version, defaulting to global mass erase')
