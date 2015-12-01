@@ -148,7 +148,7 @@ typedef enum InterruptTrigger {
 typedef struct {
   void (*handler)();
   uint8_t bPwmIn, pinName;
-  volatile int risingedge, pulsewidth, period;
+  volatile int risingEdgeMs, risingEdgeSubMs, pulsewidth, period;
 } EXTIChannel;
 
 

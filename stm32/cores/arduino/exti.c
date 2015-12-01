@@ -71,22 +71,22 @@ const uint8_t extiIRQn[] = {
 
 //Array to hold user ISR function pointers
 EXTIChannel EXTI_MAP[] = {
-  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI0
-  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI1
-  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI2
-  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI3
-  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI4
-  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI5
-  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI6
-  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI7
-  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI8
-  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI9
-  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI10
-  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI11
-  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI12
-  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI13
-  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI14
-  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingedge = 0, .pulsewidth = 0, .period = 0 },  // EXTI15
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingEdgeMs = 0, .risingEdgeSubMs = 0, .pulsewidth = 0, .period = 0 },  // EXTI0
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingEdgeMs = 0, .risingEdgeSubMs = 0, .pulsewidth = 0, .period = 0 },  // EXTI1
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingEdgeMs = 0, .risingEdgeSubMs = 0, .pulsewidth = 0, .period = 0 },  // EXTI2
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingEdgeMs = 0, .risingEdgeSubMs = 0, .pulsewidth = 0, .period = 0 },  // EXTI3
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingEdgeMs = 0, .risingEdgeSubMs = 0, .pulsewidth = 0, .period = 0 },  // EXTI4
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingEdgeMs = 0, .risingEdgeSubMs = 0, .pulsewidth = 0, .period = 0 },  // EXTI5
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingEdgeMs = 0, .risingEdgeSubMs = 0, .pulsewidth = 0, .period = 0 },  // EXTI6
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingEdgeMs = 0, .risingEdgeSubMs = 0, .pulsewidth = 0, .period = 0 },  // EXTI7
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingEdgeMs = 0, .risingEdgeSubMs = 0, .pulsewidth = 0, .period = 0 },  // EXTI8
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingEdgeMs = 0, .risingEdgeSubMs = 0, .pulsewidth = 0, .period = 0 },  // EXTI9
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingEdgeMs = 0, .risingEdgeSubMs = 0, .pulsewidth = 0, .period = 0 },  // EXTI10
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingEdgeMs = 0, .risingEdgeSubMs = 0, .pulsewidth = 0, .period = 0 },  // EXTI11
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingEdgeMs = 0, .risingEdgeSubMs = 0, .pulsewidth = 0, .period = 0 },  // EXTI12
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingEdgeMs = 0, .risingEdgeSubMs = 0,  .pulsewidth = 0, .period = 0 },  // EXTI13
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingEdgeMs = 0, .risingEdgeSubMs = 0, .pulsewidth = 0, .period = 0 },  // EXTI14
+  { .handler = (ISRType)0, .bPwmIn = 0, .pinName = 0, .risingEdgeMs = 0, .risingEdgeSubMs = 0, .pulsewidth = 0, .period = 0 },  // EXTI15
 };
 
 void attachInterruptWithPriority(uint8_t pinName, ISRType ISR, InterruptTrigger mode, uint8_t priority) {
@@ -178,27 +178,27 @@ void interrupts() {
 
 void wirishExternalInterruptHandler(uint8_t EXTI_Line_Number) {
   static EXTIChannel *S;
-  static int current, delta;
+  static int currentMs, currentSubMs, delta;
   // HACK
-  const int maxPeriod = 1800, minPeriod = 200;
+  const int maxPeriod = SysTick->LOAD/1000*1800, minPeriod = SysTick->LOAD/1000*200;
   S = &EXTI_MAP[EXTI_Line_Number];
   // PWM_IN_EXTI pin?
   if (S->bPwmIn == 1) {
-    current = micros();
-    delta = current - S->risingedge;
+    // NEW
+    currentMs = millis();
+    currentSubMs = SysTick->LOAD - SysTick->VAL;
+    delta = (currentMs - S->risingEdgeMs) * SysTick->LOAD + currentSubMs - S->risingEdgeSubMs;
 
     if (digitalRead(S->pinName)) {
       // This was a rising edge
-      if (delta > 0) {
-        //  sometimes period is 1000+what it should be
-        if (delta > maxPeriod)
-          S->period = delta - 1000;
-        else if (delta < minPeriod)
-          S->period = delta + 1000;
-        else 
-          S->period = delta;
-      }
-      S->risingedge = current;
+      if (delta > maxPeriod)
+        S->period = delta - SysTick->LOAD;
+      else if (delta < minPeriod)
+        S->period = delta + SysTick->LOAD;
+      else 
+        S->period = delta;
+      S->risingEdgeMs = currentMs;
+      S->risingEdgeSubMs = currentSubMs;
     } else {
       // This was a falling edge
       S->pulsewidth = delta;
@@ -207,6 +207,31 @@ void wirishExternalInterruptHandler(uint8_t EXTI_Line_Number) {
       if (S->pulsewidth > S->period)
         S->pulsewidth -= S->period;
     }
+
+    // // OLD
+    // current = micros();
+    // delta = current - S->risingedge;
+
+    // if (digitalRead(S->pinName)) {
+    //   // This was a rising edge
+    //   // if (delta > 0) {
+    //   //   //  sometimes period is 1000+what it should be
+    //   //   if (delta > maxPeriod)
+    //   //     S->period = delta - 1000;
+    //   //   else if (delta < minPeriod)
+    //   //     S->period = delta + 1000;
+    //   //   else 
+    //       S->period = delta;
+    //   // }
+    //   S->risingedge = current;
+    // } else {
+    //   // This was a falling edge
+    //   S->pulsewidth = delta;
+    //   if (S->pulsewidth < 0)
+    //     S->pulsewidth += S->period;
+    //   if (S->pulsewidth > S->period)
+    //     S->pulsewidth -= S->period;
+    // }
   } else {
     // ELSE fetch the user function pointer from the array
     ISRType handler = S->handler;

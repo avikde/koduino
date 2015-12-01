@@ -66,13 +66,6 @@ uint32_t micros()
   return _millis * 1000 + 1000 - SysTick->VAL/microsDivider;
 }
 
-uint32_t submicros()
-{
-  // this does not have millis added (quick overflow)
-  // systick is a downcounter
-  return 10000 - SysTick->VAL*10000000/SystemCoreClock;
-}
-
 
 //--------------------------------------------------------
 

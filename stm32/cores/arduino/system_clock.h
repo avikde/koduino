@@ -54,13 +54,6 @@ uint32_t millis();
 uint32_t micros();
 
 /**
- * @brief 
- * @details Non-arduino function for sub microsecond timing (without millis added)
- * @return Counts from 0->10000 in every ms
- */
-uint32_t submicros();
-
-/**
  * @brief Blocks execution for a specified number of milliseconds
  * @details Only accurate to +/- 1 ms; if you need more precision use delayMicroseconds(). 
  * Note that any code called through [timer interrupts](@ref Timebase) will still execute.
