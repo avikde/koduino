@@ -288,7 +288,7 @@ void Brushless::update(float pwmInput) {
       // motorEnableFlag = (pwmInput > 0.1 && pwmInput < 0.9);
       motorEnableFlag = true;
       // posDes = map(constrain(pwmInput, 0.1, 0.9), 0.1, 0.9, 0, TWO_PI);
-      amplitude = 0.3 * fmodf_mpi_pi(posRad - posDes);// - 0.01 * motorVel;
+      amplitude = 1.0 * fmodf_mpi_pi(posRad - posDes);// - 0.01 * motorVel;
       break;
     case CURRENT_CONTROL:
       // motorEnableFlag = (pwmInput > 0.1 && pwmInput < 0.9);
@@ -330,22 +330,22 @@ void Brushless::openLoopTest(uint32_t pause, float amplitude) {
   float highval = 0.5 + 0.5 * amplitude;
   float lowval = 0.5 - 0.5 * amplitude;
   while (true) {
-  	// digitalWrite(PA2, LOW);
+  	// digitalWrite(PA5, LOW);
     setOutputs(true, lowval, false, 0.5, true, highval);
     delay(pause);
-  	// digitalWrite(PA2, HIGH);
+  	// digitalWrite(PA5, HIGH);
     setOutputs(false, 0.5, true, lowval, true, highval);
     delay(pause);
-    // digitalWrite(PA2, HIGH);
+    // digitalWrite(PA5, HIGH);
     setOutputs(true, highval, true, lowval, false, 0.5);
     delay(pause);
-    // digitalWrite(PA2, HIGH);
+    // digitalWrite(PA5, HIGH);
     setOutputs(true, highval, false, 0.5, true, lowval);
     delay(pause);
-    // digitalWrite(PA2, HIGH);
+    // digitalWrite(PA5, HIGH);
     setOutputs(false, 0.5, true, highval, true, lowval);
     delay(pause);
-    // digitalWrite(PA2, HIGH);
+    // digitalWrite(PA5, HIGH);
     setOutputs(true, lowval, true, highval, false, 0.5);
     delay(pause);
   }
