@@ -22,8 +22,8 @@
 
 void DxlNode::init() {
   Ser.begin(2500000);
-  pinMode(DE, OUTPUT);
   digitalWrite(DE, LOW);
+  pinMode(DE, OUTPUT);
 }
 
 void DxlNode::sendPacket(uint8_t id, uint8_t instErr, uint8_t N, uint8_t *params) {
@@ -72,6 +72,12 @@ bool DxlNode::listen() {
     if (Ser.peekAt(0) == 0xff && Ser.peekAt(1) == 0xff) {
       // packet[3] = N+2, whereas total bytes = N+6
       uint8_t len = Ser.peekAt(3) + 4;
+      if (len > DXL_MAX_PACKET_SIZE) {
+        // packet is invalid? pop off the top byte and try again
+        Ser.read();
+        return false;
+      }
+
       if (Ser.available() >= len) {
         // read this packet
         for (int i=0; i<len; ++i) {

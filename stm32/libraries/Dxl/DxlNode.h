@@ -21,6 +21,8 @@
 
 #include <Arduino.h>
 
+#define DXL_MAX_PACKET_SIZE 32
+
 class DxlNode {
 public:
   // members
@@ -29,7 +31,7 @@ public:
   const bool isMaster;
   
   // incoming packet
-  uint8_t packet[32];
+  uint8_t packet[DXL_MAX_PACKET_SIZE];
 
   // functions
   DxlNode(uint8_t rts, USARTClass& ser, uint8_t myAddress) : DE(rts), myAddress(myAddress), Ser(ser), isMaster(false) {}
@@ -46,7 +48,7 @@ public:
   bool checkPacket();
 
 
-protected:
+// protected:
   void setTX();
   void setRX();
   uint8_t writeByte(uint8_t c);

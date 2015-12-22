@@ -133,7 +133,7 @@ class CommandInterface(object):
       time.sleep(0.3)
       self.sp.setDTR(False)
     elif entry == 'rts_trpl_inv':
-      self.pulseRTS(0.1)
+      self.pulseRTS(0.15)
 
     # Be a bit more persistent when trying to initialise the chip
     stop = time.time() + 5
