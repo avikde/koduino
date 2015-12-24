@@ -26,7 +26,7 @@ void DxlNode::init() {
   pinMode(DE, OUTPUT);
 }
 
-void DxlNode::sendPacket(uint8_t id, uint8_t instErr, uint8_t N, uint8_t *params) {
+void DxlNode::sendPacket(uint8_t id, uint8_t instErr, uint8_t N, uint8_t *params, bool wait) {
   // if (!isMaster) return;
   uint8_t checksum = 0;
   setTX();
@@ -40,7 +40,8 @@ void DxlNode::sendPacket(uint8_t id, uint8_t instErr, uint8_t N, uint8_t *params
     checksum += writeByte(params[i]);
   }
   writeByte(~checksum);
-  setRX();
+  if (wait)
+    setRX();
 }
 
 bool DxlNode::checkPacket() {
@@ -97,15 +98,22 @@ bool DxlNode::listen() {
 
 void DxlNode::setTX() {
   digitalWrite(DE, HIGH);
-  // delayMicroseconds(10);
-  // delay(1);
+  delayMicroseconds(10);
 }
 
 void DxlNode::setRX() {
   Ser.flush();
-  // delayMicroseconds(10);
-  // delay(1);
+  delayMicroseconds(10);
   digitalWrite(DE, LOW);
+  // delayMicroseconds(5);
+}
+
+bool DxlNode::completeTX() {
+  if (Ser.writeComplete()) {
+    digitalWrite(DE, LOW);
+    return true;
+  }
+  return false;
 }
 
 uint8_t DxlNode::writeByte(uint8_t c) {

@@ -23,6 +23,23 @@
 
 #define DXL_MAX_PACKET_SIZE 32
 
+// Configuration commands
+#define DXL_STATUS 0x00 // slave return packet has this as instruction byte
+#define DXL_CMD_SET_ID 0x01 // 1 byte
+#define DXL_CMD_CALIBRATE 0x02 // 0
+// other configuration...
+
+// Motor control commands
+#define DXL_CMD_ENABLE 0x10 // 1 byte (true or false)
+#define DXL_CMD_SET_OPEN_LOOP 0x12 // 1 float = 4 bytes
+// ...set position etc.
+
+// Return packet types
+typedef struct {
+  float position, current;
+} __attribute__ ((packed)) DxlPacketBLConStatus;
+
+
 class DxlNode {
 public:
   // members
@@ -41,14 +58,24 @@ public:
   void init();
   // instErr can be instruction (instruction packet) or error code (status packet)
   // params is of length N
-  void sendPacket(uint8_t id, uint8_t instErr, uint8_t N, uint8_t *params);
+  // wait = true => waits till TX finished and puts back in RX mode
+  // wait = false => returns immediately
+  void sendPacket(uint8_t id, uint8_t instErr, uint8_t N, uint8_t *params, bool wait);
+  void sendPacket(uint8_t id, uint8_t instErr, uint8_t N, uint8_t *params) {
+    sendPacket(id, instErr, N, params, true);
+  }
+  // checks if TX complete, if so sets to RX mode
+  bool completeTX();
 
   // Update function that should be called as often as possible
   bool listen();
   bool checkPacket();
 
+  // functions on the latest packet
+  uint8_t getInstruction() const { return packet[4]; }
+  const void * getPacket() const { return (const void *)&packet[5]; }
 
-// protected:
+protected:
   void setTX();
   void setRX();
   uint8_t writeByte(uint8_t c);
