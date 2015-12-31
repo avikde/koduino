@@ -136,14 +136,6 @@ void pinMode(uint8_t pin, WiringPinMode wiringMode) {
         GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_UP;
       else if (wiringMode == INPUT_PULLDOWN)
         GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_DOWN;
-
-      // if someone is "resetting" the pin, undo some of the setup
-      uint8_t timer = PIN_MAP[pin].timer;
-      uint8_t channel = PIN_MAP[pin].channel;
-      // undo PWM_IN
-      TIMER_MAP[timer].channelData[channel-1].bPwmIn = 0;
-      // undo PWM_IN_EXTI
-      EXTI_MAP[ PIN_MAP[pin].pin ].bPwmIn = 0;
     } else if (wiringMode == OUTPUT_OPEN_DRAIN || wiringMode == OUTPUT) {
       GPIO_InitStruct.GPIO_Mode = GPIO_Mode_OUT;
       if (wiringMode == OUTPUT_OPEN_DRAIN)
