@@ -246,7 +246,7 @@ void Brushless::calibrate(float sweepAmplitude, float convergenceThreshold) {
     // +amp => -vel
     if (velInt > -10000) {
       // way off, try something quite different
-      pos_zer = (pos_zer+(int)countsPerElecRev/2)%((int)countsPerElecRev);
+      pos_zer = (pos_zer+(int)countsPerElecRev/4)%((int)countsPerElecRev);
       continue;
     }
 
@@ -262,7 +262,7 @@ void Brushless::calibrate(float sweepAmplitude, float convergenceThreshold) {
     float dzero = 0.0001*(vi1+vi2);
 
     // debug
-    Serial1 << "vi1=" << vi1 << ",vi2="<<vi2<< ",dzero="<<dzero << "\n";
+    Serial3 << "vi1=" << vi1 << ",vi2="<<vi2<< ",dzero="<<dzero << "\n";
     if (fabsf(dzero) < convergenceThreshold) {
       EEPROM.write(0, pos_zer);
       // delay(100);

@@ -28,21 +28,22 @@ void DxlMotor::init(DxlNode *master_, uint8_t id_, float zero, int8_t dir, float
 
 void DxlMotor::sendOpenLoop(float val) {
   float valToSend = (enableFlag) ? map(val, -1, 1, 0.1, 0.9) : 0;
-  // clear failure flag
-  commsFailure = false;
   master->sendPacket(id, DXL_CMD_SET_OPEN_LOOP, 4, (uint8_t *)&valToSend);
-  uint32_t t = micros();
-  while (micros() - t < 1000) {
+  lastTX = micros();
+  // don't wait here, instead make user call updated() before using this master again
+}
+
+bool DxlMotor::updated() {
+  while (micros() - lastTX < 1000) {
     if (master->listen()) {
       if (master->getInstruction() == DXL_STATUS) {
         DxlPacketBLConStatus *status = (DxlPacketBLConStatus *)master->getPacket();
         rawPos = status->position;
         rawCurrent = status->current;
       }
-      return;
+      return true;
     }
   }
-  commsFailure = true;
-  // tic = micros() - tic;
+  return false;
 }
 

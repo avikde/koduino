@@ -25,7 +25,7 @@
 class DxlMotor : public Motor {
 public:
   // Constructor (sets defaults)
-  DxlMotor() :  id(0), commsFailure(false), rawPos(0) {}
+  DxlMotor() :  id(0), rawPos(0), lastTX(0) {}
 
   // "Constructors"
   void init(DxlNode *master_, uint8_t id_, float zero, int8_t dir, float gearRatio);
@@ -37,16 +37,19 @@ public:
   float getRawPosition() {return rawPos;}
   // choose sendOpenLoop to actually do the comms, and store the rawPosition
   void sendOpenLoop(float val);
+  // waits till master is free after the previous update()
+  // MUST CALL THIS BEFORE USING THE SAME MASTER AGAIN
+  bool updated();
 
   // new
   float getCurrent() {return rawCurrent;}
 
   uint8_t id;
-  bool commsFailure;
 protected:
   DxlNode *master;
   float rawPos;
   float rawCurrent;
+  uint32_t lastTX;
 };
 
 #endif
