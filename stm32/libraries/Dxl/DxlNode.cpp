@@ -21,7 +21,7 @@
 
 
 void DxlNode::init() {
-  Ser.begin(2500000);
+  Ser.begin(2000000);
   digitalWrite(DE, LOW);
   pinMode(DE, OUTPUT);
 }
