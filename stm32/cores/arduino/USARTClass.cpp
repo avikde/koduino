@@ -119,9 +119,6 @@ void USARTClass::end() {
   NVIC_DisableIRQ(usartMap->irqChannel);
 	// clear any received data
 	_rxBuf.head = _rxBuf.tail;
-  // null ring buffer pointers
-  usartMap->txBuf = NULL;
-  usartMap->rxBuf = NULL;
 }
 
 void USARTClass::setPins(uint8_t tx, uint8_t rx) {
