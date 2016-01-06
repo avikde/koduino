@@ -149,8 +149,13 @@ void SPIClass::begin() {
 
 	// FIXME: the state of these settings doesn't seem to make sense...but it works for now.
   SPI_SSOutputCmd(SPIx, ENABLE);
+
 #if defined(SERIES_STM32F30x) || defined(SERIES_STM32F37x)
-  SPI_RxFIFOThresholdConfig(SPIx, SPI_RxFIFOThreshold_QF);
+  // Info here: http://stackoverflow.com/questions/22769920/stm32f0-spi-loopback-no-data-on-miso
+  if (dataSize == SPI_DataSize_16b)
+    SPI_RxFIFOThresholdConfig(SPIx, SPI_RxFIFOThreshold_HF);
+  else
+    SPI_RxFIFOThresholdConfig(SPIx, SPI_RxFIFOThreshold_QF);
 #endif
 
 	SPI_Cmd(SPIx, ENABLE);
@@ -251,18 +256,18 @@ uint8_t SPIClass::transfer(uint8_t cmd) {
   return (uint8_t)spiRX();
 }
 
-uint16_t SPIClass::transfer16(uint16_t cmd) {
-  //read off any remaining bytes
-  while(SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_RXNE))
-    spiRX();
+// uint16_t SPIClass::transfer16(uint16_t cmd) {
+//   //read off any remaining bytes
+//   while(SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_RXNE))
+//     spiRX();
 
-  //wait until TX buffer is empty
-  while(!SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_TXE));
+//   //wait until TX buffer is empty
+//   while(!SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_TXE));
 
-  spiTX(cmd);  //send the command
-  while(!SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_RXNE));
-  return spiRX();
-}
+//   spiTX(cmd);  //send the command
+//   while(!SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_RXNE));
+//   return spiRX();
+// }
 
 void SPIClass::attachInterrupt() {
 	//To Do

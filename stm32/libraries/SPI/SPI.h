@@ -127,7 +127,7 @@ public:
 	 */
 	uint8_t transfer(uint8_t _data);
 
-  uint16_t transfer16(uint16_t _data);
+  // uint16_t transfer16(uint16_t _data);
 
 	void attachInterrupt();
 	void detachInterrupt();
