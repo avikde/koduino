@@ -82,7 +82,7 @@ SPIClass::SPIClass(SPI_TypeDef *SPIx) : SPIx(SPIx), SPI_Bit_Order_Set(false), SP
 		// Steensy default
 		SCK = PA5;
 		afSCK = 5;
-		MISO = PA6;
+		MISO = PB4;
 		afMISO = 5;
 		MOSI = PA7;
 		afMOSI = 5;
