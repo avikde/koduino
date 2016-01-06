@@ -104,9 +104,9 @@ void DxlNode::setTX() {
 
 void DxlNode::setRX() {
   Ser.flush();
-  delayMicroseconds(5);
+  delayMicroseconds(10);
   digitalWrite(DE, LOW);
-  delayMicroseconds(5);
+  delayMicroseconds(10);
 }
 
 bool DxlNode::completeTX() {
