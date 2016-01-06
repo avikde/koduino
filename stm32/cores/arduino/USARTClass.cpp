@@ -26,8 +26,9 @@ inline void ringBufferStore(unsigned char c, RingBuffer *buffer) {
   unsigned i = (unsigned int)(buffer->head + 1) % SERIAL_BUFFER_SIZE;
 
 	if (i != buffer->tail) {
-		buffer->buffer[buffer->head] = c;
 		buffer->head = i;
+    // head==tail means empty, should store at old_head+1
+    buffer->buffer[i] = c;
 	}
 }
 
@@ -132,6 +133,7 @@ int USARTClass::available(void) {
 
 int USARTClass::peek(void) {
 	if (_rxBuf.head == _rxBuf.tail)
+    // RX is empty
 		return -1;
 	else
 		return _rxBuf.buffer[_rxBuf.tail];
@@ -142,8 +144,9 @@ int USARTClass::read(void) {
 	if (_rxBuf.head == _rxBuf.tail)
 		return -1;
 	else {
+    // initially, head=tail. first new character goes in head+1, so read() should return tail+1
+    _rxBuf.tail = (unsigned int)(_rxBuf.tail + 1) % SERIAL_BUFFER_SIZE;
 		unsigned char c = _rxBuf.buffer[_rxBuf.tail];
-		_rxBuf.tail = (unsigned int)(_rxBuf.tail + 1) % SERIAL_BUFFER_SIZE;
 		return c;
 	}
 }
@@ -204,7 +207,9 @@ void USARTClass::detachInterrupt() {
 // CUSTOM FUNCTIONS
 
 uint8_t USARTClass::peekAt(uint8_t pos) {
-  return _rxBuf.buffer[(_rxBuf.tail + pos) % SERIAL_BUFFER_SIZE];
+  // first new element received goes at head+1
+  // initially tail=head. so peekAt(0) should return tail+1
+  return _rxBuf.buffer[(_rxBuf.tail + pos + 1) % SERIAL_BUFFER_SIZE];
 }
 
 // bool USARTClass::isEnabled() {

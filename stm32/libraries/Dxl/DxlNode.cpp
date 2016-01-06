@@ -42,9 +42,11 @@ void DxlNode::sendPacket(uint8_t id, uint8_t instErr, uint8_t N, uint8_t *params
   writeByte(~checksum);
   if (wait)
     setRX();
+  else
+    txTime = micros();
 }
 
-bool DxlNode::checkPacket() {
+DxlRxStatus DxlNode::checkPacket() {
   // check checksum
   uint8_t checksum = 0;
   uint8_t len = packet[3];
@@ -53,47 +55,46 @@ bool DxlNode::checkPacket() {
   }
   checksum = ~checksum;
   if (packet[len+3] != checksum)
-    return false;
+    return DXL_RX_BAD_CHECKSUM;
 
   // good packet received
   if (isMaster) {
-    return true;
+    return DXL_RX_SUCCESS;
   } else {
     // slave should only respond if addressed
-    return (packet[2] == myAddress);
+    if (packet[2] != myAddress)
+      return DXL_RX_ID_WRONG;
+    else
+      return DXL_RX_SUCCESS;
   }
-
 }
 
 // both master/slave
-bool DxlNode::listen() {
+DxlRxStatus DxlNode::listen() {
+  // if there is stuff in the RX buffer that doesn't start with 0xffff, get rid of them
+  while (Ser.available() >= 2 && !(Ser.peekAt(0) == 0xff && Ser.peekAt(1) == 0xff))
+    Ser.read();
+
   // the smallest packet size
   if (Ser.available() >= 4) {
-    // packet might be aligned with start of buffer
-    if (Ser.peekAt(0) == 0xff && Ser.peekAt(1) == 0xff) {
-      // packet[3] = N+2, whereas total bytes = N+6
-      uint8_t len = Ser.peekAt(3) + 4;
-      if (len > DXL_MAX_PACKET_SIZE) {
-        // packet is invalid? pop off the top byte and try again
-        Ser.read();
-        return false;
-      }
-
-      if (Ser.available() >= len) {
-        // read this packet
-        for (int i=0; i<len; ++i) {
-          packet[i] = Ser.read();
-        }
-        // check this packet
-        return checkPacket();
-      }
-    } else {
-      // there are bytes in the buffer but not 0xffff
-      // get rid of the first byte and try again
+    // Per protocol, packet[3] = N+2, whereas total bytes = N+6
+    uint8_t len = Ser.peekAt(3) + 4;
+    if (len > DXL_MAX_PACKET_SIZE) {
+      // packet is invalid? pop off the top byte and try again
       Ser.read();
+      return DXL_RX_BAD_LENGTH;
+    }
+
+    if (Ser.available() >= len) {
+      // read this packet
+      for (int i=0; i<len; ++i) {
+        packet[i] = Ser.read();
+      }
+      // check this packet
+      return checkPacket();
     }
   }
-  return false;
+  return DXL_RX_WAITING;
 }
 
 void DxlNode::setTX() {
@@ -103,14 +104,15 @@ void DxlNode::setTX() {
 
 void DxlNode::setRX() {
   Ser.flush();
-  delayMicroseconds(10);
+  delayMicroseconds(5);
   digitalWrite(DE, LOW);
-  // delayMicroseconds(5);
+  delayMicroseconds(5);
 }
 
 bool DxlNode::completeTX() {
-  if (Ser.writeComplete()) {
-    digitalWrite(DE, LOW);
+  // implement a timeout here: if 800 us have elapsed since the packet sending started (no idea why this would happen), then definitely release the bus
+  if (Ser.writeComplete() || (micros() - txTime) > DXL_TX_TIMEOUT) {
+    setRX();
     return true;
   }
   return false;

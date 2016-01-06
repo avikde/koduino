@@ -34,8 +34,8 @@ void DxlMotor::sendOpenLoop(float val) {
 }
 
 bool DxlMotor::updated() {
-  while (micros() - lastTX < 1000) {
-    if (master->listen()) {
+  while (micros() - lastTX < DXL_TX_TIMEOUT) {
+    if (master->listen() == DXL_RX_SUCCESS) {
       if (master->getInstruction() == DXL_STATUS) {
         DxlPacketBLConStatus *status = (DxlPacketBLConStatus *)master->getPacket();
         rawPos = status->position;
@@ -44,6 +44,8 @@ bool DxlMotor::updated() {
       return true;
     }
   }
+  // timed out: get rid of anything received
+  master->Ser.flushInput();
   return false;
 }
 
