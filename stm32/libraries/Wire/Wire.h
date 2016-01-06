@@ -40,7 +40,7 @@ enum WireClockSpeed {
   // WIRE_FAST_MODE_PLUS = 0x2043070E // 933KHz; works
   WIRE_1M = 0x00C71030 // 1MHz; works
 #elif defined(SERIES_STM32F30x)
-  #if defined(CLKSRC_HSE_8M) || defined(CLKSRC_HSE_16M) || defined(CLKSRC_HSE_8M_OC96) || defined(CLKSRC_HSE_8M_OC128)
+  #if defined(CLKSRC_HSE_8M) || defined(CLKSRC_HSE_16M) || defined(CLKSRC_HSE_8M_OC96) || defined(CLKSRC_HSE_8M_OC112)
   // 72 MHz clock source
   WIRE_100K = 0x10C08DCF, // 100KHz standard
   WIRE_400K = 0x00E0257A, // 400KHz fast mode
@@ -206,7 +206,9 @@ public:
 
 extern TwoWire Wire;
 extern TwoWire Wire2;
-
+#if defined(SERIES_STM32F30x)
+extern TwoWire Wire3;
+#endif
 
 #endif
 

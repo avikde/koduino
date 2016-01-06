@@ -123,10 +123,15 @@ float pwmIn(uint8_t name) {
   // Pin configured for PWM_IN_EXTI?
   if (S->pinName == name) {
     static int timediff;
-    timediff = micros() - S->risingedge;
+    timediff = millis() - S->risingEdgeMs;
     // HACK: need to detect if the signal goes flat. 5ms = 5000us
-    if (timediff > 5000)
+    if (timediff > 5)
       return 0;
+    // // OLD
+    // timediff = micros() - S->risingedge;
+    // // HACK: need to detect if the signal goes flat. 5ms = 5000us
+    // if (timediff > 5000)
+    //   return 0;
 
     // // HACK: test fixed period
     // if (S->pulsewidth > 1000)

@@ -28,10 +28,11 @@ Nunchuck::Nunchuck() {
 
   isPaired = false;
   hasPairPin = false;
+  initSent = false;
 }
 
 void Nunchuck::begin(TwoWire *tw, uint8_t pairPin) {
-  pinMode(pairPin, INPUT);
+  pinMode(pairPin, INPUT_PULLDOWN);
   hasPairPin = true;
   this->pairPin = pairPin;
   begin(tw);
@@ -55,6 +56,8 @@ void Nunchuck::sendInit() {
   tw->write(0xFB);
   tw->write(0x00);
   tw->endTransmission();
+  // done
+  initSent = true;
 }
 
 void Nunchuck::update() {
@@ -65,6 +68,11 @@ void Nunchuck::update() {
     isPaired = (digitalRead(pairPin) == HIGH);
     if (!isPaired)
       return;
+    // paired, send init?
+    if (!initSent) {
+      sendInit();
+      return;
+    }
   }
 
   tw->requestFrom(0x52, 6); // request data from nunchuck

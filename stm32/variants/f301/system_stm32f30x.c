@@ -22,8 +22,8 @@
 #include "hse_8.inc"
 #elif defined(CLKSRC_HSE_8M_OC96)
 #include "hse_8_oc96.inc"
-#elif defined(CLKSRC_HSE_8M_OC128)
-#include "hse_8_oc128.inc"
+#elif defined(CLKSRC_HSE_8M_OC112)
+#include "hse_8_oc112.inc"
 #else
 // includes CLKSRC_HSI
 #include "hsi.inc"

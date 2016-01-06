@@ -39,7 +39,7 @@ void systemClockInit()
   _millis = 0;
   microsDivider = SystemCoreClock / 1000000;
   // highest priority
-  nvicEnable(SysTick_IRQn, 0);
+  NVIC_SetPriority(SysTick_IRQn, 0);
 }
 
 // stm32 interrupt: present on all MCUs?

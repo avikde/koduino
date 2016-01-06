@@ -40,7 +40,7 @@
  * @details 
  */
 class SPIClass {
-private:
+protected:
 	SPI_TypeDef *SPIx;
 
 	SPI_InitTypeDef SPI_InitStructure;
@@ -52,6 +52,11 @@ private:
 
   uint8_t SCK, MISO, MOSI;
   uint8_t afSCK, afMISO, afMOSI;
+
+  uint16_t dataSize;
+
+  uint16_t spiRX();
+  void spiTX(uint16_t cmd);
 
 public:
 	SPIClass(SPI_TypeDef *SPIx);
@@ -80,6 +85,14 @@ public:
 	 * @details 
 	 */
 	void end();
+
+  /**
+   * @brief Sets data size
+   * @details default is SPI_DataSize_8b
+   * 
+   * @param one of SPI_DataSize_Xb where X is from 4..16
+   */
+  void setDataSize(uint16_t sz) {dataSize = sz;}
 
 	/**
 	 * @brief Sets the bit-order for data
@@ -113,6 +126,8 @@ public:
 	 * @return Returns the byte received from the slave
 	 */
 	uint8_t transfer(uint8_t _data);
+
+  // uint16_t transfer16(uint16_t _data);
 
 	void attachInterrupt();
 	void detachInterrupt();

@@ -56,10 +56,10 @@ f301.menu.hse.8m_oc96.build.hse_value=8000000UL
 f301.menu.hse.8m_oc96.build.f_cpu=96000000L
 f301.menu.hse.8m_oc96.build.clksrc=HSE_8M_OC96
 
-f301.menu.hse.8m_oc128=128MHz (overclock from 8MHz HSE)
-f301.menu.hse.8m_oc128.build.hse_value=8000000UL
-f301.menu.hse.8m_oc128.build.f_cpu=128000000L
-f301.menu.hse.8m_oc128.build.clksrc=HSE_8M_OC128
+f301.menu.hse.8m_oc112=112MHz (overclock from 8MHz HSE)
+f301.menu.hse.8m_oc112.build.hse_value=8000000UL
+f301.menu.hse.8m_oc112.build.f_cpu=112000000L
+f301.menu.hse.8m_oc112.build.clksrc=HSE_8M_OC112
 
 # f301.menu.hse.16m=72MHz (from 16MHz HSE)
 # f301.menu.hse.16m.build.hse_value=16000000UL
@@ -112,6 +112,7 @@ f37x.build.variant=f37x
 
 # HSE choices
 f37x.build.hse_value=16000000UL
+f37x.build.clksrc=HSE_16M
 
 # f37x.menu.hse.8mhz=8MHz clock
 # f37x.menu.hse.8mhz.build.hse_value=8000000UL
@@ -157,12 +158,20 @@ f40_41x.build.variant=f40_41x
 
 # HSE choices
 f40_41x.build.hse_value=16000000UL
+f40_41x.build.clksrc=HSE_16M
 
-# Upload choices
+# Upload common
+f40_41x.upload.baud=115200
+f40_41x.upload.maximum_size=65536
 f40_41x.upload.tool=stm32ld
 f40_41x.upload.protocol=serial
+
+# Upload choices
+f40_41x.menu.bootloader.mbv2=RTS delay (MBv2)
 # f40_41x.upload.sequence=-rts,-dtr,dtr:rts,-dtr,dtr
-f40_41x.upload.options=rts_trpl_inv
-f40_41x.upload.baud=230400
-f40_41x.upload.maximum_size=65536
+f40_41x.menu.bootloader.mbv2.upload.options=rts_trpl_inv
+
+f40_41x.menu.bootloader.bootbut=Boot button
+f40_41x.menu.bootloader.bootbut.upload.options=dtr_rts
+
 

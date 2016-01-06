@@ -32,14 +32,7 @@
 // }
 
 
-SPIClass::SPIClass(SPI_TypeDef *SPIx) {
-	// Initialize member variables
-	this->SPIx = SPIx;
-	SPI_Bit_Order_Set = false;
-	SPI_Data_Mode_Set = false;
-	SPI_Clock_Divider_Set = false;
-	SPI_Enabled = false;
-
+SPIClass::SPIClass(SPI_TypeDef *SPIx) : SPIx(SPIx), SPI_Bit_Order_Set(false), SPI_Data_Mode_Set(false), SPI_Clock_Divider_Set(false), SPI_Enabled(false), dataSize(SPI_DataSize_8b) {
 #if defined(SERIES_STM32F30x)
 	// Initialize default pin config
 	if (SPIx == SPI2) {
@@ -136,7 +129,7 @@ void SPIClass::begin() {
 
 	SPI_InitStructure.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
 	SPI_InitStructure.SPI_Mode = SPI_Mode_Master;
-	SPI_InitStructure.SPI_DataSize = SPI_DataSize_8b;
+	SPI_InitStructure.SPI_DataSize = dataSize;
 	if(SPI_Data_Mode_Set != true) {
 		//Default: SPI_MODE0
 		SPI_InitStructure.SPI_CPOL = SPI_CPOL_Low;
@@ -154,10 +147,15 @@ void SPIClass::begin() {
 
 	SPI_Init(SPIx, &SPI_InitStructure);
 
-	// Important, but not sure what it does
+	// FIXME: the state of these settings doesn't seem to make sense...but it works for now.
   SPI_SSOutputCmd(SPIx, ENABLE);
+
 #if defined(SERIES_STM32F30x) || defined(SERIES_STM32F37x)
-  SPI_RxFIFOThresholdConfig(SPIx, SPI_RxFIFOThreshold_QF);
+  // Info here: http://stackoverflow.com/questions/22769920/stm32f0-spi-loopback-no-data-on-miso
+  if (dataSize == SPI_DataSize_16b)
+    SPI_RxFIFOThresholdConfig(SPIx, SPI_RxFIFOThreshold_HF);
+  else
+    SPI_RxFIFOThresholdConfig(SPIx, SPI_RxFIFOThreshold_QF);
 #endif
 
 	SPI_Cmd(SPIx, ENABLE);
@@ -224,17 +222,23 @@ void SPIClass::setClockDivider(uint8_t rate)
 
 // Helper functions
 #if defined(SERIES_STM32F37x) || defined(SERIES_STM32F30x)
-uint8_t spiRX(SPI_TypeDef *SPIx) {
-	return SPI_ReceiveData8(SPIx);
+uint16_t SPIClass::spiRX() {
+  if (dataSize == SPI_DataSize_16b)
+    return SPI_I2S_ReceiveData16(SPIx);
+  else
+    return SPI_ReceiveData8(SPIx);
 }
-void spiTX(SPI_TypeDef *SPIx, uint8_t cmd) {
-	SPI_SendData8(SPIx, cmd);
+void SPIClass::spiTX(uint16_t cmd) {
+	if (dataSize == SPI_DataSize_16b)
+    SPI_I2S_SendData16(SPIx, cmd);
+  else
+    SPI_SendData8(SPIx, (uint8_t)cmd);
 }
 #else
-uint8_t spiRX(SPI_TypeDef *SPIx) {
-	return (uint8_t)SPI_I2S_ReceiveData(SPIx);
+uint16_t SPIClass::spiRX() {
+	return SPI_I2S_ReceiveData(SPIx);
 }
-void spiTX(SPI_TypeDef *SPIx, uint8_t cmd) {
+void SPIClass::spiTX(uint16_t cmd) {
 	SPI_I2S_SendData(SPIx, cmd);
 }
 #endif
@@ -242,15 +246,28 @@ void spiTX(SPI_TypeDef *SPIx, uint8_t cmd) {
 uint8_t SPIClass::transfer(uint8_t cmd) {
   //read off any remaining bytes
   while(SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_RXNE))
-    spiRX(SPIx);
+    spiRX();
 
   //wait until TX buffer is empty
   while(!SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_TXE));
 
-  spiTX(SPIx, cmd);  //send the command
+  spiTX(cmd);  //send the command
   while(!SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_RXNE));
-  return spiRX(SPIx);
+  return (uint8_t)spiRX();
 }
+
+// uint16_t SPIClass::transfer16(uint16_t cmd) {
+//   //read off any remaining bytes
+//   while(SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_RXNE))
+//     spiRX();
+
+//   //wait until TX buffer is empty
+//   while(!SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_TXE));
+
+//   spiTX(cmd);  //send the command
+//   while(!SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_RXNE));
+//   return spiRX();
+// }
 
 void SPIClass::attachInterrupt() {
 	//To Do

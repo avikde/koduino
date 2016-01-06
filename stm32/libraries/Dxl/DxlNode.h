@@ -21,6 +21,38 @@
 
 #include <Arduino.h>
 
+#define DXL_MAX_PACKET_SIZE 32
+
+enum DxlRxStatus {
+  DXL_RX_SUCCESS = 0,
+  DXL_RX_ID_WRONG = 1,
+  DXL_RX_BAD_CHECKSUM = 2,
+  DXL_RX_BAD_LENGTH = 3,
+  DXL_RX_WAITING = 4
+};
+
+// Configuration commands
+#define DXL_STATUS 0x00 // slave return packet has this as instruction byte
+#define DXL_CMD_SET_ID 0x01 // 1 byte
+#define DXL_CMD_CALIBRATE 0x02 // 0
+// other configuration...
+
+// Motor control commands
+#define DXL_CMD_ENABLE 0x10 // 1 byte (true or false)
+#define DXL_CMD_SET_OPEN_LOOP 0x12 // 1 float = 4 bytes
+// ...set position etc.
+
+// the bus is forced to release after this many us
+#define DXL_TX_TIMEOUT 800
+// this is how long the master waits to get a response from the slave
+#define DXL_RX_TIMEOUT 1000
+
+// Return packet types
+typedef struct {
+  float position, current;
+} __attribute__ ((packed)) DxlPacketBLConStatus;
+
+
 class DxlNode {
 public:
   // members
@@ -29,27 +61,39 @@ public:
   const bool isMaster;
   
   // incoming packet
-  uint8_t packet[32];
+  uint8_t packet[DXL_MAX_PACKET_SIZE];
 
   // functions
-  DxlNode(uint8_t rts, USARTClass& ser, uint8_t myAddress) : DE(rts), myAddress(myAddress), Ser(ser), isMaster(false) {}
-  DxlNode(uint8_t rts, USARTClass& ser) : DE(rts), myAddress(0), Ser(ser), isMaster(true) {}
+  DxlNode(uint8_t rts, USARTClass& ser, uint8_t myAddress) : DE(rts), myAddress(myAddress), Ser(ser), isMaster(false), txTime(0) {}
+  DxlNode(uint8_t rts, USARTClass& ser) : DE(rts), myAddress(0), Ser(ser), isMaster(true), txTime(0) {}
 
 
   void init();
   // instErr can be instruction (instruction packet) or error code (status packet)
   // params is of length N
-  void sendPacket(uint8_t id, uint8_t instErr, uint8_t N, uint8_t *params);
+  // wait = true => waits till TX finished and puts back in RX mode
+  // wait = false => returns immediately
+  void sendPacket(uint8_t id, uint8_t instErr, uint8_t N, uint8_t *params, bool wait);
+  void sendPacket(uint8_t id, uint8_t instErr, uint8_t N, uint8_t *params) {
+    sendPacket(id, instErr, N, params, true);
+  }
+  // checks if TX complete, if so sets to RX mode
+  bool completeTX();
 
   // Update function that should be called as often as possible
-  bool listen();
-  bool checkPacket();
+  DxlRxStatus listen();
+  DxlRxStatus checkPacket();
 
+  // functions on the latest packet
+  uint8_t getInstruction() const { return packet[4]; }
+  const void * getPacket() const { return (const void *)&packet[5]; }
 
 protected:
   void setTX();
   void setRX();
   uint8_t writeByte(uint8_t c);
+
+  uint32_t txTime;
 };
 
 
