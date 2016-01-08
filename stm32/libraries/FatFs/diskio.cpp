@@ -10,7 +10,11 @@
 #include "diskio.h"		/* FatFs lower layer API */
 
 DSTATUS disk_status (BYTE pdrv) {
+    if (SD_Detect() == SD_PRESENT) {
 		return 0;
+    } else {
+        return STA_NODISK;
+    }
 }
 
 
@@ -143,3 +147,16 @@ DRESULT disk_ioctl (BYTE pdrv, BYTE cmd, void *buff) {
     }
 }
 #endif
+
+DWORD get_fattime (void) {
+    struct tm timeStruct;
+    Clock.getTimestruct(&timeStruct);
+
+    return (DWORD) (timeStruct.tm_year - 80) << 25 |
+    (DWORD) (timeStruct.tm_mon + 1) << 21 |
+    (DWORD) timeStruct.tm_mday << 16 |
+    (DWORD) timeStruct.tm_hour << 11 |
+    (DWORD) timeStruct.tm_min << 5 |
+    (DWORD) (timeStruct.tm_sec/2);
+}
+

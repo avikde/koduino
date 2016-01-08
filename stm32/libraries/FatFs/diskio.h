@@ -11,6 +11,7 @@
 
 #include "integer.h"
 #include "uSD_SDIO.h"
+#include "RTC.h"
 
 
 /* Status of Disk Functions */

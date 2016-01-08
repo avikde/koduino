@@ -219,7 +219,7 @@
 /** 
  * @brief  SDIO Static flags, TimeOut, FIFO Address
  */
-#define SDIO_STATIC_FLAGS               ((uint32_t)0x000005FF)
+const uint32_t SDIO_STATIC_FLAGS = 0x000005FF;
 #define SDIO_CMD0TIMEOUT                ((uint32_t)0x00010000)
 
 /** 

@@ -27,8 +27,8 @@
  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __STM324x9I_EVAL_SDIO_SD_H
-#define __STM324x9I_EVAL_SDIO_SD_H
+#ifndef __USD_SDIO_H
+#define __USD_SDIO_H
 
 
 #if defined(SERIES_STM32F4xx)
@@ -39,7 +39,7 @@
 #include <stm32f4xx_sdio.h>
 
 // Low level defines
-#define SD_DETECT_PIN                       PB12 //2.1
+#define SD_DETECT_PIN                       PB12 //2.2
  // #define SD_DETECT_PIN                    PC14                 /* PC.14 */
 // #define SD_DETECT_GPIO_PORT              GPIOC                       /* GPIOC */
 // #define SD_DETECT_GPIO_CLK               RCC_AHB1Periph_GPIOC
