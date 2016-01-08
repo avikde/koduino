@@ -27,7 +27,8 @@ void DxlMotor::init(DxlNode *master_, uint8_t id_, float zero, int8_t dir, float
 }
 
 void DxlMotor::sendOpenLoop(float val) {
-  float valToSend = (enableFlag) ? map(val, -1, 1, 0.1, 0.9) : 0;
+  // sign reversed
+  float valToSend = (enableFlag) ? map(-val, -1, 1, 0.1, 0.9) : 0;
   // clear RX
   master->Ser.flushInput();
   master->sendPacket(id, DXL_CMD_SET_OPEN_LOOP, 4, (uint8_t *)&valToSend);

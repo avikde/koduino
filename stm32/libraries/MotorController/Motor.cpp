@@ -53,6 +53,11 @@ void Motor::setBarrier(float ll, float ul) {
   barrier.enabled = true;
 }
 
+void Motor::resetOffset() {
+  unwrapOffset = 0;
+  prevPosition = NAN;
+}
+
 float Motor::getPosition() {
   // Returns the position AFTER the gearbox in the range (-pi, pi). Since there is no
   // calibraton routine, the output must start within (-pi,pi)/gearRatio of the zero.

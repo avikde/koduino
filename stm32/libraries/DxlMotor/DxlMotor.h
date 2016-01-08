@@ -19,7 +19,7 @@
 #ifndef DxlMotor_h
 #define DxlMotor_h
 
-#include "DxlNode.h"
+#include <DxlNode.h>
 #include <Motor.h>
 
 class DxlMotor : public Motor {
