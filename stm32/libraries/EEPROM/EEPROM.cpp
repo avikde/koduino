@@ -32,7 +32,7 @@ EEPROMClass EEPROM;
  */
 uint16_t EEPROMClass::read(uint16_t address) {
   initCheck();
-  static uint16_t ret;
+  static uint16_t ret = 0; // Initialized so function returns 0 if address hasn't been written to
   EE_ReadVariable(address, &ret);
   return ret;
 }
