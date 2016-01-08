@@ -99,6 +99,8 @@ public:
   float mapVal(float val);
   // This should be called at a more or less fixed rate (once per iteration)
   float update();
+  // run this after you are sure there is non-garbage rawPosition data
+  void resetOffset();
 
   // Static params - for every instance
   static int updateRate;
