@@ -81,7 +81,7 @@ uint16_t EE_Init(void)
         /* If erase operation was failed, a Flash error code is returned */
         if (FlashStatus != FLASH_COMPLETE)
         {
-          FLASH_Lock();
+          //FLASH_Lock();
           return FlashStatus;
         }
       }
@@ -92,7 +92,7 @@ uint16_t EE_Init(void)
         /* If erase operation was failed, a Flash error code is returned */
         if (FlashStatus != FLASH_COMPLETE)
         {
-          FLASH_Lock();
+          //FLASH_Lock();
           return FlashStatus;
         }
         /* Mark Page1 as valid */
@@ -100,7 +100,7 @@ uint16_t EE_Init(void)
         /* If program operation was failed, a Flash error code is returned */
         if (FlashStatus != FLASH_COMPLETE)
         {
-          FLASH_Lock();
+          //FLASH_Lock();
           return FlashStatus;
         }
       }
@@ -111,7 +111,7 @@ uint16_t EE_Init(void)
         /* If erase/program operation was failed, a Flash error code is returned */
         if (FlashStatus != FLASH_COMPLETE)
         {
-          FLASH_Lock();
+          //FLASH_Lock();
           return FlashStatus;
         }
       }
@@ -139,7 +139,7 @@ uint16_t EE_Init(void)
               /* If program operation was failed, a Flash error code is returned */
               if (EepromStatus != FLASH_COMPLETE)
               {
-                FLASH_Lock();
+                //FLASH_Lock();
                 return EepromStatus;
               }
             }
@@ -150,7 +150,7 @@ uint16_t EE_Init(void)
         /* If program operation was failed, a Flash error code is returned */
         if (FlashStatus != FLASH_COMPLETE)
         {
-          FLASH_Lock();
+          //FLASH_Lock();
           return FlashStatus;
         }
         /* Erase Page1 */
@@ -158,7 +158,7 @@ uint16_t EE_Init(void)
         /* If erase operation was failed, a Flash error code is returned */
         if (FlashStatus != FLASH_COMPLETE)
         {
-          FLASH_Lock();
+          //FLASH_Lock();
           return FlashStatus;
         }
       }
@@ -169,7 +169,7 @@ uint16_t EE_Init(void)
         /* If erase operation was failed, a Flash error code is returned */
         if (FlashStatus != FLASH_COMPLETE)
         {
-          FLASH_Lock();
+          //FLASH_Lock();
           return FlashStatus;
         }
         /* Mark Page0 as valid */
@@ -177,7 +177,7 @@ uint16_t EE_Init(void)
         /* If program operation was failed, a Flash error code is returned */
         if (FlashStatus != FLASH_COMPLETE)
         {
-          FLASH_Lock();
+          //FLASH_Lock();
           return FlashStatus;
         }
       }
@@ -188,7 +188,7 @@ uint16_t EE_Init(void)
         /* If erase/program operation was failed, a Flash error code is returned */
         if (FlashStatus != FLASH_COMPLETE)
         {
-          FLASH_Lock();
+          //FLASH_Lock();
           return FlashStatus;
         }
       }
@@ -202,7 +202,7 @@ uint16_t EE_Init(void)
         /* If erase/program operation was failed, a Flash error code is returned */
         if (FlashStatus != FLASH_COMPLETE)
         {
-          FLASH_Lock();
+          //FLASH_Lock();
           return FlashStatus;
         }
       }
@@ -213,7 +213,7 @@ uint16_t EE_Init(void)
         /* If erase operation was failed, a Flash error code is returned */
         if (FlashStatus != FLASH_COMPLETE)
         {
-          FLASH_Lock();
+          //FLASH_Lock();
           return FlashStatus;
         }
       }
@@ -238,7 +238,7 @@ uint16_t EE_Init(void)
               /* If program operation was failed, a Flash error code is returned */
               if (EepromStatus != FLASH_COMPLETE)
               {
-                FLASH_Lock();
+                //FLASH_Lock();
                 return EepromStatus;
               }
             }
@@ -249,7 +249,7 @@ uint16_t EE_Init(void)
         /* If program operation was failed, a Flash error code is returned */
         if (FlashStatus != FLASH_COMPLETE)
         {
-          FLASH_Lock();
+          //FLASH_Lock();
           return FlashStatus;
         }
         /* Erase Page0 */
@@ -257,7 +257,7 @@ uint16_t EE_Init(void)
         /* If erase operation was failed, a Flash error code is returned */
         if (FlashStatus != FLASH_COMPLETE)
         {
-          FLASH_Lock();
+          //FLASH_Lock();
           return FlashStatus;
         }
       }
@@ -269,13 +269,13 @@ uint16_t EE_Init(void)
       /* If erase/program operation was failed, a Flash error code is returned */
       if (FlashStatus != FLASH_COMPLETE)
       {
-        FLASH_Lock();
+        //FLASH_Lock();
         return FlashStatus;
       }
       break;
   }
 
-  FLASH_Lock();
+  //FLASH_Lock();
   return FLASH_COMPLETE;
 }
 
@@ -376,7 +376,7 @@ static FLASH_Status EE_Format(void)
 {
   FLASH_Status FlashStatus = FLASH_COMPLETE;
 
-  FLASH_Unlock();
+  //FLASH_Unlock();
 
   /* Erase Page0 */
   FlashStatus = eraseHelper(PAGE0_BASE_ADDRESS);
@@ -384,7 +384,7 @@ static FLASH_Status EE_Format(void)
   /* If erase operation was failed, a Flash error code is returned */
   if (FlashStatus != FLASH_COMPLETE)
   {
-    FLASH_Lock();
+    //FLASH_Lock();
     return FlashStatus;
   }
 
@@ -394,14 +394,14 @@ static FLASH_Status EE_Format(void)
   /* If program operation was failed, a Flash error code is returned */
   if (FlashStatus != FLASH_COMPLETE)
   {
-    FLASH_Lock();
+    //FLASH_Lock();
     return FlashStatus;
   }
 
   /* Erase Page1 */
   FlashStatus = eraseHelper(PAGE1_BASE_ADDRESS);
 
-  FLASH_Lock();
+  //FLASH_Lock();
   /* Return Page1 erase operation status */
   return FlashStatus;
 }
@@ -502,7 +502,7 @@ static uint16_t EE_VerifyPageFullWriteVariable(uint16_t VirtAddress, uint16_t Da
     return  NO_VALID_PAGE;
   }
 
-  FLASH_Unlock();
+  //FLASH_Unlock();
 
   /* Get the valid Page start Address */
   Address = (uint32_t)(EEPROM_START_ADDRESS + (uint32_t)(ValidPage * PAGE_SIZE));
@@ -521,13 +521,13 @@ static uint16_t EE_VerifyPageFullWriteVariable(uint16_t VirtAddress, uint16_t Da
       /* If program operation was failed, a Flash error code is returned */
       if (FlashStatus != FLASH_COMPLETE)
       {
-        FLASH_Lock();
+        //FLASH_Lock();
         return FlashStatus;
       }
       /* Set variable virtual address */
       FlashStatus = FLASH_ProgramHalfWord(Address + 2, VirtAddress);
       /* Return program operation status */
-      FLASH_Lock();
+      //FLASH_Lock();
       return FlashStatus;
     }
     else
@@ -536,7 +536,7 @@ static uint16_t EE_VerifyPageFullWriteVariable(uint16_t VirtAddress, uint16_t Da
       Address = Address + 4;
     }
   }
-  FLASH_Lock();
+  //FLASH_Lock();
 
   /* Return PAGE_FULL in case the valid page is full */
   return PAGE_FULL;
@@ -583,14 +583,14 @@ static uint16_t EE_PageTransfer(uint16_t VirtAddress, uint16_t Data)
   {
     return NO_VALID_PAGE;       /* No valid Page */
   }
-  FLASH_Unlock();
+  //FLASH_Unlock();
 
   /* Set the new Page status to RECEIVE_DATA status */
   FlashStatus = FLASH_ProgramHalfWord(NewPageAddress, RECEIVE_DATA);
   /* If program operation was failed, a Flash error code is returned */
   if (FlashStatus != FLASH_COMPLETE)
   {
-    FLASH_Lock();
+    //FLASH_Lock();
     return FlashStatus;
   }
 
@@ -599,7 +599,7 @@ static uint16_t EE_PageTransfer(uint16_t VirtAddress, uint16_t Data)
   /* If program operation was failed, a Flash error code is returned */
   if (EepromStatus != FLASH_COMPLETE)
   {
-    FLASH_Lock();
+    //FLASH_Lock();
     return EepromStatus;
   }
 
@@ -618,7 +618,7 @@ static uint16_t EE_PageTransfer(uint16_t VirtAddress, uint16_t Data)
         /* If program operation was failed, a Flash error code is returned */
         if (EepromStatus != FLASH_COMPLETE)
         {
-          FLASH_Lock();
+          //FLASH_Lock();
           return EepromStatus;
         }
       }
@@ -630,7 +630,7 @@ static uint16_t EE_PageTransfer(uint16_t VirtAddress, uint16_t Data)
   /* If erase operation was failed, a Flash error code is returned */
   if (FlashStatus != FLASH_COMPLETE)
   {
-    FLASH_Lock();
+    //FLASH_Lock();
     return FlashStatus;
   }
 
@@ -639,7 +639,7 @@ static uint16_t EE_PageTransfer(uint16_t VirtAddress, uint16_t Data)
   /* If program operation was failed, a Flash error code is returned */
   if (FlashStatus != FLASH_COMPLETE)
   {
-    FLASH_Lock();
+    //FLASH_Lock();
     return FlashStatus;
   }
 
@@ -652,7 +652,7 @@ static uint16_t EE_PageTransfer(uint16_t VirtAddress, uint16_t Data)
   // FLASH->ACR = (FLASH_ACR_ICEN |FLASH_ACR_DCEN);
   // FLASH->ACR = ~(FLASH_ACR_ICRST |FLASH_ACR_DCRST);
 
-  FLASH_Lock();
+  //FLASH_Lock();
   /* Return last operation flash status */
   return FlashStatus;
 }

@@ -37,17 +37,24 @@ extern "C" {
   #define PAGE_SIZE  (uint16_t)0x800 // 2K
   #define EEPROM_START_ADDRESS    ((uint32_t)(0x08000000 + MAX_PROGRAM_SIZE)) // specified in boards.txt (end of flash - 2*page size)
 #elif defined(STM32F40_41xxx) || defined(STM32F411xE)
-// NOTE: PAGE_SIZE of 128K did not work for some reason...is it too big? Just using an artificially smaller PAGE_SIZE (smaller than sector size) seems ok
-  #define PAGE_SIZE  (uint16_t)0x4000 // 16K
-  // #define PAGE_SIZE (uint16_t) 0x20000 // 128K
-// NOTE: setting 64K as maximum code size for now (consistent with a majority of other boards)
-  #define EEPROM_START_ADDRESS ((uint32_t)0x08010000)
-  #define PAGE0_ID  FLASH_Sector_4
-  #define PAGE1_ID  FLASH_Sector_5
+
+  // EEPROM moved to first two 128k sectors (slowest place for it)
+  // #define PAGE_SIZE (uint32_t) 0x20000 // 128K
+  // #define EEPROM_START_ADDRESS ((uint32_t)0x08020000)
+  // #define PAGE0_ID  FLASH_Sector_5
+  // #define PAGE1_ID  FLASH_Sector_6
+
+  // Original EEPROM location (good sectors, but can interfere if program is big)
   // #define PAGE_SIZE  (uint16_t)0x4000 // 16K
   // #define EEPROM_START_ADDRESS    ((uint32_t)0x08008000) // total = 1M, eeprom after 16K
   // #define PAGE0_ID               FLASH_Sector_2
   // #define PAGE1_ID               FLASH_Sector_3
+
+  // EEPROM in 'flash hole' that the linker skips, best solution
+  #define PAGE_SIZE  (uint16_t)0x4000 // 16K
+  #define EEPROM_START_ADDRESS    ((uint32_t)0x08004000) // total = 1M, eeprom after 16K
+  #define PAGE0_ID               FLASH_Sector_1
+  #define PAGE1_ID               FLASH_Sector_2
   // Device voltage range supposed to be [2.7V to 3.6V], the operation will be done by word
   #define VOLTAGE_RANGE           (uint8_t)VoltageRange_3
 #endif
