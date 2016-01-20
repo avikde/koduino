@@ -29,10 +29,9 @@ public:
     pinMode(cs, OUTPUT);
     digitalWrite(cs, HIGH);
     // encoder setup
-    uint16_t res = this->cmd(0x3fff, true);
-    res = this->cmd(0x3fff, true);
-    // return the absolute angle
-    return res>>2;
+    uint16_t res = this->read(0x3fff);
+    // this is 0-4095 but ABI is 0-3999?
+    return (res*4000)/(1<<14);
   }
 
   uint16_t cmd(uint16_t dat, bool toRead) {
@@ -57,6 +56,11 @@ public:
     res = res & 0x3FFF;
     
     return res;
+  }
+
+  uint16_t read(uint16_t reg) {
+    this->cmd(reg, true);
+    return this->cmd(0, true);
   }
 
 protected:
