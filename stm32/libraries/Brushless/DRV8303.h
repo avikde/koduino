@@ -34,14 +34,14 @@ public:
       csConfigured = true;
     }
     // disable OCP, set to dependent PWM, reset gate
-    uint16_t cr1 = 0b111100;
+    uint16_t cr1 = 0b11111111100;//0b111100;
     cmd(cr1, 0x02, false);
   }
 
   // assume this command will be called over and over
   bool checkConfig() {
     // if PVDD is not > 6V this will just return garbage, so try to read this register back to make sure initialization worked
-    return (read(0x02) == 0b1000000111000);
+    return (read(0x02) == 0b1011111111000);//0b1000000111000);
     // return (this->cmd(0, 0, true) == 0);
   }
 
