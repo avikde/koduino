@@ -754,22 +754,24 @@ WARN_LOGFILE           =
 # Note: If this tag is empty the current directory is searched.
 
 INPUT                  = . 
-# INPUT += /Applications/Arduino.app/Contents/Java/hardware/koduino/stm32/cores/arduino 
-# INPUT += /Applications/Arduino.app/Contents/Java/hardware/koduino/stm32/libraries/Wire
-# INPUT += /Applications/Arduino.app/Contents/Java/hardware/koduino/stm32/libraries/SPI
-# INPUT += /Applications/Arduino.app/Contents/Java/hardware/koduino/stm32/libraries/EEPROM
-# INPUT += /Applications/Arduino.app/Contents/Java/hardware/koduino/stm32/libraries/Encoder
-# INPUT += /Applications/Arduino.app/Contents/Java/hardware/koduino/stm32/libraries/IMU
-# INPUT += /Applications/Arduino.app/Contents/Java/hardware/koduino/stm32/libraries/MotorController
-# INPUT += /Applications/Arduino.app/Contents/Java/hardware/koduino/stm32/libraries/OpenLog
-INPUT += "C:\Users\avik\Desktop\arduino-1.6.1\hardware\koduino\stm32\cores\arduino"
-INPUT += "C:\Users\avik\Desktop\arduino-1.6.1\hardware\koduino\stm32\libraries\Wire"
-INPUT += "C:\Users\avik\Desktop\arduino-1.6.1\hardware\koduino\stm32\libraries\SPI"
-INPUT += "C:\Users\avik\Desktop\arduino-1.6.1\hardware\koduino\stm32\libraries\EEPROM"
-INPUT += "C:\Users\avik\Desktop\arduino-1.6.1\hardware\koduino\stm32\libraries\Encoder"
-INPUT += "C:\Users\avik\Desktop\arduino-1.6.1\hardware\koduino\stm32\libraries\IMU"
-INPUT += "C:\Users\avik\Desktop\arduino-1.6.1\hardware\koduino\stm32\libraries\MotorController"
-INPUT += "C:\Users\avik\Desktop\arduino-1.6.1\hardware\koduino\stm32\libraries\OpenLog"
+# avik mac
+INPUT += /Applications/Arduino.app/Contents/Java/hardware/koduino/stm32/cores/arduino 
+INPUT += /Applications/Arduino.app/Contents/Java/hardware/koduino/stm32/libraries/Wire
+INPUT += /Applications/Arduino.app/Contents/Java/hardware/koduino/stm32/libraries/SPI
+INPUT += /Applications/Arduino.app/Contents/Java/hardware/koduino/stm32/libraries/EEPROM
+INPUT += /Applications/Arduino.app/Contents/Java/hardware/koduino/stm32/libraries/Encoder
+INPUT += /Applications/Arduino.app/Contents/Java/hardware/koduino/stm32/libraries/IMU
+INPUT += /Applications/Arduino.app/Contents/Java/hardware/koduino/stm32/libraries/MotorController
+INPUT += /Applications/Arduino.app/Contents/Java/hardware/koduino/stm32/libraries/OpenLog
+# avik desktop
+# INPUT += "C:\Users\avik\Desktop\arduino-1.6.1\hardware\koduino\stm32\cores\arduino"
+# INPUT += "C:\Users\avik\Desktop\arduino-1.6.1\hardware\koduino\stm32\libraries\Wire"
+# INPUT += "C:\Users\avik\Desktop\arduino-1.6.1\hardware\koduino\stm32\libraries\SPI"
+# INPUT += "C:\Users\avik\Desktop\arduino-1.6.1\hardware\koduino\stm32\libraries\EEPROM"
+# INPUT += "C:\Users\avik\Desktop\arduino-1.6.1\hardware\koduino\stm32\libraries\Encoder"
+# INPUT += "C:\Users\avik\Desktop\arduino-1.6.1\hardware\koduino\stm32\libraries\IMU"
+# INPUT += "C:\Users\avik\Desktop\arduino-1.6.1\hardware\koduino\stm32\libraries\MotorController"
+# INPUT += "C:\Users\avik\Desktop\arduino-1.6.1\hardware\koduino\stm32\libraries\OpenLog"
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
