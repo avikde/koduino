@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['exti',['EXTI',['../group___e_x_t_i.html',1,'']]]
+  ['external_20interrupts',['External interrupts',['../group___e_x_t_i.html',1,'']]]
 ];

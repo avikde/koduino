@@ -46,6 +46,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -69,6 +70,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -87,31 +90,40 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="class_two_wire-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">TwoWire Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Wire / I2C / SMBus library (call with global object <code>Wire</code>)  
+ <a href="class_two_wire.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_wire_8h_source.html">Wire.h</a>&gt;</code></p>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>Usage</h3>
+<div class="textblock"><p>Wire / I2C / SMBus library (call with global object <code>Wire</code>) </p>
+<h3>Usage</h3>
 <ol type="1">
-<li>(Optionally) call setSpeed()</li>
-<li>Call begin()</li>
+<li>(Optionally) call <a class="el" href="class_two_wire.html#ad10fdb3bc506ea45833ec7107278b02f" title="Set SCL clock speed. ">setSpeed()</a></li>
+<li>Call <a class="el" href="class_two_wire.html#ada85a7a8663ec8af0a1248b659be2f18" title="Start the I2C peripheral and configure the SDA and SCL pins. ">begin()</a></li>
 <li>See below for reading/writing</li>
 </ol>
 <h4>Writing a register</h4>
 <ol type="1">
-<li>Call beginTransmission()</li>
-<li>Call write() as many times as bytes to write</li>
-<li>Call endTransmission() (without an argument to send a STOP&ndash;recommended).</li>
+<li>Call <a class="el" href="class_two_wire.html#a1876ffdb16fb185c14a75e1251cef5e4" title="Command to begin a write operation. ">beginTransmission()</a></li>
+<li>Call <a class="el" href="class_two_wire.html#a3dead761a20db7a7bced562967170919" title="Add a single byte to the write buffer. ">write()</a> as many times as bytes to write</li>
+<li>Call <a class="el" href="class_two_wire.html#a294bec855a25d7d2009ea4675484474d">endTransmission()</a> (without an argument to send a STOP&ndash;recommended).</li>
 </ol>
 <h4>Reading a register</h4>
 <p>One of the most common I2C operations is to read a register from a slave (e.g. MPU6050 and AS5048 examples below). The Arduino API makes this a bit tedious, but the "official" way to do this (fully compatible with Arduino) is to:</p>
 <ol type="1">
-<li>Call beginTransmission()</li>
-<li>write() the register name</li>
-<li>Call endTransmission() with the argument <code>false</code> (don't sent STOP)</li>
-<li>Call requestFrom() with the 7-bit slave address and a length of 1 (this sends STOP)</li>
-<li>Call read() to get the register value</li>
+<li>Call <a class="el" href="class_two_wire.html#a1876ffdb16fb185c14a75e1251cef5e4" title="Command to begin a write operation. ">beginTransmission()</a></li>
+<li><a class="el" href="class_two_wire.html#a3dead761a20db7a7bced562967170919" title="Add a single byte to the write buffer. ">write()</a> the register name</li>
+<li>Call <a class="el" href="class_two_wire.html#a294bec855a25d7d2009ea4675484474d">endTransmission()</a> with the argument <code>false</code> (don't sent STOP)</li>
+<li>Call <a class="el" href="class_two_wire.html#a35778784c333b7284e3c2378826b814d">requestFrom()</a> with the 7-bit slave address and a length of 1 (this sends STOP)</li>
+<li>Call <a class="el" href="class_two_wire.html#aa361b83500d00dfb93bb25b6473b33e9" title="Reads a single byte from the receive buffer. ">read()</a> to get the register value</li>
 </ol>
 <h3>Example: MPU6050</h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Wire.h&gt;</span></div>
@@ -120,30 +132,30 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><span class="keyword">const</span> uint8_t kMPU = 0x68;</div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> setup() {</div>
-<div class="line">  pinMode(led, OUTPUT);</div>
+<div class="line">  <a class="code" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730">pinMode</a>(led, OUTPUT);</div>
 <div class="line">  Serial1.begin(115200);</div>
 <div class="line"></div>
-<div class="line">  Wire.setSpeed(WIRE_1M);</div>
-<div class="line">  Wire.begin();</div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#ad10fdb3bc506ea45833ec7107278b02f">setSpeed</a>(WIRE_1M);</div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#ada85a7a8663ec8af0a1248b659be2f18">begin</a>();</div>
 <div class="line">}</div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> loop() {</div>
 <div class="line">  uint8_t magic;</div>
 <div class="line"></div>
-<div class="line">  uint32_t tic = micros();</div>
+<div class="line">  uint32_t tic = <a class="code" href="group___time.html#ga2b97cb2cd2661deade2d301d38c4ebe8">micros</a>();</div>
 <div class="line"></div>
-<div class="line">  Wire.beginTransmission(kMPU);</div>
-<div class="line">  Wire.write(0x75);</div>
-<div class="line">  Wire.endTransmission(<span class="keyword">false</span>);</div>
-<div class="line">  Wire.requestFrom(kMPU, 1);</div>
-<div class="line">  magic = Wire.read();</div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#a1876ffdb16fb185c14a75e1251cef5e4">beginTransmission</a>(kMPU);</div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#a3dead761a20db7a7bced562967170919">write</a>(0x75);</div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#a1a32e8abde1410a2ad7938475840b0bc">endTransmission</a>(<span class="keyword">false</span>);</div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#a35778784c333b7284e3c2378826b814d">requestFrom</a>(kMPU, 1);</div>
+<div class="line">  magic = Wire.<a class="code" href="class_two_wire.html#aa361b83500d00dfb93bb25b6473b33e9">read</a>();</div>
 <div class="line"></div>
-<div class="line">  tic = micros() - tic;</div>
+<div class="line">  tic = <a class="code" href="group___time.html#ga2b97cb2cd2661deade2d301d38c4ebe8">micros</a>() - tic;</div>
 <div class="line"></div>
 <div class="line">  Serial1 &lt;&lt; <span class="stringliteral">&quot;WHO_AM_I = 0x&quot;</span> &lt;&lt; _HEX(magic) &lt;&lt; <span class="stringliteral">&quot;, took &quot;</span> &lt;&lt; tic &lt;&lt; <span class="stringliteral">&quot;us.\n&quot;</span>;</div>
 <div class="line"></div>
-<div class="line">  digitalWrite(led, TOGGLE);</div>
-<div class="line">  delay(1000);</div>
+<div class="line">  <a class="code" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7">digitalWrite</a>(led, TOGGLE);</div>
+<div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(1000);</div>
 <div class="line">}</div>
 </div><!-- fragment --><h3>Example: Nunchuck</h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Wire.h&gt;</span></div>
@@ -151,35 +163,35 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><span class="keyword">const</span> <span class="keywordtype">int</span> led = PC13;</div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> setup() {</div>
-<div class="line">  pinMode(led, OUTPUT);</div>
+<div class="line">  <a class="code" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730">pinMode</a>(led, OUTPUT);</div>
 <div class="line">  Serial1.begin(115200);</div>
 <div class="line"></div>
-<div class="line">  Wire.begin();</div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#ada85a7a8663ec8af0a1248b659be2f18">begin</a>();</div>
 <div class="line"></div>
-<div class="line">  Wire.beginTransmission(0x52);       <span class="comment">// device address</span></div>
-<div class="line">  Wire.write(0xF0);</div>
-<div class="line">  Wire.write(0x55);</div>
-<div class="line">  Wire.endTransmission();</div>
-<div class="line">  delay(1);</div>
-<div class="line">  Wire.beginTransmission(0x52);</div>
-<div class="line">  Wire.write(0xFB);</div>
-<div class="line">  Wire.write(0x00);</div>
-<div class="line">  Wire.endTransmission();</div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#a1876ffdb16fb185c14a75e1251cef5e4">beginTransmission</a>(0x52);       <span class="comment">// device address</span></div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#a3dead761a20db7a7bced562967170919">write</a>(0xF0);</div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#a3dead761a20db7a7bced562967170919">write</a>(0x55);</div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#a1a32e8abde1410a2ad7938475840b0bc">endTransmission</a>();</div>
+<div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(1);</div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#a1876ffdb16fb185c14a75e1251cef5e4">beginTransmission</a>(0x52);</div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#a3dead761a20db7a7bced562967170919">write</a>(0xFB);</div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#a3dead761a20db7a7bced562967170919">write</a>(0x00);</div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#a1a32e8abde1410a2ad7938475840b0bc">endTransmission</a>();</div>
 <div class="line">}</div>
 <div class="line"></div>
 <div class="line">uint8_t data[6];</div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> loop() {</div>
-<div class="line">  uint32_t tic = micros();</div>
+<div class="line">  uint32_t tic = <a class="code" href="group___time.html#ga2b97cb2cd2661deade2d301d38c4ebe8">micros</a>();</div>
 <div class="line"></div>
-<div class="line">  Wire.requestFrom(0x52, 6); <span class="comment">// request data from nunchuck</span></div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#a35778784c333b7284e3c2378826b814d">requestFrom</a>(0x52, 6); <span class="comment">// request data from nunchuck</span></div>
 <div class="line">  <span class="keywordtype">int</span> cnt = 0;</div>
-<div class="line">  <span class="keywordflow">while</span> (Wire.available()) {</div>
+<div class="line">  <span class="keywordflow">while</span> (Wire.<a class="code" href="class_two_wire.html#aee57bc52bee06508e231c5fc6bc35ada">available</a>()) {</div>
 <div class="line">    <span class="comment">// receive byte as an integer</span></div>
-<div class="line">    data[cnt] = Wire.read(); <span class="comment">//</span></div>
+<div class="line">    data[cnt] = Wire.<a class="code" href="class_two_wire.html#aa361b83500d00dfb93bb25b6473b33e9">read</a>(); <span class="comment">//</span></div>
 <div class="line">    cnt++;</div>
 <div class="line">  }</div>
-<div class="line">  tic = micros() - tic;</div>
+<div class="line">  tic = <a class="code" href="group___time.html#ga2b97cb2cd2661deade2d301d38c4ebe8">micros</a>() - tic;</div>
 <div class="line"></div>
 <div class="line">  Serial1 &lt;&lt; tic &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span>;</div>
 <div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 6; ++i)</div>
@@ -187,12 +199,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">  Serial1 &lt;&lt; !(data[5] &amp; 0B00000001) &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; !((data[5] &amp; 0B00000010) &gt;&gt; 1);</div>
 <div class="line">  Serial1 &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line"></div>
-<div class="line">  digitalWrite(led, TOGGLE);</div>
-<div class="line">  delay(100);</div>
+<div class="line">  <a class="code" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7">digitalWrite</a>(led, TOGGLE);</div>
+<div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(100);</div>
 <div class="line"></div>
-<div class="line">  Wire.beginTransmission(0x52);      <span class="comment">// transmit to device 0x52</span></div>
-<div class="line">  Wire.write(0x00);         <span class="comment">// sends one byte</span></div>
-<div class="line">  Wire.endTransmission(<span class="keyword">false</span>);    <span class="comment">// stop transmitting</span></div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#a1876ffdb16fb185c14a75e1251cef5e4">beginTransmission</a>(0x52);      <span class="comment">// transmit to device 0x52</span></div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#a3dead761a20db7a7bced562967170919">write</a>(0x00);         <span class="comment">// sends one byte</span></div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#a1a32e8abde1410a2ad7938475840b0bc">endTransmission</a>(<span class="keyword">false</span>);    <span class="comment">// stop transmitting</span></div>
 <div class="line">}</div>
 </div><!-- fragment --><h3>Example: AS5048B</h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Wire.h&gt;</span></div>
@@ -201,43 +213,489 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><span class="keyword">const</span> uint8_t kAMS = 0x40;</div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> setup() {</div>
-<div class="line">  pinMode(led, OUTPUT);</div>
+<div class="line">  <a class="code" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730">pinMode</a>(led, OUTPUT);</div>
 <div class="line">  Serial1.begin(115200);</div>
 <div class="line"></div>
-<div class="line">  Wire.setSpeed(WIRE_400K);</div>
-<div class="line">  Wire.begin();</div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#ad10fdb3bc506ea45833ec7107278b02f">setSpeed</a>(WIRE_400K);</div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#ada85a7a8663ec8af0a1248b659be2f18">begin</a>();</div>
 <div class="line">}</div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> loop() {</div>
-<div class="line">  uint32_t tic = micros();</div>
+<div class="line">  uint32_t tic = <a class="code" href="group___time.html#ga2b97cb2cd2661deade2d301d38c4ebe8">micros</a>();</div>
 <div class="line"></div>
-<div class="line">  Wire.beginTransmission(kAMS);</div>
-<div class="line">  Wire.write(255);</div>
-<div class="line">  Wire.endTransmission(<span class="keyword">false</span>);</div>
-<div class="line">  Wire.requestFrom(kAMS, 1);</div>
-<div class="line">  uint8_t l = Wire.read() &amp; 0x3f;</div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#a1876ffdb16fb185c14a75e1251cef5e4">beginTransmission</a>(kAMS);</div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#a3dead761a20db7a7bced562967170919">write</a>(255);</div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#a1a32e8abde1410a2ad7938475840b0bc">endTransmission</a>(<span class="keyword">false</span>);</div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#a35778784c333b7284e3c2378826b814d">requestFrom</a>(kAMS, 1);</div>
+<div class="line">  uint8_t l = Wire.<a class="code" href="class_two_wire.html#aa361b83500d00dfb93bb25b6473b33e9">read</a>() &amp; 0x3f;</div>
 <div class="line"></div>
-<div class="line">  Wire.beginTransmission(kAMS);</div>
-<div class="line">  Wire.write(254);</div>
-<div class="line">  Wire.endTransmission(<span class="keyword">false</span>);</div>
-<div class="line">  Wire.requestFrom(kAMS, 1);</div>
-<div class="line">  uint8_t h = Wire.read();</div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#a1876ffdb16fb185c14a75e1251cef5e4">beginTransmission</a>(kAMS);</div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#a3dead761a20db7a7bced562967170919">write</a>(254);</div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#a1a32e8abde1410a2ad7938475840b0bc">endTransmission</a>(<span class="keyword">false</span>);</div>
+<div class="line">  Wire.<a class="code" href="class_two_wire.html#a35778784c333b7284e3c2378826b814d">requestFrom</a>(kAMS, 1);</div>
+<div class="line">  uint8_t h = Wire.<a class="code" href="class_two_wire.html#aa361b83500d00dfb93bb25b6473b33e9">read</a>();</div>
 <div class="line"></div>
-<div class="line">  tic = micros() - tic;</div>
+<div class="line">  tic = <a class="code" href="group___time.html#ga2b97cb2cd2661deade2d301d38c4ebe8">micros</a>() - tic;</div>
 <div class="line"></div>
 <div class="line">  Serial1 &lt;&lt; <span class="stringliteral">&quot;Read position = &quot;</span> &lt;&lt; ((uint16_t)h&lt;&lt;6) + (uint16_t)l &lt;&lt; <span class="stringliteral">&quot;, took &quot;</span> &lt;&lt; tic &lt;&lt; <span class="stringliteral">&quot;us.\n&quot;</span>;</div>
 <div class="line"></div>
-<div class="line">  digitalWrite(led, TOGGLE);</div>
-<div class="line">  delay(50);</div>
+<div class="line">  <a class="code" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7">digitalWrite</a>(led, TOGGLE);</div>
+<div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(50);</div>
 <div class="line">}</div>
-</div><!-- fragment --> </div><hr/>The documentation for this class was generated from the following file:<ul>
-<li>Wire.md</li>
+</div><!-- fragment --> </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a79ed81c0bd26ebdc03be84e754bd5ffc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_two_wire.html#a79ed81c0bd26ebdc03be84e754bd5ffc">TwoWire</a> (I2C_TypeDef *I2Cx)</td></tr>
+<tr class="separator:a79ed81c0bd26ebdc03be84e754bd5ffc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada85a7a8663ec8af0a1248b659be2f18"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_two_wire.html#ada85a7a8663ec8af0a1248b659be2f18">begin</a> ()</td></tr>
+<tr class="memdesc:ada85a7a8663ec8af0a1248b659be2f18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start the I2C peripheral and configure the <code>SDA</code> and <code>SCL</code> pins.  <a href="#ada85a7a8663ec8af0a1248b659be2f18">More...</a><br /></td></tr>
+<tr class="separator:ada85a7a8663ec8af0a1248b659be2f18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1876ffdb16fb185c14a75e1251cef5e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_two_wire.html#a1876ffdb16fb185c14a75e1251cef5e4">beginTransmission</a> (uint8_t address)</td></tr>
+<tr class="memdesc:a1876ffdb16fb185c14a75e1251cef5e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command to begin a write operation.  <a href="#a1876ffdb16fb185c14a75e1251cef5e4">More...</a><br /></td></tr>
+<tr class="separator:a1876ffdb16fb185c14a75e1251cef5e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a32e8abde1410a2ad7938475840b0bc"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_two_wire.html#a1a32e8abde1410a2ad7938475840b0bc">endTransmission</a> (bool stop)</td></tr>
+<tr class="memdesc:a1a32e8abde1410a2ad7938475840b0bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transfer the I2C commands queued in the write buffer.  <a href="#a1a32e8abde1410a2ad7938475840b0bc">More...</a><br /></td></tr>
+<tr class="separator:a1a32e8abde1410a2ad7938475840b0bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a294bec855a25d7d2009ea4675484474d"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_two_wire.html#a294bec855a25d7d2009ea4675484474d">endTransmission</a> ()</td></tr>
+<tr class="separator:a294bec855a25d7d2009ea4675484474d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3dead761a20db7a7bced562967170919"><td class="memItemLeft" align="right" valign="top">virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_two_wire.html#a3dead761a20db7a7bced562967170919">write</a> (uint8_t b)</td></tr>
+<tr class="memdesc:a3dead761a20db7a7bced562967170919"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a single byte to the write buffer.  <a href="#a3dead761a20db7a7bced562967170919">More...</a><br /></td></tr>
+<tr class="separator:a3dead761a20db7a7bced562967170919"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35778784c333b7284e3c2378826b814d"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_two_wire.html#a35778784c333b7284e3c2378826b814d">requestFrom</a> (uint8_t address, uint8_t quantity)</td></tr>
+<tr class="separator:a35778784c333b7284e3c2378826b814d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a614ee848d1a3f9a45b93ee987ef42ac1"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_two_wire.html#a614ee848d1a3f9a45b93ee987ef42ac1">requestFrom</a> (uint8_t address, uint8_t quantity, bool stop)</td></tr>
+<tr class="memdesc:a614ee848d1a3f9a45b93ee987ef42ac1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begin an I2C receive transfer operation.  <a href="#a614ee848d1a3f9a45b93ee987ef42ac1">More...</a><br /></td></tr>
+<tr class="separator:a614ee848d1a3f9a45b93ee987ef42ac1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee57bc52bee06508e231c5fc6bc35ada"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_two_wire.html#aee57bc52bee06508e231c5fc6bc35ada">available</a> (void)</td></tr>
+<tr class="memdesc:aee57bc52bee06508e231c5fc6bc35ada"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the number of bytes in the receive buffer.  <a href="#aee57bc52bee06508e231c5fc6bc35ada">More...</a><br /></td></tr>
+<tr class="separator:aee57bc52bee06508e231c5fc6bc35ada"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa361b83500d00dfb93bb25b6473b33e9"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_two_wire.html#aa361b83500d00dfb93bb25b6473b33e9">read</a> (void)</td></tr>
+<tr class="memdesc:aa361b83500d00dfb93bb25b6473b33e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a single byte from the receive buffer.  <a href="#aa361b83500d00dfb93bb25b6473b33e9">More...</a><br /></td></tr>
+<tr class="separator:aa361b83500d00dfb93bb25b6473b33e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bd64cb7bd609e9470a15d96a0991ec8"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_two_wire.html#a5bd64cb7bd609e9470a15d96a0991ec8">peek</a> (void)</td></tr>
+<tr class="memdesc:a5bd64cb7bd609e9470a15d96a0991ec8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a single byte from the receive buffer.  <a href="#a5bd64cb7bd609e9470a15d96a0991ec8">More...</a><br /></td></tr>
+<tr class="separator:a5bd64cb7bd609e9470a15d96a0991ec8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d92ddf6ca349c815de1de15fca06b5e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4d92ddf6ca349c815de1de15fca06b5e"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_two_wire.html#a4d92ddf6ca349c815de1de15fca06b5e">flush</a> (void)</td></tr>
+<tr class="memdesc:a4d92ddf6ca349c815de1de15fca06b5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waits till the previous write operation is finished. <br /></td></tr>
+<tr class="separator:a4d92ddf6ca349c815de1de15fca06b5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad10fdb3bc506ea45833ec7107278b02f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_two_wire.html#ad10fdb3bc506ea45833ec7107278b02f">setSpeed</a> (WireClockSpeed)</td></tr>
+<tr class="memdesc:ad10fdb3bc506ea45833ec7107278b02f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set SCL clock speed.  <a href="#ad10fdb3bc506ea45833ec7107278b02f">More...</a><br /></td></tr>
+<tr class="separator:ad10fdb3bc506ea45833ec7107278b02f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6a23f97fd2ee62fc085f4666bd0b4f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_two_wire.html#ae6a23f97fd2ee62fc085f4666bd0b4f1">stretchClock</a> (bool flag)</td></tr>
+<tr class="memdesc:ae6a23f97fd2ee62fc085f4666bd0b4f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable I2C clock stretching.  <a href="#ae6a23f97fd2ee62fc085f4666bd0b4f1">More...</a><br /></td></tr>
+<tr class="separator:ae6a23f97fd2ee62fc085f4666bd0b4f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_stream"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_stream')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_stream.html">Stream</a></td></tr>
+<tr class="memitem:a46b2d7c7e65159c07b9ea877d0d53299 inherit pub_methods_class_stream"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stream.html#a46b2d7c7e65159c07b9ea877d0d53299">setTimeout</a> (uint32_t timeout)</td></tr>
+<tr class="memdesc:a46b2d7c7e65159c07b9ea877d0d53299 inherit pub_methods_class_stream"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets maximum milliseconds to wait for stream data.  <a href="#a46b2d7c7e65159c07b9ea877d0d53299">More...</a><br /></td></tr>
+<tr class="separator:a46b2d7c7e65159c07b9ea877d0d53299 inherit pub_methods_class_stream"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4bab30ccd324efd461dee46a2339f673 inherit pub_methods_class_stream"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stream.html#a4bab30ccd324efd461dee46a2339f673">find</a> (char *target)</td></tr>
+<tr class="memdesc:a4bab30ccd324efd461dee46a2339f673 inherit pub_methods_class_stream"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads data from the stream until the target string is found.  <a href="#a4bab30ccd324efd461dee46a2339f673">More...</a><br /></td></tr>
+<tr class="separator:a4bab30ccd324efd461dee46a2339f673 inherit pub_methods_class_stream"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad851401f2318cdb1de05707e021b81d9 inherit pub_methods_class_stream"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stream.html#ad851401f2318cdb1de05707e021b81d9">find</a> (char *target, size_t length)</td></tr>
+<tr class="memdesc:ad851401f2318cdb1de05707e021b81d9 inherit pub_methods_class_stream"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads data from the stream until the target string of given length is found.  <a href="#ad851401f2318cdb1de05707e021b81d9">More...</a><br /></td></tr>
+<tr class="separator:ad851401f2318cdb1de05707e021b81d9 inherit pub_methods_class_stream"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1f5f6600832396fb38a897baf4de35b inherit pub_methods_class_stream"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stream.html#ad1f5f6600832396fb38a897baf4de35b">findUntil</a> (char *target, char *terminator)</td></tr>
+<tr class="memdesc:ad1f5f6600832396fb38a897baf4de35b inherit pub_methods_class_stream"><td class="mdescLeft">&#160;</td><td class="mdescRight">Same as <a class="el" href="class_stream.html#a4bab30ccd324efd461dee46a2339f673" title="Reads data from the stream until the target string is found. ">find()</a> but search ends if the terminator string is found.  <a href="#ad1f5f6600832396fb38a897baf4de35b">More...</a><br /></td></tr>
+<tr class="separator:ad1f5f6600832396fb38a897baf4de35b inherit pub_methods_class_stream"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abeda6a8584f0214ff4a2e99c1f96d60c inherit pub_methods_class_stream"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stream.html#abeda6a8584f0214ff4a2e99c1f96d60c">parseInt</a> ()</td></tr>
+<tr class="memdesc:abeda6a8584f0214ff4a2e99c1f96d60c inherit pub_methods_class_stream"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the first valid (long) integer value from the current position.  <a href="#abeda6a8584f0214ff4a2e99c1f96d60c">More...</a><br /></td></tr>
+<tr class="separator:abeda6a8584f0214ff4a2e99c1f96d60c inherit pub_methods_class_stream"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e5a0cc11eb586d89dcb7fa8e53a87e8 inherit pub_methods_class_stream"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stream.html#a5e5a0cc11eb586d89dcb7fa8e53a87e8">parseFloat</a> ()</td></tr>
+<tr class="memdesc:a5e5a0cc11eb586d89dcb7fa8e53a87e8 inherit pub_methods_class_stream"><td class="mdescLeft">&#160;</td><td class="mdescRight">Float version of <a class="el" href="class_stream.html#abeda6a8584f0214ff4a2e99c1f96d60c" title="Returns the first valid (long) integer value from the current position. ">parseInt()</a>  <a href="#a5e5a0cc11eb586d89dcb7fa8e53a87e8">More...</a><br /></td></tr>
+<tr class="separator:a5e5a0cc11eb586d89dcb7fa8e53a87e8 inherit pub_methods_class_stream"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45fd1336a323ea83b16e8507055f44ea inherit pub_methods_class_stream"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stream.html#a45fd1336a323ea83b16e8507055f44ea">readBytes</a> (char *buffer, size_t length)</td></tr>
+<tr class="memdesc:a45fd1336a323ea83b16e8507055f44ea inherit pub_methods_class_stream"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read chars from stream into buffer.  <a href="#a45fd1336a323ea83b16e8507055f44ea">More...</a><br /></td></tr>
+<tr class="separator:a45fd1336a323ea83b16e8507055f44ea inherit pub_methods_class_stream"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af84672a4fb2620466958d3118d4fea00 inherit pub_methods_class_stream"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stream.html#af84672a4fb2620466958d3118d4fea00">readBytesUntil</a> (char terminator, char *buffer, size_t length)</td></tr>
+<tr class="memdesc:af84672a4fb2620466958d3118d4fea00 inherit pub_methods_class_stream"><td class="mdescLeft">&#160;</td><td class="mdescRight">Same as <a class="el" href="class_stream.html#a45fd1336a323ea83b16e8507055f44ea" title="Read chars from stream into buffer. ">readBytes()</a> with terminator character.  <a href="#af84672a4fb2620466958d3118d4fea00">More...</a><br /></td></tr>
+<tr class="separator:af84672a4fb2620466958d3118d4fea00 inherit pub_methods_class_stream"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+
+<p>Inherits <a class="el" href="class_stream.html">Stream</a>.</p>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a79ed81c0bd26ebdc03be84e754bd5ffc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TwoWire::TwoWire </td>
+          <td>(</td>
+          <td class="paramtype">I2C_TypeDef *&#160;</td>
+          <td class="paramname"><em>I2Cx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section author"><dt>Authors</dt><dd>Avik De <a href="#" onclick="location.href='mai'+'lto:'+'avi'+'kd'+'e@g'+'ma'+'il.'+'co'+'m'; return false;">avikd<span style="display: none;">.nosp@m.</span>e@gm<span style="display: none;">.nosp@m.</span>ail.c<span style="display: none;">.nosp@m.</span>om</a></dd></dl>
+<p>This file is part of koduino <a href="https://github.com/avikde/koduino">https://github.com/avikde/koduino</a></p>
+<p>This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
+<p>This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.</p>
+<p>You should have received a copy of the GNU Lesser General Public License along with this library; if not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="aee57bc52bee06508e231c5fc6bc35ada"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int TwoWire::available </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Return the number of bytes in the receive buffer. </p>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+<p>Implements <a class="el" href="class_stream.html#a9c98a763395005c08ce95afb2f06c7b1">Stream</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ada85a7a8663ec8af0a1248b659be2f18"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TwoWire::begin </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Start the I2C peripheral and configure the <code>SDA</code> and <code>SCL</code> pins. </p>
+<p>This must be called before any transfer commands </p>
+
+</div>
+</div>
+<a class="anchor" id="a1876ffdb16fb185c14a75e1251cef5e4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TwoWire::beginTransmission </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>address</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Command to begin a write operation. </p>
+<p>Queues the slave address in the write buffer</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">address</td><td>7-bit slave address </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a1a32e8abde1410a2ad7938475840b0bc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t TwoWire::endTransmission </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>stop</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Transfer the I2C commands queued in the write buffer. </p>
+<p>This command actually does the I2C transfer, i.e. will consume a large amount of time. It blocks till the transfer is finished.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stop</td><td>(Default: <code>true</code>.) Whether or not to send a STOP condition. <em>Warning:</em> the bus will hang unless a STOP is (eventually) sent.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>One of<ul>
+<li>0:success</li>
+<li>1:data too long to fit in transmit buffer</li>
+<li>2:received NACK on transmit of address</li>
+<li>3:received NACK on transmit of data</li>
+<li>4:other error </li>
+</ul>
+</dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a294bec855a25d7d2009ea4675484474d"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t TwoWire::endTransmission </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. </p>
+
+</div>
+</div>
+<a class="anchor" id="a5bd64cb7bd609e9470a15d96a0991ec8"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int TwoWire::peek </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reads a single byte from the receive buffer. </p>
+<p>Does not increment the buffer pointer </p><dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+<p>Implements <a class="el" href="class_stream.html#a30c3c212ec6ea67277a708c5ea2501a5">Stream</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa361b83500d00dfb93bb25b6473b33e9"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int TwoWire::read </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reads a single byte from the receive buffer. </p>
+<p>Increments the buffer pointer </p><dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+<p>Implements <a class="el" href="class_stream.html#aea5dee9fcb038148515b7c9212d38dc0">Stream</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a35778784c333b7284e3c2378826b814d"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t TwoWire::requestFrom </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>address</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>quantity</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. </p>
+
+</div>
+</div>
+<a class="anchor" id="a614ee848d1a3f9a45b93ee987ef42ac1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t TwoWire::requestFrom </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>address</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>quantity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>stop</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Begin an I2C receive transfer operation. </p>
+<p>This function opens the I2C line, sends the slave address and blocks and waits till quantity bytes are received. There is a timeout of ~600us and if nothing is received in that time, the function will return prematurely with the number of bytes received. The received bytes are left in the receive buffer.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">address</td><td>7-bit slave address </td></tr>
+    <tr><td class="paramname">quantity</td><td>Number of bytes to request </td></tr>
+    <tr><td class="paramname">stop</td><td>(Default: <code>true</code>.) Whether or not to send a STOP condition. <em>Warning:</em> the bus will hang unless a STOP is (eventually) sent. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of bytes received before a timeout. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad10fdb3bc506ea45833ec7107278b02f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TwoWire::setSpeed </td>
+          <td>(</td>
+          <td class="paramtype">WireClockSpeed&#160;</td>
+          <td class="paramname"><em>clockSpeed</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set SCL clock speed. </p>
+<p>Call this before <a class="el" href="class_two_wire.html#ada85a7a8663ec8af0a1248b659be2f18" title="Start the I2C peripheral and configure the SDA and SCL pins. ">begin()</a></p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">One</td><td>of <code>WIRE_100K</code>, <code>WIRE_200K</code>, <code>WIRE_400K</code>, or <code>WIRE_1M</code> (with units of Hz) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ae6a23f97fd2ee62fc085f4666bd0b4f1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TwoWire::stretchClock </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>flag</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enable I2C clock stretching. </p>
+<p><a href="http://www.i2c-bus.org/clock-stretching/">Clock stretching</a> is an I2C bus feature which may help slow slave devices keep to the timing enforced by the master. This needs to be called before <a class="el" href="class_two_wire.html#ada85a7a8663ec8af0a1248b659be2f18" title="Start the I2C peripheral and configure the SDA and SCL pins. ">begin()</a> <em>Warning: untested.</em></p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">flag</td><td><code>true</code> to enable, <code>false</code> to disable. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a3dead761a20db7a7bced562967170919"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t TwoWire::write </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>b</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Add a single byte to the write buffer. </p>
+<p>Queues a byte to be sent</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">b</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>1</code> if successfull, <code>0</code> if write buffer is full </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li><a class="el" href="_wire_8h_source.html">Wire.h</a></li>
+<li>Wire.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 23 2016 11:13:49 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jan 23 2016 11:15:32 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

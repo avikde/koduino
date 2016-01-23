@@ -46,6 +46,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -135,7 +136,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>Create a spreadsheet pair as above (f40_41x is the best example) for the targeted chip using the datasheet</li>
 <li>To go with these spreadsheets, there is a python script called <code>variant_codegen.py</code> in the <code>variants</code> directory which prints out C code that can be pasted into <code>variant.cpp</code> and <code>variant.h</code></li>
 <li>The USARTx_TX, RX pins need to be manually entered in the definition of <code>USART_MAP</code></li>
-<li><code>TIMEBASE_MAP</code> configures timers used for <a class="el" href="group___timebase.html">attachTimerInterrupt</a>. At least one of them <em>must</em> be configured for the system clock (<code>millis()</code>, <code>micros()</code>, <code>delay()</code> will not work otherwise).</li>
+<li><code>TIMEBASE_MAP</code> configures timers used for <a class="el" href="group___timebase.html">attachTimerInterrupt</a>. At least one of them <em>must</em> be configured for the system clock (<code><a class="el" href="group___time.html#gadb94fbd930038e1510574dd4bcf07fe1">millis()</a></code>, <code><a class="el" href="group___time.html#ga2b97cb2cd2661deade2d301d38c4ebe8">micros()</a></code>, <code><a class="el" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d" title="Blocks execution for a specified number of milliseconds. ">delay()</a></code> will not work otherwise).</li>
 <li>Set <code>SYSCLK_TIMEBASE</code> to the array index into <code>TIMEBASE_MAP</code> that should be the system clock. The actual timer peripheral that should be used (can be a basic timer, per ST datasheet) is configured in the first section of <code>variantInit()</code>.</li>
 <li>The interrupt handlers <em>must</em> be configured in <code>stm32fxxx_it.c</code>. At a minimum, make sure that the system clock ISR is pointing to the correct timer. For an example, please see an existing variant such as <code>f37x</code> or <code>f40_41x</code>.</li>
 </ul>
@@ -147,7 +148,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 23 2016 11:13:49 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jan 23 2016 11:15:32 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

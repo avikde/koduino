@@ -46,6 +46,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -69,6 +70,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -87,38 +90,124 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="class_e_e_p_r_o_m_class-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">EEPROMClass Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>EEPROM library (call with global object <code>EEPROM</code>)  
+ <a href="class_e_e_p_r_o_m_class.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_e_e_p_r_o_m_8h_source.html">EEPROM.h</a>&gt;</code></p>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This class allows storing data / parameters in non-volatile memory that you may not want to hard-code in the source file, e.g. the zero-position for a motor. <em>Note:</em> unlike Arduino, in which each address corresponds to a byte, here each address from 0-31 corresponds to a 32-bit value (convenient for ints and floats).</p>
+<div class="textblock"><p>EEPROM library (call with global object <code>EEPROM</code>) </p>
+<dl class="section author"><dt>Authors</dt><dd>Avik De <a href="#" onclick="location.href='mai'+'lto:'+'avi'+'kd'+'e@g'+'ma'+'il.'+'co'+'m'; return false;">avikd<span style="display: none;">.nosp@m.</span>e@gm<span style="display: none;">.nosp@m.</span>ail.c<span style="display: none;">.nosp@m.</span>om</a></dd></dl>
+<p>This file is part of koduino <a href="https://github.com/avikde/koduino">https://github.com/avikde/koduino</a></p>
+<p>This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
+<p>This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.</p>
+<p>You should have received a copy of the GNU Lesser General Public License along with this library; if not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>
+<p>This class allows storing data / parameters in non-volatile memory that you may not want to hard-code in the source file, e.g. the zero-position for a motor. <em>Note:</em> unlike Arduino, in which each address corresponds to a byte, here each address from 0-31 corresponds to a 32-bit value (convenient for ints and floats).</p>
 <p>There are distinct functions writeFloat() and readFloat() for floating-point values since static casts have to be avoided.</p>
 <h3>Usage</h3>
 <ol type="1">
-<li>Call write() or writeFloat() to store, and read() or readFloat()to retrieve values</li>
+<li>Call <a class="el" href="class_e_e_p_r_o_m_class.html#a9013309e472b45262c896b8643dc03c8" title="Store a 16-bit integer in EEPROM. ">write()</a> or writeFloat() to store, and <a class="el" href="class_e_e_p_r_o_m_class.html#a8f7aacb0a1464c988a3001a316a186f0" title="Read a 16-bit integer from EEPROM. ">read()</a> or readFloat()to retrieve values</li>
 </ol>
 <h3>Example: Write/read</h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;EEPROM.h&gt;</span></div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> setup() {</div>
 <div class="line">  Serial1.begin(115200);</div>
-<div class="line">  EEPROM.write(0, 123);</div>
+<div class="line">  EEPROM.<a class="code" href="class_e_e_p_r_o_m_class.html#a9013309e472b45262c896b8643dc03c8">write</a>(0, 123);</div>
 <div class="line">  EEPROM.writeFloat(1, 4.56);</div>
 <div class="line">}</div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> loop() {</div>
-<div class="line">  Serial1 &lt;&lt; <span class="stringliteral">&quot;Expect 123, 4.56; read &quot;</span> &lt;&lt; EEPROM.read(0) &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; EEPROM.readFloat(1) &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line">  delay(1000);</div>
+<div class="line">  Serial1 &lt;&lt; <span class="stringliteral">&quot;Expect 123, 4.56; read &quot;</span> &lt;&lt; EEPROM.<a class="code" href="class_e_e_p_r_o_m_class.html#a8f7aacb0a1464c988a3001a316a186f0">read</a>(0) &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; EEPROM.readFloat(1) &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(1000);</div>
 <div class="line">}</div>
-</div><!-- fragment --> </div><hr/>The documentation for this class was generated from the following file:<ul>
-<li>EEPROM.md</li>
+</div><!-- fragment --> </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a8f7aacb0a1464c988a3001a316a186f0"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_e_p_r_o_m_class.html#a8f7aacb0a1464c988a3001a316a186f0">read</a> (uint16_t address)</td></tr>
+<tr class="memdesc:a8f7aacb0a1464c988a3001a316a186f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a 16-bit integer from EEPROM.  <a href="#a8f7aacb0a1464c988a3001a316a186f0">More...</a><br /></td></tr>
+<tr class="separator:a8f7aacb0a1464c988a3001a316a186f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9013309e472b45262c896b8643dc03c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_e_p_r_o_m_class.html#a9013309e472b45262c896b8643dc03c8">write</a> (uint16_t address, uint16_t data)</td></tr>
+<tr class="memdesc:a9013309e472b45262c896b8643dc03c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store a 16-bit integer in EEPROM.  <a href="#a9013309e472b45262c896b8643dc03c8">More...</a><br /></td></tr>
+<tr class="separator:a9013309e472b45262c896b8643dc03c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a8f7aacb0a1464c988a3001a316a186f0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t EEPROMClass::read </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>address</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Read a 16-bit integer from EEPROM. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">address</td><td>Address between 0 and 31 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a9013309e472b45262c896b8643dc03c8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void EEPROMClass::write </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>address</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Store a 16-bit integer in EEPROM. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">address</td><td>Address between 0 and 31 </td></tr>
+    <tr><td class="paramname">value</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li><a class="el" href="_e_e_p_r_o_m_8h_source.html">EEPROM.h</a></li>
+<li>EEPROM.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 23 2016 11:13:49 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jan 23 2016 11:15:32 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

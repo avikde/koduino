@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>Koduino: Analog</title>
+<title>Koduino: Analog input</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -46,6 +46,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -81,33 +82,152 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">Analog</div>  </div>
+<div class="title">Analog input</div>  </div>
 </div><!--header-->
 <div class="contents">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <h3>Usage</h3>
 <ol type="1">
-<li>Call pinMode() with <code>INPUT_ANALOG</code></li>
-<li>Optionally call analogReadSampleTime()</li>
-<li>Call analogRead() to get a new sample (should take ~5us)</li>
+<li>Call <a class="el" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730" title="Configure a pin before using it. ">pinMode()</a> with <code>INPUT_ANALOG</code></li>
+<li>Optionally call <a class="el" href="group___analog.html#gacff56f09a9d08b160d957caff4c41b1b" title="Set ADC sample time. ">analogReadSampleTime()</a></li>
+<li>Call <a class="el" href="group___analog.html#ga4edb9397d5e5089f29bf504a1b5192b3" title="Read a single pin. ">analogRead()</a> to get a new sample (should take ~5us)</li>
 </ol>
 <h3>Example</h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Arduino.h&gt;</span></div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> setup() {</div>
 <div class="line">  Serial1.begin(115200);</div>
-<div class="line">  pinMode(PA5, INPUT_ANALOG);</div>
+<div class="line">  <a class="code" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730">pinMode</a>(PA5, INPUT_ANALOG);</div>
 <div class="line">}</div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> loop() {</div>
-<div class="line">  Serial1 &lt;&lt; <span class="stringliteral">&quot;PA5=&quot;</span> &lt;&lt; analogRead(PA5) &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line">  delay(50);</div>
+<div class="line">  Serial1 &lt;&lt; <span class="stringliteral">&quot;PA5=&quot;</span> &lt;&lt; <a class="code" href="group___analog.html#ga4edb9397d5e5089f29bf504a1b5192b3">analogRead</a>(PA5) &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(50);</div>
 <div class="line">}</div>
-</div><!-- fragment --> </div><!-- contents -->
+</div><!-- fragment --> <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:gacff56f09a9d08b160d957caff4c41b1b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___analog.html#gacff56f09a9d08b160d957caff4c41b1b">analogReadSampleTime</a> (uint8_t sampleTime)</td></tr>
+<tr class="memdesc:gacff56f09a9d08b160d957caff4c41b1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set ADC sample time.  <a href="#gacff56f09a9d08b160d957caff4c41b1b">More...</a><br /></td></tr>
+<tr class="separator:gacff56f09a9d08b160d957caff4c41b1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4edb9397d5e5089f29bf504a1b5192b3"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___analog.html#ga4edb9397d5e5089f29bf504a1b5192b3">analogRead</a> (uint8_t pin)</td></tr>
+<tr class="memdesc:ga4edb9397d5e5089f29bf504a1b5192b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a single pin.  <a href="#ga4edb9397d5e5089f29bf504a1b5192b3">More...</a><br /></td></tr>
+<tr class="separator:ga4edb9397d5e5089f29bf504a1b5192b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4fd6831861c1e3b19777b7b0bb65de65"><td class="memItemLeft" align="right" valign="top">const uint16_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___analog.html#ga4fd6831861c1e3b19777b7b0bb65de65">analogSyncRead</a> (uint8_t pin1, uint8_t pin2, uint8_t pin3)</td></tr>
+<tr class="memdesc:ga4fd6831861c1e3b19777b7b0bb65de65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read 3 pins synchronously.  <a href="#ga4fd6831861c1e3b19777b7b0bb65de65">More...</a><br /></td></tr>
+<tr class="separator:ga4fd6831861c1e3b19777b7b0bb65de65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="ga4edb9397d5e5089f29bf504a1b5192b3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t analogRead </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>pin</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Read a single pin. </p>
+<p>Should take ~5us for (see <a class="el" href="group___analog.html#gacff56f09a9d08b160d957caff4c41b1b" title="Set ADC sample time. ">analogReadSampleTime()</a>)</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pin</td><td>Pin name to read </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The 12-bit (0-4096) value of the converted signal, with 0 = 0V, 4096 = 3.3V </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="gacff56f09a9d08b160d957caff4c41b1b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void analogReadSampleTime </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>sampleTime</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set ADC sample time. </p>
+<p>This should be seen as a type of filtering. The default is 13.5 cycles, which is the minimum for 12-bit accuracy.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sampleTime</td><td>One of <code>ADC_SampleTime_1Cycles5</code>, <code>ADC_SampleTime_7Cycles5</code>, <code>ADC_SampleTime_13Cycles5</code> (<b>default</b>), <code>ADC_SampleTime_28Cycles5</code>, <code>ADC_SampleTime_41Cycles5</code>, <code>ADC_SampleTime_55Cycles5</code>, <code>ADC_SampleTime_71Cycles5</code>, <code>ADC_SampleTime_239Cycles5</code>. (E.g. the default is 13.5 cycles sampling time) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ga4fd6831861c1e3b19777b7b0bb65de65"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint16_t* analogSyncRead </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>pin1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>pin2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>pin3</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Read 3 pins synchronously. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pin</td><td>Pin name to read </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The 12-bit (0-4096) value of the converted signal, with 0 = 0V, 4096 = 3.3V</dd></dl>
+<p>Should take ~5us (see <a class="el" href="group___analog.html#gacff56f09a9d08b160d957caff4c41b1b" title="Set ADC sample time. ">analogReadSampleTime()</a>)</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pin1</td><td></td></tr>
+    <tr><td class="paramname">pin2</td><td></td></tr>
+    <tr><td class="paramname">pin3</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>An array of 3x 16-bit integers containing conversion values from pin1, pin2, pin3 respectively. </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 23 2016 11:13:49 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jan 23 2016 11:15:32 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>
