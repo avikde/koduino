@@ -90,13 +90,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <h3>Usage</h3>
-<ol type="1">
-<li>TODO. mostly, see example</li>
+<p>See example below.</p>
+<p>Basic control of a single motor:</p><ol type="1">
+<li>Call initialization function, like <a class="el" href="class_bl_con34.html#aae0df02b2a2a7b948eafcf3e1c873283" title="Initialize a motor with gear ratio 1. ">BlCon34::init()</a> or <a class="el" href="class_dxl_motor.html#acd6a880d4875407cd9aa780cb021ecfd">DxlMotor::init()</a></li>
+<li>Call <a class="el" href="class_motor.html#a3674d10b8a8e59bc54fedd73c8bc458c" title="Enable the motor. ">Motor::enable()</a></li>
+<li>Call <a class="el" href="class_motor.html#ae6f4b739d3bfbcd4d07c70f9a1976e26" title="Set an open loop PWM command for the motor. ">Motor::setOpenLoop()</a> with an argument between -1 and 1 to spin freely</li>
+<li>Call <a class="el" href="class_motor.html#a92651f68c98907bc111bfef6a34965eb" title="Set gain for position control. ">Motor::setGain()</a> and <a class="el" href="class_motor.html#a7494377351ccb26b43fd1971c15aca30" title="Set a desired position for the motor in radians. ">Motor::setPosition()</a> to command a position</li>
+<li>Call <a class="el" href="class_motor.html#a93ea58e6b68d4c791376f94e0e86bbe5" title="Get position after direction and zero are taken into account. ">Motor::getPosition()</a> or <a class="el" href="class_motor.html#a3c0f019abe39b8f7a5110ff3366d5fc9" title="Get motor velocity after direction and zero are taken into account. ">Motor::getVelocity()</a> to get back data</li>
+<li><a class="el" href="class_motor.html#a1aed5249d7e088b34bf5e45da6c7f21e" title="Function that communicates with the motor controller (including getting position, commanding PWM) ...">Motor::update()</a> must be called frequently, preferably through a timer interrupt (<a class="el" href="group___timebase.html#ga5bf1468dbfe70bf8a0a511df76075992" title="Begin a timer interrupt. ">attachTimerInterrupt()</a>) for <a class="el" href="class_bl_con34.html" title="Derived class for communicating with PWM-controlled boards. ">BlCon34</a>, or just as often as possible for <a class="el" href="class_dxl_motor.html" title="Derived class for talking to motors over the Dxl bus. ">DxlMotor</a></li>
 </ol>
 <h3>Setting motor zero (independent of physical setup)</h3>
 <ol type="1">
 <li>To calibrate a motor's zero position, rotate the output shaft of the motor (or gearbox) at the desired zero location.</li>
-<li>Take the output of <a class="el" href="class_motor.html#aa57a20a89e0090b007a916868e4cfa35" title="Raw position read from the motor driver. ">Motor::getRawPosition()</a> (a number that will be between 0 and 2 PI), and use that as the zero argument for the <a class="el" href="class_motor.html#aae93220ea2eda8beb4d405c5c4916b2b" title="Initialize motor properties. ">Motor::init()</a> (or the equivalent calls in specific derived classes, like <a class="el" href="class_bl_con34.html#aae0df02b2a2a7b948eafcf3e1c873283" title="Initialize a motor with gear ratio 1. ">BlCon34::init()</a>). The direction of the motor and the gear box do not have any effect on the zeroing routine.</li>
+<li>Take the output of <a class="el" href="class_motor.html#aa57a20a89e0090b007a916868e4cfa35" title="Raw position read from the motor driver. ">Motor::getRawPosition()</a> (a number that will be between 0 and 2 PI), and use that as the zero argument for the <a class="el" href="class_motor.html#aae93220ea2eda8beb4d405c5c4916b2b" title="Initialize motor properties. ">Motor::init()</a> (or the equivalent calls in specific derived classes, like <a class="el" href="class_bl_con34.html#aae0df02b2a2a7b948eafcf3e1c873283" title="Initialize a motor with gear ratio 1. ">BlCon34::init()</a> or <a class="el" href="class_dxl_motor.html#acd6a880d4875407cd9aa780cb021ecfd">DxlMotor::init()</a>). The direction of the motor and the gear box do not have any effect on the zeroing routine.</li>
 <li>For startup, the motor's output shaft must be within (-PI, PI)/gearRatio of the calibrated zero position. This means that in direct drive, the motor can be at an arbitrary position, but when using a gearbox the startup angle is decreased since there are no absolute enocders.</li>
 <li>If the motor driver setup takes some time (i.e. <a class="el" href="class_motor.html#aa57a20a89e0090b007a916868e4cfa35" title="Raw position read from the motor driver. ">Motor::getRawPosition()</a> returns garbage during init), then make sure to call <a class="el" href="class_motor.html#a7b52be740ffa84f78d9877e1dc001be2" title="Run this after you are sure there is non-garbage rawPosition data. ">Motor::resetOffset()</a> after there is non-garbage data. This should not be an issue in PWM controlled motor controllers.</li>
 <li>For any gear box with a ratio that is an integer, the motor/gear box assembly can be allowed to recirculate and still work correctly as long as the startup positioning is taken into account. However, for gear boxes with non-integer ratios (which seems to be most gear boxes), the motor/gear box assembly should NOT be allowed to recirculate ever because one full rotation of the output shaft results in a different <a class="el" href="class_motor.html#aa57a20a89e0090b007a916868e4cfa35" title="Raw position read from the motor driver. ">Motor::getRawPosition()</a> value.</li>
@@ -126,7 +132,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a class="code" href="class_bl_con34.html">BlCon34</a> M1;</div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> controlLoop() {</div>
-<div class="line">  M1.update();</div>
+<div class="line">  M1.<a class="code" href="class_motor.html#a1aed5249d7e088b34bf5e45da6c7f21e">update</a>();</div>
 <div class="line">}</div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> setup() {</div>
@@ -146,27 +152,27 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> loop() {</div>
 <div class="line">  <span class="comment">// set P-gain of 0.5/rad</span></div>
-<div class="line">  M1.setGain(0.5);</div>
+<div class="line">  M1.<a class="code" href="class_motor.html#a92651f68c98907bc111bfef6a34965eb">setGain</a>(0.5);</div>
 <div class="line">  <span class="comment">// can also set D-gain like the following:</span></div>
 <div class="line">  <span class="comment">// M1.setGain(0.5, 0.01);</span></div>
 <div class="line"></div>
 <div class="line">  <span class="comment">// Must call this to enable motor controller</span></div>
-<div class="line">  M1.enable(<span class="keyword">true</span>);</div>
+<div class="line">  M1.<a class="code" href="class_bl_con34.html#ac294cec048f4ef08b75cafb49802fdb6">enable</a>(<span class="keyword">true</span>);</div>
 <div class="line"></div>
 <div class="line">  <span class="comment">// go to 0 radians</span></div>
-<div class="line">  M1.setPosition(0);</div>
+<div class="line">  M1.<a class="code" href="class_motor.html#a7494377351ccb26b43fd1971c15aca30">setPosition</a>(0);</div>
 <div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(1000);</div>
 <div class="line"></div>
 <div class="line">  <span class="comment">// go to 1 radians</span></div>
-<div class="line">  M1.setPosition(1);</div>
+<div class="line">  M1.<a class="code" href="class_motor.html#a7494377351ccb26b43fd1971c15aca30">setPosition</a>(1);</div>
 <div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(1000);</div>
 <div class="line"></div>
 <div class="line">  <span class="comment">// spin freely in the + direction</span></div>
-<div class="line">  M1.setOpenLoop(0.5);</div>
+<div class="line">  M1.<a class="code" href="class_motor.html#ae6f4b739d3bfbcd4d07c70f9a1976e26">setOpenLoop</a>(0.5);</div>
 <div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(1000);</div>
 <div class="line"></div>
 <div class="line">  <span class="comment">// spin freely in the - direction</span></div>
-<div class="line">  M1.setOpenLoop(-0.5);</div>
+<div class="line">  M1.<a class="code" href="class_motor.html#ae6f4b739d3bfbcd4d07c70f9a1976e26">setOpenLoop</a>(-0.5);</div>
 <div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(1000);</div>
 <div class="line">}</div>
 </div><!-- fragment --><dl class="section author"><dt>Authors</dt><dd>Avik De <a href="#" onclick="location.href='mai'+'lto:'+'avi'+'kd'+'e@g'+'ma'+'il.'+'co'+'m'; return false;">avikd<span style="display: none;">.nosp@m.</span>e@gm<span style="display: none;">.nosp@m.</span>ail.c<span style="display: none;">.nosp@m.</span>om</a></dd></dl>
@@ -189,12 +195,15 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sagittal_pair.html">SagittalPair</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coordinates a pair of motors (for instance for sagittal plane behaviors)  <a href="class_sagittal_pair.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_dxl_motor.html">DxlMotor</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Derived class for talking to motors over the Dxl bus.  <a href="class_dxl_motor.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 23 2016 11:43:24 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jan 23 2016 12:18:24 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

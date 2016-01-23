@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['minitaurleg',['MinitaurLeg',['../class_minitaur_leg.html',1,'']]],
-  ['motor',['Motor',['../class_motor.html',1,'']]]
+  ['eepromclass',['EEPROMClass',['../class_e_e_p_r_o_m_class.html',1,'']]],
+  ['encoder',['Encoder',['../class_encoder.html',1,'']]]
 ];

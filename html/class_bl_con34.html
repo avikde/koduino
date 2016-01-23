@@ -111,13 +111,43 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aae0df02b2a2a7b948eafcf3e1c873283"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bl_con34.html#aae0df02b2a2a7b948eafcf3e1c873283">init</a> (uint8_t outPin_, uint8_t inPin_, float zero, int8_t dir, float gearRatio)</td></tr>
 <tr class="memdesc:aae0df02b2a2a7b948eafcf3e1c873283"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a motor with gear ratio 1.  <a href="#aae0df02b2a2a7b948eafcf3e1c873283">More...</a><br /></td></tr>
 <tr class="separator:aae0df02b2a2a7b948eafcf3e1c873283"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac294cec048f4ef08b75cafb49802fdb6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bl_con34.html#ac294cec048f4ef08b75cafb49802fdb6">enable</a> (bool flag)</td></tr>
+<tr class="memdesc:ac294cec048f4ef08b75cafb49802fdb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable the motor.  <a href="#ac294cec048f4ef08b75cafb49802fdb6">More...</a><br /></td></tr>
+<tr class="separator:ac294cec048f4ef08b75cafb49802fdb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a583183a0256298191c5ee59661589567"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bl_con34.html#a583183a0256298191c5ee59661589567">getRawPosition</a> ()</td></tr>
 <tr class="memdesc:a583183a0256298191c5ee59661589567"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raw position read from the motor driver.  <a href="#a583183a0256298191c5ee59661589567">More...</a><br /></td></tr>
 <tr class="separator:a583183a0256298191c5ee59661589567"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d2ba16a38c8d16b861e1588aaa8a19d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bl_con34.html#a5d2ba16a38c8d16b861e1588aaa8a19d">sendOpenLoop</a> (float val)</td></tr>
+<tr class="memdesc:a5d2ba16a38c8d16b861e1588aaa8a19d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Communicate a raw PWM to the motor controller.  <a href="#a5d2ba16a38c8d16b861e1588aaa8a19d">More...</a><br /></td></tr>
+<tr class="separator:a5d2ba16a38c8d16b861e1588aaa8a19d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_motor"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_motor')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_motor.html">Motor</a></td></tr>
 <tr class="memitem:aae93220ea2eda8beb4d405c5c4916b2b inherit pub_methods_class_motor"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_motor.html#aae93220ea2eda8beb4d405c5c4916b2b">init</a> (float zero, int8_t direction, float gearRatio)</td></tr>
 <tr class="memdesc:aae93220ea2eda8beb4d405c5c4916b2b inherit pub_methods_class_motor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize motor properties.  <a href="#aae93220ea2eda8beb4d405c5c4916b2b">More...</a><br /></td></tr>
 <tr class="separator:aae93220ea2eda8beb4d405c5c4916b2b inherit pub_methods_class_motor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93ea58e6b68d4c791376f94e0e86bbe5 inherit pub_methods_class_motor"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_motor.html#a93ea58e6b68d4c791376f94e0e86bbe5">getPosition</a> ()</td></tr>
+<tr class="memdesc:a93ea58e6b68d4c791376f94e0e86bbe5 inherit pub_methods_class_motor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get position after direction and zero are taken into account.  <a href="#a93ea58e6b68d4c791376f94e0e86bbe5">More...</a><br /></td></tr>
+<tr class="separator:a93ea58e6b68d4c791376f94e0e86bbe5 inherit pub_methods_class_motor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c0f019abe39b8f7a5110ff3366d5fc9 inherit pub_methods_class_motor"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_motor.html#a3c0f019abe39b8f7a5110ff3366d5fc9">getVelocity</a> ()</td></tr>
+<tr class="memdesc:a3c0f019abe39b8f7a5110ff3366d5fc9 inherit pub_methods_class_motor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get motor velocity after direction and zero are taken into account.  <a href="#a3c0f019abe39b8f7a5110ff3366d5fc9">More...</a><br /></td></tr>
+<tr class="separator:a3c0f019abe39b8f7a5110ff3366d5fc9 inherit pub_methods_class_motor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81d286df5bc4f0d719bf5bb107ac3795 inherit pub_methods_class_motor"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_motor.html#a81d286df5bc4f0d719bf5bb107ac3795">getOpenLoop</a> ()</td></tr>
+<tr class="memdesc:a81d286df5bc4f0d719bf5bb107ac3795 inherit pub_methods_class_motor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the PWM duty cycle commanded to the motor.  <a href="#a81d286df5bc4f0d719bf5bb107ac3795">More...</a><br /></td></tr>
+<tr class="separator:a81d286df5bc4f0d719bf5bb107ac3795 inherit pub_methods_class_motor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6f4b739d3bfbcd4d07c70f9a1976e26 inherit pub_methods_class_motor"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_motor.html#ae6f4b739d3bfbcd4d07c70f9a1976e26">setOpenLoop</a> (float val)</td></tr>
+<tr class="memdesc:ae6f4b739d3bfbcd4d07c70f9a1976e26 inherit pub_methods_class_motor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set an open loop PWM command for the motor.  <a href="#ae6f4b739d3bfbcd4d07c70f9a1976e26">More...</a><br /></td></tr>
+<tr class="separator:ae6f4b739d3bfbcd4d07c70f9a1976e26 inherit pub_methods_class_motor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92651f68c98907bc111bfef6a34965eb inherit pub_methods_class_motor"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_motor.html#a92651f68c98907bc111bfef6a34965eb">setGain</a> (float Kp, float Kd)</td></tr>
+<tr class="memdesc:a92651f68c98907bc111bfef6a34965eb inherit pub_methods_class_motor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set gain for position control.  <a href="#a92651f68c98907bc111bfef6a34965eb">More...</a><br /></td></tr>
+<tr class="separator:a92651f68c98907bc111bfef6a34965eb inherit pub_methods_class_motor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1e1f559ef8b8ad4013f11144106eed5 inherit pub_methods_class_motor"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_motor.html#ae1e1f559ef8b8ad4013f11144106eed5">setGain</a> (float Kp)</td></tr>
+<tr class="memdesc:ae1e1f559ef8b8ad4013f11144106eed5 inherit pub_methods_class_motor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set P-gain for position control (D-gain is set to 0)  <a href="#ae1e1f559ef8b8ad4013f11144106eed5">More...</a><br /></td></tr>
+<tr class="separator:ae1e1f559ef8b8ad4013f11144106eed5 inherit pub_methods_class_motor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7494377351ccb26b43fd1971c15aca30 inherit pub_methods_class_motor"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_motor.html#a7494377351ccb26b43fd1971c15aca30">setPosition</a> (float setpoint)</td></tr>
+<tr class="memdesc:a7494377351ccb26b43fd1971c15aca30 inherit pub_methods_class_motor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a desired position for the motor in radians.  <a href="#a7494377351ccb26b43fd1971c15aca30">More...</a><br /></td></tr>
+<tr class="separator:a7494377351ccb26b43fd1971c15aca30 inherit pub_methods_class_motor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1aed5249d7e088b34bf5e45da6c7f21e inherit pub_methods_class_motor"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_motor.html#a1aed5249d7e088b34bf5e45da6c7f21e">update</a> ()</td></tr>
+<tr class="memdesc:a1aed5249d7e088b34bf5e45da6c7f21e inherit pub_methods_class_motor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function that communicates with the motor controller (including getting position, commanding PWM)  <a href="#a1aed5249d7e088b34bf5e45da6c7f21e">More...</a><br /></td></tr>
+<tr class="separator:a1aed5249d7e088b34bf5e45da6c7f21e inherit pub_methods_class_motor"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b52be740ffa84f78d9877e1dc001be2 inherit pub_methods_class_motor"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7b52be740ffa84f78d9877e1dc001be2"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_motor.html#a7b52be740ffa84f78d9877e1dc001be2">resetOffset</a> ()</td></tr>
 <tr class="memdesc:a7b52be740ffa84f78d9877e1dc001be2 inherit pub_methods_class_motor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run this after you are sure there is non-garbage rawPosition data. <br /></td></tr>
@@ -132,6 +162,41 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Inherits <a class="el" href="class_motor.html">Motor</a>.</p>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="ac294cec048f4ef08b75cafb49802fdb6"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BlCon34::enable </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>flag</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Enable the motor. </p>
+<p>Must be implemented in derived classes</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">flag</td><td>true to enable, false to disable </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="class_motor.html#a3674d10b8a8e59bc54fedd73c8bc458c">Motor</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a583183a0256298191c5ee59661589567"></a>
 <div class="memitem">
 <div class="memproto">
@@ -154,7 +219,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Raw position read from the motor driver. </p>
-<p>This is before the direction/zero are applied </p><dl class="section return"><dt>Returns</dt><dd>Raw position in [0, 2pi] </dd></dl>
+<p>This is before the direction/zero are applied. The user should call <a class="el" href="class_motor.html#a93ea58e6b68d4c791376f94e0e86bbe5" title="Get position after direction and zero are taken into account. ">getPosition()</a> </p><dl class="section return"><dt>Returns</dt><dd>Raw position in [0, 2pi] </dd></dl>
 
 <p>Implements <a class="el" href="class_motor.html#aa57a20a89e0090b007a916868e4cfa35">Motor</a>.</p>
 
@@ -216,6 +281,41 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a5d2ba16a38c8d16b861e1588aaa8a19d"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BlCon34::sendOpenLoop </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>val</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Communicate a raw PWM to the motor controller. </p>
+<p>Must be implemented in derived classes. The user should call <a class="el" href="class_motor.html#ae6f4b739d3bfbcd4d07c70f9a1976e26" title="Set an open loop PWM command for the motor. ">setOpenLoop()</a></p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">val</td><td>Raw PWM in [-1, 1] </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="class_motor.html#ac4810cdc34eaa0281e89165655acd1f9">Motor</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="_motor_8h_source.html">Motor.h</a></li>
 <li>Motor.cpp</li>
@@ -224,7 +324,7 @@ Additional Inherited Members</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 23 2016 11:43:24 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jan 23 2016 12:18:24 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

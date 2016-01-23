@@ -170,7 +170,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;      <span class="comment">// Send command, but don&#39;t modify &quot;val&quot; (set by user)</span></div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;      correctedPhysicalVal[i] = motors[i]-&gt;mapVal(physicalVal[i]);</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;      <span class="comment">// send the command</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;      motors[i]-&gt;sendOpenLoop(correctedPhysicalVal[i]);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;      motors[i]-&gt;<a class="code" href="class_motor.html#ac4810cdc34eaa0281e89165655acd1f9">sendOpenLoop</a>(correctedPhysicalVal[i]);</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    }</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  }</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;</div>
@@ -192,12 +192,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="class_motor_html"><div class="ttname"><a href="class_motor.html">Motor</a></div><div class="ttdoc">Base single-motor class. </div><div class="ttdef"><b>Definition:</b> Motor.h:83</div></div>
+<div class="ttc" id="class_motor_html_ac4810cdc34eaa0281e89165655acd1f9"><div class="ttname"><a href="class_motor.html#ac4810cdc34eaa0281e89165655acd1f9">Motor::sendOpenLoop</a></div><div class="ttdeci">virtual void sendOpenLoop(float val)=0</div><div class="ttdoc">Communicate a raw PWM to the motor controller. </div></div>
 <div class="ttc" id="class_abstract_motor_html"><div class="ttname"><a href="class_abstract_motor.html">AbstractMotor</a></div><div class="ttdoc">Class for coordinating N motors in parallel. </div><div class="ttdef"><b>Definition:</b> AbstractMotor.h:35</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 23 2016 11:43:24 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jan 23 2016 12:18:24 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>
