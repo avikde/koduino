@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['printable',['Printable',['../class_printable.html',1,'']]]
+  ['openlog',['OpenLog',['../class_open_log.html',1,'']]]
 ];

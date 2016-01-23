@@ -82,6 +82,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
 <div class="title">Motor controller library</div>  </div>
 </div><!--header-->
@@ -94,11 +96,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h3>Setting motor zero (independent of physical setup)</h3>
 <ol type="1">
 <li>To calibrate a motor's zero position, rotate the output shaft of the motor (or gearbox) at the desired zero location.</li>
-<li>Take the output of getRawPosition() (a number that will be between 0 and 2 PI), and use that as the zero argument for the motor initialization function. The direction of the motor and the gear box do not have any effect on the zeroing routine.</li>
+<li>Take the output of <a class="el" href="class_motor.html#aa57a20a89e0090b007a916868e4cfa35" title="Raw position read from the motor driver. ">Motor::getRawPosition()</a> (a number that will be between 0 and 2 PI), and use that as the zero argument for the <a class="el" href="class_motor.html#aae93220ea2eda8beb4d405c5c4916b2b" title="Initialize motor properties. ">Motor::init()</a> (or the equivalent calls in specific derived classes, like <a class="el" href="class_bl_con34.html#aae0df02b2a2a7b948eafcf3e1c873283" title="Initialize a motor with gear ratio 1. ">BlCon34::init()</a>). The direction of the motor and the gear box do not have any effect on the zeroing routine.</li>
 <li>For startup, the motor's output shaft must be within (-PI, PI)/gearRatio of the calibrated zero position. This means that in direct drive, the motor can be at an arbitrary position, but when using a gearbox the startup angle is decreased since there are no absolute enocders.</li>
-<li>For any gear box with a ratio that is an integer, the motor/gear box assembly can be allowed to recirculate and still work correctly as long as the startup positioning is taken into account. However, for gear boxes with non-integer ratios (which seems to be most gear boxes), the motor/gear box assembly should NOT be allowed to recirculate ever because one full rotation of the output shaft results in a different getRawPosition() value.</li>
+<li>If the motor driver setup takes some time (i.e. <a class="el" href="class_motor.html#aa57a20a89e0090b007a916868e4cfa35" title="Raw position read from the motor driver. ">Motor::getRawPosition()</a> returns garbage during init), then make sure to call <a class="el" href="class_motor.html#a7b52be740ffa84f78d9877e1dc001be2" title="Run this after you are sure there is non-garbage rawPosition data. ">Motor::resetOffset()</a> after there is non-garbage data. This should not be an issue in PWM controlled motor controllers.</li>
+<li>For any gear box with a ratio that is an integer, the motor/gear box assembly can be allowed to recirculate and still work correctly as long as the startup positioning is taken into account. However, for gear boxes with non-integer ratios (which seems to be most gear boxes), the motor/gear box assembly should NOT be allowed to recirculate ever because one full rotation of the output shaft results in a different <a class="el" href="class_motor.html#aa57a20a89e0090b007a916868e4cfa35" title="Raw position read from the motor driver. ">Motor::getRawPosition()</a> value.</li>
 </ol>
-<h3>Example: Motor test</h3>
+<h3>Example: <a class="el" href="class_motor.html" title="Base single-motor class. ">Motor</a> test</h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Motor.h&gt;</span></div>
 <div class="line"></div>
 <div class="line"><span class="comment">// All connectors on Mainboard v1.1</span></div>
@@ -120,7 +123,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><span class="keyword">const</span> uint8_t pulse8 = PA5;</div>
 <div class="line"></div>
 <div class="line"><span class="keyword">const</span> <span class="keywordtype">int</span> CONTROL_RATE = 1000;</div>
-<div class="line">BlCon34 M1;</div>
+<div class="line"><a class="code" href="class_bl_con34.html">BlCon34</a> M1;</div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> controlLoop() {</div>
 <div class="line">  M1.update();</div>
@@ -129,11 +132,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><span class="keywordtype">void</span> setup() {</div>
 <div class="line">  Serial1.begin(115200);</div>
 <div class="line"></div>
-<div class="line">  Motor::updateRate = CONTROL_RATE;</div>
+<div class="line">  <a class="code" href="class_motor.html#a89362d8b2dd1b125576cff1c08428072">Motor::updateRate</a> = CONTROL_RATE;</div>
 <div class="line">  Motor::velSmooth = 0.55;</div>
 <div class="line"></div>
 <div class="line">  <span class="comment">// Arguments are pwmPin, pulsePin, zero(rad), direction(+/- 1)</span></div>
-<div class="line">  M1.init(pwm1, pulse1, 0, 1);</div>
+<div class="line">  M1.<a class="code" href="class_bl_con34.html#aae0df02b2a2a7b948eafcf3e1c873283">init</a>(pwm1, pulse1, 0, 1);</div>
 <div class="line"></div>
 <div class="line">  <span class="comment">// Also can specify a gearRatio (e.g. 23)</span></div>
 <div class="line">  <span class="comment">// M1.init(pwm1, pulse1, 0, 1, 23);</span></div>
@@ -171,11 +174,27 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
 <p>This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.</p>
 <p>You should have received a copy of the GNU Lesser General Public License along with this library; if not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>. </p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_abstract_motor.html">AbstractMotor&lt; N &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class for coordinating N motors in parallel.  <a href="class_abstract_motor.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_motor.html">Motor</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base single-motor class.  <a href="class_motor.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bl_con34.html">BlCon34</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Derived class for communicating with PWM-controlled boards.  <a href="class_bl_con34.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sagittal_pair.html">SagittalPair</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coordinates a pair of motors (for instance for sagittal plane behaviors)  <a href="class_sagittal_pair.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 23 2016 11:15:32 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jan 23 2016 11:43:24 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

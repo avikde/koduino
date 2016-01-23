@@ -1,5 +1,12 @@
 var searchData=
 [
-  ['nointerrupts',['noInterrupts',['../group___e_x_t_i.html#ga10e6193b0f9d7fc1ea6342ca38b1402f',1,'noInterrupts():&#160;exti.c'],['../group___e_x_t_i.html#ga10e6193b0f9d7fc1ea6342ca38b1402f',1,'noInterrupts():&#160;exti.c']]],
-  ['notimerinterrupts',['noTimerInterrupts',['../group___timebase.html#ga19eb20616514af394300248e60835a72',1,'noTimerInterrupts():&#160;timebase.c'],['../group___timebase.html#ga19eb20616514af394300248e60835a72',1,'noTimerInterrupts():&#160;timebase.c']]]
+  ['math',['Math',['../group___math.html',1,'']]],
+  ['math',['Math',['../md__math.html',1,'']]],
+  ['motorcontroller',['MotorController',['../md__motor_controller.html',1,'']]],
+  ['makefile_20setup',['Makefile Setup',['../md__setup_makefile.html',1,'']]],
+  ['micros',['micros',['../group___time.html#ga2b97cb2cd2661deade2d301d38c4ebe8',1,'micros():&#160;system_clock.c'],['../group___time.html#ga2b97cb2cd2661deade2d301d38c4ebe8',1,'micros():&#160;system_clock.c']]],
+  ['millis',['millis',['../group___time.html#gadb94fbd930038e1510574dd4bcf07fe1',1,'millis():&#160;system_clock.c'],['../group___time.html#gadb94fbd930038e1510574dd4bcf07fe1',1,'millis():&#160;system_clock.c']]],
+  ['minitaurleg',['MinitaurLeg',['../class_minitaur_leg.html',1,'']]],
+  ['motor',['Motor',['../class_motor.html',1,'']]],
+  ['motor_20controller_20library',['Motor controller library',['../group___motor_controller.html',1,'']]]
 ];

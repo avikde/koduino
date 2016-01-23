@@ -95,7 +95,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>(Optionally) call <a class="el" href="group___pins.html#ga7b545930be968fa598f0ef566e426ee1" title="Low-level function to reassign AF number of timer assigned to a pin. The default assignments are here...">pinRemap()</a> to change the timer connected to a pin</li>
 <li>(Optionally) call <a class="el" href="group___p_w_m.html#gadfc7d43d5ecc4dcd39e59ce2a07772c1" title="Assign a PWM frequency to the specified pin (default = 1000 Hz) ">analogWriteFrequency()</a> to change output PWM frequency</li>
 <li>Call <a class="el" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730" title="Configure a pin before using it. ">pinMode()</a> with <code>PWM</code></li>
-<li>Call analogWrite()</li>
+<li>Call <a class="el" href="group___p_w_m.html#gac6c226e225f7bc41f06b44558c207389" title="Change the PWM duty cycle on a pin. ">analogWrite()</a></li>
 </ol>
 <p>PWM input:</p>
 <ol type="1">
@@ -118,7 +118,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> loop() {</div>
 <div class="line">  <span class="comment">// 75% duty cycle PWM at 25 KHz</span></div>
-<div class="line">  analogWrite(PB6, 0.75);</div>
+<div class="line">  <a class="code" href="group___p_w_m.html#gac6c226e225f7bc41f06b44558c207389">analogWrite</a>(PB6, 0.75);</div>
 <div class="line">} </div>
 </div><!-- fragment --><h2>Example: PWM input (loopback) test</h2>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Arduino.h&gt;</span></div>
@@ -132,7 +132,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">}</div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> loop() {</div>
-<div class="line">  analogWrite(PA0, 0.3);</div>
+<div class="line">  <a class="code" href="group___p_w_m.html#gac6c226e225f7bc41f06b44558c207389">analogWrite</a>(PA0, 0.3);</div>
 <div class="line">  Serial1 &lt;&lt; <span class="stringliteral">&quot;Read &quot;</span> &lt;&lt; <a class="code" href="group___p_w_m.html#ga4978918346876528b54add5619f7dadd">pwmIn</a>(PA6) &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(10);</div>
 <div class="line">}</div>
@@ -144,17 +144,59 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ga8a3b649ade67e04bc2144658989bf5e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_w_m.html#ga8a3b649ade67e04bc2144658989bf5e7">analogWriteResolution</a> (uint8_t nbits)</td></tr>
+<tr class="memdesc:ga8a3b649ade67e04bc2144658989bf5e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the resolution for the <a class="el" href="group___p_w_m.html#gac6c226e225f7bc41f06b44558c207389" title="Change the PWM duty cycle on a pin. ">analogWrite()</a> function.  <a href="#ga8a3b649ade67e04bc2144658989bf5e7">More...</a><br /></td></tr>
+<tr class="separator:ga8a3b649ade67e04bc2144658989bf5e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gadfc7d43d5ecc4dcd39e59ce2a07772c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_w_m.html#gadfc7d43d5ecc4dcd39e59ce2a07772c1">analogWriteFrequency</a> (uint8_t pin, int freqHz)</td></tr>
 <tr class="memdesc:gadfc7d43d5ecc4dcd39e59ce2a07772c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assign a PWM frequency to the specified pin (default = 1000 Hz)  <a href="#gadfc7d43d5ecc4dcd39e59ce2a07772c1">More...</a><br /></td></tr>
 <tr class="separator:gadfc7d43d5ecc4dcd39e59ce2a07772c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafe9db0c90e4ce40d5784d714cd1b3bd4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_w_m.html#gafe9db0c90e4ce40d5784d714cd1b3bd4">analogWriteFloat</a> (uint8_t pin, float duty)</td></tr>
 <tr class="memdesc:gafe9db0c90e4ce40d5784d714cd1b3bd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change the PWM duty cycle on a pin.  <a href="#gafe9db0c90e4ce40d5784d714cd1b3bd4">More...</a><br /></td></tr>
 <tr class="separator:gafe9db0c90e4ce40d5784d714cd1b3bd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac6c226e225f7bc41f06b44558c207389"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_w_m.html#gac6c226e225f7bc41f06b44558c207389">analogWrite</a> (uint8_t pin, uint32_t duty)</td></tr>
+<tr class="memdesc:gac6c226e225f7bc41f06b44558c207389"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change the PWM duty cycle on a pin.  <a href="#gac6c226e225f7bc41f06b44558c207389">More...</a><br /></td></tr>
+<tr class="separator:gac6c226e225f7bc41f06b44558c207389"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4978918346876528b54add5619f7dadd"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_w_m.html#ga4978918346876528b54add5619f7dadd">pwmIn</a> (uint8_t pin)</td></tr>
 <tr class="memdesc:ga4978918346876528b54add5619f7dadd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a PWM signal (non-blocking)  <a href="#ga4978918346876528b54add5619f7dadd">More...</a><br /></td></tr>
 <tr class="separator:ga4978918346876528b54add5619f7dadd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="gac6c226e225f7bc41f06b44558c207389"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void analogWrite </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>pin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>duty</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Change the PWM duty cycle on a pin. </p>
+<p>This should have the same effect as the Arduino function, but it is not efficient on systems without a floating point (as implemented), since it calls <a class="el" href="group___p_w_m.html#gafe9db0c90e4ce40d5784d714cd1b3bd4" title="Change the PWM duty cycle on a pin. ">analogWriteFloat()</a> under the hood.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pin</td><td></td></tr>
+    <tr><td class="paramname">duty</td><td>The new duty cycle in [0,2^n] where n is the bit resolution set by <a class="el" href="group___p_w_m.html#ga8a3b649ade67e04bc2144658989bf5e7" title="Set the resolution for the analogWrite() function. ">analogWriteResolution()</a> (default 8) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="gafe9db0c90e4ce40d5784d714cd1b3bd4"></a>
 <div class="memitem">
 <div class="memproto">
@@ -232,6 +274,31 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ga8a3b649ade67e04bc2144658989bf5e7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void analogWriteResolution </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>nbits</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the resolution for the <a class="el" href="group___p_w_m.html#gac6c226e225f7bc41f06b44558c207389" title="Change the PWM duty cycle on a pin. ">analogWrite()</a> function. </p>
+<p>Note that this has no effect on the actual PWM resolution, which is determined by the period of the PWM (see <a class="el" href="group___p_w_m.html#gadfc7d43d5ecc4dcd39e59ce2a07772c1" title="Assign a PWM frequency to the specified pin (default = 1000 Hz) ">analogWriteFrequency()</a>). This also has no effect on <a class="el" href="group___p_w_m.html#gafe9db0c90e4ce40d5784d714cd1b3bd4" title="Change the PWM duty cycle on a pin. ">analogWriteFloat()</a></p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nbits</td><td>Number of bits used in <a class="el" href="group___p_w_m.html#gac6c226e225f7bc41f06b44558c207389" title="Change the PWM duty cycle on a pin. ">analogWrite()</a> (default is 8, as in Arduino) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="ga4978918346876528b54add5619f7dadd"></a>
 <div class="memitem">
 <div class="memproto">
@@ -270,7 +337,7 @@ Functions</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 23 2016 11:15:32 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jan 23 2016 11:43:24 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

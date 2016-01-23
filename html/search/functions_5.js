@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['init',['init',['../class_encoder.html#a3370934332cd98914a7b4c5e5ccc2c63',1,'Encoder::init()'],['../class_open_log.html#a864d4184b2a6ffde75b7832d5eeb2d37',1,'OpenLog::init()']]],
-  ['interrupts',['interrupts',['../group___e_x_t_i.html#gab3a4471e1b3085323ec2067aaaccb52c',1,'interrupts():&#160;exti.c'],['../group___e_x_t_i.html#gab3a4471e1b3085323ec2067aaaccb52c',1,'interrupts():&#160;exti.c']]]
+  ['getrawposition',['getRawPosition',['../class_motor.html#aa57a20a89e0090b007a916868e4cfa35',1,'Motor::getRawPosition()'],['../class_bl_con34.html#a583183a0256298191c5ee59661589567',1,'BlCon34::getRawPosition()']]]
 ];

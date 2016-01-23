@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['write',['write',['../class_u_s_a_r_t_class.html#a40cee922977d845eacf20a2f565b7a2b',1,'USARTClass::write()'],['../class_two_wire.html#a3dead761a20db7a7bced562967170919',1,'TwoWire::write()'],['../class_e_e_p_r_o_m_class.html#a9013309e472b45262c896b8643dc03c8',1,'EEPROMClass::write()'],['../class_encoder.html#a53793f807ab668a61ab0c403545edb32',1,'Encoder::write()'],['../class_open_log.html#ae9c1a384229172d46c16adcfbdbb0a02',1,'OpenLog::write()']]],
-  ['writecomplete',['writeComplete',['../class_u_s_a_r_t_class.html#ab984fe0f13a15c5dfe7565d910706dc9',1,'USARTClass']]]
+  ['timerinterrupts',['timerInterrupts',['../group___timebase.html#gadc648cb22e2853bbc47400e438e0e360',1,'timerInterrupts():&#160;timebase.c'],['../group___timebase.html#gadc648cb22e2853bbc47400e438e0e360',1,'timerInterrupts():&#160;timebase.c']]],
+  ['transfer',['transfer',['../class_s_p_i_class.html#a6e946f3e79c8195a164a35b477f51ebf',1,'SPIClass']]],
+  ['twowire',['TwoWire',['../class_two_wire.html#a79ed81c0bd26ebdc03be84e754bd5ffc',1,'TwoWire']]]
 ];

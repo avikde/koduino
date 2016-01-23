@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['openlog',['OpenLog',['../class_open_log.html',1,'']]]
+  ['minitaurleg',['MinitaurLeg',['../class_minitaur_leg.html',1,'']]],
+  ['motor',['Motor',['../class_motor.html',1,'']]]
 ];
