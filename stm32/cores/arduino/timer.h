@@ -37,6 +37,12 @@ extern "C"{
  *  @{
  */
 
+/**
+ * @brief Set the resolution for the analogWrite() function
+ * @details Note that this has no effect on the actual PWM resolution, which is determined by the period of the PWM (see analogWriteFrequency()). This also has no effect on analogWriteFloat()
+ * 
+ * @param nbits Number of bits used in analogWrite() (default is 8, as in Arduino)
+ */
 void analogWriteResolution(uint8_t nbits);
 
 /**
@@ -66,7 +72,13 @@ void analogWriteFrequency(uint8_t pin, int freqHz);
  */
 void analogWriteFloat(uint8_t pin, float duty);
 
-// Not the most efficient: uses analogWriteFloat
+/**
+ * @brief Change the PWM duty cycle on a pin
+ * @details This should have the same effect as the Arduino function, but it is not efficient on systems without a floating point (as implemented), since it calls analogWriteFloat() under the hood.
+ * 
+ * @param pin 
+ * @param duty The new duty cycle in [0,2^n] where n is the bit resolution set by analogWriteResolution() (default 8)
+ */
 void analogWrite(uint8_t pin, uint32_t duty);
 
 /**

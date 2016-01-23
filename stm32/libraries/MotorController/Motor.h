@@ -76,30 +76,105 @@ public:
 // Base class
 // ===============================================================================
 
+/**
+ * @brief Base single-motor class
+ * @details Implements enable/disable, setting open-loop commands, PD position control, gear ratio. This class is an abstract base class, and derived classes need to implement the low-level communication with the motor driver.
+ */
 class Motor {
 public:
   // Has to be defined for each motor driver / feedback type combo
+  /**
+   * @brief Enable the motor
+   * @details Must be implemented in derived classes
+   * 
+   * @param flag true to enable, false to disable
+   */
   virtual void enable(bool flag) = 0;
+  /**
+   * @brief Raw position read from the motor driver
+   * @details This is before the direction/zero are applied. The user should call getPosition()
+   * @return Raw position in [0, 2pi]
+   */
   virtual float getRawPosition() = 0;
+  /**
+   * @brief Communicate a raw PWM to the motor controller
+   * @details Must be implemented in derived classes. The user should call setOpenLoop()
+   * 
+   * @param val Raw PWM in [-1, 1]
+   */
   virtual void sendOpenLoop(float val) = 0;
 
   // Initialization
+  /**
+   * @brief Initialize motor properties
+   * 
+   * @param zero The zero angle (in terms of getRawPosition())
+   * @param direction One of `+1` and `-1` (reverses in which direction positions increase)
+   * @param gearRatio Default is 1.0 (direct drive)
+   */
   void init(float zero, int8_t direction, float gearRatio);
   void setBarrier(float ll, float ul);
-  // Get*() functions
+
+  /**
+   * @brief Get position after direction and zero are taken into account
+   * @return Position in radians between -pi and pi
+   */
   float getPosition();
+  /**
+   * @brief Get motor velocity after direction and zero are taken into account
+   * @return Velocity in rad/s
+   */
   float getVelocity();
+  /**
+   * @brief Get the PWM duty cycle commanded to the motor
+   * @details Useful to record input when getPosition() is used
+   * @return Commanded PWM in [-1, 1]
+   */
   float getOpenLoop();
-  // Set motor move commands (but they are actually sent by motorUpdate())
+  /**
+   * @brief Set an open loop PWM command for the motor
+   * @details These commands are only sent by update()
+   * 
+   * @param val Commanded PWM in [-1, 1]
+   */
   void setOpenLoop(float val);
+  /**
+   * @brief Set gain for position control
+   * @details This must be called when setPosition() is used
+   * 
+   * @param Kp P-gain (in units of PWM / rad)
+   * @param Kd D-gain (in units of PWM / (rad/s))
+   */
   void setGain(float Kp, float Kd);
+  /**
+   * @brief Set P-gain for position control (D-gain is set to 0)
+   * @details This must be called when setPosition() is used
+   * 
+   * @param Kp P-gain (in units of PWM / rad)
+   */
   void setGain(float Kp) { setGain(Kp, 0); }
+  /**
+   * @brief Set a desired position for the motor in radians
+   * @details setGain() needs to be called as well
+   * 
+   * @param setpoint Desired position in radians (relative to direction and zero set by Motor::init())
+   */
   void setPosition(float setpoint);
+
   // Map output command based on direction, driverDirection
   float mapVal(float val);
-  // This should be called at a more or less fixed rate (once per iteration)
+
+  /**
+   * @brief Function that communicates with the motor controller (including getting position, commanding PWM)
+   * @details This should be called at a more or less fixed rate (once per iteration). Change Motor::updateRate to the expected frequency that update() will be called.
+   * 
+   * @return Returns the corrected raw PWM sent to the motor controller
+   */
   float update();
-  // run this after you are sure there is non-garbage rawPosition data
+
+  /**
+   * @brief Run this after you are sure there is non-garbage rawPosition data
+   */
   void resetOffset();
 
   // Static params - for every instance
@@ -137,6 +212,10 @@ protected:
 // Derived classes: driver / feedback device specific
 // ===============================================================================
 
+/**
+ * @brief Derived class for communicating with PWM-controlled boards
+ * @details Uses PWM signals to send open loop commands, and receive position.
+ */
 class BlCon34 : public Motor {
 public:
   static bool useEXTI;
@@ -144,7 +223,15 @@ public:
   // Constructor (sets defaults)
   BlCon34() {}
 
-  // "Constructors"
+  /**
+   * @brief Initialize a motor with gear ratio 1
+   * 
+   * @param outPin_ PWM out pin
+   * @param inPin_ PWM in pin
+   * @param zero See Motor::init()
+   * @param dir See Motor::init()
+   * @param gearRatio See Motor::init()
+   */
   void init(uint8_t outPin_, uint8_t inPin_, float zero, int8_t dir, float gearRatio);
   void init(uint8_t outPin_, uint8_t inPin_, float zero, int8_t dir) {
     init(outPin_, inPin_, zero, dir, 1.0);
@@ -166,8 +253,6 @@ protected:
   uint8_t outPin, inPin;
   // bool usePwmIn;
 };
-
-/** @} */ // end of addtogroup
 
 
 // class BlCon3 : public Motor {
@@ -222,5 +307,7 @@ protected:
 // protected:
 //   PinName pwmPin, dirPin, rstPin;
 // };
+
+/** @} */ // end of addtogroup
 
 #endif

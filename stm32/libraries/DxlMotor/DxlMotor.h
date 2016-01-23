@@ -22,13 +22,28 @@
 #include <DxlNode.h>
 #include <Motor.h>
 
+/** @addtogroup MotorController Motor controller library
+ *  @{
+ */
+
+/**
+ * @brief Derived class for talking to motors over the Dxl bus
+ */
 class DxlMotor : public Motor {
 public:
   // Constructor (sets defaults)
   DxlMotor() :  id(0), rawPos(0), lastTX(0) {}
 
-  // "Constructors"
   void init(DxlNode *master_, uint8_t id_, float zero, int8_t dir, float gearRatio);
+  /**
+   * @brief Initialize motor with gear ratio 1
+   * 
+   * @param master_ pointer to the master DxlNode
+   * @param id_ id of DxlNode for the motor controller
+   * @param zero See Motor::init()
+   * @param dir See Motor::init()
+   * @param gearRatio  See Motor::init()
+   */
   void init(DxlNode *master_, uint8_t id_, float zero, int8_t dir) {
     init(master_, id_, zero, dir, 1.0);
   }
@@ -51,5 +66,7 @@ protected:
   float rawCurrent;
   uint32_t lastTX;
 };
+
+/** @} */ // end of addtogroup
 
 #endif

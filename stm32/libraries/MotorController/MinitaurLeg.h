@@ -27,6 +27,11 @@ enum AbstractCoord {
 };
 
 // i=0->radial, i=1->tangential
+
+/**
+ * @brief Class for coordinating two parallel coaxial motors in the Minitaur config
+ * @details Link lengths can be set, and kinematics are implemented. The user can choose to use meters for the extension, or a nonlinear mapping from 0 (folded up) to pi (all the way extended)
+ */
 class MinitaurLeg : public AbstractMotor<2> {
 public:
   // If true, use the exact leg kinematics, and the extension coordinate is in length units. If false, use the mean angle as a proxy for extension (between 0 and PI)

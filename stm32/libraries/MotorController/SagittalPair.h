@@ -25,7 +25,10 @@
  *  @{
  */
 
-// i=0->mean, i=1->diff coordinate
+/**
+ * @brief Coordinates a pair of motors (for instance for sagittal plane behaviors)
+ * @details i=0 is the MEAN coordinate, i=1 is the DIFF
+ */
 class SagittalPair : public AbstractMotor<2> {
 public:
   //constructor

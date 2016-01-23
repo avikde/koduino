@@ -25,8 +25,12 @@
  *  @{
  */
 
-// This should be templated
-// Class for two motors in parallel: difference in position is position-controlled and the gain can be set. The mean can be open-loop or position-controlled.
+/**
+ * @brief Class for coordinating N motors in parallel
+ * @details Difference in position is position-controlled and the gain can be set. The mean can be open-loop or position-controlled.
+ * 
+ * @tparam N number of motors to be coordinated
+ */
 template<int N> 
 class AbstractMotor {
 public:
