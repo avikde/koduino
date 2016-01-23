@@ -46,7 +46,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
-      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -70,8 +69,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
-      <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -90,31 +87,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="class_encoder-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Encoder Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>Quadrature encoder library.  
- <a href="class_encoder.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="_encoder_8h_source.html">Encoder.h</a>&gt;</code></p>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Quadrature encoder library. </p>
-<dl class="section author"><dt>Authors</dt><dd>Avik De <a href="#" onclick="location.href='mai'+'lto:'+'avi'+'kd'+'e@g'+'ma'+'il.'+'co'+'m'; return false;">avikd<span style="display: none;">.nosp@m.</span>e@gm<span style="display: none;">.nosp@m.</span>ail.c<span style="display: none;">.nosp@m.</span>om</a></dd></dl>
-<p>This file is part of koduino <a href="https://github.com/avikde/koduino">https://github.com/avikde/koduino</a></p>
-<p>This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
-<p>This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.</p>
-<p>You should have received a copy of the GNU Lesser General Public License along with this library; if not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>
-<h3>Usage</h3>
+<div class="textblock"><h3>Usage</h3>
 <ol type="1">
-<li>(Optionally) call <a class="el" href="group___pins.html#ga7b545930be968fa598f0ef566e426ee1" title="Low-level function to reassign AF number of timer assigned to a pin. The default assignments are here...">pinRemap()</a> to map the A/B pins to channels 1 and 2 of timer 2, 3, 4, 5, or 19.</li>
-<li>Call <a class="el" href="class_encoder.html#a3370934332cd98914a7b4c5e5ccc2c63" title="Initialize the quadrature encoder. ">init()</a> to configure the pins and start the encoder</li>
-<li>(Optionally) call <a class="el" href="class_encoder.html#a53793f807ab668a61ab0c403545edb32" title="Set the current encoder count. ">write()</a> at any time to set the count to a desired value</li>
-<li>Call <a class="el" href="class_encoder.html#af9a9931cdbef185172ec698d70fef77d" title="Read the current encoder count. ">read()</a> to read the current count</li>
+<li>(Optionally) call pinRemap() to map the A/B pins to channels 1 and 2 of timer 2, 3, 4, 5, or 19.</li>
+<li>Call init() to configure the pins and start the encoder</li>
+<li>(Optionally) call write() at any time to set the count to a desired value</li>
+<li>Call read() to read the current count</li>
 </ol>
 <h3>Example</h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Encoder.h&gt;</span></div>
@@ -124,150 +107,27 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a class="code" href="class_encoder.html">Encoder</a> encoder;</div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> setup() {</div>
-<div class="line">  <a class="code" href="group___pins.html#ga7b545930be968fa598f0ef566e426ee1">pinRemap</a>(PA0, 2, TIMER5, 1);</div>
-<div class="line">  <a class="code" href="group___pins.html#ga7b545930be968fa598f0ef566e426ee1">pinRemap</a>(PA1, 2, TIMER5, 2);</div>
+<div class="line">  pinRemap(PA0, 2, TIMER5, 1);</div>
+<div class="line">  pinRemap(PA1, 2, TIMER5, 2);</div>
 <div class="line"></div>
 <div class="line">  Serial1.begin(115200);</div>
 <div class="line"></div>
 <div class="line">  <span class="comment">// Assuming a 12-bit encoder</span></div>
-<div class="line">  encoder.<a class="code" href="class_encoder.html#a3370934332cd98914a7b4c5e5ccc2c63">init</a>(PA0, PA1, 4095);</div>
+<div class="line">  encoder.init(PA0, PA1, 4095);</div>
 <div class="line">}</div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> loop() {</div>
-<div class="line">  Serial1 &lt;&lt; encoder.<a class="code" href="class_encoder.html#af9a9931cdbef185172ec698d70fef77d">read</a>() &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(10);</div>
+<div class="line">  Serial1 &lt;&lt; encoder.read() &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line">  delay(10);</div>
 <div class="line">}</div>
-</div><!-- fragment --> </div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a3370934332cd98914a7b4c5e5ccc2c63"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_encoder.html#a3370934332cd98914a7b4c5e5ccc2c63">init</a> (uint8_t pin1, uint8_t pin2, uint16_t maxCount)</td></tr>
-<tr class="memdesc:a3370934332cd98914a7b4c5e5ccc2c63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the quadrature encoder.  <a href="#a3370934332cd98914a7b4c5e5ccc2c63">More...</a><br /></td></tr>
-<tr class="separator:a3370934332cd98914a7b4c5e5ccc2c63"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9a9931cdbef185172ec698d70fef77d"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_encoder.html#af9a9931cdbef185172ec698d70fef77d">read</a> (void)</td></tr>
-<tr class="memdesc:af9a9931cdbef185172ec698d70fef77d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the current encoder count.  <a href="#af9a9931cdbef185172ec698d70fef77d">More...</a><br /></td></tr>
-<tr class="separator:af9a9931cdbef185172ec698d70fef77d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a53793f807ab668a61ab0c403545edb32"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_encoder.html#a53793f807ab668a61ab0c403545edb32">write</a> (uint16_t val)</td></tr>
-<tr class="memdesc:a53793f807ab668a61ab0c403545edb32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the current encoder count.  <a href="#a53793f807ab668a61ab0c403545edb32">More...</a><br /></td></tr>
-<tr class="separator:a53793f807ab668a61ab0c403545edb32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a3370934332cd98914a7b4c5e5ccc2c63"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Encoder::init </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>pin1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>pin2</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t&#160;</td>
-          <td class="paramname"><em>maxCount</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Initialize the quadrature encoder. </p>
-<p>This function configures the pins, and starts the timer connected to them. <b>NOTE:</b> pin1 and pin2 <em>must</em> be channels 1 and 2 of hardware timer 2, 3, 4, 5, or 19 on the F373. To check this, you have to look at the datasheet. Additionally, if not using the <a class="el" href="group___pins.html">default pin mapping</a>, you will have to call <a class="el" href="group___pins.html#ga7b545930be968fa598f0ef566e426ee1" title="Low-level function to reassign AF number of timer assigned to a pin. The default assignments are here...">pinRemap()</a> <em>before</em> calling this function (see example above).</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pin1</td><td>Pin connected to signal A or B </td></tr>
-    <tr><td class="paramname">pin2</td><td>Pin connected to signal B or A </td></tr>
-    <tr><td class="paramname">maxCount</td><td>The max number of ticks (set according to encoder chip specification). <em>Caution:</em> Counting starts at 0, so for example for a 12-bit encoder set to 4095.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section author"><dt>Authors</dt><dd>Avik De <a href="#" onclick="location.href='mai'+'lto:'+'avi'+'kd'+'e@g'+'ma'+'il.'+'co'+'m'; return false;">avikd<span style="display: none;">.nosp@m.</span>e@gm<span style="display: none;">.nosp@m.</span>ail.c<span style="display: none;">.nosp@m.</span>om</a></dd></dl>
-<p>This file is part of koduino <a href="https://github.com/avikde/koduino">https://github.com/avikde/koduino</a></p>
-<p>This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
-<p>This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.</p>
-<p>You should have received a copy of the GNU Lesser General Public License along with this library; if not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="af9a9931cdbef185172ec698d70fef77d"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t Encoder::read </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Read the current encoder count. </p>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a53793f807ab668a61ab0c403545edb32"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Encoder::write </td>
-          <td>(</td>
-          <td class="paramtype">uint16_t&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Set the current encoder count. </p>
-<p>Used to (for example) set the "zero" point</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">val</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="_encoder_8h_source.html">Encoder.h</a></li>
-<li>Encoder.cpp</li>
+</div><!-- fragment --> </div><hr/>The documentation for this class was generated from the following file:<ul>
+<li>Encoder.md</li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Nov 23 2015 19:59:53 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 22 2016 20:59:17 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

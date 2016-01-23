@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>Koduino: External interrupts</title>
+<title>Koduino: EXTI</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -46,7 +46,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
-      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -82,16 +81,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">External interrupts</div>  </div>
+<div class="title">EXTI</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <h3>Usage</h3>
 <ol type="1">
-<li>Call <a class="el" href="group___e_x_t_i.html#gafb1e263c44d0ba4a97eccc2ab6f7a99d" title="Enable an interrupt with default priority. ">attachInterrupt()</a></li>
+<li>Call attachInterrupt()</li>
 </ol>
 <h3>Example: Mass transport sensor</h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Arduino.h&gt;</span></div>
@@ -107,138 +103,18 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> setup() {</div>
 <div class="line">  Serial1.begin(115200);</div>
-<div class="line">  <a class="code" href="group___e_x_t_i.html#gafb1e263c44d0ba4a97eccc2ab6f7a99d">attachInterrupt</a>(PA0, countUp, CHANGE);</div>
+<div class="line">  attachInterrupt(PA0, countUp, CHANGE);</div>
 <div class="line">}</div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> loop() {</div>
 <div class="line">  Serial1 &lt;&lt; <span class="stringliteral">&quot;Counted &quot;</span> &lt;&lt; count &lt;&lt; <span class="stringliteral">&quot; particles.\n&quot;</span>;</div>
-<div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(100);</div>
+<div class="line">  delay(100);</div>
 <div class="line">}</div>
-</div><!-- fragment --> <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:gafb1e263c44d0ba4a97eccc2ab6f7a99d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___e_x_t_i.html#gafb1e263c44d0ba4a97eccc2ab6f7a99d">attachInterrupt</a> (uint8_t pinName, ISRType ISR, InterruptTrigger mode)</td></tr>
-<tr class="memdesc:gafb1e263c44d0ba4a97eccc2ab6f7a99d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable an interrupt with default priority.  <a href="#gafb1e263c44d0ba4a97eccc2ab6f7a99d">More...</a><br /></td></tr>
-<tr class="separator:gafb1e263c44d0ba4a97eccc2ab6f7a99d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4d6f04e458d226b547767b1d62278ad9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___e_x_t_i.html#ga4d6f04e458d226b547767b1d62278ad9">detachInterrupt</a> (uint8_t pinName)</td></tr>
-<tr class="memdesc:ga4d6f04e458d226b547767b1d62278ad9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable an interrupt.  <a href="#ga4d6f04e458d226b547767b1d62278ad9">More...</a><br /></td></tr>
-<tr class="separator:ga4d6f04e458d226b547767b1d62278ad9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga10e6193b0f9d7fc1ea6342ca38b1402f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___e_x_t_i.html#ga10e6193b0f9d7fc1ea6342ca38b1402f">noInterrupts</a> ()</td></tr>
-<tr class="memdesc:ga10e6193b0f9d7fc1ea6342ca38b1402f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable external interrupts.  <a href="#ga10e6193b0f9d7fc1ea6342ca38b1402f">More...</a><br /></td></tr>
-<tr class="separator:ga10e6193b0f9d7fc1ea6342ca38b1402f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab3a4471e1b3085323ec2067aaaccb52c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___e_x_t_i.html#gab3a4471e1b3085323ec2067aaaccb52c">interrupts</a> ()</td></tr>
-<tr class="memdesc:gab3a4471e1b3085323ec2067aaaccb52c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable external interrupts.  <a href="#gab3a4471e1b3085323ec2067aaaccb52c">More...</a><br /></td></tr>
-<tr class="separator:gab3a4471e1b3085323ec2067aaaccb52c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="gafb1e263c44d0ba4a97eccc2ab6f7a99d"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void attachInterrupt </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>pinName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">ISRType&#160;</td>
-          <td class="paramname"><em>ISR</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">InterruptTrigger&#160;</td>
-          <td class="paramname"><em>mode</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Enable an interrupt with default priority. </p>
-<p><b>Note:</b> There is only ONE EXTI per <em>pinSource</em>, i.e. PA0, PB0 cannot both have interrupts, but PA0 and PB1 can. Obviously, there can be a total of 16.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pinName</td><td>Name of pin interrupt is connected to </td></tr>
-    <tr><td class="paramname">ISR</td><td>Callback function to call when interrupt is triggered </td></tr>
-    <tr><td class="paramname">mode</td><td>One of InterruptTrigger </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="ga4d6f04e458d226b547767b1d62278ad9"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void detachInterrupt </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>pinName</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Disable an interrupt. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pinName</td><td>Pin name where <a class="el" href="group___e_x_t_i.html#gafb1e263c44d0ba4a97eccc2ab6f7a99d" title="Enable an interrupt with default priority. ">attachInterrupt()</a> was called </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="gab3a4471e1b3085323ec2067aaaccb52c"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void interrupts </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Enable external interrupts. </p>
-<p>Enabled by default </p>
-
-</div>
-</div>
-<a class="anchor" id="ga10e6193b0f9d7fc1ea6342ca38b1402f"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void noInterrupts </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Disable external interrupts. </p>
-<p><b>Note:</b> This is unlike the Arduino function which disables ALL interrupts. That would stop the system clock here as well. Call <code>NVIC_DisableIRQ()</code> if you want the arduino behavior </p>
-
-</div>
-</div>
-</div><!-- contents -->
+</div><!-- fragment --> </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Nov 23 2015 19:59:53 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 22 2016 20:59:17 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

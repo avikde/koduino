@@ -46,7 +46,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
-      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -91,7 +90,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <ul>
 <li><code>UPLOAD_METHOD</code>: Can be <code>SERIAL</code> or <code>DFU</code>. If the board has an FTDI chip connected to the upload USB port, then pick <code>SERIAL</code>, otherwise pick <code>DFU</code>.</li>
 <li><code>UPLOAD_BAUD</code> *(optional)*: Baud rate for Serial upload. For wired connections, something like 500000 should work and be quite fast. For wireless bootloading with an XBee, the baud rate must match the XBee's baud rate.</li>
-<li><code>LIBRARIES</code> *(optional)*: Space-separated list of library names. E.g <code>LIBRARIES = Arduino SPI</code>. Note that this includes the library directory in the include path, but you still need the <code>#include &lt;<a class="el" href="_arduino_8h_source.html">Arduino.h</a>&gt;</code> (or whatever the header file for the library is called) in the project file.</li>
+<li><code>LIBRARIES</code> *(optional)*: Space-separated list of library names. E.g <code>LIBRARIES = Arduino SPI</code>. Note that this includes the library directory in the include path, but you still need the <code>#include &lt;Arduino.h&gt;</code> (or whatever the header file for the library is called) in the project file.</li>
 <li>The last line of the Makefile must be <code>include /project.mk</code></li>
 </ul>
 <h2>Library organization</h2>
@@ -117,7 +116,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Nov 23 2015 19:59:53 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 22 2016 20:59:17 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

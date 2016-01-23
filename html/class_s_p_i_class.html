@@ -46,7 +46,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
-      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -70,8 +69,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
-      <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -90,30 +87,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="class_s_p_i_class-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">SPIClass Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>SPI library (call with global object <code>SPI</code>)  
- <a href="class_s_p_i_class.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="_s_p_i_8h_source.html">SPI.h</a>&gt;</code></p>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>SPI library (call with global object <code>SPI</code>) </p>
-<h3>Usage</h3>
+<div class="textblock"><h3>Usage</h3>
 <ol type="1">
-<li>(Optionally) call <a class="el" href="class_s_p_i_class.html#a57bbcf9ec1a5c401bd4bc4057ab7d63c" title="Change default SCK, MISO and MOSI pins. ">setPins()</a> (see its documentation for default pins)</li>
-<li>Call <a class="el" href="class_s_p_i_class.html#a4a2646959a242f6af423b04734c003f0" title="Start SPI peripheral and configure pins. ">begin()</a></li>
-<li>(Optionally) call <a class="el" href="class_s_p_i_class.html#aa8440b0652b8a0d3d56434b57a8fec1d" title="Sets the clock divider (with respect to the system clock) ">setClockDivider()</a> (default <code>SPI_CLOCK_DIV2</code>)</li>
-<li>(Optionally) call <a class="el" href="class_s_p_i_class.html#afde3febd4ff7bf33bb2b54e8a9b9694d" title="Sets the bit-order for data. ">setBitOrder()</a> (default <code>MSBFIRST</code>)</li>
-<li>(Optionally) call <a class="el" href="class_s_p_i_class.html#a13cf0985428fd08a5e056c747e296cc1" title="Sets the SPI mode. ">setDataMode()</a> (default <code>SPI_MODE0</code>)</li>
+<li>(Optionally) call setPins() (see its documentation for default pins)</li>
+<li>Call begin()</li>
+<li>(Optionally) call setClockDivider() (default <code>SPI_CLOCK_DIV2</code>)</li>
+<li>(Optionally) call setBitOrder() (default <code>MSBFIRST</code>)</li>
+<li>(Optionally) call setDataMode() (default <code>SPI_MODE0</code>)</li>
 <li>Before starting any transfer the chip select pin must be driven low by the master</li>
-<li>To write to the slave, call <a class="el" href="class_s_p_i_class.html#a6e946f3e79c8195a164a35b477f51ebf" title="Transfers one byte over the SPI bus, both sending and receiving. ">transfer()</a> with the byte to write</li>
-<li>To read from the slave, call <a class="el" href="class_s_p_i_class.html#a6e946f3e79c8195a164a35b477f51ebf" title="Transfers one byte over the SPI bus, both sending and receiving. ">transfer()</a> with <code>0</code> and record the returned value</li>
+<li>To write to the slave, call transfer() with the byte to write</li>
+<li>To read from the slave, call transfer() with <code>0</code> and record the returned value</li>
 <li>Drive chip select high to end the transmission</li>
 </ol>
 <h3>Example: MPU-6000</h3>
@@ -126,253 +114,37 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><span class="keywordtype">void</span> setup() {</div>
 <div class="line">  Serial1.begin(115200);</div>
 <div class="line"></div>
-<div class="line">  SPI.<a class="code" href="class_s_p_i_class.html#a57bbcf9ec1a5c401bd4bc4057ab7d63c">setPins</a>(PA12, 6, PA13, 6, PF6, 5);</div>
-<div class="line">  <a class="code" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730">pinMode</a>(csPin, OUTPUT);</div>
-<div class="line">  <a class="code" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7">digitalWrite</a>(csPin, HIGH);</div>
+<div class="line">  SPI.setPins(PA12, 6, PA13, 6, PF6, 5);</div>
+<div class="line">  pinMode(csPin, OUTPUT);</div>
+<div class="line">  digitalWrite(csPin, HIGH);</div>
 <div class="line"></div>
-<div class="line">  SPI.<a class="code" href="class_s_p_i_class.html#a4a2646959a242f6af423b04734c003f0">begin</a>();</div>
-<div class="line">  SPI.<a class="code" href="class_s_p_i_class.html#aa8440b0652b8a0d3d56434b57a8fec1d">setClockDivider</a>(SPI_CLOCK_DIV2);</div>
-<div class="line">  SPI.<a class="code" href="class_s_p_i_class.html#afde3febd4ff7bf33bb2b54e8a9b9694d">setBitOrder</a>(MSBFIRST);</div>
-<div class="line">  SPI.<a class="code" href="class_s_p_i_class.html#a13cf0985428fd08a5e056c747e296cc1">setDataMode</a>(SPI_MODE0);</div>
+<div class="line">  SPI.begin();</div>
+<div class="line">  SPI.setClockDivider(SPI_CLOCK_DIV2);</div>
+<div class="line">  SPI.setBitOrder(MSBFIRST);</div>
+<div class="line">  SPI.setDataMode(SPI_MODE0);</div>
 <div class="line">}</div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> loop() {</div>
-<div class="line">  uint32_t tic = <a class="code" href="group___time.html#ga2b97cb2cd2661deade2d301d38c4ebe8">micros</a>();</div>
-<div class="line">  <a class="code" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7">digitalWrite</a>(csPin, LOW);</div>
-<div class="line">  <a class="code" href="group___time.html#ga3ff9db8978fbc49767c96b3ccd7b9a68">delayMicroseconds</a>(1);</div>
-<div class="line">  SPI.<a class="code" href="class_s_p_i_class.html#a6e946f3e79c8195a164a35b477f51ebf">transfer</a>(0x75 | 0x80);</div>
-<div class="line">  uint8_t magic = SPI.<a class="code" href="class_s_p_i_class.html#a6e946f3e79c8195a164a35b477f51ebf">transfer</a>(0) &amp; 0x7E;</div>
-<div class="line">  <a class="code" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7">digitalWrite</a>(csPin, HIGH);</div>
-<div class="line">  tic = <a class="code" href="group___time.html#ga2b97cb2cd2661deade2d301d38c4ebe8">micros</a>() - tic;</div>
+<div class="line">  uint32_t tic = micros();</div>
+<div class="line">  digitalWrite(csPin, LOW);</div>
+<div class="line">  delayMicroseconds(1);</div>
+<div class="line">  SPI.transfer(0x75 | 0x80);</div>
+<div class="line">  uint8_t magic = SPI.transfer(0) &amp; 0x7E;</div>
+<div class="line">  digitalWrite(csPin, HIGH);</div>
+<div class="line">  tic = micros() - tic;</div>
 <div class="line"></div>
 <div class="line">  Serial1 &lt;&lt; <span class="stringliteral">&quot;WHO_AM_I = 0x&quot;</span> &lt;&lt; _HEX(magic) &lt;&lt; <span class="stringliteral">&quot;, took &quot;</span> &lt;&lt; tic &lt;&lt; <span class="stringliteral">&quot;us.\n&quot;</span>;</div>
 <div class="line"></div>
-<div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(100);</div>
+<div class="line">  delay(100);</div>
 <div class="line">}</div>
-</div><!-- fragment --> </div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a65218d40a8fca99ca9d453f539075773"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_p_i_class.html#a65218d40a8fca99ca9d453f539075773">SPIClass</a> (SPI_TypeDef *SPIx)</td></tr>
-<tr class="separator:a65218d40a8fca99ca9d453f539075773"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57bbcf9ec1a5c401bd4bc4057ab7d63c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_p_i_class.html#a57bbcf9ec1a5c401bd4bc4057ab7d63c">setPins</a> (uint8_t SCK, uint8_t afSCK, uint8_t MISO, uint8_t afMISO, uint8_t MOSI, uint8_t afMOSI)</td></tr>
-<tr class="memdesc:a57bbcf9ec1a5c401bd4bc4057ab7d63c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change default SCK, MISO and MOSI pins.  <a href="#a57bbcf9ec1a5c401bd4bc4057ab7d63c">More...</a><br /></td></tr>
-<tr class="separator:a57bbcf9ec1a5c401bd4bc4057ab7d63c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a2646959a242f6af423b04734c003f0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4a2646959a242f6af423b04734c003f0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_p_i_class.html#a4a2646959a242f6af423b04734c003f0">begin</a> ()</td></tr>
-<tr class="memdesc:a4a2646959a242f6af423b04734c003f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start SPI peripheral and configure pins. <br /></td></tr>
-<tr class="separator:a4a2646959a242f6af423b04734c003f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79d89d8e3f5f1b003cb7b0aed2d77eab"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a79d89d8e3f5f1b003cb7b0aed2d77eab"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_p_i_class.html#a79d89d8e3f5f1b003cb7b0aed2d77eab">end</a> ()</td></tr>
-<tr class="memdesc:a79d89d8e3f5f1b003cb7b0aed2d77eab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close SPI. <br /></td></tr>
-<tr class="separator:a79d89d8e3f5f1b003cb7b0aed2d77eab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afde3febd4ff7bf33bb2b54e8a9b9694d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_p_i_class.html#afde3febd4ff7bf33bb2b54e8a9b9694d">setBitOrder</a> (uint8_t ord)</td></tr>
-<tr class="memdesc:afde3febd4ff7bf33bb2b54e8a9b9694d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the bit-order for data.  <a href="#afde3febd4ff7bf33bb2b54e8a9b9694d">More...</a><br /></td></tr>
-<tr class="separator:afde3febd4ff7bf33bb2b54e8a9b9694d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13cf0985428fd08a5e056c747e296cc1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_p_i_class.html#a13cf0985428fd08a5e056c747e296cc1">setDataMode</a> (uint8_t mode)</td></tr>
-<tr class="memdesc:a13cf0985428fd08a5e056c747e296cc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the SPI mode.  <a href="#a13cf0985428fd08a5e056c747e296cc1">More...</a><br /></td></tr>
-<tr class="separator:a13cf0985428fd08a5e056c747e296cc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8440b0652b8a0d3d56434b57a8fec1d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_p_i_class.html#aa8440b0652b8a0d3d56434b57a8fec1d">setClockDivider</a> (uint8_t div)</td></tr>
-<tr class="memdesc:aa8440b0652b8a0d3d56434b57a8fec1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the clock divider (with respect to the system clock)  <a href="#aa8440b0652b8a0d3d56434b57a8fec1d">More...</a><br /></td></tr>
-<tr class="separator:aa8440b0652b8a0d3d56434b57a8fec1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e946f3e79c8195a164a35b477f51ebf"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_p_i_class.html#a6e946f3e79c8195a164a35b477f51ebf">transfer</a> (uint8_t _data)</td></tr>
-<tr class="memdesc:a6e946f3e79c8195a164a35b477f51ebf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transfers one byte over the SPI bus, both sending and receiving.  <a href="#a6e946f3e79c8195a164a35b477f51ebf">More...</a><br /></td></tr>
-<tr class="separator:a6e946f3e79c8195a164a35b477f51ebf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a65218d40a8fca99ca9d453f539075773"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">SPIClass::SPIClass </td>
-          <td>(</td>
-          <td class="paramtype">SPI_TypeDef *&#160;</td>
-          <td class="paramname"><em>SPIx</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section author"><dt>Authors</dt><dd>Avik De <a href="#" onclick="location.href='mai'+'lto:'+'avi'+'kd'+'e@g'+'ma'+'il.'+'co'+'m'; return false;">avikd<span style="display: none;">.nosp@m.</span>e@gm<span style="display: none;">.nosp@m.</span>ail.c<span style="display: none;">.nosp@m.</span>om</a></dd></dl>
-<p>This file is part of koduino <a href="https://github.com/avikde/koduino">https://github.com/avikde/koduino</a></p>
-<p>This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
-<p>This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.</p>
-<p>You should have received a copy of the GNU Lesser General Public License along with this library; if not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>. </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="afde3febd4ff7bf33bb2b54e8a9b9694d"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void SPIClass::setBitOrder </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>ord</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the bit-order for data. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ord</td><td>One of <code>MSBFIRST</code>, <code>LSBFIRST</code> </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="aa8440b0652b8a0d3d56434b57a8fec1d"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void SPIClass::setClockDivider </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>div</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the clock divider (with respect to the system clock) </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">div</td><td>One of <code>SPI_CLOCK_DIV&lt;x&gt;</code> where <code>&lt;x&gt;</code> can be 2, 4, 8, 16, 32, 64, 128, 256 </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a13cf0985428fd08a5e056c747e296cc1"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void SPIClass::setDataMode </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>mode</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the SPI mode. </p>
-<p>See the <a href="http://en.wikipedia.org/wiki/Serial_Peripheral_Interface_Bus">Wikipedia SPI page</a> for details on these modes</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">mode</td><td>One of <code>SPI_MODE&lt;x&gt;</code>, where <code>&lt;x&gt;</code> can be 0, 1, 2, 3 </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a57bbcf9ec1a5c401bd4bc4057ab7d63c"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void SPIClass::setPins </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>SCK</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>afSCK</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>MISO</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>afMISO</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>MOSI</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>afMOSI</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Change default SCK, MISO and MOSI pins. </p>
-<p>You will need to look at the datasheet to fill in the alternate function (AF) numbers</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">SCK</td><td>Default is <code>PA5</code> </td></tr>
-    <tr><td class="paramname">afSCK</td><td></td></tr>
-    <tr><td class="paramname">MISO</td><td>Default is <code>PB4</code> </td></tr>
-    <tr><td class="paramname">afMISO</td><td></td></tr>
-    <tr><td class="paramname">MOSI</td><td>Default is <code>PB5</code> </td></tr>
-    <tr><td class="paramname">afMOSI</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a6e946f3e79c8195a164a35b477f51ebf"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t SPIClass::transfer </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>_data</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Transfers one byte over the SPI bus, both sending and receiving. </p>
-<p>Make sure you drive chip select low before calling this</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">_data</td><td>Byte to send </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns the byte received from the slave </dd></dl>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="_s_p_i_8h_source.html">SPI.h</a></li>
-<li>SPI.cpp</li>
+</div><!-- fragment --> </div><hr/>The documentation for this class was generated from the following file:<ul>
+<li>SPI.md</li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Nov 23 2015 19:59:54 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 22 2016 20:59:17 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

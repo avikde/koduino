@@ -3,7 +3,7 @@
 
 ### 1. Get the IDE
 
-* Get Arduino 1.6.1: [Windows](http://arduino.cc/download.php?f=/arduino-1.6.1-windows.zip), etc.
+* Get Arduino 1.6.1: e.g. [Windows link](http://arduino.cc/download.php?f=/arduino-1.6.1-windows.zip), etc. *Note: it MUST be 1.6.1, and not a later version, for now. The IDE team moved around files a lot in a way that I haven't been able to keep up with.*
 
 ### 2. Get the code
 

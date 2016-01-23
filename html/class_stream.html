@@ -46,7 +46,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
-      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -70,8 +69,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
-      <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -90,27 +87,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="class_stream-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">Stream Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">Stream Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p><a class="el" href="class_stream.html" title="Stream library inherited by Wire, Serial, etc. ">Stream</a> library inherited by Wire, Serial, etc.  
- <a href="class_stream.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="_stream_8h_source.html">Stream.h</a>&gt;</code></p>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="class_stream.html" title="Stream library inherited by Wire, Serial, etc. ">Stream</a> library inherited by Wire, Serial, etc. </p>
-<dl class="section author"><dt>Authors</dt><dd>Arduino team, Avik De <a href="#" onclick="location.href='mai'+'lto:'+'avi'+'kd'+'e@g'+'ma'+'il.'+'co'+'m'; return false;">avikd<span style="display: none;">.nosp@m.</span>e@gm<span style="display: none;">.nosp@m.</span>ail.c<span style="display: none;">.nosp@m.</span>om</a></dd></dl>
-<p>This file is part of koduino <a href="https://github.com/avikde/koduino">https://github.com/avikde/koduino</a></p>
-<p>This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
-<p>This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.</p>
-<p>You should have received a copy of the GNU Lesser General Public License along with this library; if not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>
-<h2><a class="el" href="class_stream.html" title="Stream library inherited by Wire, Serial, etc. ">Stream</a>, Print, String</h2>
-<p><a class="el" href="class_stream.html" title="Stream library inherited by Wire, Serial, etc. ">Stream</a> is a collection of functions for ASCII or binary streams used by <a class="el" href="class_u_s_a_r_t_class.html">Serial</a>, <a class="el" href="class_two_wire.html">Wire</a>, etc. These methods are identical to the <a href="http://arduino.cc/en/Reference/Stream">Arduino equivalents</a>.</p>
+<div class="textblock"><h2><a class="el" href="class_stream.html">Stream</a>, Print, String</h2>
+<p><a class="el" href="class_stream.html">Stream</a> is a collection of functions for ASCII or binary streams used by <a class="el" href="class_u_s_a_r_t_class.html">Serial</a>, <a class="el" href="class_two_wire.html">Wire</a>, etc. These methods are identical to the <a href="http://arduino.cc/en/Reference/Stream">Arduino equivalents</a>.</p>
 <p>The Arduino <a href="http://arduino.cc/en/Reference/StringObject">String library</a> is included as well.</p>
 <h2>Streaming</h2>
 <p>The excellent <a href="http://arduiniana.org/libraries/streaming/">Streaming library</a> is also available.</p>
@@ -122,386 +105,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">}</div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> loop() {</div>
-<div class="line">  Serial1 &lt;&lt; <span class="stringliteral">&quot;The time is &quot;</span> &lt;&lt; <a class="code" href="group___time.html#gadb94fbd930038e1510574dd4bcf07fe1">millis</a>() &lt;&lt; <span class="stringliteral">&quot; and PI = &quot;</span> &lt;&lt; PI &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(1000);</div>
+<div class="line">  Serial1 &lt;&lt; <span class="stringliteral">&quot;The time is &quot;</span> &lt;&lt; millis() &lt;&lt; <span class="stringliteral">&quot; and PI = &quot;</span> &lt;&lt; PI &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line">  delay(1000);</div>
 <div class="line">}</div>
-</div><!-- fragment --> </div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a9c98a763395005c08ce95afb2f06c7b1"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stream.html#a9c98a763395005c08ce95afb2f06c7b1">available</a> ()=0</td></tr>
-<tr class="memdesc:a9c98a763395005c08ce95afb2f06c7b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the number of bytes in the receive buffer.  <a href="#a9c98a763395005c08ce95afb2f06c7b1">More...</a><br /></td></tr>
-<tr class="separator:a9c98a763395005c08ce95afb2f06c7b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea5dee9fcb038148515b7c9212d38dc0"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stream.html#aea5dee9fcb038148515b7c9212d38dc0">read</a> ()=0</td></tr>
-<tr class="memdesc:aea5dee9fcb038148515b7c9212d38dc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a single byte from the receive buffer.  <a href="#aea5dee9fcb038148515b7c9212d38dc0">More...</a><br /></td></tr>
-<tr class="separator:aea5dee9fcb038148515b7c9212d38dc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a30c3c212ec6ea67277a708c5ea2501a5"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stream.html#a30c3c212ec6ea67277a708c5ea2501a5">peek</a> ()=0</td></tr>
-<tr class="memdesc:a30c3c212ec6ea67277a708c5ea2501a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a single byte from the receive buffer.  <a href="#a30c3c212ec6ea67277a708c5ea2501a5">More...</a><br /></td></tr>
-<tr class="separator:a30c3c212ec6ea67277a708c5ea2501a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3ef2c34f152a0b2ea8de9139b9461da"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa3ef2c34f152a0b2ea8de9139b9461da"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stream.html#aa3ef2c34f152a0b2ea8de9139b9461da">flush</a> ()=0</td></tr>
-<tr class="memdesc:aa3ef2c34f152a0b2ea8de9139b9461da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waits till the previous write operation is finished. <br /></td></tr>
-<tr class="separator:aa3ef2c34f152a0b2ea8de9139b9461da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46b2d7c7e65159c07b9ea877d0d53299"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stream.html#a46b2d7c7e65159c07b9ea877d0d53299">setTimeout</a> (uint32_t timeout)</td></tr>
-<tr class="memdesc:a46b2d7c7e65159c07b9ea877d0d53299"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets maximum milliseconds to wait for stream data.  <a href="#a46b2d7c7e65159c07b9ea877d0d53299">More...</a><br /></td></tr>
-<tr class="separator:a46b2d7c7e65159c07b9ea877d0d53299"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4bab30ccd324efd461dee46a2339f673"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stream.html#a4bab30ccd324efd461dee46a2339f673">find</a> (char *target)</td></tr>
-<tr class="memdesc:a4bab30ccd324efd461dee46a2339f673"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads data from the stream until the target string is found.  <a href="#a4bab30ccd324efd461dee46a2339f673">More...</a><br /></td></tr>
-<tr class="separator:a4bab30ccd324efd461dee46a2339f673"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad851401f2318cdb1de05707e021b81d9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stream.html#ad851401f2318cdb1de05707e021b81d9">find</a> (char *target, size_t length)</td></tr>
-<tr class="memdesc:ad851401f2318cdb1de05707e021b81d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads data from the stream until the target string of given length is found.  <a href="#ad851401f2318cdb1de05707e021b81d9">More...</a><br /></td></tr>
-<tr class="separator:ad851401f2318cdb1de05707e021b81d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1f5f6600832396fb38a897baf4de35b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stream.html#ad1f5f6600832396fb38a897baf4de35b">findUntil</a> (char *target, char *terminator)</td></tr>
-<tr class="memdesc:ad1f5f6600832396fb38a897baf4de35b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Same as <a class="el" href="class_stream.html#a4bab30ccd324efd461dee46a2339f673" title="Reads data from the stream until the target string is found. ">find()</a> but search ends if the terminator string is found.  <a href="#ad1f5f6600832396fb38a897baf4de35b">More...</a><br /></td></tr>
-<tr class="separator:ad1f5f6600832396fb38a897baf4de35b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abeda6a8584f0214ff4a2e99c1f96d60c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stream.html#abeda6a8584f0214ff4a2e99c1f96d60c">parseInt</a> ()</td></tr>
-<tr class="memdesc:abeda6a8584f0214ff4a2e99c1f96d60c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the first valid (long) integer value from the current position.  <a href="#abeda6a8584f0214ff4a2e99c1f96d60c">More...</a><br /></td></tr>
-<tr class="separator:abeda6a8584f0214ff4a2e99c1f96d60c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e5a0cc11eb586d89dcb7fa8e53a87e8"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stream.html#a5e5a0cc11eb586d89dcb7fa8e53a87e8">parseFloat</a> ()</td></tr>
-<tr class="memdesc:a5e5a0cc11eb586d89dcb7fa8e53a87e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Float version of <a class="el" href="class_stream.html#abeda6a8584f0214ff4a2e99c1f96d60c" title="Returns the first valid (long) integer value from the current position. ">parseInt()</a>  <a href="#a5e5a0cc11eb586d89dcb7fa8e53a87e8">More...</a><br /></td></tr>
-<tr class="separator:a5e5a0cc11eb586d89dcb7fa8e53a87e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45fd1336a323ea83b16e8507055f44ea"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stream.html#a45fd1336a323ea83b16e8507055f44ea">readBytes</a> (char *buffer, size_t length)</td></tr>
-<tr class="memdesc:a45fd1336a323ea83b16e8507055f44ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read chars from stream into buffer.  <a href="#a45fd1336a323ea83b16e8507055f44ea">More...</a><br /></td></tr>
-<tr class="separator:a45fd1336a323ea83b16e8507055f44ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af84672a4fb2620466958d3118d4fea00"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_stream.html#af84672a4fb2620466958d3118d4fea00">readBytesUntil</a> (char terminator, char *buffer, size_t length)</td></tr>
-<tr class="memdesc:af84672a4fb2620466958d3118d4fea00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Same as <a class="el" href="class_stream.html#a45fd1336a323ea83b16e8507055f44ea" title="Read chars from stream into buffer. ">readBytes()</a> with terminator character.  <a href="#af84672a4fb2620466958d3118d4fea00">More...</a><br /></td></tr>
-<tr class="separator:af84672a4fb2620466958d3118d4fea00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-
-<p>Inherits Print.</p>
-
-<p>Inherited by <a class="el" href="class_two_wire.html">TwoWire</a>, and <a class="el" href="class_u_s_a_r_t_class.html">USARTClass</a>.</p>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a9c98a763395005c08ce95afb2f06c7b1"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual int Stream::available </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Return the number of bytes in the receive buffer. </p>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
-
-<p>Implemented in <a class="el" href="class_two_wire.html#aee57bc52bee06508e231c5fc6bc35ada">TwoWire</a>, and <a class="el" href="class_u_s_a_r_t_class.html#aa72ca41dffc66d47530f47ac4662d1e2">USARTClass</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a4bab30ccd324efd461dee46a2339f673"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Stream::find </td>
-          <td>(</td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>target</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reads data from the stream until the target string is found. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">target</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if target string is found, false if timed out (see setTimeout) </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ad851401f2318cdb1de05707e021b81d9"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Stream::find </td>
-          <td>(</td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>target</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>length</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reads data from the stream until the target string of given length is found. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">target</td><td></td></tr>
-    <tr><td class="paramname">length</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if target string is found, false if timed out </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ad1f5f6600832396fb38a897baf4de35b"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Stream::findUntil </td>
-          <td>(</td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>target</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>terminator</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Same as <a class="el" href="class_stream.html#a4bab30ccd324efd461dee46a2339f673" title="Reads data from the stream until the target string is found. ">find()</a> but search ends if the terminator string is found. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">target</td><td></td></tr>
-    <tr><td class="paramname">terminator</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a5e5a0cc11eb586d89dcb7fa8e53a87e8"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float Stream::parseFloat </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Float version of <a class="el" href="class_stream.html#abeda6a8584f0214ff4a2e99c1f96d60c" title="Returns the first valid (long) integer value from the current position. ">parseInt()</a> </p>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="abeda6a8584f0214ff4a2e99c1f96d60c"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int Stream::parseInt </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the first valid (long) integer value from the current position. </p>
-<p>Initial characters that are not digits (or the minus sign) are skipped. Integer is terminated by the first character that is not a digit. </p><dl class="section return"><dt>Returns</dt><dd></dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a30c3c212ec6ea67277a708c5ea2501a5"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual int Stream::peek </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reads a single byte from the receive buffer. </p>
-<p>Does not increment the buffer pointer </p><dl class="section return"><dt>Returns</dt><dd></dd></dl>
-
-<p>Implemented in <a class="el" href="class_two_wire.html#a5bd64cb7bd609e9470a15d96a0991ec8">TwoWire</a>, and <a class="el" href="class_u_s_a_r_t_class.html#a9a04a523e13cd614d65298de8c1ddb3d">USARTClass</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aea5dee9fcb038148515b7c9212d38dc0"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual int Stream::read </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reads a single byte from the receive buffer. </p>
-<p>Increments the buffer pointer </p><dl class="section return"><dt>Returns</dt><dd></dd></dl>
-
-<p>Implemented in <a class="el" href="class_two_wire.html#aa361b83500d00dfb93bb25b6473b33e9">TwoWire</a>, and <a class="el" href="class_u_s_a_r_t_class.html#ae1657d0b30cd3063854a330cc5a91b85">USARTClass</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a45fd1336a323ea83b16e8507055f44ea"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">size_t Stream::readBytes </td>
-          <td>(</td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>buffer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>length</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Read chars from stream into buffer. </p>
-<p>Terminates if length characters have been read or timeout (see <a class="el" href="class_stream.html#a46b2d7c7e65159c07b9ea877d0d53299" title="Sets maximum milliseconds to wait for stream data. ">setTimeout()</a>)</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">buffer</td><td></td></tr>
-    <tr><td class="paramname">length</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The number of characters placed in the buffer (0 means no valid data found) </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="af84672a4fb2620466958d3118d4fea00"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">size_t Stream::readBytesUntil </td>
-          <td>(</td>
-          <td class="paramtype">char&#160;</td>
-          <td class="paramname"><em>terminator</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>buffer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>length</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Same as <a class="el" href="class_stream.html#a45fd1336a323ea83b16e8507055f44ea" title="Read chars from stream into buffer. ">readBytes()</a> with terminator character. </p>
-<p>Terminates if length characters have been read, timeout, or if the terminator character detected</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">terminator</td><td></td></tr>
-    <tr><td class="paramname">buffer</td><td></td></tr>
-    <tr><td class="paramname">length</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the number of characters placed in the buffer (0 means no valid data found) </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a46b2d7c7e65159c07b9ea877d0d53299"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Stream::setTimeout </td>
-          <td>(</td>
-          <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>timeout</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets maximum milliseconds to wait for stream data. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">timeout</td><td>Default is 1 second </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="_stream_8h_source.html">Stream.h</a></li>
-<li>Stream.cpp</li>
+</div><!-- fragment --> </div><hr/>The documentation for this class was generated from the following file:<ul>
+<li>Streaming.md</li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Nov 23 2015 19:59:54 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 22 2016 20:59:17 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>
