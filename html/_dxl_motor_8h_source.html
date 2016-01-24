@@ -108,38 +108,36 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  }</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="comment">// From base class</span></div>
 <div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="class_dxl_motor.html#a124457cb996aa9c8fcfe6e8b1353c601">   51</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="class_dxl_motor.html#a124457cb996aa9c8fcfe6e8b1353c601">enable</a>(<span class="keywordtype">bool</span> flag) {enableFlag = flag;}</div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="class_dxl_motor.html#a173c315a4e415a33e6b892fe6b5f1482">   52</a></span>&#160;  <span class="keywordtype">float</span> <a class="code" href="class_dxl_motor.html#a173c315a4e415a33e6b892fe6b5f1482">getRawPosition</a>() {<span class="keywordflow">return</span> rawPos;}</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="comment">// choose sendOpenLoop to actually do the comms, and store the rawPosition</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="class_dxl_motor.html#afadb33b1c033730fd7dfbe3510490f2a">sendOpenLoop</a>(<span class="keywordtype">float</span> val);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="comment">// waits till master is free after the previous update()</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="comment">// MUST CALL THIS BEFORE USING THE SAME MASTER AGAIN</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keywordtype">bool</span> updated();</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="comment">// new</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keywordtype">float</span> getCurrent() {<span class="keywordflow">return</span> rawCurrent;}</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  uint8_t id;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  DxlNode *master;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="keywordtype">float</span> rawPos;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <span class="keywordtype">float</span> rawCurrent;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  uint32_t lastTX;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;};</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; <span class="comment">// end of addtogroup</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="class_dxl_motor.html#a173c315a4e415a33e6b892fe6b5f1482">   52</a></span>&#160;  <span class="keywordtype">float</span> <a class="code" href="class_dxl_motor.html#a173c315a4e415a33e6b892fe6b5f1482">getRawPosition</a>() {<span class="keywordflow">return</span> rawPos;}=</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="class_motor.html#ac4810cdc34eaa0281e89165655acd1f9">sendOpenLoop</a>(<span class="keywordtype">float</span> val);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="class_dxl_motor.html#a18620cf84a0fd9414f70c2d16fdd4123">updated</a>();</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="class_dxl_motor.html#a0e9e52a31fa5f94b296393b8c123d61e">   71</a></span>&#160;  <span class="keywordtype">float</span> <a class="code" href="class_dxl_motor.html#a0e9e52a31fa5f94b296393b8c123d61e">getCurrent</a>() {<span class="keywordflow">return</span> rawCurrent;}</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  uint8_t id;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  DxlNode *master;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  <span class="keywordtype">float</span> rawPos;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <span class="keywordtype">float</span> rawCurrent;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  uint32_t lastTX;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;};</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; <span class="comment">// end of addtogroup</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="class_dxl_motor_html"><div class="ttname"><a href="class_dxl_motor.html">DxlMotor</a></div><div class="ttdoc">Derived class for talking to motors over the Dxl bus. </div><div class="ttdef"><b>Definition:</b> DxlMotor.h:32</div></div>
+<div class="ttc" id="class_dxl_motor_html_a0e9e52a31fa5f94b296393b8c123d61e"><div class="ttname"><a href="class_dxl_motor.html#a0e9e52a31fa5f94b296393b8c123d61e">DxlMotor::getCurrent</a></div><div class="ttdeci">float getCurrent()</div><div class="ttdoc">Returns the current value received from the motor controller. </div><div class="ttdef"><b>Definition:</b> DxlMotor.h:71</div></div>
 <div class="ttc" id="class_dxl_motor_html_a173c315a4e415a33e6b892fe6b5f1482"><div class="ttname"><a href="class_dxl_motor.html#a173c315a4e415a33e6b892fe6b5f1482">DxlMotor::getRawPosition</a></div><div class="ttdeci">float getRawPosition()</div><div class="ttdoc">Raw position read from the motor driver. </div><div class="ttdef"><b>Definition:</b> DxlMotor.h:52</div></div>
-<div class="ttc" id="class_dxl_motor_html_afadb33b1c033730fd7dfbe3510490f2a"><div class="ttname"><a href="class_dxl_motor.html#afadb33b1c033730fd7dfbe3510490f2a">DxlMotor::sendOpenLoop</a></div><div class="ttdeci">void sendOpenLoop(float val)</div><div class="ttdoc">Communicate a raw PWM to the motor controller. </div><div class="ttdef"><b>Definition:</b> DxlMotor.cpp:29</div></div>
 <div class="ttc" id="class_dxl_motor_html_a7ad48f797346d5290d4cb61df270880f"><div class="ttname"><a href="class_dxl_motor.html#a7ad48f797346d5290d4cb61df270880f">DxlMotor::init</a></div><div class="ttdeci">void init(DxlNode *master_, uint8_t id_, float zero, int8_t dir)</div><div class="ttdoc">Initialize motor with gear ratio 1. </div><div class="ttdef"><b>Definition:</b> DxlMotor.h:47</div></div>
 <div class="ttc" id="class_motor_html"><div class="ttname"><a href="class_motor.html">Motor</a></div><div class="ttdoc">Base single-motor class. </div><div class="ttdef"><b>Definition:</b> Motor.h:83</div></div>
+<div class="ttc" id="class_dxl_motor_html_a18620cf84a0fd9414f70c2d16fdd4123"><div class="ttname"><a href="class_dxl_motor.html#a18620cf84a0fd9414f70c2d16fdd4123">DxlMotor::updated</a></div><div class="ttdeci">bool updated()</div><div class="ttdoc">New for DxlMotor: the user MUST call this after calling Motor::update() </div><div class="ttdef"><b>Definition:</b> DxlMotor.cpp:39</div></div>
+<div class="ttc" id="class_motor_html_ac4810cdc34eaa0281e89165655acd1f9"><div class="ttname"><a href="class_motor.html#ac4810cdc34eaa0281e89165655acd1f9">Motor::sendOpenLoop</a></div><div class="ttdeci">virtual void sendOpenLoop(float val)=0</div><div class="ttdoc">Communicate a raw PWM to the motor controller. </div></div>
 <div class="ttc" id="class_dxl_motor_html_a124457cb996aa9c8fcfe6e8b1353c601"><div class="ttname"><a href="class_dxl_motor.html#a124457cb996aa9c8fcfe6e8b1353c601">DxlMotor::enable</a></div><div class="ttdeci">void enable(bool flag)</div><div class="ttdoc">Enable the motor. </div><div class="ttdef"><b>Definition:</b> DxlMotor.h:51</div></div>
 <div class="ttc" id="class_dxl_motor_html_acd6a880d4875407cd9aa780cb021ecfd"><div class="ttname"><a href="class_dxl_motor.html#acd6a880d4875407cd9aa780cb021ecfd">DxlMotor::init</a></div><div class="ttdeci">void init(DxlNode *master_, uint8_t id_, float zero, int8_t dir, float gearRatio)</div><div class="ttdef"><b>Definition:</b> DxlMotor.cpp:21</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 23 2016 12:18:24 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jan 23 2016 23:10:58 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

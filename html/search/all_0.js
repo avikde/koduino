@@ -2,6 +2,7 @@ var searchData=
 [
   ['abstractmotor',['AbstractMotor',['../class_abstract_motor.html',1,'']]],
   ['abstractmotor_3c_202_20_3e',['AbstractMotor&lt; 2 &gt;',['../class_abstract_motor.html',1,'']]],
+  ['abstracttophysical',['abstractToPhysical',['../class_abstract_motor.html#a86651072beff21fb167a3bdd844fe9b9',1,'AbstractMotor']]],
   ['analog_20input',['Analog input',['../group___analog.html',1,'']]],
   ['analogread',['analogRead',['../group___analog.html#ga4edb9397d5e5089f29bf504a1b5192b3',1,'analogRead(uint8_t pin):&#160;adc.c'],['../group___analog.html#ga4edb9397d5e5089f29bf504a1b5192b3',1,'analogRead(uint8_t pin):&#160;adc.c']]],
   ['analogreadsampletime',['analogReadSampleTime',['../group___analog.html#gacff56f09a9d08b160d957caff4c41b1b',1,'analogReadSampleTime(uint8_t sampleTime):&#160;adc.c'],['../group___analog.html#gacff56f09a9d08b160d957caff4c41b1b',1,'analogReadSampleTime(uint8_t sampleTime):&#160;adc.c']]],

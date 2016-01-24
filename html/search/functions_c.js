@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['sendopenloop',['sendOpenLoop',['../class_motor.html#ac4810cdc34eaa0281e89165655acd1f9',1,'Motor::sendOpenLoop()'],['../class_bl_con34.html#a5d2ba16a38c8d16b861e1588aaa8a19d',1,'BlCon34::sendOpenLoop()'],['../class_dxl_motor.html#afadb33b1c033730fd7dfbe3510490f2a',1,'DxlMotor::sendOpenLoop()']]],
+  ['sendopenloop',['sendOpenLoop',['../class_motor.html#ac4810cdc34eaa0281e89165655acd1f9',1,'Motor::sendOpenLoop()'],['../class_bl_con34.html#a5d2ba16a38c8d16b861e1588aaa8a19d',1,'BlCon34::sendOpenLoop()']]],
   ['setbitorder',['setBitOrder',['../class_s_p_i_class.html#afde3febd4ff7bf33bb2b54e8a9b9694d',1,'SPIClass']]],
   ['setclockdivider',['setClockDivider',['../class_s_p_i_class.html#aa8440b0652b8a0d3d56434b57a8fec1d',1,'SPIClass']]],
   ['setdatamode',['setDataMode',['../class_s_p_i_class.html#a13cf0985428fd08a5e056c747e296cc1',1,'SPIClass']]],

@@ -91,6 +91,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="class_abstract_motor-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">AbstractMotor&lt; N &gt; Class Template Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="group___motor_controller.html">Motor controller library</a></div></div>  </div>
@@ -113,14 +114,229 @@ class AbstractMotor&lt; N &gt;</h3>
   </table>
   </dd>
 </dl>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a76fd95ef263081117e60615b98bec505"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_abstract_motor.html#a76fd95ef263081117e60615b98bec505">physicalToAbstract</a> (const float in[N], float out[N])=0</td></tr>
+<tr class="memdesc:a76fd95ef263081117e60615b98bec505"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transformation for forces at the toe to joint torques.  <a href="#a76fd95ef263081117e60615b98bec505">More...</a><br /></td></tr>
+<tr class="separator:a76fd95ef263081117e60615b98bec505"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86651072beff21fb167a3bdd844fe9b9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_abstract_motor.html#a86651072beff21fb167a3bdd844fe9b9">abstractToPhysical</a> (const float in[N], float out[N])=0</td></tr>
+<tr class="memdesc:a86651072beff21fb167a3bdd844fe9b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forward kinematics.  <a href="#a86651072beff21fb167a3bdd844fe9b9">More...</a><br /></td></tr>
+<tr class="separator:a86651072beff21fb167a3bdd844fe9b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c57a5b89e44bd332951b172420efb4c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_abstract_motor.html#a9c57a5b89e44bd332951b172420efb4c">enable</a> (bool flag)</td></tr>
+<tr class="memdesc:a9c57a5b89e44bd332951b172420efb4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables all the motors in this "leg".  <a href="#a9c57a5b89e44bd332951b172420efb4c">More...</a><br /></td></tr>
+<tr class="separator:a9c57a5b89e44bd332951b172420efb4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2657dadc0eccd66e88a0a700c36f1b1"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_abstract_motor.html#ac2657dadc0eccd66e88a0a700c36f1b1">getPosition</a> (int i)</td></tr>
+<tr class="memdesc:ac2657dadc0eccd66e88a0a700c36f1b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the ith toe position coordinate.  <a href="#ac2657dadc0eccd66e88a0a700c36f1b1">More...</a><br /></td></tr>
+<tr class="separator:ac2657dadc0eccd66e88a0a700c36f1b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad625a9a4ef63844ae27f30d8d405ca5d"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_abstract_motor.html#ad625a9a4ef63844ae27f30d8d405ca5d">getVelocity</a> (int i)</td></tr>
+<tr class="memdesc:ad625a9a4ef63844ae27f30d8d405ca5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the ith toe coordinate velocity.  <a href="#ad625a9a4ef63844ae27f30d8d405ca5d">More...</a><br /></td></tr>
+<tr class="separator:ad625a9a4ef63844ae27f30d8d405ca5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a86651072beff21fb167a3bdd844fe9b9"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;int N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="class_abstract_motor.html">AbstractMotor</a>&lt; N &gt;::abstractToPhysical </td>
+          <td>(</td>
+          <td class="paramtype">const float&#160;</td>
+          <td class="paramname"><em>in</em>[N], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>out</em>[N]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Forward kinematics. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>Joint angles </td></tr>
+    <tr><td class="paramname">out</td><td>Toe position </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a9c57a5b89e44bd332951b172420efb4c"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;int N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_abstract_motor.html">AbstractMotor</a>&lt; N &gt;::enable </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>flag</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Enables all the motors in this "leg". </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">flag</td><td>true enables, false disables </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ac2657dadc0eccd66e88a0a700c36f1b1"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;int N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="class_abstract_motor.html">AbstractMotor</a>&lt; N &gt;::getPosition </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the ith toe position coordinate. </p>
+<p>Unlike <a class="el" href="class_motor.html#a93ea58e6b68d4c791376f94e0e86bbe5" title="Get position after direction and zero are taken into account. ">Motor::getPosition()</a>, the AbstractMotor::getPosition() doesn't actually read sensors, but returns the value stored from the last time <a class="el" href="class_motor.html#a1aed5249d7e088b34bf5e45da6c7f21e" title="Function that communicates with the motor controller (including getting position, commanding PWM) ...">Motor::update()</a> was called. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>ith entry in the forward kinematics as specified in <a class="el" href="class_abstract_motor.html#a86651072beff21fb167a3bdd844fe9b9" title="Forward kinematics. ">abstractToPhysical()</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Position in physical units </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad625a9a4ef63844ae27f30d8d405ca5d"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;int N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="class_abstract_motor.html">AbstractMotor</a>&lt; N &gt;::getVelocity </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the ith toe coordinate velocity. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>ith entry in the forward kinematics as specified in <a class="el" href="class_abstract_motor.html#a86651072beff21fb167a3bdd844fe9b9" title="Forward kinematics. ">abstractToPhysical()</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Velocity in physical units </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a76fd95ef263081117e60615b98bec505"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;int N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="class_abstract_motor.html">AbstractMotor</a>&lt; N &gt;::physicalToAbstract </td>
+          <td>(</td>
+          <td class="paramtype">const float&#160;</td>
+          <td class="paramname"><em>in</em>[N], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>out</em>[N]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Transformation for forces at the toe to joint torques. </p>
+<p>To be overridden: coordinate transforms</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>Toe forces </td></tr>
+    <tr><td class="paramname">out</td><td>Joint torques </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="_abstract_motor_8h_source.html">AbstractMotor.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 23 2016 12:18:24 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jan 23 2016 23:10:58 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

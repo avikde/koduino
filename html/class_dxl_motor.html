@@ -118,10 +118,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a173c315a4e415a33e6b892fe6b5f1482"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_dxl_motor.html#a173c315a4e415a33e6b892fe6b5f1482">getRawPosition</a> ()</td></tr>
 <tr class="memdesc:a173c315a4e415a33e6b892fe6b5f1482"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raw position read from the motor driver.  <a href="#a173c315a4e415a33e6b892fe6b5f1482">More...</a><br /></td></tr>
 <tr class="separator:a173c315a4e415a33e6b892fe6b5f1482"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afadb33b1c033730fd7dfbe3510490f2a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_dxl_motor.html#afadb33b1c033730fd7dfbe3510490f2a">sendOpenLoop</a> (float val)</td></tr>
-<tr class="memdesc:afadb33b1c033730fd7dfbe3510490f2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Communicate a raw PWM to the motor controller.  <a href="#afadb33b1c033730fd7dfbe3510490f2a">More...</a><br /></td></tr>
-<tr class="separator:afadb33b1c033730fd7dfbe3510490f2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18620cf84a0fd9414f70c2d16fdd4123"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_dxl_motor.html#a18620cf84a0fd9414f70c2d16fdd4123">updated</a> ()</td></tr>
+<tr class="memdesc:a18620cf84a0fd9414f70c2d16fdd4123"><td class="mdescLeft">&#160;</td><td class="mdescRight">New for <a class="el" href="class_dxl_motor.html" title="Derived class for talking to motors over the Dxl bus. ">DxlMotor</a>: the user MUST call this after calling <a class="el" href="class_motor.html#a1aed5249d7e088b34bf5e45da6c7f21e" title="Function that communicates with the motor controller (including getting position, commanding PWM) ...">Motor::update()</a>  <a href="#a18620cf84a0fd9414f70c2d16fdd4123">More...</a><br /></td></tr>
+<tr class="separator:a18620cf84a0fd9414f70c2d16fdd4123"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e9e52a31fa5f94b296393b8c123d61e"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_dxl_motor.html#a0e9e52a31fa5f94b296393b8c123d61e">getCurrent</a> ()</td></tr>
+<tr class="memdesc:a0e9e52a31fa5f94b296393b8c123d61e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current value received from the motor controller.  <a href="#a0e9e52a31fa5f94b296393b8c123d61e">More...</a><br /></td></tr>
+<tr class="separator:a0e9e52a31fa5f94b296393b8c123d61e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_motor"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_motor')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_motor.html">Motor</a></td></tr>
+<tr class="memitem:ac4810cdc34eaa0281e89165655acd1f9 inherit pub_methods_class_motor"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_motor.html#ac4810cdc34eaa0281e89165655acd1f9">sendOpenLoop</a> (float val)=0</td></tr>
+<tr class="memdesc:ac4810cdc34eaa0281e89165655acd1f9 inherit pub_methods_class_motor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Communicate a raw PWM to the motor controller.  <a href="#ac4810cdc34eaa0281e89165655acd1f9">More...</a><br /></td></tr>
+<tr class="separator:ac4810cdc34eaa0281e89165655acd1f9 inherit pub_methods_class_motor"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae93220ea2eda8beb4d405c5c4916b2b inherit pub_methods_class_motor"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_motor.html#aae93220ea2eda8beb4d405c5c4916b2b">init</a> (float zero, int8_t direction, float gearRatio)</td></tr>
 <tr class="memdesc:aae93220ea2eda8beb4d405c5c4916b2b inherit pub_methods_class_motor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize motor properties.  <a href="#aae93220ea2eda8beb4d405c5c4916b2b">More...</a><br /></td></tr>
 <tr class="separator:aae93220ea2eda8beb4d405c5c4916b2b inherit pub_methods_class_motor"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -158,7 +164,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_static_attribs_class_motor"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_class_motor')"><img src="closed.png" alt="-"/>&#160;Static Public Attributes inherited from <a class="el" href="class_motor.html">Motor</a></td></tr>
 <tr class="memitem:a89362d8b2dd1b125576cff1c08428072 inherit pub_static_attribs_class_motor"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_motor.html#a89362d8b2dd1b125576cff1c08428072">updateRate</a> = 1000</td></tr>
+<tr class="memdesc:a89362d8b2dd1b125576cff1c08428072 inherit pub_static_attribs_class_motor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set expected rate (Hz) at which <a class="el" href="class_motor.html#a1aed5249d7e088b34bf5e45da6c7f21e" title="Function that communicates with the motor controller (including getting position, commanding PWM) ...">update()</a> will be called.  <a href="#a89362d8b2dd1b125576cff1c08428072">More...</a><br /></td></tr>
 <tr class="separator:a89362d8b2dd1b125576cff1c08428072 inherit pub_static_attribs_class_motor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf7ec1963f7a56e500a2ad35cb886293 inherit pub_static_attribs_class_motor"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaf7ec1963f7a56e500a2ad35cb886293"></a>
+static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_motor.html#aaf7ec1963f7a56e500a2ad35cb886293">velSmooth</a> = 0.8</td></tr>
+<tr class="memdesc:aaf7ec1963f7a56e500a2ad35cb886293 inherit pub_static_attribs_class_motor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set smoothing factor for <a class="el" href="class_motor.html#a3c0f019abe39b8f7a5110ff3366d5fc9" title="Get motor velocity after direction and zero are taken into account. ">getVelocity()</a> (0 is no smoothing, 1 never updates) <br /></td></tr>
+<tr class="separator:aaf7ec1963f7a56e500a2ad35cb886293 inherit pub_static_attribs_class_motor"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 
 <p>Inherits <a class="el" href="class_motor.html">Motor</a>.</p>
@@ -195,6 +206,32 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 
 <p>Implements <a class="el" href="class_motor.html#a3674d10b8a8e59bc54fedd73c8bc458c">Motor</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0e9e52a31fa5f94b296393b8c123d61e"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float DxlMotor::getCurrent </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the current value received from the motor controller. </p>
+<dl class="section return"><dt>Returns</dt><dd>Current in Amps </dd></dl>
 
 </div>
 </div>
@@ -333,38 +370,21 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="afadb33b1c033730fd7dfbe3510490f2a"></a>
+<a class="anchor" id="a18620cf84a0fd9414f70c2d16fdd4123"></a>
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void DxlMotor::sendOpenLoop </td>
+          <td class="memname">bool DxlMotor::updated </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Communicate a raw PWM to the motor controller. </p>
-<p>Must be implemented in derived classes. The user should call <a class="el" href="class_motor.html#ae6f4b739d3bfbcd4d07c70f9a1976e26" title="Set an open loop PWM command for the motor. ">setOpenLoop()</a></p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">val</td><td>Raw PWM in [-1, 1] </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="class_motor.html#ac4810cdc34eaa0281e89165655acd1f9">Motor</a>.</p>
+<p>New for <a class="el" href="class_dxl_motor.html" title="Derived class for talking to motors over the Dxl bus. ">DxlMotor</a>: the user MUST call this after calling <a class="el" href="class_motor.html#a1aed5249d7e088b34bf5e45da6c7f21e" title="Function that communicates with the motor controller (including getting position, commanding PWM) ...">Motor::update()</a> </p>
+<p>Waits will master is free after the previous <a class="el" href="class_motor.html#a1aed5249d7e088b34bf5e45da6c7f21e" title="Function that communicates with the motor controller (including getting position, commanding PWM) ...">Motor::update()</a>. This must be called before trying to use the same master again. </p><dl class="section return"><dt>Returns</dt><dd>true if the ping succeeded, false if there was a comms failure. </dd></dl>
 
 </div>
 </div>
@@ -376,7 +396,7 @@ Additional Inherited Members</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 23 2016 12:18:24 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jan 23 2016 23:10:58 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

@@ -92,6 +92,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="class_bl_con34-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">BlCon34 Class Reference<div class="ingroups"><a class="el" href="group___motor_controller.html">Motor controller library</a></div></div>  </div>
@@ -109,8 +110,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aae0df02b2a2a7b948eafcf3e1c873283"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bl_con34.html#aae0df02b2a2a7b948eafcf3e1c873283">init</a> (uint8_t outPin_, uint8_t inPin_, float zero, int8_t dir, float gearRatio)</td></tr>
-<tr class="memdesc:aae0df02b2a2a7b948eafcf3e1c873283"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a motor with gear ratio 1.  <a href="#aae0df02b2a2a7b948eafcf3e1c873283">More...</a><br /></td></tr>
+<tr class="memdesc:aae0df02b2a2a7b948eafcf3e1c873283"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a motor for PWM communication.  <a href="#aae0df02b2a2a7b948eafcf3e1c873283">More...</a><br /></td></tr>
 <tr class="separator:aae0df02b2a2a7b948eafcf3e1c873283"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6498b1911a6913ff84343f87c8d36ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bl_con34.html#ab6498b1911a6913ff84343f87c8d36ef">init</a> (uint8_t outPin_, uint8_t inPin_, float zero, int8_t dir)</td></tr>
+<tr class="memdesc:ab6498b1911a6913ff84343f87c8d36ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a motor with gear ratio 1.  <a href="#ab6498b1911a6913ff84343f87c8d36ef">More...</a><br /></td></tr>
+<tr class="separator:ab6498b1911a6913ff84343f87c8d36ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac294cec048f4ef08b75cafb49802fdb6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bl_con34.html#ac294cec048f4ef08b75cafb49802fdb6">enable</a> (bool flag)</td></tr>
 <tr class="memdesc:ac294cec048f4ef08b75cafb49802fdb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable the motor.  <a href="#ac294cec048f4ef08b75cafb49802fdb6">More...</a><br /></td></tr>
 <tr class="separator:ac294cec048f4ef08b75cafb49802fdb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -153,11 +157,20 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memdesc:a7b52be740ffa84f78d9877e1dc001be2 inherit pub_methods_class_motor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run this after you are sure there is non-garbage rawPosition data. <br /></td></tr>
 <tr class="separator:a7b52be740ffa84f78d9877e1dc001be2 inherit pub_methods_class_motor"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a41a7d9a4ef0dbd5bd31ff58602816b3d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a41a7d9a4ef0dbd5bd31ff58602816b3d"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bl_con34.html#a41a7d9a4ef0dbd5bd31ff58602816b3d">useEXTI</a> = false</td></tr>
+<tr class="memdesc:a41a7d9a4ef0dbd5bd31ff58602816b3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set if all instances of <a class="el" href="class_bl_con34.html" title="Derived class for communicating with PWM-controlled boards. ">BlCon34</a> use PWM_IN_EXTI (true) or PWM_IN (false). See <a class="el" href="group___p_w_m.html#ga4978918346876528b54add5619f7dadd" title="Read a PWM signal (non-blocking) ">pwmIn()</a>. <br /></td></tr>
+<tr class="separator:a41a7d9a4ef0dbd5bd31ff58602816b3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_static_attribs_class_motor"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_class_motor')"><img src="closed.png" alt="-"/>&#160;Static Public Attributes inherited from <a class="el" href="class_motor.html">Motor</a></td></tr>
 <tr class="memitem:a89362d8b2dd1b125576cff1c08428072 inherit pub_static_attribs_class_motor"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_motor.html#a89362d8b2dd1b125576cff1c08428072">updateRate</a> = 1000</td></tr>
+<tr class="memdesc:a89362d8b2dd1b125576cff1c08428072 inherit pub_static_attribs_class_motor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set expected rate (Hz) at which <a class="el" href="class_motor.html#a1aed5249d7e088b34bf5e45da6c7f21e" title="Function that communicates with the motor controller (including getting position, commanding PWM) ...">update()</a> will be called.  <a href="#a89362d8b2dd1b125576cff1c08428072">More...</a><br /></td></tr>
 <tr class="separator:a89362d8b2dd1b125576cff1c08428072 inherit pub_static_attribs_class_motor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf7ec1963f7a56e500a2ad35cb886293 inherit pub_static_attribs_class_motor"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaf7ec1963f7a56e500a2ad35cb886293"></a>
+static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_motor.html#aaf7ec1963f7a56e500a2ad35cb886293">velSmooth</a> = 0.8</td></tr>
+<tr class="memdesc:aaf7ec1963f7a56e500a2ad35cb886293 inherit pub_static_attribs_class_motor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set smoothing factor for <a class="el" href="class_motor.html#a3c0f019abe39b8f7a5110ff3366d5fc9" title="Get motor velocity after direction and zero are taken into account. ">getVelocity()</a> (0 is no smoothing, 1 never updates) <br /></td></tr>
+<tr class="separator:aaf7ec1963f7a56e500a2ad35cb886293 inherit pub_static_attribs_class_motor"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 
 <p>Inherits <a class="el" href="class_motor.html">Motor</a>.</p>
@@ -267,14 +280,71 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initialize a motor with gear ratio 1. </p>
+<p>Initialize a motor for PWM communication. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">outPin_</td><td>PWM out pin </td></tr>
-    <tr><td class="paramname">inPin_</td><td>PWM in pin </td></tr>
+    <tr><td class="paramname">outPin_</td><td>PWM out pin (must be a PWM pin) </td></tr>
+    <tr><td class="paramname">inPin_</td><td>PWM in pin (must be a PWM pin if <a class="el" href="class_bl_con34.html#a41a7d9a4ef0dbd5bd31ff58602816b3d" title="Set if all instances of BlCon34 use PWM_IN_EXTI (true) or PWM_IN (false). See pwmIn(). ">BlCon34::useEXTI</a> is false, otherwise an external interrupt pin) </td></tr>
     <tr><td class="paramname">zero</td><td>See <a class="el" href="class_motor.html#aae93220ea2eda8beb4d405c5c4916b2b" title="Initialize motor properties. ">Motor::init()</a> </td></tr>
     <tr><td class="paramname">dir</td><td>See <a class="el" href="class_motor.html#aae93220ea2eda8beb4d405c5c4916b2b" title="Initialize motor properties. ">Motor::init()</a> </td></tr>
     <tr><td class="paramname">gearRatio</td><td>See <a class="el" href="class_motor.html#aae93220ea2eda8beb4d405c5c4916b2b" title="Initialize motor properties. ">Motor::init()</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ab6498b1911a6913ff84343f87c8d36ef"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BlCon34::init </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>outPin_</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>inPin_</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>zero</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int8_t&#160;</td>
+          <td class="paramname"><em>dir</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Initialize a motor with gear ratio 1. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">outPin_</td><td>PWM out pin (must be a PWM pin) </td></tr>
+    <tr><td class="paramname">inPin_</td><td>PWM in pin (must be a PWM pin if <a class="el" href="class_bl_con34.html#a41a7d9a4ef0dbd5bd31ff58602816b3d" title="Set if all instances of BlCon34 use PWM_IN_EXTI (true) or PWM_IN (false). See pwmIn(). ">BlCon34::useEXTI</a> is false, otherwise an external interrupt pin) </td></tr>
+    <tr><td class="paramname">zero</td><td>See <a class="el" href="class_motor.html#aae93220ea2eda8beb4d405c5c4916b2b" title="Initialize motor properties. ">Motor::init()</a> </td></tr>
+    <tr><td class="paramname">dir</td><td>See <a class="el" href="class_motor.html#aae93220ea2eda8beb4d405c5c4916b2b" title="Initialize motor properties. ">Motor::init()</a> </td></tr>
   </table>
   </dd>
 </dl>
@@ -324,7 +394,7 @@ Additional Inherited Members</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 23 2016 12:18:24 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jan 23 2016 23:10:58 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>
