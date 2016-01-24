@@ -49,14 +49,25 @@ public:
   }
   // From base class
   void enable(bool flag) {enableFlag = flag;}
-  float getRawPosition() {return rawPos;}
-  // choose sendOpenLoop to actually do the comms, and store the rawPosition
+  float getRawPosition() {return rawPos;}=
+  /**
+   * @brief Send a packet to the slave with a desired open loop value.
+   * @details This is called by Motor::update(), the user should not call this.
+   * 
+   * @param val PWM value between -1 and 1
+   */
   void sendOpenLoop(float val);
-  // waits till master is free after the previous update()
-  // MUST CALL THIS BEFORE USING THE SAME MASTER AGAIN
+  /**
+   * @brief New for DxlMotor: the user MUST call this after calling Motor::update()
+   * @details Waits will master is free after the previous Motor::update(). This must be called before trying to use the same master again.
+   * @return true if the ping succeeded, false if there was a comms failure.
+   */
   bool updated();
 
-  // new
+  /**
+   * @brief Returns the current value received from the motor controller
+   * @return Current in Amps
+   */
   float getCurrent() {return rawCurrent;}
 
   uint8_t id;

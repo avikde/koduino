@@ -82,7 +82,6 @@ public:
  */
 class Motor {
 public:
-  // Has to be defined for each motor driver / feedback type combo
   /**
    * @brief Enable the motor
    * @details Must be implemented in derived classes
@@ -177,8 +176,14 @@ public:
    */
   void resetOffset();
 
-  // Static params - for every instance
+  /**
+   * @brief Set expected rate (Hz) at which update() will be called
+   */
   static int updateRate;
+
+  /**
+   * @brief Set smoothing factor for getVelocity() (0 is no smoothing, 1 never updates)
+   */
   static float velSmooth, rpsLimit;
 
   float gearRatio, prevPosition;
@@ -218,21 +223,32 @@ protected:
  */
 class BlCon34 : public Motor {
 public:
+  /**
+   * @brief Set if all instances of BlCon34 use PWM_IN_EXTI (true) or PWM_IN (false). See pwmIn().
+   */
   static bool useEXTI;
 
   // Constructor (sets defaults)
   BlCon34() {}
 
   /**
-   * @brief Initialize a motor with gear ratio 1
+   * @brief Initialize a motor for PWM communication
    * 
-   * @param outPin_ PWM out pin
-   * @param inPin_ PWM in pin
+   * @param outPin_ PWM out pin (must be a PWM pin)
+   * @param inPin_ PWM in pin (must be a PWM pin if BlCon34::useEXTI is false, otherwise an external interrupt pin)
    * @param zero See Motor::init()
    * @param dir See Motor::init()
    * @param gearRatio See Motor::init()
    */
   void init(uint8_t outPin_, uint8_t inPin_, float zero, int8_t dir, float gearRatio);
+  /**
+   * @brief Initialize a motor with gear ratio 1
+   * 
+   * @param outPin_ PWM out pin (must be a PWM pin)
+   * @param inPin_ PWM in pin (must be a PWM pin if BlCon34::useEXTI is false, otherwise an external interrupt pin)
+   * @param zero See Motor::init()
+   * @param dir See Motor::init()
+   */
   void init(uint8_t outPin_, uint8_t inPin_, float zero, int8_t dir) {
     init(outPin_, inPin_, zero, dir, 1.0);
   }

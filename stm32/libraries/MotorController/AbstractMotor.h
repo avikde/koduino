@@ -37,19 +37,43 @@ public:
   // Constructor?
   // AbstractMotor()
 
-  // To be overridden: coordinate transforms
-  // Take positions from physical motors to abstract motors
+  /**
+   * @brief Transformation for forces at the toe to joint torques
+   * @details To be overridden: coordinate transforms
+   * 
+   * @param in Toe forces
+   * @param out Joint torques
+   */
   virtual void physicalToAbstract(const float in[N], float out[N]) = 0;
-  // Take command values from abstract motor to physical motor coords (inverse of above)
+  /**
+   * @brief Forward kinematics
+   * @param in Joint angles
+   * @param out Toe position
+   */
   virtual void abstractToPhysical(const float in[N], float out[N]) = 0;
 
+  /**
+   * @brief Enables all the motors in this "leg"
+   * @param flag true enables, false disables
+   */
   void enable(bool flag) {
     for (int i=0; i<N; ++i)
       motors[i]->enable(flag);
   }
-  // Get*() functions
-  // Unlike the "Motor" class, the getPosition doesn't actually read sensors, but returns the value stored from the last time update() was called
+
+  /**
+   * @brief Returns the ith toe position coordinate
+   * @details Unlike Motor::getPosition(), the AbstractMotor::getPosition() doesn't actually read sensors, but returns the value stored from the last time Motor::update() was called.
+   * @param i ith entry in the forward kinematics as specified in abstractToPhysical()
+   * @return Position in physical units
+   */
   float getPosition(int i) { return pos[i]; }
+
+  /**
+   * @brief Returns the ith toe coordinate velocity
+   * @param i ith entry in the forward kinematics as specified in abstractToPhysical()
+   * @return Velocity in physical units
+   */
   float getVelocity(int i) { return pd[i].vel; }
 
   float getOpenLoop(int i) {
