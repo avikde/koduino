@@ -46,6 +46,9 @@ static inline vec3 toVec3(float *arr) {
 //   return out;
 // }
 
+/**
+ * @brief EKF implementation
+ */
 class EKF : public OrientationFilter {
 public:
   const float kOneG = 9.8;

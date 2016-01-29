@@ -101,20 +101,31 @@ union MPUData {
   } data;
 };
 
-// cldoc:begin-category(IMU)
-
+/**
+ * @brief MPU6000 hardware interface library
+ */
 class MPU6000 : public IMU {
 public:
-  // constructors set up which SPI
+  /**
+   * @brief Construct with reference to which SPI
+   * @param theSPI SPI, SPI_2, etc.
+   */
   MPU6000(SPIClass& theSPI) : theSPI(theSPI) {}
   MPU6000() : theSPI(SPI) {}
 
+  /**
+   * @brief Call to initialize MPU6000 and start getting data
+   * 
+   * @param csPin Chip select pin
+   * @return true if successful
+   */
   bool init(uint8_t csPin);
   void read(byte reg, unsigned int length, byte *data);
   byte read(byte reg);
   void write(byte reg, unsigned int length, const byte *data);
   void write(byte reg, byte data);
   void swapData(unsigned char *data, int datalen);
+
   virtual void readSensors();
 
 // protected:

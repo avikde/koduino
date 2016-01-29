@@ -26,12 +26,14 @@
  *  @{
  */
 
+/**
+ * @brief Complementary filter implementation
+ */
 class ComplementaryFilter : public OrientationFilter {
 public:
   ComplementaryFilter(float dt, float smooth, float acclb, float accub, bool flipz) : dt(dt), smooth(smooth), acclb(acclb), accub(accub), flipz(flipz) {}
   ComplementaryFilter() : dt(0.001), smooth(0.5), acclb(0.5), accub(2), flipz(false) {}
 
-  // Main function
   void update(const float *acc, const float *gyr) {
     static float pitchAcc, rollAcc;
     // Integrate the gyroscope data -> int(angularSpeed) = angle

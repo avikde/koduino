@@ -23,25 +23,28 @@
  *  @{
  */
 
-enum OrientationFilterType {
-  IMU_FILTER_BUILTIN, IMU_FILTER_COMPLEMENTARY, IMU_FILTER_UKF
-};
-
 typedef struct {
   float angles[3];
   float angRates[3];
 } EulerState;
 
 
-// cldoc:begin-category(IMU)
-
-// Base class for filters
+/**
+ * @brief Base class for attitude filters
+ */
 class OrientationFilter {
 public:
-  // Update into whatever internal state
+  /**
+   * @brief Update filter from measurements (usually from IMU.readSensors())
+   * @param acc Measured acc
+   * @param gyr Measured gyr
+   */
   virtual void update(const float *acc, const float *gyr) = 0;
 
-  // Must be able to return euler angles
+  /**
+   * @brief Get filtered Euler angles
+   * @return `e->angles[]` is a `float[3]` array of angles and, `e->angRates[]` of angular rates
+   */
   virtual const EulerState *getEuler() = 0;
   
 protected:
