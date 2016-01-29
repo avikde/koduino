@@ -26,69 +26,69 @@ Basic control of a single motor:
 
 #include <Motor.h>
 
-// All connectors on Mainboard v1.1
-const uint8_t pwm1 = PA0;
-const uint8_t pulse1 = PA6;
-const uint8_t pwm2 = PA11;
-const uint8_t pulse2 = PB5;
-const uint8_t pwm3 = PA2;
-const uint8_t pulse3 = PB6;
-const uint8_t pwm4 = PA3;
-const uint8_t pulse4 = PB7;
-const uint8_t pwm5 = PB0;
-const uint8_t pulse5 = PB1;
-const uint8_t pwm6 = PB8;
-const uint8_t pulse6 = PB9;
-const uint8_t pwm7 = PA14;
-const uint8_t pulse7 = PA15;
-const uint8_t pwm8 = PA1;
-const uint8_t pulse8 = PA5;
+// Uncomment the lines corresponding to your board
+// Mainboard v1.1
+const int NMOT = 8;
+const uint8_t outPin[] = {PA0, PA11, PA2, PA3, PB0, PB8, PA14, PA1};
+const uint8_t inPin[] = {PA6, PB5, PB6, PB7, PB1, PB9, PA15, PA5};
+// // Mainboard v2
+// const int NMOT = 8;
+// const uint8_t outPin[] = {PA3, PA2, PA0, PA1, PB0, PB1, PA6, PB5};
+// const uint8_t inPin[] = {PB8, PB9, PB3, PA8, PA11, PA15, PB14, PB15};
+// // MBLC
+// const int NMOT = 10;
+// const uint8_t outPin[] = {PA5, PA1, PB10, PB11, PC0, PC1, PC2, PC3, PB4, PB5};
+// const uint8_t inPin[] = {PF1, PB2, PB0, PC4, PC5, PC6, PC7, PC8, PA11, PA12};
 
 const int CONTROL_RATE = 1000;
-BlCon34 M1;
+BlCon34 M[NMOT];
 
 void controlLoop() {
-  M1.update();
+  for (int i=0; i<NMOT; ++i)
+    M[i].update();
 }
 
 void setup() {
   Serial1.begin(115200);
 
   Motor::updateRate = CONTROL_RATE;
-  Motor::velSmooth = 0.55;
+  Motor::velSmooth = 0.9;
+  // Uncomment this for MBLC
+  // BlCon34::useEXTI = true;
 
   // Arguments are pwmPin, pulsePin, zero(rad), direction(+/- 1)
-  M1.init(pwm1, pulse1, 0, 1);
+  for (int i=0; i<NMOT; ++i) {
+    M[i].init(outPin[i], inPin[i], 0, 1);
+    // Also can specify a gear ratio (e.g. 23)
+    // M[i].init(outPin[i], inPin[i], 0, 1, 23);
 
-  // Also can specify a gearRatio (e.g. 23)
-  // M1.init(pwm1, pulse1, 0, 1, 23);
+    // set P-gain of 1.0/rad. This can be called as often as needed.
+    M[i].setGain(1.0);
+    // can also set D-gain like the following:
+    // M[i].setGain(1.0, 0.01);
+  }
 
   attachTimerInterrupt(0, controlLoop, CONTROL_RATE);
 }
 
 void loop() {
-  // set P-gain of 0.5/rad
-  M1.setGain(0.5);
-  // can also set D-gain like the following:
-  // M1.setGain(0.5, 0.01);
-
   // Must call this to enable motor controller
-  M1.enable(true);
+  M[0].enable(true);
 
   // go to 0 radians
-  M1.setPosition(0);
+  M[0].setPosition(0);
   delay(1000);
 
   // go to 1 radians
-  M1.setPosition(1);
+  M[0].setPosition(1);
   delay(1000);
 
-  // spin freely in the + direction
-  M1.setOpenLoop(0.5);
+  // spin freely in the + direction (gains are ignored in open loop mode)
+  M[0].setOpenLoop(0.5);
   delay(1000);
 
   // spin freely in the - direction
-  M1.setOpenLoop(-0.5);
+  M[0].setOpenLoop(-0.5);
   delay(1000);
 }
 
