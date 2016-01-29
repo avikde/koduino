@@ -101,11 +101,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </ol>
 <h3>Setting motor zero (independent of physical setup)</h3>
 <ol type="1">
-<li>To calibrate a motor's zero position, rotate the output shaft of the motor (or gearbox) at the desired zero location.</li>
-<li>Take the output of <a class="el" href="class_motor.html#aa57a20a89e0090b007a916868e4cfa35" title="Raw position read from the motor driver. ">Motor::getRawPosition()</a> (a number that will be between 0 and 2 PI), and use that as the zero argument for the <a class="el" href="class_motor.html#aae93220ea2eda8beb4d405c5c4916b2b" title="Initialize motor properties. ">Motor::init()</a> (or the equivalent calls in specific derived classes, like <a class="el" href="class_bl_con34.html#aae0df02b2a2a7b948eafcf3e1c873283" title="Initialize a motor for PWM communication. ">BlCon34::init()</a> or <a class="el" href="class_dxl_motor.html#acd6a880d4875407cd9aa780cb021ecfd">DxlMotor::init()</a>). The direction of the motor and the gear box do not have any effect on the zeroing routine.</li>
-<li>For startup, the motor's output shaft must be within (-PI, PI)/gearRatio of the calibrated zero position. This means that in direct drive, the motor can be at an arbitrary position, but when using a gearbox the startup angle is decreased since there are no absolute enocders.</li>
+<li>Rotate the output shaft of the motor (or gearbox) to the desired zero location.</li>
+<li>Take the output of <a class="el" href="class_motor.html#aa57a20a89e0090b007a916868e4cfa35" title="Raw position read from the motor driver. ">Motor::getRawPosition()</a> (between 0 and 2 PI), and use that as the <code>zero</code> argument for the initialization function (<a class="el" href="class_bl_con34.html#aae0df02b2a2a7b948eafcf3e1c873283" title="Initialize a motor for PWM communication. ">BlCon34::init()</a>, <a class="el" href="class_dxl_motor.html#acd6a880d4875407cd9aa780cb021ecfd">DxlMotor::init()</a>, etc). The <code>direction</code> and <code>gearRatio</code> do not have any effect on the zeroing routine.</li>
+<li>For robot startup, the motor's output shaft must be within (-PI, PI)/gearRatio of the calibrated zero position. This means that in direct drive, the motor can be at an arbitrary position, but when using a gearbox the startup angle is decreased since there are no absolute enocders.</li>
 <li>If the motor driver setup takes some time (i.e. <a class="el" href="class_motor.html#aa57a20a89e0090b007a916868e4cfa35" title="Raw position read from the motor driver. ">Motor::getRawPosition()</a> returns garbage during init), then make sure to call <a class="el" href="class_motor.html#a7b52be740ffa84f78d9877e1dc001be2" title="Run this after you are sure there is non-garbage rawPosition data. ">Motor::resetOffset()</a> after there is non-garbage data. This should not be an issue in PWM controlled motor controllers.</li>
-<li>For any gear box with a ratio that is an integer, the motor/gear box assembly can be allowed to recirculate and still work correctly as long as the startup positioning is taken into account. However, for gear boxes with non-integer ratios (which seems to be most gear boxes), the motor/gear box assembly should NOT be allowed to recirculate ever because one full rotation of the output shaft results in a different <a class="el" href="class_motor.html#aa57a20a89e0090b007a916868e4cfa35" title="Raw position read from the motor driver. ">Motor::getRawPosition()</a> value.</li>
+<li>For any gearbox with an integer ratio, the leg can recirculate and still work correctly. However, for gearboxes with non-integer ratios, the motor/gearbox assembly should NOT be allowed to recirculate ever because one full rotation of the output shaft results in a different <a class="el" href="class_motor.html#aa57a20a89e0090b007a916868e4cfa35" title="Raw position read from the motor driver. ">Motor::getRawPosition()</a> value.</li>
 </ol>
 <h3>Example: <a class="el" href="class_motor.html" title="Base single-motor class. ">Motor</a> test</h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Motor.h&gt;</span></div>
@@ -203,7 +203,7 @@ Classes</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 29 2016 13:05:37 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 29 2016 15:03:20 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>
