@@ -194,7 +194,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;  <span class="comment">// Command</span></div>
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;  <span class="keywordtype">float</span> val, correctedVal, setpoint;</div>
 <div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;  <span class="comment">// PD controller</span></div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;  PD pd;</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;  <a class="code" href="class_p_d.html">PD</a> pd;</div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;  <span class="comment">// Barrier</span></div>
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;  Barrier barrier;</div>
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;  <span class="comment">//</span></div>
@@ -302,6 +302,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="class_bl_con34_html_a583183a0256298191c5ee59661589567"><div class="ttname"><a href="class_bl_con34.html#a583183a0256298191c5ee59661589567">BlCon34::getRawPosition</a></div><div class="ttdeci">float getRawPosition()</div><div class="ttdoc">Raw position read from the motor driver. </div><div class="ttdef"><b>Definition:</b> Motor.cpp:180</div></div>
 <div class="ttc" id="class_motor_html"><div class="ttname"><a href="class_motor.html">Motor</a></div><div class="ttdoc">Base single-motor class. </div><div class="ttdef"><b>Definition:</b> Motor.h:83</div></div>
 <div class="ttc" id="class_motor_html_a89362d8b2dd1b125576cff1c08428072"><div class="ttname"><a href="class_motor.html#a89362d8b2dd1b125576cff1c08428072">Motor::updateRate</a></div><div class="ttdeci">static int updateRate</div><div class="ttdoc">Set expected rate (Hz) at which update() will be called. </div><div class="ttdef"><b>Definition:</b> Motor.h:182</div></div>
+<div class="ttc" id="class_p_d_html"><div class="ttname"><a href="class_p_d.html">PD</a></div><div class="ttdoc">Generic proportional-derivative control (for use in a motor, look at the Motor controller library ins...</div><div class="ttdef"><b>Definition:</b> WMath.h:162</div></div>
 <div class="ttc" id="class_motor_html_ae1e1f559ef8b8ad4013f11144106eed5"><div class="ttname"><a href="class_motor.html#ae1e1f559ef8b8ad4013f11144106eed5">Motor::setGain</a></div><div class="ttdeci">void setGain(float Kp)</div><div class="ttdoc">Set P-gain for position control (D-gain is set to 0) </div><div class="ttdef"><b>Definition:</b> Motor.h:154</div></div>
 <div class="ttc" id="class_bl_con34_html_a5d2ba16a38c8d16b861e1588aaa8a19d"><div class="ttname"><a href="class_bl_con34.html#a5d2ba16a38c8d16b861e1588aaa8a19d">BlCon34::sendOpenLoop</a></div><div class="ttdeci">void sendOpenLoop(float val)</div><div class="ttdoc">Communicate a raw PWM to the motor controller. </div><div class="ttdef"><b>Definition:</b> Motor.cpp:184</div></div>
 <div class="ttc" id="class_motor_html_a3c0f019abe39b8f7a5110ff3366d5fc9"><div class="ttname"><a href="class_motor.html#a3c0f019abe39b8f7a5110ff3366d5fc9">Motor::getVelocity</a></div><div class="ttdeci">float getVelocity()</div><div class="ttdoc">Get motor velocity after direction and zero are taken into account. </div><div class="ttdef"><b>Definition:</b> Motor.cpp:94</div></div>
@@ -319,7 +320,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 28 2016 20:40:22 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 28 2016 21:23:52 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

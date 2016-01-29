@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>Koduino: Math</title>
+<title>Koduino: Basic and advanced math</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -82,35 +82,435 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">Math</div>  </div>
+<div class="title">Basic and advanced math</div>  </div>
 </div><!--header-->
 <div class="contents">
-<h3>Usage</h3>
-<ol type="1">
-<li>Call <a class="el" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730" title="Configure a pin before using it. ">pinMode()</a> to set the pin to <code>OUTPUT</code>, <code>OUTPUT_OPEN_DRAIN</code>, <code>INPUT</code>, <code>INPUT_PULLUP</code>, or <code>INPUT_PULLDOWN</code></li>
-<li>Call <a class="el" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7" title="Set a digital pin to a given logic level. ">digitalWrite()</a> with <code>HIGH</code>, <code>LOW</code> or <code>TOGGLE</code> on <code>OUTPUT</code> pins</li>
-<li>Call <a class="el" href="group___digital.html#ga3f9e2d2c30df9ba03affa325d5a0eb53" title="Read a digital pin. ">digitalRead()</a> on <code>INPUT</code> pins</li>
-</ol>
-<h3>Example: Blink</h3>
-<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Arduino.h&gt;</span></div>
-<div class="line"></div>
-<div class="line"><span class="comment">// Change to whatever pin an LED is connected to</span></div>
-<div class="line"><span class="keyword">const</span> PinName led = PC13;</div>
-<div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> setup() {</div>
-<div class="line">  <a class="code" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730">pinMode</a>(led, OUTPUT);</div>
-<div class="line">}</div>
-<div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> loop() {</div>
-<div class="line">  <a class="code" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7">digitalWrite</a>(led, TOGGLE);</div>
-<div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(1000);</div>
-<div class="line">}</div>
-</div><!-- fragment --> </div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<dl class="section author"><dt>Authors</dt><dd>Arduino team, Avik De <a href="#" onclick="location.href='mai'+'lto:'+'avi'+'kd'+'e@g'+'ma'+'il.'+'co'+'m'; return false;">avikd<span style="display: none;">.nosp@m.</span>e@gm<span style="display: none;">.nosp@m.</span>ail.c<span style="display: none;">.nosp@m.</span>om</a></dd></dl>
+<p>This file is part of koduino <a href="https://github.com/avikde/koduino">https://github.com/avikde/koduino</a></p>
+<p>This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
+<p>This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.</p>
+<p>You should have received a copy of the GNU Lesser General Public License along with this library; if not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>. </p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_l_p_f.html">DLPF</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Digital autoregressive low pass filter.  <a href="class_d_l_p_f.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_p_d.html">PD</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic proportional-derivative control (for use in a motor, look at the <a class="el" href="group___motor_controller.html">Motor controller library</a> instead)  <a href="class_p_d.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga7c6a75fa6e3b281532b43c23233ada96"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___math.html#ga7c6a75fa6e3b281532b43c23233ada96">randomSeed</a> (uint32_t dwSeed)</td></tr>
+<tr class="separator:ga7c6a75fa6e3b281532b43c23233ada96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5b746fc6ad50e65120e19a2634934ab3"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___math.html#ga5b746fc6ad50e65120e19a2634934ab3">map</a> (float x, float in_min, float in_max, float out_min, float out_max)</td></tr>
+<tr class="memdesc:ga5b746fc6ad50e65120e19a2634934ab3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map a float (different from Arduino implementation)  <a href="#ga5b746fc6ad50e65120e19a2634934ab3">More...</a><br /></td></tr>
+<tr class="separator:ga5b746fc6ad50e65120e19a2634934ab3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab34a51e60d716b21b881d15eba6fb4eb"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___math.html#gab34a51e60d716b21b881d15eba6fb4eb">interp1</a> (float from, float to, float frac)</td></tr>
+<tr class="memdesc:gab34a51e60d716b21b881d15eba6fb4eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linear interpolation between given endpoints.  <a href="#gab34a51e60d716b21b881d15eba6fb4eb">More...</a><br /></td></tr>
+<tr class="separator:gab34a51e60d716b21b881d15eba6fb4eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa193518a091a27f5e8555a341eaab735"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___math.html#gaa193518a091a27f5e8555a341eaab735">fmodf_mpi_pi</a> (float f)</td></tr>
+<tr class="memdesc:gaa193518a091a27f5e8555a341eaab735"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mod an angle to between -PI and PI.  <a href="#gaa193518a091a27f5e8555a341eaab735">More...</a><br /></td></tr>
+<tr class="separator:gaa193518a091a27f5e8555a341eaab735"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga83f72abc2839379823b7fa271546a97d"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___math.html#ga83f72abc2839379823b7fa271546a97d">fmodf_0_2pi</a> (float f)</td></tr>
+<tr class="memdesc:ga83f72abc2839379823b7fa271546a97d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mod an angle to between 0 and 2*PI.  <a href="#ga83f72abc2839379823b7fa271546a97d">More...</a><br /></td></tr>
+<tr class="separator:ga83f72abc2839379823b7fa271546a97d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae8e657ec74c8746a547c741b47a77e5c"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___math.html#gae8e657ec74c8746a547c741b47a77e5c">fmodf_0_1</a> (float f)</td></tr>
+<tr class="memdesc:gae8e657ec74c8746a547c741b47a77e5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mod between 0 and 1.  <a href="#gae8e657ec74c8746a547c741b47a77e5c">More...</a><br /></td></tr>
+<tr class="separator:gae8e657ec74c8746a547c741b47a77e5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae59417c716f01b7d2e7e63ad71a4cb33"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___math.html#gae59417c716f01b7d2e7e63ad71a4cb33">fmodf_mp5_p5</a> (float f)</td></tr>
+<tr class="memdesc:gae59417c716f01b7d2e7e63ad71a4cb33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mod between -0.5 and +0.5.  <a href="#gae59417c716f01b7d2e7e63ad71a4cb33">More...</a><br /></td></tr>
+<tr class="separator:gae59417c716f01b7d2e7e63ad71a4cb33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6d79ae0ee177237c0a82b6a0ca805f74"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___math.html#ga6d79ae0ee177237c0a82b6a0ca805f74">circleMeanDiff</a> (float a, float b, float *mean, float *diff)</td></tr>
+<tr class="memdesc:ga6d79ae0ee177237c0a82b6a0ca805f74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change coords to mean and diff on a circle (accounting for wraparound)  <a href="#ga6d79ae0ee177237c0a82b6a0ca805f74">More...</a><br /></td></tr>
+<tr class="separator:ga6d79ae0ee177237c0a82b6a0ca805f74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga89a0802f4d3bfcf4fd9a17ea80181d6c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga89a0802f4d3bfcf4fd9a17ea80181d6c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___math.html#ga89a0802f4d3bfcf4fd9a17ea80181d6c">swapByte</a> (uint8_t *a, uint8_t *b)</td></tr>
+<tr class="memdesc:ga89a0802f4d3bfcf4fd9a17ea80181d6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swaps the values pointed to be a and b. <br /></td></tr>
+<tr class="separator:ga89a0802f4d3bfcf4fd9a17ea80181d6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab49c798a30fcad95f51bc2c719d6bcff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___math.html#gab49c798a30fcad95f51bc2c719d6bcff">setOutPtrSafe</a> (float *out, float val)</td></tr>
+<tr class="memdesc:gab49c798a30fcad95f51bc2c719d6bcff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenient function to safely (watch for NULL passed) set an output var.  <a href="#gab49c798a30fcad95f51bc2c719d6bcff">More...</a><br /></td></tr>
+<tr class="separator:gab49c798a30fcad95f51bc2c719d6bcff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacc45d55938afea325cc9c86e3eb9eb26"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___math.html#gacc45d55938afea325cc9c86e3eb9eb26">matMult</a> (uint16_t nr1, uint16_t nc1, uint16_t nc2, float *m1, float *m2, float *mout)</td></tr>
+<tr class="memdesc:gacc45d55938afea325cc9c86e3eb9eb26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use arm_mat_mult_f32 to multiply two matrices.  <a href="#gacc45d55938afea325cc9c86e3eb9eb26">More...</a><br /></td></tr>
+<tr class="separator:gacc45d55938afea325cc9c86e3eb9eb26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="ga6d79ae0ee177237c0a82b6a0ca805f74"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void circleMeanDiff </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>mean</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>diff</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Change coords to mean and diff on a circle (accounting for wraparound) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>First angle in rad </td></tr>
+    <tr><td class="paramname">b</td><td>Second angle in rad </td></tr>
+    <tr><td class="paramname">mean</td><td>Mean angle </td></tr>
+    <tr><td class="paramname">diff</td><td>Difference angle </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="gae8e657ec74c8746a547c741b47a77e5c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float fmodf_0_1 </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>f</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mod between 0 and 1. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">f</td><td>Input value </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Result between 0 and 1 </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga83f72abc2839379823b7fa271546a97d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float fmodf_0_2pi </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>f</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mod an angle to between 0 and 2*PI. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">f</td><td>Input angle </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Result between 0 and 2*PI </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="gae59417c716f01b7d2e7e63ad71a4cb33"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float fmodf_mp5_p5 </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>f</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mod between -0.5 and +0.5. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">f</td><td>Input value </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Result between -0.5 and +0.5 </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="gaa193518a091a27f5e8555a341eaab735"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float fmodf_mpi_pi </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>f</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mod an angle to between -PI and PI. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">f</td><td>Input angle </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Result between -PI and PI </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="gab34a51e60d716b21b881d15eba6fb4eb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float interp1 </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>from</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>to</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>frac</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Linear interpolation between given endpoints. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">from</td><td>Lower endpoint </td></tr>
+    <tr><td class="paramname">to</td><td>Higher endpoint </td></tr>
+    <tr><td class="paramname">frac</td><td>float between 0.0 and 1.0 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Interpolated value </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga5b746fc6ad50e65120e19a2634934ab3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float map </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>in_min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>in_max</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>out_min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>out_max</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Map a float (different from Arduino implementation) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>Value to map </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>x mapped from [in_min, in_max] to [out_min, out_max] </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="gacc45d55938afea325cc9c86e3eb9eb26"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void matMult </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>nr1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>nc1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>nc2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>m1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>m2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>mout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Use arm_mat_mult_f32 to multiply two matrices. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nr1</td><td>Number of rows of M1 </td></tr>
+    <tr><td class="paramname">nc1</td><td>Number of columns of M1 ( = number of rows of M2) </td></tr>
+    <tr><td class="paramname">nc2</td><td>Number of columns of M2 </td></tr>
+    <tr><td class="paramname">m1</td><td>Pointer to contents of M1 (row major) </td></tr>
+    <tr><td class="paramname">m2</td><td>Pointer to contents of M2 (row major) </td></tr>
+    <tr><td class="paramname">mout</td><td>Preallocated array (nr1*nc2) for contents of M1*M2 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ga7c6a75fa6e3b281532b43c23233ada96"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void randomSeed </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>dwSeed</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Part of the Wiring project - <a href="http://wiring.org.co">http://wiring.org.co</a> Copyright (c) 2004-06 Hernando Barragan Modified by David A. Mellis for Arduino - <a href="http://www.arduino.cc/,">http://www.arduino.cc/,</a> Avik De <a href="#" onclick="location.href='mai'+'lto:'+'avi'+'kd'+'e@g'+'ma'+'il.'+'co'+'m'; return false;">avikd<span style="display: none;">.nosp@m.</span>e@gm<span style="display: none;">.nosp@m.</span>ail.c<span style="display: none;">.nosp@m.</span>om</a></p>
+<p>This file is part of koduino <a href="https://github.com/avikde/koduino">https://github.com/avikde/koduino</a></p>
+<p>This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
+<p>This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.</p>
+<p>You should have received a copy of the GNU Lesser General Public License along with this library; if not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>. </p>
+
+</div>
+</div>
+<a class="anchor" id="gab49c798a30fcad95f51bc2c719d6bcff"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setOutPtrSafe </td>
+          <td>(</td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>val</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convenient function to safely (watch for NULL passed) set an output var. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">out</td><td>Output variable (pointer) which could be NULL </td></tr>
+    <tr><td class="paramname">val</td><td>Value to assign to output </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 28 2016 20:40:22 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 28 2016 21:23:52 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

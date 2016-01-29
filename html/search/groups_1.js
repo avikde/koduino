@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['digital_20i_2fo',['Digital I/O',['../group___digital.html',1,'']]]
+  ['basic_20and_20advanced_20math',['Basic and advanced math',['../group___math.html',1,'']]]
 ];

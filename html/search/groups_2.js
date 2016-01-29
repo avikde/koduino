@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['external_20interrupts',['External interrupts',['../group___e_x_t_i.html',1,'']]]
+  ['digital_20i_2fo',['Digital I/O',['../group___digital.html',1,'']]]
 ];

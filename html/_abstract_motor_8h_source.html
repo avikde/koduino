@@ -123,7 +123,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    this-&gt;val[i] = val;</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  }</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  <span class="keywordtype">void</span> setGain(<span class="keywordtype">int</span> i, <span class="keywordtype">float</span> Kp, <span class="keywordtype">float</span> Kd) { pd[i].setGain(Kp, Kd); }</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  <span class="keywordtype">void</span> setGain(<span class="keywordtype">int</span> i, <span class="keywordtype">float</span> Kp, <span class="keywordtype">float</span> Kd) { pd[i].<a class="code" href="class_p_d.html#a30aabda9c097c8982bca7985e59dcb02">setGain</a>(Kp, Kd); }</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  <span class="keywordtype">void</span> setGain(<span class="keywordtype">int</span> i, <span class="keywordtype">float</span> Kp) { setGain(i, Kp, 0); }</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  <span class="keywordtype">void</span> setPosition(<span class="keywordtype">int</span> i, <span class="keywordtype">float</span> setpoint) {</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    this-&gt;mode[i] = POSITION_MODE;</div>
@@ -150,9 +150,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=0; i&lt;N; ++i) {</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;      <span class="comment">// Velocity calculation should happen independent of mode</span></div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;      <span class="keywordflow">if</span> (bAngle[i])</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        posCtrlVal[i] = pd[i].update(fmodf_mpi_pi(pos[i] - setpoint[i]));</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        posCtrlVal[i] = pd[i].<a class="code" href="class_p_d.html#acfc461ef44e6ea61d43b2aa8362b4142">update</a>(<a class="code" href="group___math.html#gaa193518a091a27f5e8555a341eaab735">fmodf_mpi_pi</a>(pos[i] - setpoint[i]));</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;      <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        posCtrlVal[i] = pd[i].update(pos[i] - setpoint[i]);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        posCtrlVal[i] = pd[i].<a class="code" href="class_p_d.html#acfc461ef44e6ea61d43b2aa8362b4142">update</a>(pos[i] - setpoint[i]);</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;      <span class="comment">// In position mode, update the motor command</span></div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;      <span class="keywordflow">if</span> (mode[i] == POSITION_MODE)</div>
@@ -180,7 +180,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;  <span class="comment">// Command</span></div>
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;  <span class="keywordtype">float</span> physicalPos[N], pos[N];</div>
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;  <span class="comment">// PD controller</span></div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;  PD pd[N];</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;  <a class="code" href="class_p_d.html">PD</a> pd[N];</div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;  <span class="comment">// Barrier</span></div>
 <div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;  <span class="comment">// Barrier barrier;</span></div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;};</div>
@@ -188,11 +188,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; <span class="comment">// end of addtogroup</span></div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="class_p_d_html_a30aabda9c097c8982bca7985e59dcb02"><div class="ttname"><a href="class_p_d.html#a30aabda9c097c8982bca7985e59dcb02">PD::setGain</a></div><div class="ttdeci">void setGain(float Kp, float Kd)</div><div class="ttdoc">Set gains. </div><div class="ttdef"><b>Definition:</b> WMath.h:185</div></div>
 <div class="ttc" id="class_abstract_motor_html_a76fd95ef263081117e60615b98bec505"><div class="ttname"><a href="class_abstract_motor.html#a76fd95ef263081117e60615b98bec505">AbstractMotor::physicalToAbstract</a></div><div class="ttdeci">virtual void physicalToAbstract(const float in[N], float out[N])=0</div><div class="ttdoc">Transformation for forces at the toe to joint torques. </div></div>
+<div class="ttc" id="class_p_d_html_acfc461ef44e6ea61d43b2aa8362b4142"><div class="ttname"><a href="class_p_d.html#acfc461ef44e6ea61d43b2aa8362b4142">PD::update</a></div><div class="ttdeci">virtual float update(float val)</div><div class="ttdoc">Computes the PD control from the given error. </div><div class="ttdef"><b>Definition:</b> WMath.h:175</div></div>
 <div class="ttc" id="class_abstract_motor_html_a9c57a5b89e44bd332951b172420efb4c"><div class="ttname"><a href="class_abstract_motor.html#a9c57a5b89e44bd332951b172420efb4c">AbstractMotor::enable</a></div><div class="ttdeci">void enable(bool flag)</div><div class="ttdoc">Enables all the motors in this "leg". </div><div class="ttdef"><b>Definition:</b> AbstractMotor.h:59</div></div>
 <div class="ttc" id="class_motor_html"><div class="ttname"><a href="class_motor.html">Motor</a></div><div class="ttdoc">Base single-motor class. </div><div class="ttdef"><b>Definition:</b> Motor.h:83</div></div>
 <div class="ttc" id="class_abstract_motor_html_ac2657dadc0eccd66e88a0a700c36f1b1"><div class="ttname"><a href="class_abstract_motor.html#ac2657dadc0eccd66e88a0a700c36f1b1">AbstractMotor::getPosition</a></div><div class="ttdeci">float getPosition(int i)</div><div class="ttdoc">Returns the ith toe position coordinate. </div><div class="ttdef"><b>Definition:</b> AbstractMotor.h:70</div></div>
 <div class="ttc" id="class_abstract_motor_html_ad625a9a4ef63844ae27f30d8d405ca5d"><div class="ttname"><a href="class_abstract_motor.html#ad625a9a4ef63844ae27f30d8d405ca5d">AbstractMotor::getVelocity</a></div><div class="ttdeci">float getVelocity(int i)</div><div class="ttdoc">Returns the ith toe coordinate velocity. </div><div class="ttdef"><b>Definition:</b> AbstractMotor.h:77</div></div>
+<div class="ttc" id="class_p_d_html"><div class="ttname"><a href="class_p_d.html">PD</a></div><div class="ttdoc">Generic proportional-derivative control (for use in a motor, look at the Motor controller library ins...</div><div class="ttdef"><b>Definition:</b> WMath.h:162</div></div>
+<div class="ttc" id="group___math_html_gaa193518a091a27f5e8555a341eaab735"><div class="ttname"><a href="group___math.html#gaa193518a091a27f5e8555a341eaab735">fmodf_mpi_pi</a></div><div class="ttdeci">float fmodf_mpi_pi(float f)</div><div class="ttdoc">Mod an angle to between -PI and PI. </div><div class="ttdef"><b>Definition:</b> WMath.cpp:96</div></div>
 <div class="ttc" id="class_abstract_motor_html_a86651072beff21fb167a3bdd844fe9b9"><div class="ttname"><a href="class_abstract_motor.html#a86651072beff21fb167a3bdd844fe9b9">AbstractMotor::abstractToPhysical</a></div><div class="ttdeci">virtual void abstractToPhysical(const float in[N], float out[N])=0</div><div class="ttdoc">Forward kinematics. </div></div>
 <div class="ttc" id="class_motor_html_ac4810cdc34eaa0281e89165655acd1f9"><div class="ttname"><a href="class_motor.html#ac4810cdc34eaa0281e89165655acd1f9">Motor::sendOpenLoop</a></div><div class="ttdeci">virtual void sendOpenLoop(float val)=0</div><div class="ttdoc">Communicate a raw PWM to the motor controller. </div></div>
 <div class="ttc" id="class_abstract_motor_html"><div class="ttname"><a href="class_abstract_motor.html">AbstractMotor</a></div><div class="ttdoc">Class for coordinating N motors in parallel. </div><div class="ttdef"><b>Definition:</b> AbstractMotor.h:35</div></div>
@@ -200,7 +204,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 28 2016 20:40:22 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 28 2016 21:23:52 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

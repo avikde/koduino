@@ -14,6 +14,8 @@
 
 ### Example: MPU-6000
 
+Please also see the MPU6000 library.
+
 ~~~{.cpp}
 #include <SPI.h>
 

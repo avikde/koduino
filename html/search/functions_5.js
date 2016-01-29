@@ -1,9 +1,10 @@
 var searchData=
 [
-  ['getcurrent',['getCurrent',['../class_dxl_motor.html#a0e9e52a31fa5f94b296393b8c123d61e',1,'DxlMotor']]],
-  ['geteuler',['getEuler',['../class_complementary_filter.html#a6cdd86935f5ec9178ed13ba1c4ee3d47',1,'ComplementaryFilter::getEuler()'],['../class_e_k_f.html#a7556015071e836ec282fa4c839782520',1,'EKF::getEuler()'],['../class_orientation_filter.html#a777a0d997a677794a6b8c52c8e1b5fad',1,'OrientationFilter::getEuler()']]],
-  ['getopenloop',['getOpenLoop',['../class_motor.html#a81d286df5bc4f0d719bf5bb107ac3795',1,'Motor']]],
-  ['getposition',['getPosition',['../class_abstract_motor.html#ac2657dadc0eccd66e88a0a700c36f1b1',1,'AbstractMotor::getPosition()'],['../class_motor.html#a93ea58e6b68d4c791376f94e0e86bbe5',1,'Motor::getPosition()']]],
-  ['getrawposition',['getRawPosition',['../class_motor.html#aa57a20a89e0090b007a916868e4cfa35',1,'Motor::getRawPosition()'],['../class_bl_con34.html#a583183a0256298191c5ee59661589567',1,'BlCon34::getRawPosition()'],['../class_dxl_motor.html#a173c315a4e415a33e6b892fe6b5f1482',1,'DxlMotor::getRawPosition()']]],
-  ['getvelocity',['getVelocity',['../class_abstract_motor.html#ad625a9a4ef63844ae27f30d8d405ca5d',1,'AbstractMotor::getVelocity()'],['../class_motor.html#a3c0f019abe39b8f7a5110ff3366d5fc9',1,'Motor::getVelocity()']]]
+  ['find',['find',['../class_stream.html#a4bab30ccd324efd461dee46a2339f673',1,'Stream::find(char *target)'],['../class_stream.html#ad851401f2318cdb1de05707e021b81d9',1,'Stream::find(char *target, size_t length)']]],
+  ['finduntil',['findUntil',['../class_stream.html#ad1f5f6600832396fb38a897baf4de35b',1,'Stream']]],
+  ['flush',['flush',['../class_stream.html#aa3ef2c34f152a0b2ea8de9139b9461da',1,'Stream::flush()'],['../class_u_s_a_r_t_class.html#ac47083e1c7a985dfbad78821dd00f632',1,'USARTClass::flush()'],['../class_two_wire.html#a4d92ddf6ca349c815de1de15fca06b5e',1,'TwoWire::flush()']]],
+  ['fmodf_5f0_5f1',['fmodf_0_1',['../group___math.html#gae8e657ec74c8746a547c741b47a77e5c',1,'fmodf_0_1(float f):&#160;WMath.cpp'],['../group___math.html#gae8e657ec74c8746a547c741b47a77e5c',1,'fmodf_0_1(float f):&#160;WMath.cpp']]],
+  ['fmodf_5f0_5f2pi',['fmodf_0_2pi',['../group___math.html#ga83f72abc2839379823b7fa271546a97d',1,'fmodf_0_2pi(float f):&#160;WMath.cpp'],['../group___math.html#ga83f72abc2839379823b7fa271546a97d',1,'fmodf_0_2pi(float f):&#160;WMath.cpp']]],
+  ['fmodf_5fmp5_5fp5',['fmodf_mp5_p5',['../group___math.html#gae59417c716f01b7d2e7e63ad71a4cb33',1,'fmodf_mp5_p5(float f):&#160;WMath.cpp'],['../group___math.html#gae59417c716f01b7d2e7e63ad71a4cb33',1,'fmodf_mp5_p5(float f):&#160;WMath.cpp']]],
+  ['fmodf_5fmpi_5fpi',['fmodf_mpi_pi',['../group___math.html#gaa193518a091a27f5e8555a341eaab735',1,'fmodf_mpi_pi(float f):&#160;WMath.cpp'],['../group___math.html#gaa193518a091a27f5e8555a341eaab735',1,'fmodf_mpi_pi(float f):&#160;WMath.cpp']]]
 ];

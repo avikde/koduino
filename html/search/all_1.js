@@ -4,5 +4,6 @@ var searchData=
   ['begintransmission',['beginTransmission',['../class_two_wire.html#a1876ffdb16fb185c14a75e1251cef5e4',1,'TwoWire']]],
   ['blcon34',['BlCon34',['../class_bl_con34.html',1,'']]],
   ['brushless',['Brushless',['../class_brushless.html',1,'']]],
+  ['basic_20and_20advanced_20math',['Basic and advanced math',['../group___math.html',1,'']]],
   ['brushless',['Brushless',['../md__brushless.html',1,'']]]
 ];
