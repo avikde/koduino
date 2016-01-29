@@ -82,6 +82,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
 <div class="title">IMU drivers and attitude estimation</div>  </div>
 </div><!--header-->
@@ -89,23 +91,48 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <h3>Usage</h3>
 <ol type="1">
-<li>Call <a class="el" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730" title="Configure a pin before using it. ">pinMode()</a> to set the pin to <code>OUTPUT</code>, <code>OUTPUT_OPEN_DRAIN</code>, <code>INPUT</code>, <code>INPUT_PULLUP</code>, or <code>INPUT_PULLDOWN</code></li>
-<li>Call <a class="el" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7" title="Set a digital pin to a given logic level. ">digitalWrite()</a> with <code>HIGH</code>, <code>LOW</code> or <code>TOGGLE</code> on <code>OUTPUT</code> pins</li>
-<li>Call <a class="el" href="group___digital.html#ga3f9e2d2c30df9ba03affa325d5a0eb53" title="Read a digital pin. ">digitalRead()</a> on <code>INPUT</code> pins</li>
+<li>Define the hardware interface as an instance of the <a class="el" href="class_i_m_u.html" title="Base IMU class that any IMU hardware should derive from. ">IMU</a> abstract base class, e.g. <a class="el" href="class_m_p_u6000.html" title="MPU6000 hardware interface library. ">MPU6000</a></li>
+<li>Define an attitude filter as an instance of the <a class="el" href="class_orientation_filter.html" title="Base class for attitude filters. ">OrientationFilter</a> abstract base class, e.g. <a class="el" href="class_complementary_filter.html" title="Complementary filter implementation. ">ComplementaryFilter</a>, or <a class="el" href="class_e_k_f.html" title="EKF implementation. ">EKF</a></li>
+<li>In your update loop, call both <a class="el" href="class_i_m_u.html#afb750831ddcfa14d6f23dda5dbdfb2a0" title="Read IMU hardware and set acc, gyr in units of m/s^2 and rad/s. ">IMU.readSensors()</a> to poll the sensor, and <a class="el" href="class_orientation_filter.html#ae128a4c1f0a20680df33577bc4c83040" title="Update filter from measurements (usually from IMU.readSensors()) ">OrientationFilter.update()</a> to update the filter</li>
+<li>Read off filtered euler angles by calling <a class="el" href="class_orientation_filter.html#a777a0d997a677794a6b8c52c8e1b5fad" title="Get filtered Euler angles. ">OrientationFilter.getEuler()</a></li>
 </ol>
-<h3>Example: Blink</h3>
+<h3>Example: <a class="el" href="class_m_p_u6000.html" title="MPU6000 hardware interface library. ">MPU6000</a></h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Arduino.h&gt;</span></div>
 <div class="line"></div>
-<div class="line"><span class="comment">// Change to whatever pin an LED is connected to</span></div>
-<div class="line"><span class="keyword">const</span> PinName led = PC13;</div>
+<div class="line"><span class="comment">// Uncomment the board that you have</span></div>
+<div class="line"><span class="comment">// // Mainboard 1.1</span></div>
+<div class="line"><span class="comment">// MPU6000 mpu;</span></div>
+<div class="line"><span class="comment">// const uint8_t CS = PC15;</span></div>
+<div class="line"><span class="comment">// MBLC</span></div>
+<div class="line"><a class="code" href="class_m_p_u6000.html">MPU6000</a> mpu(SPI_2);</div>
+<div class="line"><span class="keyword">const</span> uint8_t CS = PB12;</div>
+<div class="line"></div>
+<div class="line"><span class="keyword">volatile</span> <span class="keywordtype">float</span> roll, pitch;</div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">void</span> controlLoop() {</div>
+<div class="line">  mpu.readSensors();</div>
+<div class="line">  ekf.update(mpu.acc, mpu.gyr);</div>
+<div class="line">  <span class="keyword">const</span> EulerState *e = ekf.getEuler();</div>
+<div class="line">  <span class="comment">// The sign and/or order of these need to be edited according to how the chip is oriented on the robot</span></div>
+<div class="line">  roll = e-&gt;angles[0];</div>
+<div class="line">  pitch = e-&gt;angles[1];</div>
+<div class="line">}</div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> setup() {</div>
-<div class="line">  <a class="code" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730">pinMode</a>(led, OUTPUT);</div>
+<div class="line">  Serial1.begin(115200);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">// Wait for MPU6000</span></div>
+<div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(150);</div>
+<div class="line">  mpu.init(CS);</div>
+<div class="line">  mpu.readSensors();</div>
+<div class="line">  ekf.init(mpu.acc);</div>
+<div class="line"></div>
+<div class="line">  <a class="code" href="group___timebase.html#ga5bf1468dbfe70bf8a0a511df76075992">attachTimerInterrupt</a>(0, controlLoop, 1000);</div>
 <div class="line">}</div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> loop() {</div>
-<div class="line">  <a class="code" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7">digitalWrite</a>(led, TOGGLE);</div>
-<div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(1000);</div>
+<div class="line">  Serial1 &lt;&lt; roll &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; pitch &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(10);</div>
 <div class="line">}</div>
 </div><!-- fragment --><dl class="section author"><dt>Authors</dt><dd>Avik De <a href="#" onclick="location.href='mai'+'lto:'+'avi'+'kd'+'e@g'+'ma'+'il.'+'co'+'m'; return false;">avikd<span style="display: none;">.nosp@m.</span>e@gm<span style="display: none;">.nosp@m.</span>ail.c<span style="display: none;">.nosp@m.</span>om</a></dd></dl>
 <p>This file is part of koduino <a href="https://github.com/avikde/koduino">https://github.com/avikde/koduino</a></p>
@@ -117,11 +144,30 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
 <p>This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.</p>
 <p>You should have received a copy of the GNU Lesser General Public License along with this library; if not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>. </p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_complementary_filter.html">ComplementaryFilter</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Complementary filter implementation.  <a href="class_complementary_filter.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_k_f.html">EKF</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_e_k_f.html" title="EKF implementation. ">EKF</a> implementation.  <a href="class_e_k_f.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_m_u.html">IMU</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base <a class="el" href="class_i_m_u.html" title="Base IMU class that any IMU hardware should derive from. ">IMU</a> class that any <a class="el" href="class_i_m_u.html" title="Base IMU class that any IMU hardware should derive from. ">IMU</a> hardware should derive from.  <a href="class_i_m_u.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_p_u6000.html">MPU6000</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_m_p_u6000.html" title="MPU6000 hardware interface library. ">MPU6000</a> hardware interface library.  <a href="class_m_p_u6000.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_orientation_filter.html">OrientationFilter</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for attitude filters.  <a href="class_orientation_filter.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 23 2016 23:10:58 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 28 2016 20:40:22 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

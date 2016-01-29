@@ -89,6 +89,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="#index_f"><span>f</span></a></li>
       <li><a href="#index_g"><span>g</span></a></li>
       <li><a href="#index_i"><span>i</span></a></li>
+      <li><a href="#index_m"><span>m</span></a></li>
       <li><a href="#index_o"><span>o</span></a></li>
       <li><a href="#index_p"><span>p</span></a></li>
       <li><a href="#index_r"><span>r</span></a></li>
@@ -177,6 +178,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>getCurrent()
 : <a class="el" href="class_dxl_motor.html#a0e9e52a31fa5f94b296393b8c123d61e">DxlMotor</a>
 </li>
+<li>getEuler()
+: <a class="el" href="class_complementary_filter.html#a6cdd86935f5ec9178ed13ba1c4ee3d47">ComplementaryFilter</a>
+, <a class="el" href="class_e_k_f.html#a7556015071e836ec282fa4c839782520">EKF</a>
+, <a class="el" href="class_orientation_filter.html#a777a0d997a677794a6b8c52c8e1b5fad">OrientationFilter</a>
+</li>
 <li>getOpenLoop()
 : <a class="el" href="class_motor.html#a81d286df5bc4f0d719bf5bb107ac3795">Motor</a>
 </li>
@@ -199,10 +205,18 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h3><a class="anchor" id="index_i"></a>- i -</h3><ul>
 <li>init()
 : <a class="el" href="class_bl_con34.html#aae0df02b2a2a7b948eafcf3e1c873283">BlCon34</a>
-, <a class="el" href="class_dxl_motor.html#a7ad48f797346d5290d4cb61df270880f">DxlMotor</a>
+, <a class="el" href="class_dxl_motor.html#acd6a880d4875407cd9aa780cb021ecfd">DxlMotor</a>
 , <a class="el" href="class_encoder.html#a3370934332cd98914a7b4c5e5ccc2c63">Encoder</a>
 , <a class="el" href="class_motor.html#aae93220ea2eda8beb4d405c5c4916b2b">Motor</a>
+, <a class="el" href="class_m_p_u6000.html#a6de9c6f75e00cea7b5579a47c7b950ef">MPU6000</a>
 , <a class="el" href="class_open_log.html#a864d4184b2a6ffde75b7832d5eeb2d37">OpenLog</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_m"></a>- m -</h3><ul>
+<li>MPU6000()
+: <a class="el" href="class_m_p_u6000.html#ad14cd3f904c04d87f4defa6133e7e19d">MPU6000</a>
 </li>
 </ul>
 
@@ -246,8 +260,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>readBytesUntil()
 : <a class="el" href="class_stream.html#af84672a4fb2620466958d3118d4fea00">Stream</a>
 </li>
+<li>readSensors()
+: <a class="el" href="class_i_m_u.html#afb750831ddcfa14d6f23dda5dbdfb2a0">IMU</a>
+, <a class="el" href="class_m_p_u6000.html#a10c1e14cf4c647a320ebe095cc9ec8aa">MPU6000</a>
+</li>
 <li>requestFrom()
-: <a class="el" href="class_two_wire.html#a614ee848d1a3f9a45b93ee987ef42ac1">TwoWire</a>
+: <a class="el" href="class_two_wire.html#a35778784c333b7284e3c2378826b814d">TwoWire</a>
 </li>
 <li>resetOffset()
 : <a class="el" href="class_motor.html#a7b52be740ffa84f78d9877e1dc001be2">Motor</a>
@@ -273,7 +291,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="class_s_p_i_class.html#a9ec466f2284a30944d1b4cfce82d2eab">SPIClass</a>
 </li>
 <li>setGain()
-: <a class="el" href="class_motor.html#ae1e1f559ef8b8ad4013f11144106eed5">Motor</a>
+: <a class="el" href="class_motor.html#a92651f68c98907bc111bfef6a34965eb">Motor</a>
 </li>
 <li>setOpenLoop()
 : <a class="el" href="class_motor.html#ae6f4b739d3bfbcd4d07c70f9a1976e26">Motor</a>
@@ -312,7 +330,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <h3><a class="anchor" id="index_u"></a>- u -</h3><ul>
 <li>update()
-: <a class="el" href="class_motor.html#a1aed5249d7e088b34bf5e45da6c7f21e">Motor</a>
+: <a class="el" href="class_complementary_filter.html#a994f7e7c6f924490fb048d406a31832d">ComplementaryFilter</a>
+, <a class="el" href="class_e_k_f.html#aaca939485c05ff649bb436c45ce00ae2">EKF</a>
+, <a class="el" href="class_motor.html#a1aed5249d7e088b34bf5e45da6c7f21e">Motor</a>
+, <a class="el" href="class_orientation_filter.html#ae128a4c1f0a20680df33577bc4c83040">OrientationFilter</a>
 </li>
 <li>updated()
 : <a class="el" href="class_dxl_motor.html#a18620cf84a0fd9414f70c2d16fdd4123">DxlMotor</a>
@@ -336,7 +357,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 23 2016 23:10:59 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 28 2016 20:40:22 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

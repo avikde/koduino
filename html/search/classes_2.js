@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['dxlmotor',['DxlMotor',['../class_dxl_motor.html',1,'']]]
+  ['complementaryfilter',['ComplementaryFilter',['../class_complementary_filter.html',1,'']]]
 ];

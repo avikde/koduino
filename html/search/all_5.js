@@ -1,9 +1,6 @@
 var searchData=
 [
-  ['getcurrent',['getCurrent',['../class_dxl_motor.html#a0e9e52a31fa5f94b296393b8c123d61e',1,'DxlMotor']]],
-  ['getopenloop',['getOpenLoop',['../class_motor.html#a81d286df5bc4f0d719bf5bb107ac3795',1,'Motor']]],
-  ['getposition',['getPosition',['../class_abstract_motor.html#ac2657dadc0eccd66e88a0a700c36f1b1',1,'AbstractMotor::getPosition()'],['../class_motor.html#a93ea58e6b68d4c791376f94e0e86bbe5',1,'Motor::getPosition()']]],
-  ['getrawposition',['getRawPosition',['../class_motor.html#aa57a20a89e0090b007a916868e4cfa35',1,'Motor::getRawPosition()'],['../class_bl_con34.html#a583183a0256298191c5ee59661589567',1,'BlCon34::getRawPosition()'],['../class_dxl_motor.html#a173c315a4e415a33e6b892fe6b5f1482',1,'DxlMotor::getRawPosition()']]],
-  ['getvelocity',['getVelocity',['../class_abstract_motor.html#ad625a9a4ef63844ae27f30d8d405ca5d',1,'AbstractMotor::getVelocity()'],['../class_motor.html#a3c0f019abe39b8f7a5110ff3366d5fc9',1,'Motor::getVelocity()']]],
-  ['guide',['Guide',['../md__guide.html',1,'']]]
+  ['find',['find',['../class_stream.html#a4bab30ccd324efd461dee46a2339f673',1,'Stream::find(char *target)'],['../class_stream.html#ad851401f2318cdb1de05707e021b81d9',1,'Stream::find(char *target, size_t length)']]],
+  ['finduntil',['findUntil',['../class_stream.html#ad1f5f6600832396fb38a897baf4de35b',1,'Stream']]],
+  ['flush',['flush',['../class_stream.html#aa3ef2c34f152a0b2ea8de9139b9461da',1,'Stream::flush()'],['../class_u_s_a_r_t_class.html#ac47083e1c7a985dfbad78821dd00f632',1,'USARTClass::flush()'],['../class_two_wire.html#a4d92ddf6ca349c815de1de15fca06b5e',1,'TwoWire::flush()']]]
 ];

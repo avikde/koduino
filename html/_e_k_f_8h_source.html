@@ -117,56 +117,62 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">//   return out;</span></div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">// }</span></div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">class </span>EKF : <span class="keyword">public</span> OrientationFilter {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">float</span> kOneG = 9.8;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keyword">const</span> mat3 I = mat3::Identity();</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  vec3 gravity;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  EKF(<span class="keywordtype">float</span> stateNoise, <span class="keywordtype">float</span> measNoise);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  EKF() : EKF(0.1, 10) {}</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keywordtype">void</span> init(<span class="keyword">const</span> <span class="keywordtype">float</span> *acc);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="comment">// Main function</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keywordtype">void</span> update(<span class="keyword">const</span> <span class="keywordtype">float</span> *acc, <span class="keyword">const</span> <span class="keywordtype">float</span> *gyr);</div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="class_e_k_f.html">   52</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_e_k_f.html">EKF</a> : <span class="keyword">public</span> <a class="code" href="class_orientation_filter.html">OrientationFilter</a> {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">float</span> kOneG = 9.8;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keyword">const</span> mat3 I = mat3::Identity();</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  vec3 gravity;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <a class="code" href="class_e_k_f.html">EKF</a>(<span class="keywordtype">float</span> stateNoise, <span class="keywordtype">float</span> measNoise);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <a class="code" href="class_e_k_f.html">EKF</a>() : <a class="code" href="class_e_k_f.html">EKF</a>(0.1, 10) {}</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keywordtype">void</span> init(<span class="keyword">const</span> <span class="keywordtype">float</span> *acc);</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="keyword">const</span> EulerState *getEuler();</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="comment">// // testing?</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <span class="comment">// float getZ(const IMU *imu) {</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="comment">//   return imu-&gt;acc[2];</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <span class="comment">// }</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="comment">// // Params</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="comment">// float dt, smooth;</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <span class="comment">// float acclb, accub;</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="comment">// bool flipz;</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  mat3 A, B, C;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="keywordtype">void</span> predict(<span class="keyword">const</span> <span class="keywordtype">float</span> *gyr);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  EulerState euler;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  quat q; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  mat3 P; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="comment">// Main function</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="class_e_k_f.html#aaca939485c05ff649bb436c45ce00ae2">update</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> *acc, <span class="keyword">const</span> <span class="keywordtype">float</span> *gyr);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="keyword">const</span> EulerState *<a class="code" href="class_e_k_f.html#a7556015071e836ec282fa4c839782520">getEuler</a>();</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <span class="comment">// // testing?</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <span class="comment">// float getZ(const IMU *imu) {</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="comment">//   return imu-&gt;acc[2];</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="comment">// }</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="comment">// // Params</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  <span class="comment">// float dt, smooth;</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="comment">// float acclb, accub;</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <span class="comment">// bool flipz;</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  mat3 A, B, C;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <span class="keywordtype">void</span> predict(<span class="keyword">const</span> <span class="keywordtype">float</span> *gyr);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  EulerState euler;</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  vec3 w;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  vec3 b;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  vec3 dx;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  <span class="keywordtype">float</span> dt;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  mat3 wCov, aCov;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;};</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">#endif // __cplusplus</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; <span class="comment">// end of addtogroup</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  quat q; </div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="class_e_k_f.html#ade12500ed7fe7be814733dc6a0dfd8e1">   83</a></span>&#160;  mat3 <a class="code" href="class_e_k_f.html#ade12500ed7fe7be814733dc6a0dfd8e1">P</a>; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
+<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="class_e_k_f.html#a95cfff5dc185cb4090b8b5e6d13d6fa4">   85</a></span>&#160;  vec3 <a class="code" href="class_e_k_f.html#a95cfff5dc185cb4090b8b5e6d13d6fa4">w</a>;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  vec3 b;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  vec3 dx;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  <span class="keywordtype">float</span> dt;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  mat3 wCov, aCov;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;};</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor">#endif // __cplusplus</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; <span class="comment">// end of addtogroup</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="class_e_k_f_html_aaca939485c05ff649bb436c45ce00ae2"><div class="ttname"><a href="class_e_k_f.html#aaca939485c05ff649bb436c45ce00ae2">EKF::update</a></div><div class="ttdeci">void update(const float *acc, const float *gyr)</div><div class="ttdoc">Update filter from measurements (usually from IMU.readSensors()) </div><div class="ttdef"><b>Definition:</b> EKF.cpp:120</div></div>
+<div class="ttc" id="class_e_k_f_html_a95cfff5dc185cb4090b8b5e6d13d6fa4"><div class="ttname"><a href="class_e_k_f.html#a95cfff5dc185cb4090b8b5e6d13d6fa4">EKF::w</a></div><div class="ttdeci">vec3 w</div><div class="ttdoc">System covariance. </div><div class="ttdef"><b>Definition:</b> EKF.h:85</div></div>
+<div class="ttc" id="class_e_k_f_html_ade12500ed7fe7be814733dc6a0dfd8e1"><div class="ttname"><a href="class_e_k_f.html#ade12500ed7fe7be814733dc6a0dfd8e1">EKF::P</a></div><div class="ttdeci">mat3 P</div><div class="ttdoc">Orientation. </div><div class="ttdef"><b>Definition:</b> EKF.h:83</div></div>
+<div class="ttc" id="class_orientation_filter_html"><div class="ttname"><a href="class_orientation_filter.html">OrientationFilter</a></div><div class="ttdoc">Base class for attitude filters. </div><div class="ttdef"><b>Definition:</b> OrientationFilter.h:35</div></div>
+<div class="ttc" id="class_e_k_f_html_a7556015071e836ec282fa4c839782520"><div class="ttname"><a href="class_e_k_f.html#a7556015071e836ec282fa4c839782520">EKF::getEuler</a></div><div class="ttdeci">const EulerState * getEuler()</div><div class="ttdoc">Get filtered Euler angles. </div><div class="ttdef"><b>Definition:</b> EKF.cpp:161</div></div>
+<div class="ttc" id="class_e_k_f_html"><div class="ttname"><a href="class_e_k_f.html">EKF</a></div><div class="ttdoc">EKF implementation. </div><div class="ttdef"><b>Definition:</b> EKF.h:52</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 23 2016 23:10:58 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 28 2016 20:40:22 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

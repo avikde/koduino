@@ -172,37 +172,40 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  } data;</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;};</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment">// cldoc:begin-category(IMU)</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">class </span>MPU6000 : <span class="keyword">public</span> IMU {</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  <span class="comment">// constructors set up which SPI</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  MPU6000(<a class="code" href="class_s_p_i_class.html">SPIClass</a>&amp; theSPI) : theSPI(theSPI) {}</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  MPU6000() : theSPI(SPI) {}</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  <span class="keywordtype">bool</span> init(uint8_t csPin);</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  <span class="keywordtype">void</span> read(byte reg, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> length, byte *data);</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;  byte read(byte reg);</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  <span class="keywordtype">void</span> write(byte reg, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> length, <span class="keyword">const</span> byte *data);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;  <span class="keywordtype">void</span> write(byte reg, byte data);</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  <span class="keywordtype">void</span> swapData(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *data, <span class="keywordtype">int</span> datalen);</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> readSensors();</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment">// protected:</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  MPUData data;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  uint8_t csPin;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> csDelay;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  <a class="code" href="class_s_p_i_class.html">SPIClass</a>&amp; theSPI;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;};</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; <span class="comment">// end of addtogroup</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="class_m_p_u6000.html">  107</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_m_p_u6000.html">MPU6000</a> : <span class="keyword">public</span> <a class="code" href="class_i_m_u.html">IMU</a> {</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="class_m_p_u6000.html#ad14cd3f904c04d87f4defa6133e7e19d">  113</a></span>&#160;  <a class="code" href="class_m_p_u6000.html#ad14cd3f904c04d87f4defa6133e7e19d">MPU6000</a>(<a class="code" href="class_s_p_i_class.html">SPIClass</a>&amp; theSPI) : theSPI(theSPI) {}</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;  <a class="code" href="class_m_p_u6000.html">MPU6000</a>() : theSPI(SPI) {}</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="class_m_p_u6000.html#a6de9c6f75e00cea7b5579a47c7b950ef">init</a>(uint8_t csPin);</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  <span class="keywordtype">void</span> read(byte reg, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> length, byte *data);</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  byte read(byte reg);</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  <span class="keywordtype">void</span> write(byte reg, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> length, <span class="keyword">const</span> byte *data);</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;  <span class="keywordtype">void</span> write(byte reg, byte data);</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  <span class="keywordtype">void</span> swapData(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *data, <span class="keywordtype">int</span> datalen);</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_m_p_u6000.html#a10c1e14cf4c647a320ebe095cc9ec8aa">readSensors</a>();</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="comment">// protected:</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;  MPUData data;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;  uint8_t csPin;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> csDelay;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;  <a class="code" href="class_s_p_i_class.html">SPIClass</a>&amp; theSPI;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;};</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; <span class="comment">// end of addtogroup</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="class_m_p_u6000_html"><div class="ttname"><a href="class_m_p_u6000.html">MPU6000</a></div><div class="ttdoc">MPU6000 hardware interface library. </div><div class="ttdef"><b>Definition:</b> MPU6000.h:107</div></div>
+<div class="ttc" id="class_i_m_u_html"><div class="ttname"><a href="class_i_m_u.html">IMU</a></div><div class="ttdoc">Base IMU class that any IMU hardware should derive from. </div><div class="ttdef"><b>Definition:</b> IMU.h:32</div></div>
+<div class="ttc" id="class_m_p_u6000_html_a10c1e14cf4c647a320ebe095cc9ec8aa"><div class="ttname"><a href="class_m_p_u6000.html#a10c1e14cf4c647a320ebe095cc9ec8aa">MPU6000::readSensors</a></div><div class="ttdeci">virtual void readSensors()</div><div class="ttdoc">Read IMU hardware and set acc, gyr in units of m/s^2 and rad/s. </div><div class="ttdef"><b>Definition:</b> MPU6000.cpp:100</div></div>
 <div class="ttc" id="class_s_p_i_class_html"><div class="ttname"><a href="class_s_p_i_class.html">SPIClass</a></div><div class="ttdoc">SPI library (call with global object SPI) </div><div class="ttdef"><b>Definition:</b> SPI.h:42</div></div>
+<div class="ttc" id="class_m_p_u6000_html_ad14cd3f904c04d87f4defa6133e7e19d"><div class="ttname"><a href="class_m_p_u6000.html#ad14cd3f904c04d87f4defa6133e7e19d">MPU6000::MPU6000</a></div><div class="ttdeci">MPU6000(SPIClass &amp;theSPI)</div><div class="ttdoc">Construct with reference to which SPI. </div><div class="ttdef"><b>Definition:</b> MPU6000.h:113</div></div>
+<div class="ttc" id="class_m_p_u6000_html_a6de9c6f75e00cea7b5579a47c7b950ef"><div class="ttname"><a href="class_m_p_u6000.html#a6de9c6f75e00cea7b5579a47c7b950ef">MPU6000::init</a></div><div class="ttdeci">bool init(uint8_t csPin)</div><div class="ttdoc">Call to initialize MPU6000 and start getting data. </div><div class="ttdef"><b>Definition:</b> MPU6000.cpp:21</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 23 2016 23:10:58 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 28 2016 20:40:22 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

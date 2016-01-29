@@ -1,8 +1,10 @@
 var searchData=
 [
-  ['imu_20drivers_20and_20attitude_20estimation',['IMU drivers and attitude estimation',['../group___i_m_u.html',1,'']]],
-  ['init',['init',['../class_encoder.html#a3370934332cd98914a7b4c5e5ccc2c63',1,'Encoder::init()'],['../class_motor.html#aae93220ea2eda8beb4d405c5c4916b2b',1,'Motor::init()'],['../class_bl_con34.html#aae0df02b2a2a7b948eafcf3e1c873283',1,'BlCon34::init(uint8_t outPin_, uint8_t inPin_, float zero, int8_t dir, float gearRatio)'],['../class_bl_con34.html#ab6498b1911a6913ff84343f87c8d36ef',1,'BlCon34::init(uint8_t outPin_, uint8_t inPin_, float zero, int8_t dir)'],['../class_open_log.html#a864d4184b2a6ffde75b7832d5eeb2d37',1,'OpenLog::init()'],['../class_dxl_motor.html#acd6a880d4875407cd9aa780cb021ecfd',1,'DxlMotor::init(DxlNode *master_, uint8_t id_, float zero, int8_t dir, float gearRatio)'],['../class_dxl_motor.html#a7ad48f797346d5290d4cb61df270880f',1,'DxlMotor::init(DxlNode *master_, uint8_t id_, float zero, int8_t dir)']]],
-  ['interrupts',['interrupts',['../group___e_x_t_i.html#gab3a4471e1b3085323ec2067aaaccb52c',1,'interrupts():&#160;exti.c'],['../group___e_x_t_i.html#gab3a4471e1b3085323ec2067aaaccb52c',1,'interrupts():&#160;exti.c']]],
-  ['imu',['IMU',['../md__i_m_u.html',1,'']]],
-  ['installation',['Installation',['../md__installation.html',1,'']]]
+  ['getcurrent',['getCurrent',['../class_dxl_motor.html#a0e9e52a31fa5f94b296393b8c123d61e',1,'DxlMotor']]],
+  ['geteuler',['getEuler',['../class_complementary_filter.html#a6cdd86935f5ec9178ed13ba1c4ee3d47',1,'ComplementaryFilter::getEuler()'],['../class_e_k_f.html#a7556015071e836ec282fa4c839782520',1,'EKF::getEuler()'],['../class_orientation_filter.html#a777a0d997a677794a6b8c52c8e1b5fad',1,'OrientationFilter::getEuler()']]],
+  ['getopenloop',['getOpenLoop',['../class_motor.html#a81d286df5bc4f0d719bf5bb107ac3795',1,'Motor']]],
+  ['getposition',['getPosition',['../class_abstract_motor.html#ac2657dadc0eccd66e88a0a700c36f1b1',1,'AbstractMotor::getPosition()'],['../class_motor.html#a93ea58e6b68d4c791376f94e0e86bbe5',1,'Motor::getPosition()']]],
+  ['getrawposition',['getRawPosition',['../class_motor.html#aa57a20a89e0090b007a916868e4cfa35',1,'Motor::getRawPosition()'],['../class_bl_con34.html#a583183a0256298191c5ee59661589567',1,'BlCon34::getRawPosition()'],['../class_dxl_motor.html#a173c315a4e415a33e6b892fe6b5f1482',1,'DxlMotor::getRawPosition()']]],
+  ['getvelocity',['getVelocity',['../class_abstract_motor.html#ad625a9a4ef63844ae27f30d8d405ca5d',1,'AbstractMotor::getVelocity()'],['../class_motor.html#a3c0f019abe39b8f7a5110ff3366d5fc9',1,'Motor::getVelocity()']]],
+  ['guide',['Guide',['../md__guide.html',1,'']]]
 ];
