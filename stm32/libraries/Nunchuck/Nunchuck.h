@@ -22,7 +22,10 @@
 #include <Arduino.h>
 #include <Wire.h>
 
-
+/**
+ * @brief Nunchuck class
+ * @sa TwoWire
+ */
 class Nunchuck {
 public:
   uint8_t data[6];
