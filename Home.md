@@ -46,9 +46,9 @@ The API functions here are in general optimized for speed and concurrency, at th
 
 * [Storing data in non-volatile memory (EEPROM)](@ref EEPROMClass)
 * [Reading a quadrature encoder](@ref Encoder)
-* [Real-time clock (TODO)](@ref RTCClass)
-* [Data logging: OpenLog driver](@ref OpenLog)
-* [Data logging: FatLog over SDIO (TODO)](@ref FatLog)
+* [Data logging: OpenLog driver](@ref OpenLog) --- on Sparkfun OpenLog, or Mainboard v1
+* [Real-time clock (TODO)](@ref RTCClass) --- on Mainboard v2 only
+* [Data logging: FatLog over SDIO (TODO)](@ref FatLog) --- on Mainboard v2 only
 
 ### Robotics-oriented libraries
 
