@@ -1,5 +1,5 @@
 /**
- * @authors Avik De <avikde@gmail.com>
+ * @authors Garrett Wenger
 
   This file is part of koduino <https://github.com/avikde/koduino>
 
@@ -43,6 +43,10 @@ typedef enum {
   LS_FATFS_ERR    /* Error in FatFs */
 } LoggerStatus;
 
+/**
+ * @brief Class for logging to an SD card using SDIO (Mainboard v2 only)
+ * @sa OpenLog
+ */
 class FatLog {
 public:
   /**

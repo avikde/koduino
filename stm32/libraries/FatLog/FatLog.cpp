@@ -1,5 +1,5 @@
 /**
- * @authors Avik De <avikde@gmail.com>
+ * @authors Garrett Wenger
 
   This file is part of koduino <https://github.com/avikde/koduino>
 

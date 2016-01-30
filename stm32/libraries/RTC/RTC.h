@@ -22,6 +22,9 @@
 #include "Arduino.h"
 #include <time.h>
 
+/**
+ * @brief Class for getting the real clock time
+ */
 class RTCClass {
 private:
 	// boolean rtcCalibrated;
