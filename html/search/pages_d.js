@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['wire',['Wire',['../md__wire.html',1,'']]]
+  ['time',['Time',['../md__time.html',1,'']]],
+  ['timebase',['Timebase',['../md__timebase.html',1,'']]]
 ];

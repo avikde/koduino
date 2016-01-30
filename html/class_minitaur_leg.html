@@ -91,10 +91,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="class_minitaur_leg-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">MinitaurLeg Class Reference</div>  </div>
+<div class="title">MinitaurLeg Class Reference<div class="ingroups"><a class="el" href="group___motor_controller.html">Motor controller library</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -106,13 +107,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="textblock"><p>Class for coordinating two parallel coaxial motors in the Minitaur config. </p>
 <p>Link lengths can be set, and kinematics are implemented. The user can choose to use meters for the extension, or a nonlinear mapping from 0 (folded up) to pi (all the way extended) </p>
 </div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:aa28e6d6c4cccb9b233b944085953a16e"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_minitaur_leg.html#aa28e6d6c4cccb9b233b944085953a16e">l1</a> = 0.1</td></tr>
-<tr class="separator:aa28e6d6c4cccb9b233b944085953a16e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a9aa885dc3f493e4b86db958e8bc7cbeb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9aa885dc3f493e4b86db958e8bc7cbeb"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_minitaur_leg.html#a9aa885dc3f493e4b86db958e8bc7cbeb">MinitaurLeg</a> (<a class="el" href="class_motor.html">Motor</a> *M0, <a class="el" href="class_motor.html">Motor</a> *M1)</td></tr>
+<tr class="memdesc:a9aa885dc3f493e4b86db958e8bc7cbeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Declare the leg based on the consituent motors. <br /></td></tr>
+<tr class="separator:a9aa885dc3f493e4b86db958e8bc7cbeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a072a9c8ab914026608d5b6eb285a3ba3"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_minitaur_leg.html#a072a9c8ab914026608d5b6eb285a3ba3">getSpeed</a> (float bodyPitch)</td></tr>
+<tr class="memdesc:a072a9c8ab914026608d5b6eb285a3ba3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return forward speed.  <a href="#a072a9c8ab914026608d5b6eb285a3ba3">More...</a><br /></td></tr>
+<tr class="separator:a072a9c8ab914026608d5b6eb285a3ba3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_abstract_motor"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_abstract_motor')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_abstract_motor.html">AbstractMotor&lt; 2 &gt;</a></td></tr>
 <tr class="memitem:a76fd95ef263081117e60615b98bec505 inherit pub_methods_class_abstract_motor"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_abstract_motor.html#a76fd95ef263081117e60615b98bec505">physicalToAbstract</a> (const float in[N], float out[N])=0</td></tr>
 <tr class="memdesc:a76fd95ef263081117e60615b98bec505 inherit pub_methods_class_abstract_motor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transformation for forces at the toe to joint torques.  <a href="#a76fd95ef263081117e60615b98bec505">More...</a><br /></td></tr>
@@ -126,12 +129,78 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:ac2657dadc0eccd66e88a0a700c36f1b1 inherit pub_methods_class_abstract_motor"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_abstract_motor.html#ac2657dadc0eccd66e88a0a700c36f1b1">getPosition</a> (int i)</td></tr>
 <tr class="memdesc:ac2657dadc0eccd66e88a0a700c36f1b1 inherit pub_methods_class_abstract_motor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the ith toe position coordinate.  <a href="#ac2657dadc0eccd66e88a0a700c36f1b1">More...</a><br /></td></tr>
 <tr class="separator:ac2657dadc0eccd66e88a0a700c36f1b1 inherit pub_methods_class_abstract_motor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa471f524702c30a99df49099d6bb3d5 inherit pub_methods_class_abstract_motor"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_abstract_motor.html#aaa471f524702c30a99df49099d6bb3d5">getPosition</a> ()</td></tr>
+<tr class="memdesc:aaa471f524702c30a99df49099d6bb3d5 inherit pub_methods_class_abstract_motor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get position of 0th coordinate.  <a href="#aaa471f524702c30a99df49099d6bb3d5">More...</a><br /></td></tr>
+<tr class="separator:aaa471f524702c30a99df49099d6bb3d5 inherit pub_methods_class_abstract_motor"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad625a9a4ef63844ae27f30d8d405ca5d inherit pub_methods_class_abstract_motor"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_abstract_motor.html#ad625a9a4ef63844ae27f30d8d405ca5d">getVelocity</a> (int i)</td></tr>
 <tr class="memdesc:ad625a9a4ef63844ae27f30d8d405ca5d inherit pub_methods_class_abstract_motor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the ith toe coordinate velocity.  <a href="#ad625a9a4ef63844ae27f30d8d405ca5d">More...</a><br /></td></tr>
 <tr class="separator:ad625a9a4ef63844ae27f30d8d405ca5d inherit pub_methods_class_abstract_motor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a635c1db28feffc5c93944a6dff21addc inherit pub_methods_class_abstract_motor"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_abstract_motor.html#a635c1db28feffc5c93944a6dff21addc">getVelocity</a> ()</td></tr>
+<tr class="memdesc:a635c1db28feffc5c93944a6dff21addc inherit pub_methods_class_abstract_motor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get velocity of 0th coordinate.  <a href="#a635c1db28feffc5c93944a6dff21addc">More...</a><br /></td></tr>
+<tr class="separator:a635c1db28feffc5c93944a6dff21addc inherit pub_methods_class_abstract_motor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83dac33b069c72e68fd089eeccf47bf6 inherit pub_methods_class_abstract_motor"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_abstract_motor.html#a83dac33b069c72e68fd089eeccf47bf6">getOpenLoop</a> (int i)</td></tr>
+<tr class="memdesc:a83dac33b069c72e68fd089eeccf47bf6 inherit pub_methods_class_abstract_motor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the openloop value for the ith coordinate; useful when using <a class="el" href="class_abstract_motor.html#ab921ccb46270d5a4c0a78e057efa7b00" title="Set position setpoint for coordinate i, and change to position control mode. ">setPosition(int, float)</a>  <a href="#a83dac33b069c72e68fd089eeccf47bf6">More...</a><br /></td></tr>
+<tr class="separator:a83dac33b069c72e68fd089eeccf47bf6 inherit pub_methods_class_abstract_motor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6476d1197e0fce22dcc8d0ea2612b9f inherit pub_methods_class_abstract_motor"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_abstract_motor.html#af6476d1197e0fce22dcc8d0ea2612b9f">getOpenLoop</a> ()</td></tr>
+<tr class="memdesc:af6476d1197e0fce22dcc8d0ea2612b9f inherit pub_methods_class_abstract_motor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get open loop value of 0th coordinate.  <a href="#af6476d1197e0fce22dcc8d0ea2612b9f">More...</a><br /></td></tr>
+<tr class="separator:af6476d1197e0fce22dcc8d0ea2612b9f inherit pub_methods_class_abstract_motor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac76ff65b8a1fe44bcbdabbdb7d06b610 inherit pub_methods_class_abstract_motor"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_abstract_motor.html#ac76ff65b8a1fe44bcbdabbdb7d06b610">setOpenLoop</a> (int i, float val)</td></tr>
+<tr class="memdesc:ac76ff65b8a1fe44bcbdabbdb7d06b610 inherit pub_methods_class_abstract_motor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set open loop command to coordinate i.  <a href="#ac76ff65b8a1fe44bcbdabbdb7d06b610">More...</a><br /></td></tr>
+<tr class="separator:ac76ff65b8a1fe44bcbdabbdb7d06b610 inherit pub_methods_class_abstract_motor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61d7fa660c902c6b9c849c4f9c8fb4e4 inherit pub_methods_class_abstract_motor"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_abstract_motor.html#a61d7fa660c902c6b9c849c4f9c8fb4e4">setOpenLoop</a> (float val)</td></tr>
+<tr class="memdesc:a61d7fa660c902c6b9c849c4f9c8fb4e4 inherit pub_methods_class_abstract_motor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set open loop value for 0th coordinate.  <a href="#a61d7fa660c902c6b9c849c4f9c8fb4e4">More...</a><br /></td></tr>
+<tr class="separator:a61d7fa660c902c6b9c849c4f9c8fb4e4 inherit pub_methods_class_abstract_motor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf2a54f92e70a2db97168546bfc03866 inherit pub_methods_class_abstract_motor"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_abstract_motor.html#abf2a54f92e70a2db97168546bfc03866">setGain</a> (int i, float Kp, float Kd)</td></tr>
+<tr class="memdesc:abf2a54f92e70a2db97168546bfc03866 inherit pub_methods_class_abstract_motor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set <a class="el" href="class_p_d.html" title="Generic proportional-derivative control (for use in a motor, look at the Motor controller library ins...">PD</a> gains for coordinate i.  <a href="#abf2a54f92e70a2db97168546bfc03866">More...</a><br /></td></tr>
+<tr class="separator:abf2a54f92e70a2db97168546bfc03866 inherit pub_methods_class_abstract_motor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab921ccb46270d5a4c0a78e057efa7b00 inherit pub_methods_class_abstract_motor"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_abstract_motor.html#ab921ccb46270d5a4c0a78e057efa7b00">setPosition</a> (int i, float setpoint)</td></tr>
+<tr class="memdesc:ab921ccb46270d5a4c0a78e057efa7b00 inherit pub_methods_class_abstract_motor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set position setpoint for coordinate i, and change to position control mode.  <a href="#ab921ccb46270d5a4c0a78e057efa7b00">More...</a><br /></td></tr>
+<tr class="separator:ab921ccb46270d5a4c0a78e057efa7b00 inherit pub_methods_class_abstract_motor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04836948bc79b0d8b4be84962f8d2a95 inherit pub_methods_class_abstract_motor"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_abstract_motor.html#a04836948bc79b0d8b4be84962f8d2a95">setPosition</a> (float pos)</td></tr>
+<tr class="memdesc:a04836948bc79b0d8b4be84962f8d2a95 inherit pub_methods_class_abstract_motor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set position for 0th coordinate.  <a href="#a04836948bc79b0d8b4be84962f8d2a95">More...</a><br /></td></tr>
+<tr class="separator:a04836948bc79b0d8b4be84962f8d2a95 inherit pub_methods_class_abstract_motor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41bc149f07b2a88622f11dc8b2fb18c2 inherit pub_methods_class_abstract_motor"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_abstract_motor.html#a41bc149f07b2a88622f11dc8b2fb18c2">update</a> ()</td></tr>
+<tr class="memdesc:a41bc149f07b2a88622f11dc8b2fb18c2 inherit pub_methods_class_abstract_motor"><td class="mdescLeft">&#160;</td><td class="mdescRight">This should be called at a more or less fixed rate (once per iteration)  <a href="#a41bc149f07b2a88622f11dc8b2fb18c2">More...</a><br /></td></tr>
+<tr class="separator:a41bc149f07b2a88622f11dc8b2fb18c2 inherit pub_methods_class_abstract_motor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a8fcdc76593af6f41de9606ce1db88b2d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8fcdc76593af6f41de9606ce1db88b2d"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_minitaur_leg.html#a8fcdc76593af6f41de9606ce1db88b2d">useLengths</a> = false</td></tr>
+<tr class="memdesc:a8fcdc76593af6f41de9606ce1db88b2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">If true, use the exact leg kinematics, and the extension coordinate is in length units. If false, use the mean angle as a proxy for extension (between 0 and PI). <br /></td></tr>
+<tr class="separator:a8fcdc76593af6f41de9606ce1db88b2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa28e6d6c4cccb9b233b944085953a16e"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_minitaur_leg.html#aa28e6d6c4cccb9b233b944085953a16e">l1</a> = 0.1</td></tr>
+<tr class="memdesc:aa28e6d6c4cccb9b233b944085953a16e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Upper and lower link lengths.  <a href="#aa28e6d6c4cccb9b233b944085953a16e">More...</a><br /></td></tr>
+<tr class="separator:aa28e6d6c4cccb9b233b944085953a16e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 
 <p>Inherits <a class="el" href="class_abstract_motor.html">AbstractMotor&lt; 2 &gt;</a>.</p>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a072a9c8ab914026608d5b6eb285a3ba3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float MinitaurLeg::getSpeed </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>bodyPitch</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return forward speed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bodyPitch</td><td>Pitch angle of the body (required to figure out absolute leg angle) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Speed in m/s </dd></dl>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a class="anchor" id="aa28e6d6c4cccb9b233b944085953a16e"></a>
 <div class="memitem">
@@ -150,6 +219,8 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Upper and lower link lengths. </p>
 <dl class="section author"><dt>Authors</dt><dd>Avik De <a href="#" onclick="location.href='mai'+'lto:'+'avi'+'kd'+'e@g'+'ma'+'il.'+'co'+'m'; return false;">avikd<span style="display: none;">.nosp@m.</span>e@gm<span style="display: none;">.nosp@m.</span>ail.c<span style="display: none;">.nosp@m.</span>om</a></dd></dl>
 <p>This file is part of koduino <a href="https://github.com/avikde/koduino">https://github.com/avikde/koduino</a></p>
 <p>This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
@@ -166,7 +237,7 @@ Additional Inherited Members</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 29 2016 15:03:20 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 29 2016 23:43:28 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

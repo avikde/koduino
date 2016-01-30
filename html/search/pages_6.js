@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['koduino',['Koduino',['../md__r_e_a_d_m_e.html',1,'']]]
+  ['imu',['IMU',['../md__i_m_u.html',1,'']]],
+  ['installation',['Installation',['../md__installation.html',1,'']]]
 ];

@@ -96,115 +96,125 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &quot;Motor.h&quot;</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">template</span>&lt;<span class="keywordtype">int</span> N&gt; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="class_abstract_motor.html">   35</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_abstract_motor.html">AbstractMotor</a> {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="comment">// Constructor?</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="comment">// AbstractMotor()</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_abstract_motor.html#a76fd95ef263081117e60615b98bec505">physicalToAbstract</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> in[N], <span class="keywordtype">float</span> out[N]) = 0;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_abstract_motor.html#a86651072beff21fb167a3bdd844fe9b9">abstractToPhysical</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> in[N], <span class="keywordtype">float</span> out[N]) = 0;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="class_abstract_motor.html#a9c57a5b89e44bd332951b172420efb4c">   59</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="class_abstract_motor.html#a9c57a5b89e44bd332951b172420efb4c">enable</a>(<span class="keywordtype">bool</span> flag) {</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=0; i&lt;N; ++i)</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      motors[i]-&gt;<a class="code" href="class_abstract_motor.html#a9c57a5b89e44bd332951b172420efb4c">enable</a>(flag);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  }</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
-<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="class_abstract_motor.html#ac2657dadc0eccd66e88a0a700c36f1b1">   70</a></span>&#160;  <span class="keywordtype">float</span> <a class="code" href="class_abstract_motor.html#ac2657dadc0eccd66e88a0a700c36f1b1">getPosition</a>(<span class="keywordtype">int</span> i) { <span class="keywordflow">return</span> pos[i]; }</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
-<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="class_abstract_motor.html#ad625a9a4ef63844ae27f30d8d405ca5d">   77</a></span>&#160;  <span class="keywordtype">float</span> <a class="code" href="class_abstract_motor.html#ad625a9a4ef63844ae27f30d8d405ca5d">getVelocity</a>(<span class="keywordtype">int</span> i) { <span class="keywordflow">return</span> pd[i].vel; }</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="keywordtype">float</span> getOpenLoop(<span class="keywordtype">int</span> i) {</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordflow">return</span> this-&gt;val[i];</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  }</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  <span class="comment">// Set motor move commands (but they are actually sent by motorUpdate())</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <span class="keywordtype">void</span> setOpenLoop(<span class="keywordtype">int</span> i, <span class="keywordtype">float</span> val) {</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    this-&gt;mode[i] = OPEN_LOOP_MODE;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    this-&gt;val[i] = val;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  }</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  <span class="keywordtype">void</span> setGain(<span class="keywordtype">int</span> i, <span class="keywordtype">float</span> Kp, <span class="keywordtype">float</span> Kd) { pd[i].<a class="code" href="class_p_d.html#a30aabda9c097c8982bca7985e59dcb02">setGain</a>(Kp, Kd); }</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  <span class="keywordtype">void</span> setGain(<span class="keywordtype">int</span> i, <span class="keywordtype">float</span> Kp) { setGain(i, Kp, 0); }</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  <span class="keywordtype">void</span> setPosition(<span class="keywordtype">int</span> i, <span class="keywordtype">float</span> setpoint) {</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    this-&gt;mode[i] = POSITION_MODE;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    this-&gt;setpoint[i] = setpoint;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  }</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <span class="comment">// Shortcuts for when no i is specified: use 0</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">float</span> <a class="code" href="class_abstract_motor.html#ac2657dadc0eccd66e88a0a700c36f1b1">getPosition</a>() { <span class="keywordflow">return</span> <a class="code" href="class_abstract_motor.html#ac2657dadc0eccd66e88a0a700c36f1b1">getPosition</a>(0); }</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">float</span> <a class="code" href="class_abstract_motor.html#ad625a9a4ef63844ae27f30d8d405ca5d">getVelocity</a>() { <span class="keywordflow">return</span> <a class="code" href="class_abstract_motor.html#ad625a9a4ef63844ae27f30d8d405ca5d">getVelocity</a>(0); }</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">float</span> getOpenLoop() { <span class="keywordflow">return</span> getOpenLoop(0); }</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> setOpenLoop(<span class="keywordtype">float</span> val) { setOpenLoop(0, val); }</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> setPosition(<span class="keywordtype">float</span> pos) { setPosition(0, pos); }</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  <span class="comment">// This should be called at a more or less fixed rate (once per iteration)</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  <span class="keywordtype">void</span> update() {</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordtype">float</span> posCtrlVal[N], physicalVal[N];</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=0; i&lt;N; ++i)</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;      physicalPos[i] = motors[i]-&gt;<a class="code" href="class_abstract_motor.html#ac2657dadc0eccd66e88a0a700c36f1b1">getPosition</a>();</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="comment">// call derived class function, and store positions in &quot;pos&quot; for getPosition()</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <a class="code" href="class_abstract_motor.html#a76fd95ef263081117e60615b98bec505">physicalToAbstract</a>(physicalPos, pos);</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=0; i&lt;N; ++i) {</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;      <span class="comment">// Velocity calculation should happen independent of mode</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;      <span class="keywordflow">if</span> (bAngle[i])</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        posCtrlVal[i] = pd[i].<a class="code" href="class_p_d.html#acfc461ef44e6ea61d43b2aa8362b4142">update</a>(<a class="code" href="group___math.html#gaa193518a091a27f5e8555a341eaab735">fmodf_mpi_pi</a>(pos[i] - setpoint[i]));</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;      <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        posCtrlVal[i] = pd[i].<a class="code" href="class_p_d.html#acfc461ef44e6ea61d43b2aa8362b4142">update</a>(pos[i] - setpoint[i]);</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;      <span class="comment">// In position mode, update the motor command</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;      <span class="keywordflow">if</span> (mode[i] == POSITION_MODE)</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        val[i] = posCtrlVal[i];</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;      <span class="comment">// In open-loop mode, val has been set by user</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    }</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="comment">// invert the coordinate change</span></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <a class="code" href="class_abstract_motor.html#a86651072beff21fb167a3bdd844fe9b9">abstractToPhysical</a>(val, physicalVal);</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=0; i&lt;N; ++i) {</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;      <span class="comment">// Send command, but don&#39;t modify &quot;val&quot; (set by user)</span></div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;      correctedPhysicalVal[i] = motors[i]-&gt;mapVal(physicalVal[i]);</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;      <span class="comment">// send the command</span></div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;      motors[i]-&gt;<a class="code" href="class_motor.html#ac4810cdc34eaa0281e89165655acd1f9">sendOpenLoop</a>(correctedPhysicalVal[i]);</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    }</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  }</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;  <span class="comment">// Public access to motors</span></div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;  <a class="code" href="class_motor.html">Motor</a> *motors[N];</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;  <span class="keywordtype">float</span> val[N], correctedPhysicalVal[N], setpoint[N];</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;  <span class="keywordtype">bool</span> bAngle[N];</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;  MotorControlMode mode[N];</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;  <span class="comment">// Command</span></div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;  <span class="keywordtype">float</span> physicalPos[N], pos[N];</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;  <span class="comment">// PD controller</span></div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;  <a class="code" href="class_p_d.html">PD</a> pd[N];</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;  <span class="comment">// Barrier</span></div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;  <span class="comment">// Barrier barrier;</span></div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;};</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">template</span>&lt;<span class="keywordtype">int</span> N&gt; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="class_abstract_motor.html">   34</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_abstract_motor.html">AbstractMotor</a> {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="comment">// Constructor?</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="comment">// AbstractMotor()</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_abstract_motor.html#a76fd95ef263081117e60615b98bec505">physicalToAbstract</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> in[N], <span class="keywordtype">float</span> out[N]) = 0;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_abstract_motor.html#a86651072beff21fb167a3bdd844fe9b9">abstractToPhysical</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> in[N], <span class="keywordtype">float</span> out[N]) = 0;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="class_abstract_motor.html#a9c57a5b89e44bd332951b172420efb4c">   58</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="class_abstract_motor.html#a9c57a5b89e44bd332951b172420efb4c">enable</a>(<span class="keywordtype">bool</span> flag) {</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=0; i&lt;N; ++i)</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      motors[i]-&gt;<a class="code" href="class_abstract_motor.html#a9c57a5b89e44bd332951b172420efb4c">enable</a>(flag);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  }</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="class_abstract_motor.html#ac2657dadc0eccd66e88a0a700c36f1b1">   69</a></span>&#160;  <span class="keywordtype">float</span> <a class="code" href="class_abstract_motor.html#ac2657dadc0eccd66e88a0a700c36f1b1">getPosition</a>(<span class="keywordtype">int</span> i) { <span class="keywordflow">return</span> pos[i]; }</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="class_abstract_motor.html#ad625a9a4ef63844ae27f30d8d405ca5d">   76</a></span>&#160;  <span class="keywordtype">float</span> <a class="code" href="class_abstract_motor.html#ad625a9a4ef63844ae27f30d8d405ca5d">getVelocity</a>(<span class="keywordtype">int</span> i) { <span class="keywordflow">return</span> pd[i].vel; }</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
+<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="class_abstract_motor.html#a83dac33b069c72e68fd089eeccf47bf6">   82</a></span>&#160;  <span class="keywordtype">float</span> <a class="code" href="class_abstract_motor.html#a83dac33b069c72e68fd089eeccf47bf6">getOpenLoop</a>(<span class="keywordtype">int</span> i) {</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">return</span> this-&gt;val[i];</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  }</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <span class="comment">// Set motor move commands (but they are actually sent by motorUpdate())</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
+<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="class_abstract_motor.html#ac76ff65b8a1fe44bcbdabbdb7d06b610">   92</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="class_abstract_motor.html#ac76ff65b8a1fe44bcbdabbdb7d06b610">setOpenLoop</a>(<span class="keywordtype">int</span> i, <span class="keywordtype">float</span> val) {</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    this-&gt;mode[i] = OPEN_LOOP_MODE;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    this-&gt;val[i] = val;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  }</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
+<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="class_abstract_motor.html#abf2a54f92e70a2db97168546bfc03866">  102</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="class_abstract_motor.html#abf2a54f92e70a2db97168546bfc03866">setGain</a>(<span class="keywordtype">int</span> i, <span class="keywordtype">float</span> Kp, <span class="keywordtype">float</span> Kd) { pd[i].<a class="code" href="class_p_d.html#a30aabda9c097c8982bca7985e59dcb02">setGain</a>(Kp, Kd); }</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="class_abstract_motor.html#abf2a54f92e70a2db97168546bfc03866">setGain</a>(<span class="keywordtype">int</span> i, <span class="keywordtype">float</span> Kp) { <a class="code" href="class_abstract_motor.html#abf2a54f92e70a2db97168546bfc03866">setGain</a>(i, Kp, 0); }</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
+<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="class_abstract_motor.html#ab921ccb46270d5a4c0a78e057efa7b00">  109</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="class_abstract_motor.html#ab921ccb46270d5a4c0a78e057efa7b00">setPosition</a>(<span class="keywordtype">int</span> i, <span class="keywordtype">float</span> setpoint) {</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    this-&gt;mode[i] = POSITION_MODE;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    this-&gt;setpoint[i] = setpoint;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  }</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
+<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="class_abstract_motor.html#aaa471f524702c30a99df49099d6bb3d5">  118</a></span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">float</span> <a class="code" href="class_abstract_motor.html#aaa471f524702c30a99df49099d6bb3d5">getPosition</a>() { <span class="keywordflow">return</span> <a class="code" href="class_abstract_motor.html#aaa471f524702c30a99df49099d6bb3d5">getPosition</a>(0); }</div>
+<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="class_abstract_motor.html#a635c1db28feffc5c93944a6dff21addc">  123</a></span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">float</span> <a class="code" href="class_abstract_motor.html#a635c1db28feffc5c93944a6dff21addc">getVelocity</a>() { <span class="keywordflow">return</span> <a class="code" href="class_abstract_motor.html#a635c1db28feffc5c93944a6dff21addc">getVelocity</a>(0); }</div>
+<div class="line"><a name="l00128"></a><span class="lineno"><a class="line" href="class_abstract_motor.html#af6476d1197e0fce22dcc8d0ea2612b9f">  128</a></span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">float</span> <a class="code" href="class_abstract_motor.html#af6476d1197e0fce22dcc8d0ea2612b9f">getOpenLoop</a>() { <span class="keywordflow">return</span> <a class="code" href="class_abstract_motor.html#af6476d1197e0fce22dcc8d0ea2612b9f">getOpenLoop</a>(0); }</div>
+<div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="class_abstract_motor.html#a61d7fa660c902c6b9c849c4f9c8fb4e4">  133</a></span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_abstract_motor.html#a61d7fa660c902c6b9c849c4f9c8fb4e4">setOpenLoop</a>(<span class="keywordtype">float</span> val) { <a class="code" href="class_abstract_motor.html#a61d7fa660c902c6b9c849c4f9c8fb4e4">setOpenLoop</a>(0, val); }</div>
+<div class="line"><a name="l00138"></a><span class="lineno"><a class="line" href="class_abstract_motor.html#a04836948bc79b0d8b4be84962f8d2a95">  138</a></span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_abstract_motor.html#a04836948bc79b0d8b4be84962f8d2a95">setPosition</a>(<span class="keywordtype">float</span> pos) { <a class="code" href="class_abstract_motor.html#a04836948bc79b0d8b4be84962f8d2a95">setPosition</a>(0, pos); }</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;</div>
+<div class="line"><a name="l00144"></a><span class="lineno"><a class="line" href="class_abstract_motor.html#a41bc149f07b2a88622f11dc8b2fb18c2">  144</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="class_abstract_motor.html#a41bc149f07b2a88622f11dc8b2fb18c2">update</a>() {</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keywordtype">float</span> posCtrlVal[N], physicalVal[N];</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=0; i&lt;N; ++i)</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;      physicalPos[i] = motors[i]-&gt;<a class="code" href="class_abstract_motor.html#aaa471f524702c30a99df49099d6bb3d5">getPosition</a>();</div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; <span class="comment">// end of addtogroup</span></div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <span class="comment">// call derived class function, and store positions in &quot;pos&quot; for getPosition()</span></div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <a class="code" href="class_abstract_motor.html#a76fd95ef263081117e60615b98bec505">physicalToAbstract</a>(physicalPos, pos);</div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=0; i&lt;N; ++i) {</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;      <span class="comment">// Velocity calculation should happen independent of mode</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;      <span class="keywordflow">if</span> (bAngle[i])</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        posCtrlVal[i] = pd[i].<a class="code" href="class_p_d.html#acfc461ef44e6ea61d43b2aa8362b4142">update</a>(<a class="code" href="group___math.html#gaa193518a091a27f5e8555a341eaab735">fmodf_mpi_pi</a>(pos[i] - setpoint[i]));</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;      <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        posCtrlVal[i] = pd[i].<a class="code" href="class_p_d.html#acfc461ef44e6ea61d43b2aa8362b4142">update</a>(pos[i] - setpoint[i]);</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;      <span class="comment">// In position mode, update the motor command</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;      <span class="keywordflow">if</span> (mode[i] == POSITION_MODE)</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        val[i] = posCtrlVal[i];</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;      <span class="comment">// In open-loop mode, val has been set by user</span></div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    }</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="comment">// invert the coordinate change</span></div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <a class="code" href="class_abstract_motor.html#a86651072beff21fb167a3bdd844fe9b9">abstractToPhysical</a>(val, physicalVal);</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=0; i&lt;N; ++i) {</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;      <span class="comment">// Send command, but don&#39;t modify &quot;val&quot; (set by user)</span></div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;      correctedPhysicalVal[i] = motors[i]-&gt;mapVal(physicalVal[i]);</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;      <span class="comment">// send the command</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;      motors[i]-&gt;<a class="code" href="class_motor.html#ac4810cdc34eaa0281e89165655acd1f9">sendOpenLoop</a>(correctedPhysicalVal[i]);</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    }</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;  }</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;  <span class="comment">// Public access to motors</span></div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;  <a class="code" href="class_motor.html">Motor</a> *motors[N];</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;  <span class="keywordtype">float</span> val[N], correctedPhysicalVal[N], setpoint[N];</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;  <span class="keywordtype">bool</span> bAngle[N];</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;  MotorControlMode mode[N];</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;  <span class="comment">// Command</span></div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;  <span class="keywordtype">float</span> physicalPos[N], pos[N];</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;  <span class="comment">// PD controller</span></div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;  <a class="code" href="class_p_d.html">PD</a> pd[N];</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;  <span class="comment">// Barrier</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;  <span class="comment">// Barrier barrier;</span></div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;};</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; <span class="comment">// end of addtogroup</span></div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="class_p_d_html_a30aabda9c097c8982bca7985e59dcb02"><div class="ttname"><a href="class_p_d.html#a30aabda9c097c8982bca7985e59dcb02">PD::setGain</a></div><div class="ttdeci">void setGain(float Kp, float Kd)</div><div class="ttdoc">Set gains. </div><div class="ttdef"><b>Definition:</b> WMath.h:185</div></div>
+<div class="ttc" id="class_abstract_motor_html_aaa471f524702c30a99df49099d6bb3d5"><div class="ttname"><a href="class_abstract_motor.html#aaa471f524702c30a99df49099d6bb3d5">AbstractMotor::getPosition</a></div><div class="ttdeci">virtual float getPosition()</div><div class="ttdoc">Get position of 0th coordinate. </div><div class="ttdef"><b>Definition:</b> AbstractMotor.h:118</div></div>
+<div class="ttc" id="class_abstract_motor_html_af6476d1197e0fce22dcc8d0ea2612b9f"><div class="ttname"><a href="class_abstract_motor.html#af6476d1197e0fce22dcc8d0ea2612b9f">AbstractMotor::getOpenLoop</a></div><div class="ttdeci">virtual float getOpenLoop()</div><div class="ttdoc">Get open loop value of 0th coordinate. </div><div class="ttdef"><b>Definition:</b> AbstractMotor.h:128</div></div>
+<div class="ttc" id="class_abstract_motor_html_abf2a54f92e70a2db97168546bfc03866"><div class="ttname"><a href="class_abstract_motor.html#abf2a54f92e70a2db97168546bfc03866">AbstractMotor::setGain</a></div><div class="ttdeci">void setGain(int i, float Kp, float Kd)</div><div class="ttdoc">Set PD gains for coordinate i. </div><div class="ttdef"><b>Definition:</b> AbstractMotor.h:102</div></div>
+<div class="ttc" id="class_abstract_motor_html_a83dac33b069c72e68fd089eeccf47bf6"><div class="ttname"><a href="class_abstract_motor.html#a83dac33b069c72e68fd089eeccf47bf6">AbstractMotor::getOpenLoop</a></div><div class="ttdeci">float getOpenLoop(int i)</div><div class="ttdoc">Get the openloop value for the ith coordinate; useful when using setPosition(int, float) ...</div><div class="ttdef"><b>Definition:</b> AbstractMotor.h:82</div></div>
 <div class="ttc" id="class_abstract_motor_html_a76fd95ef263081117e60615b98bec505"><div class="ttname"><a href="class_abstract_motor.html#a76fd95ef263081117e60615b98bec505">AbstractMotor::physicalToAbstract</a></div><div class="ttdeci">virtual void physicalToAbstract(const float in[N], float out[N])=0</div><div class="ttdoc">Transformation for forces at the toe to joint torques. </div></div>
 <div class="ttc" id="class_p_d_html_acfc461ef44e6ea61d43b2aa8362b4142"><div class="ttname"><a href="class_p_d.html#acfc461ef44e6ea61d43b2aa8362b4142">PD::update</a></div><div class="ttdeci">virtual float update(float val)</div><div class="ttdoc">Computes the PD control from the given error. </div><div class="ttdef"><b>Definition:</b> WMath.h:175</div></div>
-<div class="ttc" id="class_abstract_motor_html_a9c57a5b89e44bd332951b172420efb4c"><div class="ttname"><a href="class_abstract_motor.html#a9c57a5b89e44bd332951b172420efb4c">AbstractMotor::enable</a></div><div class="ttdeci">void enable(bool flag)</div><div class="ttdoc">Enables all the motors in this "leg". </div><div class="ttdef"><b>Definition:</b> AbstractMotor.h:59</div></div>
+<div class="ttc" id="class_abstract_motor_html_a9c57a5b89e44bd332951b172420efb4c"><div class="ttname"><a href="class_abstract_motor.html#a9c57a5b89e44bd332951b172420efb4c">AbstractMotor::enable</a></div><div class="ttdeci">void enable(bool flag)</div><div class="ttdoc">Enables all the motors in this "leg". </div><div class="ttdef"><b>Definition:</b> AbstractMotor.h:58</div></div>
+<div class="ttc" id="class_abstract_motor_html_ab921ccb46270d5a4c0a78e057efa7b00"><div class="ttname"><a href="class_abstract_motor.html#ab921ccb46270d5a4c0a78e057efa7b00">AbstractMotor::setPosition</a></div><div class="ttdeci">void setPosition(int i, float setpoint)</div><div class="ttdoc">Set position setpoint for coordinate i, and change to position control mode. </div><div class="ttdef"><b>Definition:</b> AbstractMotor.h:109</div></div>
 <div class="ttc" id="class_motor_html"><div class="ttname"><a href="class_motor.html">Motor</a></div><div class="ttdoc">Base single-motor class. </div><div class="ttdef"><b>Definition:</b> Motor.h:83</div></div>
-<div class="ttc" id="class_abstract_motor_html_ac2657dadc0eccd66e88a0a700c36f1b1"><div class="ttname"><a href="class_abstract_motor.html#ac2657dadc0eccd66e88a0a700c36f1b1">AbstractMotor::getPosition</a></div><div class="ttdeci">float getPosition(int i)</div><div class="ttdoc">Returns the ith toe position coordinate. </div><div class="ttdef"><b>Definition:</b> AbstractMotor.h:70</div></div>
-<div class="ttc" id="class_abstract_motor_html_ad625a9a4ef63844ae27f30d8d405ca5d"><div class="ttname"><a href="class_abstract_motor.html#ad625a9a4ef63844ae27f30d8d405ca5d">AbstractMotor::getVelocity</a></div><div class="ttdeci">float getVelocity(int i)</div><div class="ttdoc">Returns the ith toe coordinate velocity. </div><div class="ttdef"><b>Definition:</b> AbstractMotor.h:77</div></div>
+<div class="ttc" id="class_abstract_motor_html_ac2657dadc0eccd66e88a0a700c36f1b1"><div class="ttname"><a href="class_abstract_motor.html#ac2657dadc0eccd66e88a0a700c36f1b1">AbstractMotor::getPosition</a></div><div class="ttdeci">float getPosition(int i)</div><div class="ttdoc">Returns the ith toe position coordinate. </div><div class="ttdef"><b>Definition:</b> AbstractMotor.h:69</div></div>
+<div class="ttc" id="class_abstract_motor_html_ad625a9a4ef63844ae27f30d8d405ca5d"><div class="ttname"><a href="class_abstract_motor.html#ad625a9a4ef63844ae27f30d8d405ca5d">AbstractMotor::getVelocity</a></div><div class="ttdeci">float getVelocity(int i)</div><div class="ttdoc">Returns the ith toe coordinate velocity. </div><div class="ttdef"><b>Definition:</b> AbstractMotor.h:76</div></div>
 <div class="ttc" id="class_p_d_html"><div class="ttname"><a href="class_p_d.html">PD</a></div><div class="ttdoc">Generic proportional-derivative control (for use in a motor, look at the Motor controller library ins...</div><div class="ttdef"><b>Definition:</b> WMath.h:162</div></div>
+<div class="ttc" id="class_abstract_motor_html_a635c1db28feffc5c93944a6dff21addc"><div class="ttname"><a href="class_abstract_motor.html#a635c1db28feffc5c93944a6dff21addc">AbstractMotor::getVelocity</a></div><div class="ttdeci">virtual float getVelocity()</div><div class="ttdoc">Get velocity of 0th coordinate. </div><div class="ttdef"><b>Definition:</b> AbstractMotor.h:123</div></div>
+<div class="ttc" id="class_abstract_motor_html_ac76ff65b8a1fe44bcbdabbdb7d06b610"><div class="ttname"><a href="class_abstract_motor.html#ac76ff65b8a1fe44bcbdabbdb7d06b610">AbstractMotor::setOpenLoop</a></div><div class="ttdeci">void setOpenLoop(int i, float val)</div><div class="ttdoc">Set open loop command to coordinate i. </div><div class="ttdef"><b>Definition:</b> AbstractMotor.h:92</div></div>
+<div class="ttc" id="class_abstract_motor_html_a61d7fa660c902c6b9c849c4f9c8fb4e4"><div class="ttname"><a href="class_abstract_motor.html#a61d7fa660c902c6b9c849c4f9c8fb4e4">AbstractMotor::setOpenLoop</a></div><div class="ttdeci">virtual void setOpenLoop(float val)</div><div class="ttdoc">Set open loop value for 0th coordinate. </div><div class="ttdef"><b>Definition:</b> AbstractMotor.h:133</div></div>
 <div class="ttc" id="group___math_html_gaa193518a091a27f5e8555a341eaab735"><div class="ttname"><a href="group___math.html#gaa193518a091a27f5e8555a341eaab735">fmodf_mpi_pi</a></div><div class="ttdeci">float fmodf_mpi_pi(float f)</div><div class="ttdoc">Mod an angle to between -PI and PI. </div><div class="ttdef"><b>Definition:</b> WMath.cpp:96</div></div>
+<div class="ttc" id="class_abstract_motor_html_a04836948bc79b0d8b4be84962f8d2a95"><div class="ttname"><a href="class_abstract_motor.html#a04836948bc79b0d8b4be84962f8d2a95">AbstractMotor::setPosition</a></div><div class="ttdeci">virtual void setPosition(float pos)</div><div class="ttdoc">Set position for 0th coordinate. </div><div class="ttdef"><b>Definition:</b> AbstractMotor.h:138</div></div>
 <div class="ttc" id="class_abstract_motor_html_a86651072beff21fb167a3bdd844fe9b9"><div class="ttname"><a href="class_abstract_motor.html#a86651072beff21fb167a3bdd844fe9b9">AbstractMotor::abstractToPhysical</a></div><div class="ttdeci">virtual void abstractToPhysical(const float in[N], float out[N])=0</div><div class="ttdoc">Forward kinematics. </div></div>
 <div class="ttc" id="class_motor_html_ac4810cdc34eaa0281e89165655acd1f9"><div class="ttname"><a href="class_motor.html#ac4810cdc34eaa0281e89165655acd1f9">Motor::sendOpenLoop</a></div><div class="ttdeci">virtual void sendOpenLoop(float val)=0</div><div class="ttdoc">Communicate a raw PWM to the motor controller. </div></div>
-<div class="ttc" id="class_abstract_motor_html"><div class="ttname"><a href="class_abstract_motor.html">AbstractMotor</a></div><div class="ttdoc">Class for coordinating N motors in parallel. </div><div class="ttdef"><b>Definition:</b> AbstractMotor.h:35</div></div>
+<div class="ttc" id="class_abstract_motor_html"><div class="ttname"><a href="class_abstract_motor.html">AbstractMotor</a></div><div class="ttdoc">Class for coordinating N motors in parallel. </div><div class="ttdef"><b>Definition:</b> AbstractMotor.h:34</div></div>
+<div class="ttc" id="class_abstract_motor_html_a41bc149f07b2a88622f11dc8b2fb18c2"><div class="ttname"><a href="class_abstract_motor.html#a41bc149f07b2a88622f11dc8b2fb18c2">AbstractMotor::update</a></div><div class="ttdeci">void update()</div><div class="ttdoc">This should be called at a more or less fixed rate (once per iteration) </div><div class="ttdef"><b>Definition:</b> AbstractMotor.h:144</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 29 2016 15:03:19 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 29 2016 23:43:27 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

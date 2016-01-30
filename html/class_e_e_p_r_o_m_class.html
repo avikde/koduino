@@ -110,10 +110,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.</p>
 <p>You should have received a copy of the GNU Lesser General Public License along with this library; if not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>
 <p>This class allows storing data / parameters in non-volatile memory that you may not want to hard-code in the source file, e.g. the zero-position for a motor. <em>Note:</em> unlike Arduino, in which each address corresponds to a byte, here each address from 0-31 corresponds to a 32-bit value (convenient for ints and floats).</p>
-<p>There are distinct functions writeFloat() and readFloat() for floating-point values since static casts have to be avoided.</p>
 <h3>Usage</h3>
 <ol type="1">
-<li>Call <a class="el" href="class_e_e_p_r_o_m_class.html#a9013309e472b45262c896b8643dc03c8" title="Store a 16-bit integer in EEPROM. ">write()</a> or writeFloat() to store, and <a class="el" href="class_e_e_p_r_o_m_class.html#a8f7aacb0a1464c988a3001a316a186f0" title="Read a 16-bit integer from EEPROM. ">read()</a> or readFloat()to retrieve values</li>
+<li>Call <a class="el" href="class_e_e_p_r_o_m_class.html#a9013309e472b45262c896b8643dc03c8" title="Store a 16-bit integer in EEPROM. ">EEPROMClass::write()</a> to store, and <a class="el" href="class_e_e_p_r_o_m_class.html#a8f7aacb0a1464c988a3001a316a186f0" title="Read a 16-bit integer from EEPROM. ">EEPROMClass::read()</a> to retrieve values</li>
 </ol>
 <h3>Example: Write/read</h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;EEPROM.h&gt;</span></div>
@@ -121,11 +120,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><span class="keywordtype">void</span> setup() {</div>
 <div class="line">  Serial1.begin(115200);</div>
 <div class="line">  EEPROM.<a class="code" href="class_e_e_p_r_o_m_class.html#a9013309e472b45262c896b8643dc03c8">write</a>(0, 123);</div>
-<div class="line">  EEPROM.writeFloat(1, 4.56);</div>
+<div class="line">  EEPROM.<a class="code" href="class_e_e_p_r_o_m_class.html#a9013309e472b45262c896b8643dc03c8">write</a>(1, 456);</div>
 <div class="line">}</div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> loop() {</div>
-<div class="line">  Serial1 &lt;&lt; <span class="stringliteral">&quot;Expect 123, 4.56; read &quot;</span> &lt;&lt; EEPROM.<a class="code" href="class_e_e_p_r_o_m_class.html#a8f7aacb0a1464c988a3001a316a186f0">read</a>(0) &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; EEPROM.readFloat(1) &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line">  Serial1 &lt;&lt; <span class="stringliteral">&quot;Expect 123, 456; read &quot;</span> &lt;&lt; EEPROM.<a class="code" href="class_e_e_p_r_o_m_class.html#a8f7aacb0a1464c988a3001a316a186f0">read</a>(0) &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; EEPROM.<a class="code" href="class_e_e_p_r_o_m_class.html#a8f7aacb0a1464c988a3001a316a186f0">read</a>(1) &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(1000);</div>
 <div class="line">}</div>
 </div><!-- fragment --> </div><table class="memberdecls">
@@ -207,7 +206,7 @@ Public Member Functions</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 29 2016 15:03:20 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 29 2016 23:43:28 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

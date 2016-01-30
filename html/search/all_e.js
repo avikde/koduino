@@ -7,5 +7,6 @@ var searchData=
   ['readbytesuntil',['readBytesUntil',['../class_stream.html#af84672a4fb2620466958d3118d4fea00',1,'Stream']]],
   ['readsensors',['readSensors',['../class_i_m_u.html#afb750831ddcfa14d6f23dda5dbdfb2a0',1,'IMU::readSensors()'],['../class_m_p_u6000.html#a10c1e14cf4c647a320ebe095cc9ec8aa',1,'MPU6000::readSensors()']]],
   ['requestfrom',['requestFrom',['../class_two_wire.html#a35778784c333b7284e3c2378826b814d',1,'TwoWire::requestFrom(uint8_t address, uint8_t quantity)'],['../class_two_wire.html#a614ee848d1a3f9a45b93ee987ef42ac1',1,'TwoWire::requestFrom(uint8_t address, uint8_t quantity, bool stop)']]],
-  ['resetoffset',['resetOffset',['../class_motor.html#a7b52be740ffa84f78d9877e1dc001be2',1,'Motor']]]
+  ['resetoffset',['resetOffset',['../class_motor.html#a7b52be740ffa84f78d9877e1dc001be2',1,'Motor']]],
+  ['rtcclass',['RTCClass',['../class_r_t_c_class.html',1,'RTCClass'],['../class_r_t_c_class.html#a883c2a32d98c185a86ec0e446fda5fe8',1,'RTCClass::RTCClass()']]]
 ];

@@ -97,10 +97,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>Call <a class="el" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730" title="Configure a pin before using it. ">pinMode()</a> with <code>PWM</code></li>
 <li>Call <a class="el" href="group___p_w_m.html#gac6c226e225f7bc41f06b44558c207389" title="Change the PWM duty cycle on a pin. ">analogWrite()</a></li>
 </ol>
-<p>PWM input:</p>
+<p>PWM input can be accomplished using two underlying methods: using a timer input channel (pin needs to be connected to a general purpose timer channel), or using an external interrupt (can only have one per PinSource&mdash;this is the last digit in 0&ndash;15 of the pin name).</p>
 <ol type="1">
-<li>(Optionally) call <a class="el" href="group___pins.html#ga7b545930be968fa598f0ef566e426ee1" title="Low-level function to reassign AF number of timer assigned to a pin. The default assignments are here...">pinRemap()</a> to change the timer connected to a pin</li>
-<li>Call <a class="el" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730" title="Configure a pin before using it. ">pinMode()</a> with <code>PWM_IN</code></li>
+<li>(Optionally) if using <code>PWM_IN</code>, call <a class="el" href="group___pins.html#ga7b545930be968fa598f0ef566e426ee1" title="Low-level function to reassign AF number of timer assigned to a pin. The default assignments are here...">pinRemap()</a> to change the timer connected to a pin</li>
+<li>Call <a class="el" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730" title="Configure a pin before using it. ">pinMode()</a> with <code>PWM_IN</code> or <code>PWM_IN_EXTI</code></li>
 <li>Call <a class="el" href="group___p_w_m.html#ga4978918346876528b54add5619f7dadd" title="Read a PWM signal (non-blocking) ">pwmIn()</a></li>
 </ol>
 <h2>Example: PWM output</h2>
@@ -337,7 +337,7 @@ Functions</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 29 2016 15:03:20 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 29 2016 23:43:28 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

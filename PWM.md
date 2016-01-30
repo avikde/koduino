@@ -9,10 +9,10 @@ PWM output:
 3. Call pinMode() with `PWM`
 4. Call analogWrite()
 
-PWM input:
+PWM input can be accomplished using two underlying methods: using a timer input channel (pin needs to be connected to a general purpose timer channel), or using an external interrupt (can only have one per PinSource---this is the last digit in 0--15 of the pin name).
 
-1. (Optionally) call pinRemap() to change the timer connected to a pin
-2. Call pinMode() with `PWM_IN`
+1. (Optionally) if using `PWM_IN`, call pinRemap() to change the timer connected to a pin
+2. Call pinMode() with `PWM_IN` or `PWM_IN_EXTI`
 3. Call pwmIn()
 
 ## Example: PWM output

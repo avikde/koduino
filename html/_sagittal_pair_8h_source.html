@@ -104,8 +104,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    motors[1] = M1;</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="comment">// Set difference coordinate to be position controlled to 0</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    setGain(1, 1);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    setPosition(1, 0);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="class_abstract_motor.html#abf2a54f92e70a2db97168546bfc03866">setGain</a>(1, 1);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="class_abstract_motor.html#ab921ccb46270d5a4c0a78e057efa7b00">setPosition</a>(1, 0);</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  }</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="comment">// This should be overriding a base class function</span></div>
@@ -120,7 +120,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  }</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="comment">// New commands for setting what the difference should do</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="keywordtype">void</span> setDiffGain(<span class="keywordtype">float</span> Kp, <span class="keywordtype">float</span> Kd) { setGain(1, Kp, Kd); }</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="keywordtype">void</span> setDiffGain(<span class="keywordtype">float</span> Kp, <span class="keywordtype">float</span> Kd) { <a class="code" href="class_abstract_motor.html#abf2a54f92e70a2db97168546bfc03866">setGain</a>(1, Kp, Kd); }</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keywordtype">void</span> setDiffGain(<span class="keywordtype">float</span> Kp) { setDiffGain(Kp, 0); }</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;};</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; <span class="comment">// end of addtogroup</span></div>
@@ -128,13 +128,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="group___math_html_ga6d79ae0ee177237c0a82b6a0ca805f74"><div class="ttname"><a href="group___math.html#ga6d79ae0ee177237c0a82b6a0ca805f74">circleMeanDiff</a></div><div class="ttdeci">void circleMeanDiff(float a, float b, float *mean, float *diff)</div><div class="ttdoc">Change coords to mean and diff on a circle (accounting for wraparound) </div><div class="ttdef"><b>Definition:</b> WMath.cpp:128</div></div>
 <div class="ttc" id="class_sagittal_pair_html"><div class="ttname"><a href="class_sagittal_pair.html">SagittalPair</a></div><div class="ttdoc">Coordinates a pair of motors (for instance for sagittal plane behaviors) </div><div class="ttdef"><b>Definition:</b> SagittalPair.h:32</div></div>
+<div class="ttc" id="class_abstract_motor_html_abf2a54f92e70a2db97168546bfc03866"><div class="ttname"><a href="class_abstract_motor.html#abf2a54f92e70a2db97168546bfc03866">AbstractMotor&lt; 2 &gt;::setGain</a></div><div class="ttdeci">void setGain(int i, float Kp, float Kd)</div><div class="ttdoc">Set PD gains for coordinate i. </div><div class="ttdef"><b>Definition:</b> AbstractMotor.h:102</div></div>
+<div class="ttc" id="class_abstract_motor_html_ab921ccb46270d5a4c0a78e057efa7b00"><div class="ttname"><a href="class_abstract_motor.html#ab921ccb46270d5a4c0a78e057efa7b00">AbstractMotor&lt; 2 &gt;::setPosition</a></div><div class="ttdeci">void setPosition(int i, float setpoint)</div><div class="ttdoc">Set position setpoint for coordinate i, and change to position control mode. </div><div class="ttdef"><b>Definition:</b> AbstractMotor.h:109</div></div>
 <div class="ttc" id="class_motor_html"><div class="ttname"><a href="class_motor.html">Motor</a></div><div class="ttdoc">Base single-motor class. </div><div class="ttdef"><b>Definition:</b> Motor.h:83</div></div>
-<div class="ttc" id="class_abstract_motor_html"><div class="ttname"><a href="class_abstract_motor.html">AbstractMotor</a></div><div class="ttdoc">Class for coordinating N motors in parallel. </div><div class="ttdef"><b>Definition:</b> AbstractMotor.h:35</div></div>
+<div class="ttc" id="class_abstract_motor_html"><div class="ttname"><a href="class_abstract_motor.html">AbstractMotor</a></div><div class="ttdoc">Class for coordinating N motors in parallel. </div><div class="ttdef"><b>Definition:</b> AbstractMotor.h:34</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 29 2016 15:03:19 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 29 2016 23:43:27 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>
