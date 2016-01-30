@@ -1,9 +1,9 @@
-@addtogroup FatLog
+@class FatLog FatLog.h
 
 ### Usage
 
 
-### Example: Blink
+### Example
 
 ~~~{.cpp}
 

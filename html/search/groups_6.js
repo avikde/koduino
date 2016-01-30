@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['keeping_20time',['Keeping time',['../group___time.html',1,'']]]
+  ['motor_20controller_20library',['Motor controller library',['../group___motor_controller.html',1,'']]]
 ];

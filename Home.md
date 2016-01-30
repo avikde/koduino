@@ -40,20 +40,22 @@ The API functions here are in general optimized for speed and concurrency, at th
 * [Serial / USART](@ref USARTClass) --- FTDI (USB/Serial), XBee, ...
 * [SPI](@ref SPIClass) --- MPU-6000, ...
 * [Wire / I2C / SMBus](@ref TwoWire) --- Nunchuck, MPU-6050, ...
-* [Real-time RS485-based bus (TODO)](@ref Dxl)
+* [Dxl real-time bus (TODO)](@ref Dxl)
 
-### Basic libraries
+### Peripheral device drivers
 
-* [Storing data in non-volatile memory (EEPROM)](@ref EEPROMClass)
 * [Reading a quadrature encoder](@ref Encoder)
 * [Data logging: OpenLog driver](@ref OpenLog) --- on Sparkfun OpenLog, or Mainboard v1
-* [Real-time clock (TODO)](@ref RTCClass) --- on Mainboard v2 only
 * [Data logging: FatLog over SDIO (TODO)](@ref FatLog) --- on Mainboard v2 only
+* [Wii Nunchuck (TODO)](@ref Nunchuck)
 
-### Robotics-oriented libraries
+### Libraries
 
+* [Storing data in non-volatile memory (EEPROM)](@ref EEPROMClass)
 * [Basic and advanced Math](@ref Math) --- also, the [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page) libraries exist
+* [Real-time clock (TODO)](@ref RTCClass) --- on Mainboard v2 only
 * [Motor controller library with multi-motor coordination](@ref MotorController)
 * [IMU drivers and orientation filter](@ref IMU) --- MPU6000 drivers, complementary filter, EKF
+* [Behaviors base class, clocked gaits (TODO)](@ref Behavior)
 * [Brushless commutation with field-oriented control (WIP)](@ref Brushless) --- *Warning: advanced!*
 

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['motor_20controller_20library',['Motor controller library',['../group___motor_controller.html',1,'']]]
+  ['pin_20configuration',['Pin configuration',['../group___pins.html',1,'']]],
+  ['pwm_20output_20and_20input',['PWM output and input',['../group___p_w_m.html',1,'']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['imu',['IMU',['../class_i_m_u.html',1,'']]]
+  ['fatlog',['FatLog',['../class_fat_log.html',1,'']]]
 ];

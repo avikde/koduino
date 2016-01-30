@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['openlog',['OpenLog',['../md__open_log.html',1,'']]]
+  ['nunchuck',['Nunchuck',['../md__nunchuck.html',1,'']]]
 ];
