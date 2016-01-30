@@ -21,6 +21,9 @@
 
 #include "AbstractMotor.h"
 
+/** @addtogroup MotorController
+ *  @{
+ */
 
 enum AbstractCoord {
   EXTENSION = 0, ANGLE = 1
@@ -34,11 +37,18 @@ enum AbstractCoord {
  */
 class MinitaurLeg : public AbstractMotor<2> {
 public:
-  // If true, use the exact leg kinematics, and the extension coordinate is in length units. If false, use the mean angle as a proxy for extension (between 0 and PI)
+  /**
+   * @brief If true, use the exact leg kinematics, and the extension coordinate is in length units. If false, use the mean angle as a proxy for extension (between 0 and PI).
+   */
   static bool useLengths;
-  // upper and lower link lengths
+  /**
+   * @brief Upper and lower link lengths
+   */
   static float l1, l2;
-  //constructor
+
+  /**
+   * @brief Declare the leg based on the consituent motors
+   */
   MinitaurLeg(Motor *M0, Motor *M1);
 
   // Forward kinematics
@@ -47,11 +57,18 @@ public:
   void abstractToPhysical(const float toeForce[2], float jointTorque[2]);
 
   // Return forward speed
+  /**
+   * @brief Return forward speed
+   * @param bodyPitch Pitch angle of the body (required to figure out absolute leg angle)
+   * @return Speed in m/s
+   */
   float getSpeed(float bodyPitch);
 
 protected:
   // this does the full FK irrespective of if useLengths is false
   float FKext(float meanAng);
 };
+
+/** @} */ // end of addtogroup
 
 #endif

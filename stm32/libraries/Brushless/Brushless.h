@@ -46,19 +46,51 @@ public:
   volatile int16_t current; // scalar combining phase currents
   volatile float posRad;
 
-  // Has to be defined for each driver / feedback type combo
-  // virtual void enable(bool flag) = 0;
-  // Should use waveform from base class
+  /**
+   * @brief Command the phases for a specific electrical angle
+   * @param electricalAngle Current electrical angle in [0, 1]
+   * @param amplitude Amplitude in [-1, 1]
+   * @param waveform One of `BLOCK`, `SINUSOIDAL`, `TRAPEZOIDAL`
+   */
   void setMotorPhases(float electricalAngle, float amplitude, CommutationType waveform);
-
+  /**
+   * @brief Set basic motor properties (call before init())
+   * @param polePairs Number of pole pairs
+   * @param leadFactor Lead factor (start with 0 and hand-tune)
+   */
   void setMotorProps(int polePairs, float leadFactor);
 
+  /**
+   * @brief Initialize commutation from absolute position
+   * @details Call this right before calling attachTimerInterrupt() with the commutation function
+   * 
+   * @param absPos Absolute rotor position
+   * @param commutationRate Rate at which commutation will occur
+   */
   void init(uint32_t absPos, int commutationRate);
+
+  /**
+   * @brief This function reads the position and sets the motor phases; should be called at at least 5KHz
+   */
   void commutate();
   int16_t readCurrent();
 
+  /**
+   * @brief Calibration routine which (a) detects wire orientation, and (b) determines magnet zero by spinning back and forth
+   * @details This will first command 3 positions in open loop to determine the order of the wires, and write this setting to EEPROM position 1. Next, it will spin the motor back and forth, doing gradient descent on the total angle swept till it spins equally well in both directions. It writes the magnet zero to EEPROM position 0.
+   * 
+   * @param sweepAmplitude The amplitude of the sweeping back and forth. This should be increased for low Kv motors, decreased when bus voltage is higher.
+   * @param convergenceThreshold Threshold of difference between left and right sweeps (default is 1)
+   */
   void calibrate(float sweepAmplitude, float convergenceThreshold);
   void calibrate(float sweepAmplitude) {calibrate(sweepAmplitude, 1);}
+
+  /**
+   * @brief Update the desired amplitude
+   * @details This does not need to be called as frequently as commutation, or at a regular rate (for example, this can go in loop()).
+   * 
+   * @param pwmInput The PWM input. Acceptable duty cycle is [0.1, 0.9], which is mapped to [-1, 1] motor amplitude. Anything outside [0.1, 0.9] disables the motor as a communication failsafe.
+   */
   void update(float pwmInput);
 
   void setEncoderCPR(uint16_t cpr) {encoderCPR = cpr;}

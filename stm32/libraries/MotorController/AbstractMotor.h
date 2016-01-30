@@ -27,7 +27,6 @@
 
 /**
  * @brief Class for coordinating N motors in parallel
- * @details Difference in position is position-controlled and the gain can be set. The mean can be open-loop or position-controlled.
  * 
  * @tparam N number of motors to be coordinated
  */
@@ -76,30 +75,72 @@ public:
    */
   float getVelocity(int i) { return pd[i].vel; }
 
+  /**
+   * @brief Get the openloop value for the ith coordinate; useful when using setPosition(int, float)
+   * @sa Motor::getOpenLoop()
+   */
   float getOpenLoop(int i) {
     return this->val[i];
   }
   // Set motor move commands (but they are actually sent by motorUpdate())
+
+  /**
+   * @brief Set open loop command to coordinate i
+   * @details Like Motor::setOpenLoop(), the actual communication happens in AbstractMotor::update()
+   * @param val Between -1 and 1
+   */
   void setOpenLoop(int i, float val) {
     this->mode[i] = OPEN_LOOP_MODE;
     this->val[i] = val;
   }
 
+  /**
+   * @brief Set PD gains for coordinate i
+   * @param Kp P gain
+   * @param Kd D gain (optional argument)
+   */
   void setGain(int i, float Kp, float Kd) { pd[i].setGain(Kp, Kd); }
   void setGain(int i, float Kp) { setGain(i, Kp, 0); }
+
+  /**
+   * @brief Set position setpoint for coordinate i, and change to position control mode
+   * @param setpoint Setpoint in units of coordinate i (PD control in end-effector space)
+   */
   void setPosition(int i, float setpoint) {
     this->mode[i] = POSITION_MODE;
     this->setpoint[i] = setpoint;
   }
 
-  // Shortcuts for when no i is specified: use 0
+  /**
+   * @brief Get position of 0th coordinate 
+   * @sa getPosition(int)
+   */
   virtual float getPosition() { return getPosition(0); }
+  /**
+   * @brief Get velocity of 0th coordinate
+   * @sa getVelocity(int)
+   */
   virtual float getVelocity() { return getVelocity(0); }
+  /**
+   * @brief Get open loop value of 0th coordinate 
+   * @sa getOpenLoop(int)
+   */
   virtual float getOpenLoop() { return getOpenLoop(0); }
+  /**
+   * @brief Set open loop value for 0th coordinate 
+   * @sa setOpenLoop(int, float)
+   */
   virtual void setOpenLoop(float val) { setOpenLoop(0, val); }
+  /**
+   * @brief Set position for 0th coordinate 
+   * @sa setPosition(int, float)
+   */
   virtual void setPosition(float pos) { setPosition(0, pos); }
 
-  // This should be called at a more or less fixed rate (once per iteration)
+  /**
+   * @brief This should be called at a more or less fixed rate (once per iteration)
+   * @details Don't call Motor::update() on the constituent motors
+   */
   void update() {
     float posCtrlVal[N], physicalVal[N];
 
