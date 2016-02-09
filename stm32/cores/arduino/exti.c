@@ -24,6 +24,15 @@
 #include "timebase.h"
 #include "variant.h"
 
+// default is expected period 1000 us, set by systemClockInit()
+int PWM_IN_EXTI_MAXPERIOD = 0;
+int PWM_IN_EXTI_MINPERIOD = 0;
+
+void pwmInExpectedPeriod(int expectedUs) {
+  PWM_IN_EXTI_MAXPERIOD = SysTick->LOAD/1000*((int)(1.8 * expectedUs));
+  PWM_IN_EXTI_MINPERIOD = SysTick->LOAD/1000*((int)(0.2 * expectedUs));
+}
+
 // Some code from https://github.com/spark/core-firmware/blob/master/src/spark_wiring_interrupts.cpp
 
 // Indexed by the pinSource of the pin
@@ -179,8 +188,6 @@ void interrupts() {
 void wirishExternalInterruptHandler(uint8_t EXTI_Line_Number) {
   static EXTIChannel *S;
   static int currentMs, currentSubMs, delta;
-  // HACK
-  const int maxPeriod = SysTick->LOAD/1000*1800, minPeriod = SysTick->LOAD/1000*200;
   S = &EXTI_MAP[EXTI_Line_Number];
   // PWM_IN_EXTI pin?
   if (S->bPwmIn == 1) {
@@ -191,9 +198,9 @@ void wirishExternalInterruptHandler(uint8_t EXTI_Line_Number) {
 
     if (digitalRead(S->pinName)) {
       // This was a rising edge
-      if (delta > maxPeriod)
+      if (delta > PWM_IN_EXTI_MAXPERIOD)
         S->period = delta - SysTick->LOAD;
-      else if (delta < minPeriod)
+      else if (delta < PWM_IN_EXTI_MINPERIOD)
         S->period = delta + SysTick->LOAD;
       else 
         S->period = delta;

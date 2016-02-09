@@ -70,6 +70,12 @@ void noInterrupts();
  */
 void interrupts();
 
+/**
+ * @brief Set the expected period for PWM_IN_EXTI
+ * @param expectedUs Expected period in microseconds (default 1000)
+ */
+void pwmInExpectedPeriod(int expectedUs);
+
 /** @} */ // end of addtogroup
 
 

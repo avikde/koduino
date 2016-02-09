@@ -23,6 +23,7 @@
 #include "timer.h"
 #include "gpio.h"
 #include "timebase.h"
+#include "exti.h"
 
 // Global
 volatile uint32_t _millis = 0;
@@ -40,6 +41,9 @@ void systemClockInit()
   microsDivider = SystemCoreClock / 1000000;
   // highest priority
   NVIC_SetPriority(SysTick_IRQn, 0);
+
+  // for PWM_IN_EXTI
+  pwmInExpectedPeriod(1000);
 }
 
 // stm32 interrupt: present on all MCUs?
