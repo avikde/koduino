@@ -18,7 +18,7 @@
 '''
 import csv
 
-variant = 'f301'
+variant = 'f303v'
 
 keyChipPin = 'Chip pin'
 keyIndex = 'kod#'
@@ -130,7 +130,7 @@ with open(TIMER_MAP, 'rb') as csvfile:
     for tim in line[1:]:
       if tim != '':
         print('  {TIM'+tim+', TIM'+tim+'_IRQn, 1000, 0,'),
-        if int(line[0][0]) > 1:
+        if int(line[0][0]) >= 1:
           print('timer'+tim+'ch},')
         else:
           print('(TimerChannelData *)0},')
