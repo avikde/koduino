@@ -159,15 +159,24 @@ void PendSV_Handler(void)
 void TIM1_CC_IRQHandler() {
   timerISR(TIMER1);
 }
-
 void TIM2_IRQHandler() {
   timerISR(TIMER2);
 }
-
+void TIM3_IRQHandler() {
+  timerISR(TIMER3);
+}
+void TIM4_IRQHandler() {
+  timerISR(TIMER4);
+}
+void TIM8_CC_IRQHandler() {
+  timerISR(TIMER8);
+}
+void TIM1_BRK_TIM15_IRQHandler() {
+  timerISR(TIMER15);
+}
 void TIM1_UP_TIM16_IRQHandler() {
   timerISR(TIMER16);
 }
-
 void TIM1_TRG_COM_TIM17_IRQHandler() {
   timerISR(TIMER17);
 }
@@ -176,8 +185,8 @@ void TIM1_TRG_COM_TIM17_IRQHandler() {
 void TIM6_DAC_IRQHandler() {
   timebaseISR(0, TIMER6);
 }
-void TIM1_BRK_TIM15_IRQHandler() {
-  timebaseISR(1, TIMER15);
+void TIM7_IRQHandler() {
+  timebaseISR(1, TIMER7);
 }
 
 // EXTI
