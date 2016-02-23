@@ -40,6 +40,12 @@ uint8_t SCL2 = PF1;
 uint8_t SDA3 = PC9;
 uint8_t SCL3 = PA8;
 #define WIRE_TIMEOUT 1000
+#elif defined(STM32F303xC)
+uint8_t SDA1 = PB9;
+uint8_t SCL1 = PB8;
+uint8_t SDA2 = PF0;
+uint8_t SCL2 = PF1;
+#define WIRE_TIMEOUT 1000
 #endif
 
 // Constructors ////////////////////////////////////////////////////////////////
@@ -84,7 +90,7 @@ void TwoWire::begin(void) {
     pinModeAlt(SCL2, GPIO_OType_OD, GPIO_PuPd_NOPULL, 4);
     pinModeAlt(SDA2, GPIO_OType_OD, GPIO_PuPd_NOPULL, 4);
   }
-#if defined(SERIES_STM32F30x)
+#if defined(STM32F302x8)
   else if (I2Cx == I2C3) {
     RCC_I2CCLKConfig(RCC_I2C3CLK_SYSCLK);
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_I2C3, ENABLE);
@@ -136,7 +142,7 @@ void TwoWire::end() {
     pinMode(SDA2, INPUT_PULLUP);
     pinMode(SCL2, INPUT_PULLUP);
   } 
-#if defined(SERIES_STM32F30x)
+#if defined(STM32F302x8)
   else if (I2Cx == I2C3) {
     pinMode(SDA3, INPUT_PULLUP);
     pinMode(SCL3, INPUT_PULLUP);
@@ -410,6 +416,6 @@ void TwoWire::onRequest( void (*function)(void) ) {
 
 TwoWire Wire(I2C1);
 TwoWire Wire2(I2C2);
-#if defined(SERIES_STM32F30x)
+#if defined(STM32F302x8)
 TwoWire Wire3(I2C3);
 #endif

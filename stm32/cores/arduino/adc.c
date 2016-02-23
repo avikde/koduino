@@ -39,15 +39,22 @@ void analogReadSampleTime(uint8_t sampleTime) {
 }
 
 void adcCommonInit() {
+
+  ADC_CommonInitTypeDef ADC_CommonInitStructure;
 #if defined(SERIES_STM32F4xx)
   ADC_DeInit();
 
-  ADC_CommonInitTypeDef ADC_CommonInitStructure;
   ADC_CommonInitStructure.ADC_Mode = ADC_Mode_Independent;
   ADC_CommonInitStructure.ADC_Prescaler = ADC_Prescaler_Div2;
   ADC_CommonInitStructure.ADC_DMAAccessMode = ADC_DMAAccessMode_Disabled;
   ADC_CommonInitStructure.ADC_TwoSamplingDelay = ADC_TwoSamplingDelay_5Cycles;
   ADC_CommonInit(&ADC_CommonInitStructure);
+#elif defined(SERIES_STM32F30x)
+  ADC_CommonStructInit(&ADC_CommonInitStructure);
+  ADC_CommonInitStructure.ADC_Mode = ADC_Mode_Independent;
+  ADC_CommonInitStructure.ADC_DMAAccessMode = ADC_DMAAccessMode_Disabled;
+  ADC_CommonInitStructure.ADC_TwoSamplingDelay = 0x0;
+  ADC_CommonInit(ADC1, &ADC_CommonInitStructure);
 #endif
 }
 
@@ -109,49 +116,49 @@ uint16_t analogRead(uint8_t pin) {
 
 
 
-#if defined(SERIES_STM32F4xx)
-#define MAX_ADCS 3
-uint16_t syncReadBuffer[MAX_ADCS];
+// #if defined(SERIES_STM32F4xx)
+// #define MAX_ADCS 3
+// uint16_t syncReadBuffer[MAX_ADCS];
 
-const uint16_t *analogSyncRead(uint8_t pin1, uint8_t pin2, uint8_t pin3) {
-  ADC_RegularChannelConfig(ADC1, PIN_MAP[pin1].adcChannel, 1, ADC_SAMPLE_TIME);
-  ADC_RegularChannelConfig(ADC2, PIN_MAP[pin2].adcChannel, 1, ADC_SAMPLE_TIME);
-  ADC_RegularChannelConfig(ADC3, PIN_MAP[pin3].adcChannel, 1, ADC_SAMPLE_TIME);
+// const uint16_t *analogSyncRead(uint8_t pin1, uint8_t pin2, uint8_t pin3) {
+//   ADC_RegularChannelConfig(ADC1, PIN_MAP[pin1].adcChannel, 1, ADC_SAMPLE_TIME);
+//   ADC_RegularChannelConfig(ADC2, PIN_MAP[pin2].adcChannel, 1, ADC_SAMPLE_TIME);
+//   ADC_RegularChannelConfig(ADC3, PIN_MAP[pin3].adcChannel, 1, ADC_SAMPLE_TIME);
 
-  ADC_SoftwareStartConv(ADC1);
-  ADC_SoftwareStartConv(ADC2);
-  ADC_SoftwareStartConv(ADC3);
+//   ADC_SoftwareStartConv(ADC1);
+//   ADC_SoftwareStartConv(ADC2);
+//   ADC_SoftwareStartConv(ADC3);
 
-  while(ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC) == RESET);
-  while(ADC_GetFlagStatus(ADC2, ADC_FLAG_EOC) == RESET);
-  while(ADC_GetFlagStatus(ADC3, ADC_FLAG_EOC) == RESET);
-  // Get the conversion value
-  syncReadBuffer[0] = ADC_GetConversionValue(ADC1);
-  syncReadBuffer[1] = ADC_GetConversionValue(ADC2);
-  syncReadBuffer[2] = ADC_GetConversionValue(ADC3);
+//   while(ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC) == RESET);
+//   while(ADC_GetFlagStatus(ADC2, ADC_FLAG_EOC) == RESET);
+//   while(ADC_GetFlagStatus(ADC3, ADC_FLAG_EOC) == RESET);
+//   // Get the conversion value
+//   syncReadBuffer[0] = ADC_GetConversionValue(ADC1);
+//   syncReadBuffer[1] = ADC_GetConversionValue(ADC2);
+//   syncReadBuffer[2] = ADC_GetConversionValue(ADC3);
 
-  return (const uint16_t *)&syncReadBuffer;
-}
+//   return (const uint16_t *)&syncReadBuffer;
+// }
 
-const uint16_t *analogSyncRead2(uint8_t pin1, uint8_t pin2) {
-  static int timeout;
+// const uint16_t *analogSyncRead2(uint8_t pin1, uint8_t pin2) {
+//   static int timeout;
 
-  ADC_RegularChannelConfig(ADC1, PIN_MAP[pin1].adcChannel, 1, ADC_SAMPLE_TIME);
-  ADC_RegularChannelConfig(ADC2, PIN_MAP[pin2].adcChannel, 1, ADC_SAMPLE_TIME);
+//   ADC_RegularChannelConfig(ADC1, PIN_MAP[pin1].adcChannel, 1, ADC_SAMPLE_TIME);
+//   ADC_RegularChannelConfig(ADC2, PIN_MAP[pin2].adcChannel, 1, ADC_SAMPLE_TIME);
 
-  ADC_SoftwareStartConv(ADC1);
-  ADC_SoftwareStartConv(ADC2);
+//   ADC_SoftwareStartConv(ADC1);
+//   ADC_SoftwareStartConv(ADC2);
 
-  // Need a timeout
-  timeout = ADC_TIMEOUT;
-  while (ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC) == RESET && ADC_GetFlagStatus(ADC2, ADC_FLAG_EOC) == RESET)
-    // return previous values
-    if ((timeout--) == 0) return (const uint16_t *)&syncReadBuffer;
+//   // Need a timeout
+//   timeout = ADC_TIMEOUT;
+//   while (ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC) == RESET && ADC_GetFlagStatus(ADC2, ADC_FLAG_EOC) == RESET)
+//     // return previous values
+//     if ((timeout--) == 0) return (const uint16_t *)&syncReadBuffer;
 
-  // Didn't time out; get the conversion value
-  syncReadBuffer[0] = ADC_GetConversionValue(ADC1);
-  syncReadBuffer[1] = ADC_GetConversionValue(ADC2);
+//   // Didn't time out; get the conversion value
+//   syncReadBuffer[0] = ADC_GetConversionValue(ADC1);
+//   syncReadBuffer[1] = ADC_GetConversionValue(ADC2);
 
-  return (const uint16_t *)&syncReadBuffer;
-}
-#endif
+//   return (const uint16_t *)&syncReadBuffer;
+// }
+// #endif
