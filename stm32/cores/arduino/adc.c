@@ -40,8 +40,8 @@ void analogReadSampleTime(uint8_t sampleTime) {
 
 void adcCommonInit() {
 
-  ADC_CommonInitTypeDef ADC_CommonInitStructure;
 #if defined(SERIES_STM32F4xx)
+  ADC_CommonInitTypeDef ADC_CommonInitStructure;
   ADC_DeInit();
 
   ADC_CommonInitStructure.ADC_Mode = ADC_Mode_Independent;
@@ -50,6 +50,7 @@ void adcCommonInit() {
   ADC_CommonInitStructure.ADC_TwoSamplingDelay = ADC_TwoSamplingDelay_5Cycles;
   ADC_CommonInit(&ADC_CommonInitStructure);
 #elif defined(SERIES_STM32F30x)
+  ADC_CommonInitTypeDef ADC_CommonInitStructure;
   ADC_CommonStructInit(&ADC_CommonInitStructure);
   ADC_CommonInitStructure.ADC_Mode = ADC_Mode_Independent;
   ADC_CommonInitStructure.ADC_DMAAccessMode = ADC_DMAAccessMode_Disabled;
