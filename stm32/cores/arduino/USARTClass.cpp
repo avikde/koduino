@@ -78,6 +78,12 @@ void USARTClass::begin(uint32_t baud, uint8_t config) {
     af = 8;
   }
 #endif
+#if defined(SERIES_STM32F30x)
+  // FIXME: this will need to be expanded
+  if (usartMap->USARTx == UART4 || usartMap->USARTx == UART5) {
+    af = 5;
+  }
+#endif
   pinModeAlt(usartMap->txPin, GPIO_OType_PP, GPIO_PuPd_UP, af);
   pinModeAlt(usartMap->rxPin, GPIO_OType_PP, GPIO_PuPd_UP, af);
 

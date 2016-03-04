@@ -139,7 +139,8 @@ extern const uint8_t TIMER7;
 extern USARTClass Serial1;
 extern USARTClass Serial2;
 extern USARTClass Serial3;
-
+extern USARTClass Serial4;
+extern USARTClass Serial5;
 
 bool isTimer32Bit(uint8_t tim);
 uint8_t numChannelsInTimer(uint8_t tim);

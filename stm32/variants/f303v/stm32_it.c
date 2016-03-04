@@ -201,6 +201,14 @@ void USART2_IRQHandler() {
 void USART3_IRQHandler() {
   wirishUSARTInterruptHandler(&USART_MAP[2]);
 }
+// UART
+void UART4_IRQHandler() {
+  wirishUSARTInterruptHandler(&USART_MAP[3]);
+}
+void UART5_IRQHandler() {
+  wirishUSARTInterruptHandler(&USART_MAP[4]);
+}
+
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 
