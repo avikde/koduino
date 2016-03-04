@@ -299,10 +299,12 @@ void Wiring_SPI1_Interrupt_Handler(void)
 
 
 // Initialize 
-#if defined(SERIES_STM32F30x)
+#if defined(STM32F302x8)
+// F301
 SPIClass SPI(SPI3);
 #else
 SPIClass SPI(SPI1);
 #endif
 SPIClass SPI_2(SPI2);
+
 
