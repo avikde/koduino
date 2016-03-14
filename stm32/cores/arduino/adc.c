@@ -62,15 +62,24 @@ void adcCommonInit() {
 void adcInit(ADC_TypeDef *ADCx) {
   ADC_InitTypeDef  ADC_InitStructure;
 
-#if defined(SERIES_STM32F37x)
+#if defined(SERIES_STM32F37x) || defined(SERIES_STM32F30x)
   ADC_DeInit(ADCx);
 #endif
 
+  // Common
+  ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;
+  ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
+
+  // Continuous conv
 #if defined(SERIES_STM32F37x) || defined(SERIES_STM32F10x) || defined(SERIES_STM32F4xx)
   ADC_InitStructure.ADC_ScanConvMode = DISABLE;
 #endif
-  ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;
-  ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
+  // Resolution
+#if defined(SERIES_STM32F30x)
+  ADC_InitStructure.ADC_Resolution = ADC_Resolution_12b;
+#endif
+
+  // Configure for 1 channel
 #if defined(SERIES_STM32F37x) || defined(SERIES_STM32F10x)
   ADC_InitStructure.ADC_NbrOfChannel = 1;
 #elif defined(SERIES_STM32F30x)
@@ -78,15 +87,31 @@ void adcInit(ADC_TypeDef *ADCx) {
 #else
   ADC_InitStructure.ADC_NbrOfConversion = 1;
 #endif
+
+  // No external trigger
 #if defined(SERIES_STM32F37x) || defined(SERIES_STM32F10x)
   ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
 #elif defined(SERIES_STM32F30x)
   ADC_InitStructure.ADC_ExternalTrigEventEdge = ADC_ExternalTrigEventEdge_None;
+  // Immaterial
+  ADC_InitStructure.ADC_ExternalTrigConvEvent = ADC_ExternalTrigConvEvent_0;
 #endif
+
+  // Data alignment
+#if defined(SERIES_STM32F30x)
+  ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
+#endif
+
+  // other options
+#if defined(SERIES_STM32F30x)
+  ADC_InitStructure.ADC_OverrunMode = DISABLE;
+  ADC_InitStructure.ADC_AutoInjMode = DISABLE;
+#endif
+
   ADC_Init(ADCx, &ADC_InitStructure);
   ADC_Cmd(ADCx, ENABLE);
 
-#if defined(SERIES_STM32F37x) || defined(SERIES_STM32F10x)
+#if defined(SERIES_STM32F37x)
   ADC_ResetCalibration(ADCx);
   while(ADC_GetResetCalibrationStatus(ADCx));
   ADC_StartCalibration(ADCx);
