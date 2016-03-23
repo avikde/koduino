@@ -1,10 +1,10 @@
 /**
   ******************************************************************************
-  * @file    usb_sil.h
+  * @file    usb_mem.h
   * @author  MCD Application Team
   * @version V4.0.0
   * @date    28-August-2012
-  * @brief   Simplified Interface Layer function prototypes.
+  * @brief   Utility prototypes functions for memory/PMA transfers
   ******************************************************************************
   * @attention
   *
@@ -27,21 +27,27 @@
 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __USB_SIL_H
-#define __USB_SIL_H
+#ifndef __USB_MEM_H
+#define __USB_MEM_H
 
+#ifdef __cplusplus
+extern "C"{
+#endif // __cplusplus
+  
 /* Includes ------------------------------------------------------------------*/
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-
-uint32_t USB_SIL_Init(void);
-uint32_t USB_SIL_Write(uint8_t bEpAddr, uint8_t* pBufferPointer, uint32_t wBufferSize);
-uint32_t USB_SIL_Read(uint8_t bEpAddr, uint8_t* pBufferPointer);
+void UserToPMABufferCopy(uint8_t *pbUsrBuf, uint16_t wPMABufAddr, uint16_t wNBytes);
+void PMAToUserBufferCopy(uint8_t *pbUsrBuf, uint16_t wPMABufAddr, uint16_t wNBytes);
 
 /* External variables --------------------------------------------------------*/
 
-#endif /* __USB_SIL_H */
+#ifdef __cplusplus
+} // extern "C"
+#endif // __cplusplus
+
+#endif  /*__USB_MEM_H*/
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

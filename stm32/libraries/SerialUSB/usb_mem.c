@@ -27,6 +27,10 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "usb_lib.h"
+  
+#ifdef __cplusplus
+extern "C"{
+#endif // __cplusplus
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -83,5 +87,9 @@ void PMAToUserBufferCopy(uint8_t *pbUsrBuf, uint16_t wPMABufAddr, uint16_t wNByt
     pbUsrBuf++;
   }
 }
+
+#ifdef __cplusplus
+} // extern "C"
+#endif // __cplusplus
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

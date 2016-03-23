@@ -3,6 +3,10 @@
 #ifndef __USB_TYPE_H
 #define __USB_TYPE_H
 
+#ifdef __cplusplus
+extern "C"{
+#endif // __cplusplus
+  
 /* Includes ------------------------------------------------------------------*/
 
 /* Exported types ------------------------------------------------------------*/
@@ -11,11 +15,13 @@
 #define NULL ((void *)0)
 #endif
 
+#ifndef __cplusplus
 typedef enum
 {
   FALSE = 0, TRUE  = !FALSE
 }
 bool;
+#endif
 
 #define EP_NUM                          (4)
 
@@ -76,6 +82,10 @@ bool;
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 /* External variables --------------------------------------------------------*/
+
+#ifdef __cplusplus
+} // extern "C"
+#endif // __cplusplus
 
 #endif /* __USB_TYPE_H */
 

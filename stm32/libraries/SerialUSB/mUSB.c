@@ -1,16 +1,25 @@
-//-----------------------------------------------------------------------------
-// MAEVARM M4 STM32F373 mUSB
-// version: 1.0
-// date: March 22, 2013
-// author: Neel Shah (neels@seas.upenn.edu)
-// Based on ST USB FS Driver LIbrary Example Virtual COM Port
-//-----------------------------------------------------------------------------
+/**
+ * @authors Neel Shah <neels@seas.upenn.edu>, modified by Avik De <avikde@gmail.com>
 
+  This file is part of koduino <https://github.com/avikde/koduino>
+
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation, either
+  version 3 of the License, or (at your option) any later version.
+
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this library; if not, see <http://www.gnu.org/licenses/>.
+ */
+#include <Arduino.h>
 #include "mUSB.h"
-#include "stdio.h"
-
-__asm__(".global _printf_float");
-__asm__(".global _scanf_float");
+#include <nvic.h>
+#include <gpio.h>
 
 #define VCOMPORT_IN_FRAME_INTERVAL             5
 
@@ -38,7 +47,6 @@ uint32_t Receive_length;
 extern __IO uint32_t packet_sent;
 extern __IO uint32_t packet_receive;
 
-
 uint8_t Request = 0;
 
 LINE_CODING linecoding =
@@ -52,101 +60,10 @@ LINE_CODING linecoding =
 uint8_t Receive_Buffer[64];
 uint32_t Send_length;
 
-
-void USB_LP_IRQHandler(void)
-{
-  USB_Istr();
-}
-void USBWakeUp_IRQHandler(void)
-{
-  EXTI_ClearITPendingBit(EXTI_Line18);
-}
-
-
-/*=========== Minimal System Call Implementation for newlib ===========*/
-
 __IO uint32_t packet_sent=1;
-__IO uint32_t packet_receive=0 ;
-char *__env[1] = { 0 };
-char **environ = __env;
+__IO uint32_t packet_receive=0;
 
-int _write(int file, char *ptr, int len)
-{
-  if(bDeviceState == CONFIGURED)
-  {
-    uint32_t timeout=180000;
-    while((!packet_sent) && timeout--){}
-    if(timeout)
-    {
-      uint8_t packetNo,finalPacket,i;
-      packetNo    = len/64;
-      finalPacket = len;
-      for(i=0;i<packetNo;i++)
-      {
-        CDC_Send_DATA((uint8_t *)ptr,63);
-        finalPacket -= 63;
-        ptr += 63;
-        timeout=180000;
-        while(packet_sent==0 && timeout--);
-        if(timeout==0)
-        { 
-          bDeviceState = UNCONNECTED;
-          return len;
-        }
-      }
-      CDC_Send_DATA((uint8_t *)ptr,finalPacket);
-      return len;  
-    }
-    else 
-    {
-      return -1;
-    }
-  }
-  else
-  {
-    return len;
-  }
-  //return len;
-  /*while(packet_sent == 0){}
-  if(bDeviceState == CONFIGURED)
-      CDC_Send_DATA(ptr,len);
-  return len;
-*/
-}
-caddr_t _sbrk(int incr) 
-{
-  extern char _end; // Defined by the linker
-  static char *heap_end;
-  char *prev_heap_end;
-  if(heap_end == 0) {heap_end = &_end;}
-  prev_heap_end = heap_end;
-  char * stack = (char*) __get_MSP();
-  if (heap_end+incr >  stack)
-    {
-      _write(1, "Heap and stack collision\n", 25);
-      return  (caddr_t) -1;
-    }
-  heap_end += incr;
-  return (caddr_t) prev_heap_end;
-}
-int _read(int file, __IO char *ptr, int len) 
-{
-  if(packet_receive)
-  {
-    CDC_Receive_DATA();
-    ptr = (char *)Receive_Buffer;
-    len = Receive_length;
-    return len;
-  }
-  else
-    return -1;
-}
-int _close(int file){return -1;}
-int _fstat(int file, struct stat *st) {st->st_mode = S_IFCHR; return 0;}
-int _isatty(int file){return 1;}
-int _lseek(int file, int ptr, int dir){return 0;}
-
-
+uint8_t disconnectPin = 0xff;
 
 /* USB Standard Device Descriptor */
 const uint8_t Virtual_Com_Port_DeviceDescriptor[] =
@@ -295,7 +212,7 @@ RESULT PowerOn(void)
 
   /*** cable plugged-in ? ***/
   USB_Cable_Config(DISABLE);
-  mWaitms(1);
+  delay(1);
   USB_Cable_Config(ENABLE);
 
   /*** CNTR_PWDN = 0 ***/
@@ -929,6 +846,9 @@ uint8_t *Virtual_Com_Port_SetLineCoding(uint16_t Length)
 
 static void IntToUnicode (uint32_t value , uint8_t *pbuf , uint8_t len);
 
+void setUSBDisconnectPin(uint8_t pin) {
+  disconnectPin = pin;
+}
 
 void mUSBInit(void)
 {
@@ -946,7 +866,9 @@ void mUSBInit(void)
   GPIO_PinAFConfig(GPIOA, GPIO_PinSource11, GPIO_AF_14);
   GPIO_PinAFConfig(GPIOA, GPIO_PinSource12, GPIO_AF_14);
   
-  // /* USB_DISCONNECT used as USB pull-up */
+  /* USB_DISCONNECT used as USB pull-up */
+  if (disconnectPin < 0xff)
+    pinMode(disconnectPin, OUTPUT);
   // GPIO_InitStructure.GPIO_Pin = USB_DISCONNECT_PIN;
   // GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
   // GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
@@ -964,27 +886,16 @@ void mUSBInit(void)
   RCC_USBCLKConfig(RCC_USBCLKSource_PLLCLK_1Div5);
   RCC_APB1PeriphClockCmd(RCC_APB1Periph_USB, ENABLE);
 
-  NVIC_InitTypeDef NVIC_InitStructure;
-
-  /* 2 bit for pre-emption priority, 2 bits for subpriority */
-  NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
- 
-  /* Enable the USB interrupt */
-  NVIC_InitStructure.NVIC_IRQChannel = USB_LP_IRQn;
-  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;
-  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
-  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-  NVIC_Init(&NVIC_InitStructure);
-  
-  /* Enable the USB Wake-up interrupt */
-  NVIC_InitStructure.NVIC_IRQChannel = USBWakeUp_IRQn;
-  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
-  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-  NVIC_Init(&NVIC_InitStructure);
-
-  setvbuf(stdout, (char *)0, _IOLBF, 256);
-  setvbuf(stdin , (char *)0, _IOLBF, 256);
-  setvbuf(stderr, (char *)0, _IOLBF, 256);
+#if defined(STM32F37X)
+  nvicEnable(USB_LP_IRQn, 8);
+  nvicEnable(USBWakeUp_IRQn, 7);
+#else
+  nvicEnable(USB_LP_CAN1_RX0_IRQn, 8);
+  nvicEnable(USBWakeUp_IRQn, 7);
+#endif
+  // setvbuf(stdout, (char *)0, _IOLBF, 256);
+  // setvbuf(stdin , (char *)0, _IOLBF, 256);
+  // setvbuf(stderr, (char *)0, _IOLBF, 256);
 
   USB_Init();
 
@@ -1010,10 +921,9 @@ void Leave_LowPowerMode(void)
 }
 void USB_Cable_Config (FunctionalState NewState)
 {
-  // if (NewState != DISABLE)
-  //   GPIO_ResetBits(USB_DISCONNECT, USB_DISCONNECT_PIN);
-  // else
-  //   GPIO_SetBits(USB_DISCONNECT, USB_DISCONNECT_PIN);
+  if (disconnectPin < 0xff) {
+    digitalWrite(disconnectPin, (NewState != DISABLE) ? LOW : HIGH);
+  }
 }
 void Get_SerialNum(void)
 {
@@ -1069,3 +979,87 @@ uint32_t CDC_Receive_DATA(void)
   SetEPRxValid(ENDP3); 
   return 1 ;
 }
+
+// read/write functions
+
+int usbwrite(char *ptr, int len)
+{
+  if(bDeviceState == CONFIGURED)
+  {
+    uint32_t timeout=180000;
+    while((!packet_sent) && timeout--){}
+    if(timeout)
+    {
+      uint8_t packetNo,finalPacket,i;
+      packetNo    = len/64;
+      finalPacket = len;
+      for(i=0;i<packetNo;i++)
+      {
+        CDC_Send_DATA((uint8_t *)ptr,63);
+        finalPacket -= 63;
+        ptr += 63;
+        timeout=180000;
+        while(packet_sent==0 && timeout--);
+        if(timeout==0)
+        { 
+          bDeviceState = UNCONNECTED;
+          return len;
+        }
+      }
+      CDC_Send_DATA((uint8_t *)ptr,finalPacket);
+      return len;  
+    }
+    else 
+    {
+      return -1;
+    }
+  }
+  else
+  {
+    return len;
+  }
+}
+
+
+int usbread(__IO char *ptr, int len) 
+{
+  if(packet_receive)
+  {
+    CDC_Receive_DATA();
+    ptr = (char *)Receive_Buffer;
+    len = Receive_length;
+    return len;
+  }
+  else
+    return -1;
+}
+
+// INTERRUPTS
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#if defined(STM32L1XX_MD) || defined(STM32L1XX_HD)|| defined(STM32L1XX_MD_PLUS)|| defined (STM32F37X)
+void USB_LP_IRQHandler(void)
+#else
+void USB_LP_CAN1_RX0_IRQHandler(void)
+#endif
+{
+  USB_Istr();
+}
+
+#if defined(STM32L1XX_MD) || defined(STM32L1XX_HD)|| defined(STM32L1XX_MD_PLUS)
+void USB_FS_WKUP_IRQHandler(void)
+#else
+void USBWakeUp_IRQHandler(void)
+#endif
+{
+  EXTI_ClearITPendingBit(EXTI_Line18);
+}
+
+#ifdef __cplusplus
+}
+#endif
+
+

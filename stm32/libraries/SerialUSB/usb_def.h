@@ -29,6 +29,10 @@
 #ifndef __USB_DEF_H
 #define __USB_DEF_H
 
+#ifdef __cplusplus
+extern "C"{
+#endif // __cplusplus
+
 /* Includes ------------------------------------------------------------------*/
 /* Exported types ------------------------------------------------------------*/
 typedef enum _RECIPIENT_TYPE
@@ -86,6 +90,10 @@ typedef enum _FEATURE_SELECTOR
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
+
+#ifdef __cplusplus
+} // extern "C"
+#endif // __cplusplus
 
 #endif /* __USB_DEF_H */
 

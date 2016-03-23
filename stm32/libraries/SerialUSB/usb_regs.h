@@ -30,6 +30,10 @@
 #ifndef __USB_REGS_H
 #define __USB_REGS_H
 
+#ifdef __cplusplus
+extern "C"{
+#endif // __cplusplus
+  
 /* Includes ------------------------------------------------------------------*/
 /* Exported types ------------------------------------------------------------*/
 typedef enum _EP_DBUF_DIR
@@ -674,6 +678,10 @@ EP_DBUF_DIR GetEPDblBufDir(uint8_t /*bEpNum*/);
 void FreeUserBuffer(uint8_t bEpNum/*bEpNum*/, uint8_t bDir);
 uint16_t ToWord(uint8_t, uint8_t);
 uint16_t ByteSwap(uint16_t);
+
+#ifdef __cplusplus
+} // extern "C"
+#endif // __cplusplus
 
 #endif /* __USB_REGS_H */
 

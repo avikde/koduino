@@ -30,6 +30,10 @@
 #ifndef __USB_CORE_H
 #define __USB_CORE_H
 
+#ifdef __cplusplus
+extern "C"{
+#endif // __cplusplus
+
 /* Includes ------------------------------------------------------------------*/
 /* Exported types ------------------------------------------------------------*/
 typedef enum _CONTROL_STATE
@@ -253,6 +257,11 @@ extern DEVICE_INFO Device_Info;
 /* cells saving status during interrupt servicing */
 extern __IO uint16_t SaveRState;
 extern __IO uint16_t SaveTState;
+
+#ifdef __cplusplus
+} // extern "C"
+#endif // __cplusplus
+
 
 #endif /* __USB_CORE_H */
 

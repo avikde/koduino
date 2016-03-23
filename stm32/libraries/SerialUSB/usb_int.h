@@ -30,6 +30,10 @@
 #ifndef __USB_INT_H
 #define __USB_INT_H
 
+#ifdef __cplusplus
+extern "C"{
+#endif // __cplusplus
+  
 /* Includes ------------------------------------------------------------------*/
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
@@ -39,6 +43,10 @@ void CTR_LP(void);
 void CTR_HP(void);
 
 /* External variables --------------------------------------------------------*/
+
+#ifdef __cplusplus
+} // extern "C"
+#endif // __cplusplus
 
 #endif /* __USB_INT_H */
 

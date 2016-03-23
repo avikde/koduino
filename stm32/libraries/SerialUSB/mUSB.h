@@ -1,16 +1,30 @@
-//-----------------------------------------------------------------------------
-// MAEVARM M4 STM32F373 mUSB 
-// version: 1.0
-// date: March 22, 2013
-// author: Neel Shah (neels@seas.upenn.edu)
-// Based on ST USB FS Driver LIbrary Example Virtual COM Port
-//-----------------------------------------------------------------------------
+/**
+ * @authors Neel Shah <neels@seas.upenn.edu>, modified by Avik De <avikde@gmail.com>
 
+  This file is part of koduino <https://github.com/avikde/koduino>
+
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation, either
+  version 3 of the License, or (at your option) any later version.
+
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this library; if not, see <http://www.gnu.org/licenses/>.
+ */
 #ifndef __m_usb
 #define __m_usb
-#include "mGeneral.h"
+// #include "mGeneral.h"
 #include "usb_lib.h" 
-#include <sys/stat.h> 
+#include <sys/stat.h>
+
+#ifdef __cplusplus
+extern "C"{
+#endif // __cplusplus
 
 #define USB_DEVICE_DESCRIPTOR_TYPE              0x01
 #define USB_CONFIGURATION_DESCRIPTOR_TYPE       0x02
@@ -221,12 +235,10 @@ void SOF_Callback(void);
 void ESOF_Callback(void);
 #endif
 
-#define ID1 (0x1FFFF7AC)
-#define ID2 (0x1FFFF7B0)
-#define ID3 (0x1FFFF7B4)
-#define USB_DISCONNECT                GPIOF 
-#define USB_DISCONNECT_PIN            GPIO_Pin_1
-#define RCC_AHBPeriph_GPIO_DISCONNECT RCC_AHBPeriph_GPIOF
+#define         ID1          (0x1FFFF7AC)
+#define         ID2          (0x1FFFF7B0)
+#define         ID3          (0x1FFFF7B4)
+
 #define MASS_MEMORY_START     0x04002000
 #define BULK_MAX_PACKET_SIZE  0x00000040
 #define LED_ON                0xF0
@@ -239,5 +251,13 @@ void USB_Cable_Config(FunctionalState NewState);
 void Get_SerialNum(void);
 uint32_t CDC_Send_DATA (uint8_t *ptrBuffer, uint8_t Send_length);
 uint32_t CDC_Receive_DATA(void);
+
+void setUSBDisconnectPin(uint8_t pin);
+int usbwrite(char *ptr, int len);
+int usbread(__IO char *ptr, int len);
+
+#ifdef __cplusplus
+} // extern "C"
+#endif // __cplusplus
 
 #endif

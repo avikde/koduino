@@ -1,10 +1,10 @@
 /**
   ******************************************************************************
-  * @file    usb_mem.h
+  * @file    usb_lib.h
   * @author  MCD Application Team
   * @version V4.0.0
   * @date    28-August-2012
-  * @brief   Utility prototypes functions for memory/PMA transfers
+  * @brief   USB library include files
   ******************************************************************************
   * @attention
   *
@@ -27,19 +27,28 @@
 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __USB_MEM_H
-#define __USB_MEM_H
+#ifndef __USB_LIB_H
+#define __USB_LIB_H
 
 /* Includes ------------------------------------------------------------------*/
+//#include "hw_config.h"
+#include "chip.h"
+#include "usb_type.h"
+#include "usb_regs.h"
+#include "usb_def.h"
+#include "usb_core.h"
+#include "usb_init.h"
+#include "usb_sil.h"
+#include "usb_mem.h"
+#include "usb_int.h"
+
+
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void UserToPMABufferCopy(uint8_t *pbUsrBuf, uint16_t wPMABufAddr, uint16_t wNBytes);
-void PMAToUserBufferCopy(uint8_t *pbUsrBuf, uint16_t wPMABufAddr, uint16_t wNBytes);
-
 /* External variables --------------------------------------------------------*/
 
-#endif  /*__USB_MEM_H*/
+#endif /* __USB_LIB_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

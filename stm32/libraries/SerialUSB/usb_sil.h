@@ -1,10 +1,10 @@
 /**
   ******************************************************************************
-  * @file    usb_lib.h
+  * @file    usb_sil.h
   * @author  MCD Application Team
   * @version V4.0.0
   * @date    28-August-2012
-  * @brief   USB library include files
+  * @brief   Simplified Interface Layer function prototypes.
   ******************************************************************************
   * @attention
   *
@@ -27,28 +27,29 @@
 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __USB_LIB_H
-#define __USB_LIB_H
+#ifndef __USB_SIL_H
+#define __USB_SIL_H
 
+#ifdef __cplusplus
+extern "C"{
+#endif // __cplusplus
+  
 /* Includes ------------------------------------------------------------------*/
-//#include "hw_config.h"
-#include "stm32f37x.h"
-#include "usb_type.h"
-#include "usb_regs.h"
-#include "usb_def.h"
-#include "usb_core.h"
-#include "usb_init.h"
-#include "usb_sil.h"
-#include "usb_mem.h"
-#include "usb_int.h"
-
-
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
+
+uint32_t USB_SIL_Init(void);
+uint32_t USB_SIL_Write(uint8_t bEpAddr, uint8_t* pBufferPointer, uint32_t wBufferSize);
+uint32_t USB_SIL_Read(uint8_t bEpAddr, uint8_t* pBufferPointer);
+
 /* External variables --------------------------------------------------------*/
 
-#endif /* __USB_LIB_H */
+#ifdef __cplusplus
+} // extern "C"
+#endif // __cplusplus
+
+#endif /* __USB_SIL_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
