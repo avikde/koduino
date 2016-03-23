@@ -253,8 +253,9 @@ uint32_t CDC_Send_DATA (uint8_t *ptrBuffer, uint8_t Send_length);
 uint32_t CDC_Receive_DATA(void);
 
 void setUSBDisconnectPin(uint8_t pin);
-int usbwrite(char *ptr, int len);
-int usbread(__IO char *ptr, int len);
+void setUSBBaudRate(uint32_t br);
+int usbWrite(char *ptr, int len);
+int usbRead(__IO char *ptr, int len);
 
 #ifdef __cplusplus
 } // extern "C"

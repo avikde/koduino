@@ -846,8 +846,12 @@ uint8_t *Virtual_Com_Port_SetLineCoding(uint16_t Length)
 
 static void IntToUnicode (uint32_t value , uint8_t *pbuf , uint8_t len);
 
+// CUSTOM FUNCTIONS
 void setUSBDisconnectPin(uint8_t pin) {
   disconnectPin = pin;
+}
+void setUSBBaudRate(uint32_t br) {
+  linecoding.bitrate = br;
 }
 
 void mUSBInit(void)
@@ -869,12 +873,6 @@ void mUSBInit(void)
   /* USB_DISCONNECT used as USB pull-up */
   if (disconnectPin < 0xff)
     pinMode(disconnectPin, OUTPUT);
-  // GPIO_InitStructure.GPIO_Pin = USB_DISCONNECT_PIN;
-  // GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
-  // GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
-  // GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-  // GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-  // GPIO_Init(USB_DISCONNECT, &GPIO_InitStructure);
  
    /* Configure the EXTI line 18 connected internally to the USB IP */
   EXTI_ClearITPendingBit(EXTI_Line18);
@@ -893,9 +891,6 @@ void mUSBInit(void)
   nvicEnable(USB_LP_CAN1_RX0_IRQn, 8);
   nvicEnable(USBWakeUp_IRQn, 7);
 #endif
-  // setvbuf(stdout, (char *)0, _IOLBF, 256);
-  // setvbuf(stdin , (char *)0, _IOLBF, 256);
-  // setvbuf(stderr, (char *)0, _IOLBF, 256);
 
   USB_Init();
 
@@ -982,7 +977,7 @@ uint32_t CDC_Receive_DATA(void)
 
 // read/write functions
 
-int usbwrite(char *ptr, int len)
+int usbWrite(char *ptr, int len)
 {
   if(bDeviceState == CONFIGURED)
   {
@@ -1021,7 +1016,7 @@ int usbwrite(char *ptr, int len)
 }
 
 
-int usbread(__IO char *ptr, int len) 
+int usbRead(__IO char *ptr, int len) 
 {
   if(packet_receive)
   {

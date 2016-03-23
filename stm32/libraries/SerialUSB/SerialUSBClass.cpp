@@ -21,6 +21,7 @@
 
 void SerialUSBClass::begin(uint32_t baud, uint8_t disconnectPin) {
   setUSBDisconnectPin(disconnectPin);
+  setUSBBaudRate(baud);
   mUSBInit();
 }
 
@@ -37,16 +38,16 @@ int SerialUSBClass::peek(void) {
 
 int SerialUSBClass::read(void) {
   volatile char ptr;
-  usbread(&ptr, 1);
+  usbRead(&ptr, 1);
   return ptr;
 }
 
 size_t SerialUSBClass::write(uint8_t c) {
-  return usbwrite((char *)&c, 1);
+  return usbWrite((char *)&c, 1);
 }
 
 size_t SerialUSBClass::write(const uint8_t *buffer, size_t size) {
-  return usbwrite((char *)buffer, size);
+  return usbWrite((char *)buffer, size);
 }
 
 
