@@ -743,6 +743,14 @@ void Virtual_Com_Port_Status_In(void)
 }
 void Virtual_Com_Port_Status_Out(void)
 {}
+
+// From http://stackoverflow.com/questions/5338875/detecting-open-pc-com-port-from-usb-virtual-com-port-device
+static bool host_port_open = false;
+bool Virtual_Com_Port_IsHostPortOpen()
+{
+  return bDeviceState == CONFIGURED && host_port_open;
+}
+
 RESULT Virtual_Com_Port_Data_Setup(uint8_t RequestNo)
 {
   uint8_t    *(*CopyRoutine)(uint16_t);
@@ -761,6 +769,13 @@ RESULT Virtual_Com_Port_Data_Setup(uint8_t RequestNo)
     if (Type_Recipient == (CLASS_REQUEST | INTERFACE_RECIPIENT))
     {
       CopyRoutine = Virtual_Com_Port_SetLineCoding;
+
+      // If line coding is set the port is implicitly open 
+      // regardless of host's DTR control.  Note: if this is 
+      // the only indicator of port open, there will be no indication 
+      // of closure, but this will at least allow applications that 
+      // do not assert DTR to connect.
+      host_port_open = true;
     }
     Request = SET_LINE_CODING;
   }
@@ -786,6 +801,8 @@ RESULT Virtual_Com_Port_NoData_Setup(uint8_t RequestNo)
     }
     else if (RequestNo == SET_CONTROL_LINE_STATE)
     {
+      // Test DTR state to determine if host port is open
+      host_port_open = (pInformation->USBwValues.bw.bb0 & 0x01) != 0 ;
       return USB_SUCCESS;
     }
   }

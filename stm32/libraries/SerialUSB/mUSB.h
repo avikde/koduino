@@ -21,6 +21,7 @@
 // #include "mGeneral.h"
 #include "usb_lib.h" 
 #include <sys/stat.h>
+#include <stdbool.h>
 
 #ifdef __cplusplus
 extern "C"{
@@ -251,6 +252,8 @@ void USB_Cable_Config(FunctionalState NewState);
 void Get_SerialNum(void);
 uint32_t CDC_Send_DATA (uint8_t *ptrBuffer, uint8_t Send_length);
 uint32_t CDC_Receive_DATA(void);
+
+bool Virtual_Com_Port_IsHostPortOpen();
 
 void setUSBDisconnectPin(uint8_t pin);
 void setUSBBaudRate(uint32_t br);

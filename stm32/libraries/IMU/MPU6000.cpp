@@ -98,7 +98,7 @@ void MPU6000::swapData(unsigned char *data, int datalen) {
 }
 
 void MPU6000::readSensors() {
-  const float accSens = 9.8 / 2048.0;
+  const float accSens = 9.81 / 2048.0;
   const float gyrSens = PI / (32.8*180);
   read(MPUREG_ACCEL_XOUT_H, sizeof(data), data.rawByte);
   swapData(data.rawByte, sizeof(data));

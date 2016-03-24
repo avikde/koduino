@@ -124,72 +124,77 @@ void DiscoveryIMU::readSensors() {
   /* divide by sensitivity */
   for(i=0; i<3; i++)
   {
-    gyr[i]=(float)RawData[i]/sensitivity;
+    // convert to rad/s
+    gyr[i]=(float)RawData[i]*PI/(sensitivity*180);
   }
-
+  // alignment of chips on board
+  float temp = gyr[0];
+  gyr[0] = -gyr[1];
+  gyr[1] = temp;
 
   int16_t pnRawData[3];
-  uint8_t ctrlx[2];
+  // uint8_t ctrlx[2];
   uint8_t buffer[6], cDivider;
   i = 0;
   float LSM_Acc_Sensitivity = LSM_Acc_Sensitivity_2g;
   
   /* Read the register content */
-  LSM303DLHC_Read(ACC_I2C_ADDRESS, LSM303DLHC_CTRL_REG4_A, ctrlx,2);
+  // LSM303DLHC_Read(ACC_I2C_ADDRESS, LSM303DLHC_CTRL_REG4_A, ctrlx,2);
   LSM303DLHC_Read(ACC_I2C_ADDRESS, LSM303DLHC_OUT_X_L_A, buffer, 6);
    
-  if(ctrlx[1]&0x40)
-    cDivider=64;
-  else
+  // if(ctrlx[1]&0x40)
+    // cDivider=64;
+  // else
     cDivider=16;
 
   /* check in the control register4 the data alignment*/
-  if(!(ctrlx[0] & 0x40) || (ctrlx[1] & 0x40)) /* Little Endian Mode or FIFO mode */
-  {
+  // if(!(ctrlx[0] & 0x40) || (ctrlx[1] & 0x40)) /* Little Endian Mode or FIFO mode */
+  // {
     for(i=0; i<3; i++)
     {
       pnRawData[i]=((int16_t)((uint16_t)buffer[2*i+1] << 8) + buffer[2*i])/cDivider;
     }
-  }
-  else /* Big Endian Mode */
-  {
-    for(i=0; i<3; i++)
-      pnRawData[i]=((int16_t)((uint16_t)buffer[2*i] << 8) + buffer[2*i+1])/cDivider;
-  }
+  // }
+  // else /* Big Endian Mode */
+  // {
+  //   for(i=0; i<3; i++)
+  //     pnRawData[i]=((int16_t)((uint16_t)buffer[2*i] << 8) + buffer[2*i+1])/cDivider;
+  // }
   /* Read the register content */
-  LSM303DLHC_Read(ACC_I2C_ADDRESS, LSM303DLHC_CTRL_REG4_A, ctrlx,2);
+  // LSM303DLHC_Read(ACC_I2C_ADDRESS, LSM303DLHC_CTRL_REG4_A, ctrlx,2);
 
 
-  if(ctrlx[1]&0x40)
-  {
-    /* FIFO mode */
-    LSM_Acc_Sensitivity = 0.25;
-  }
-  else
-  {
-    /* normal mode */
-    /* switch the sensitivity value set in the CRTL4*/
-    switch(ctrlx[0] & 0x30)
-    {
-    case LSM303DLHC_FULLSCALE_2G:
+  // if(ctrlx[1]&0x40)
+  // {
+  //   /* FIFO mode */
+  //   LSM_Acc_Sensitivity = 0.25;
+  // }
+  // else
+  // {
+  //   /* normal mode */
+  //   /* switch the sensitivity value set in the CRTL4*/
+  //   switch(ctrlx[0] & 0x30)
+  //   {
+  //   case LSM303DLHC_FULLSCALE_2G:
       LSM_Acc_Sensitivity = LSM_Acc_Sensitivity_2g;
-      break;
-    case LSM303DLHC_FULLSCALE_4G:
-      LSM_Acc_Sensitivity = LSM_Acc_Sensitivity_4g;
-      break;
-    case LSM303DLHC_FULLSCALE_8G:
-      LSM_Acc_Sensitivity = LSM_Acc_Sensitivity_8g;
-      break;
-    case LSM303DLHC_FULLSCALE_16G:
-      LSM_Acc_Sensitivity = LSM_Acc_Sensitivity_16g;
-      break;
-    }
-  }
+  //     break;
+  //   case LSM303DLHC_FULLSCALE_4G:
+  //     LSM_Acc_Sensitivity = LSM_Acc_Sensitivity_4g;
+  //     break;
+  //   case LSM303DLHC_FULLSCALE_8G:
+  //     LSM_Acc_Sensitivity = LSM_Acc_Sensitivity_8g;
+  //     break;
+  //   case LSM303DLHC_FULLSCALE_16G:
+  //     LSM_Acc_Sensitivity = LSM_Acc_Sensitivity_16g;
+  //     break;
+  //   }
+  // }
 
   /* Obtain the mg value for the three axis */
   for(i=0; i<3; i++)
   {
-    acc[i]=(float)pnRawData[i]/LSM_Acc_Sensitivity;
+    // convert to m/s^2
+    acc[i]=(float)pnRawData[i]*9.81/(LSM_Acc_Sensitivity*1000);
   }
 
 }

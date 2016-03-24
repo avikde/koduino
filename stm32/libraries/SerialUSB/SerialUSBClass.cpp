@@ -43,11 +43,17 @@ int SerialUSBClass::read(void) {
 }
 
 size_t SerialUSBClass::write(uint8_t c) {
-  return usbWrite((char *)&c, 1);
+  if (Virtual_Com_Port_IsHostPortOpen())
+    return usbWrite((char *)&c, 1);
+  else
+    return 0;
 }
 
 size_t SerialUSBClass::write(const uint8_t *buffer, size_t size) {
-  return usbWrite((char *)buffer, size);
+  if (Virtual_Com_Port_IsHostPortOpen())
+    return usbWrite((char *)buffer, size);
+  else
+    return 0;
 }
 
 
