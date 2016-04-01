@@ -104,10 +104,16 @@ float pwmIn(uint8_t pin);
 // To try and reduce position reading bugs, fix pwmIn period
 // 36000 -> 1ms (1KHz PWM)
 // Set = 0 to autodetect period
-extern int PWM_IN_FIXED_PERIOD;
+// extern int PWM_IN_FIXED_PERIOD;
+/**
+ * @brief Set the expected period for PWM_IN or PWM_IN_EXTI
+ * @param expectedUs Expected period in microseconds (default 1000)
+ */
+void pwmInExpectedPeriod(int expectedUs);
 
 // Helper functions
 void pwmInRaw(uint8_t name, int *period, int *pulseWidth);
+
 
 /** @} */ // end of addtogroup
 

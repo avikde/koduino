@@ -26,6 +26,11 @@
 extern "C"{
 #endif // __cplusplus
 
+extern int PWM_IN_EXTI_MAXPERIOD;
+extern int PWM_IN_EXTI_MINPERIOD;
+extern int PWM_IN_MAXPERIOD;
+extern int PWM_IN_MINPERIOD;
+
 // This function is called by any of the interrupt handlers. It essentially fetches the user function pointer from the array and calls it.
 void wirishExternalInterruptHandler(uint8_t EXTI_Line_Number);
 
@@ -70,11 +75,6 @@ void noInterrupts();
  */
 void interrupts();
 
-/**
- * @brief Set the expected period for PWM_IN_EXTI
- * @param expectedUs Expected period in microseconds (default 1000)
- */
-void pwmInExpectedPeriod(int expectedUs);
 
 /** @} */ // end of addtogroup
 

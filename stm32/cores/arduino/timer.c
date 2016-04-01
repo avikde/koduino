@@ -35,11 +35,17 @@
 #endif
 #define TIMER_PERIOD(freq_hz) ((int)TIMER_BASE_CLOCK/(freq_hz) - 1)
 
+void pwmInExpectedPeriod(int expectedUs) {
+  PWM_IN_EXTI_MAXPERIOD = SysTick->LOAD/1000*((int)(1.8 * expectedUs));
+  PWM_IN_EXTI_MINPERIOD = SysTick->LOAD/1000*((int)(0.2 * expectedUs));
+  // different units for PWM_IN
+  PWM_IN_MAXPERIOD = (int)(1.8 * TIMER_PERIOD(1000000/expectedUs));
+  PWM_IN_MINPERIOD = (int)(0.2 * TIMER_PERIOD(1000000/expectedUs));
+}
+
 // Re-used to init PWM channels
 TIM_OCInitTypeDef  TIM_OCInitStructure;
 uint8_t _analogWriteResolution = 8;
-
-int PWM_IN_FIXED_PERIOD = 0;
 
 //------------------------------------------------------------------
 
@@ -127,16 +133,6 @@ float pwmIn(uint8_t name) {
     // HACK: need to detect if the signal goes flat. 5ms = 5000us
     if (timediff > 5)
       return 0;
-    // // OLD
-    // timediff = micros() - S->risingedge;
-    // // HACK: need to detect if the signal goes flat. 5ms = 5000us
-    // if (timediff > 5000)
-    //   return 0;
-
-    // // HACK: test fixed period
-    // if (S->pulsewidth > 1000)
-    //   S->pulsewidth -= 1000;
-    // return S->pulsewidth * 0.001;
     return (S->period > 0) ? S->pulsewidth/(float)S->period : 0;
   }
 
@@ -149,17 +145,18 @@ float pwmIn(uint8_t name) {
   if (TIMER_MAP[timer].numRollovers - C->lastRollover > 5)
     return 0;
 
-  if (PWM_IN_FIXED_PERIOD == 0)
+  // if (PWM_IN_FIXED_PERIOD == 0)
     return (C->period > 0 && C->period >= C->pulseWidth) ? C->pulseWidth/(float)C->period : 0;
-  else
-    return C->pulseWidth/(float)PWM_IN_FIXED_PERIOD;
+  // else
+  //   return C->pulseWidth/(float)PWM_IN_FIXED_PERIOD;
 }
 
 void pwmInRaw(uint8_t name, int *period, int *pulseWidth) {
   uint8_t timer = PIN_MAP[name].timer;
   TimerChannelData *C = &TIMER_MAP[ timer ].channelData[ PIN_MAP[name].channel-1];
 
-  *period = (PWM_IN_FIXED_PERIOD > 0) ? PWM_IN_FIXED_PERIOD : C->period;
+  // *period = (PWM_IN_FIXED_PERIOD > 0) ? PWM_IN_FIXED_PERIOD : C->period;
+  *period = C->period;
   *pulseWidth = C->pulseWidth;
 }
 
@@ -171,33 +168,28 @@ void timerCCxISR(TIM_TypeDef *TIMx, TimerChannelData *C, int current, uint32_t c
   if (C->bPwmIn == 1) {
     // Keep track of how many times timer rolled over since last time
     int newRollovers = currRollover - C->lastRollover;
+    int delta = current + TIMx->ARR * newRollovers - C->risingEdge;
 
     if (digitalRead(C->pin)) {
-      if (PWM_IN_FIXED_PERIOD == 0) {
-        // This was a rising edge
-        int newPeriod = current + TIMx->ARR * newRollovers - C->risingEdge;
-        // HACK: 
-        // symptom: sometimes the period is ~double what expected
-        // compare to previous period
-        // if (!(abs(newPeriod - 2*C->period) < 1000))
-          C->period = newPeriod;
-      } else {
-        C->period = PWM_IN_FIXED_PERIOD;
-      }
+      // This was a rising edge
+      if (delta > PWM_IN_MAXPERIOD)
+        C->period = delta - TIMx->ARR;
+      else if (delta < PWM_IN_MINPERIOD)
+        C->period = delta + TIMx->ARR;
+      else 
+        C->period = delta;
+
       C->risingEdge = current;
       C->lastRollover = currRollover;
     } else {
       // This was a falling edge
-      C->pulseWidth = current + TIMx->ARR * newRollovers - C->risingEdge;
+      C->pulseWidth = delta;
       
       // HACK: sometimes it is greater than the period
       if (C->pulseWidth > C->period)
         C->pulseWidth -= C->period;
       if (C->pulseWidth < 0)
         C->pulseWidth += C->period;
-      // if (PWM_IN_FIXED_PERIOD == 0) {
-      // } else 
-      //   C->pulseWidth = (C->pulseWidth % PWM_IN_FIXED_PERIOD);
     }
   }
 }

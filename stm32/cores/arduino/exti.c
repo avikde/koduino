@@ -27,11 +27,8 @@
 // default is expected period 1000 us, set by systemClockInit()
 int PWM_IN_EXTI_MAXPERIOD = 0;
 int PWM_IN_EXTI_MINPERIOD = 0;
-
-void pwmInExpectedPeriod(int expectedUs) {
-  PWM_IN_EXTI_MAXPERIOD = SysTick->LOAD/1000*((int)(1.8 * expectedUs));
-  PWM_IN_EXTI_MINPERIOD = SysTick->LOAD/1000*((int)(0.2 * expectedUs));
-}
+int PWM_IN_MAXPERIOD = 0;
+int PWM_IN_MINPERIOD = 0;
 
 // Some code from https://github.com/spark/core-firmware/blob/master/src/spark_wiring_interrupts.cpp
 
@@ -211,36 +208,11 @@ void wirishExternalInterruptHandler(uint8_t i) {
     } else {
       // This was a falling edge
       S->pulsewidth = delta;
-      // if (S->pulsewidth < 0)
-      //   S->pulsewidth += S->period;
-      // if (S->pulsewidth > S->period)
-      //   S->pulsewidth -= S->period;
+      if (S->pulsewidth < 0)
+        S->pulsewidth += S->period;
+      if (S->pulsewidth > S->period)
+        S->pulsewidth -= S->period;
     }
-
-    // // OLD
-    // current = micros();
-    // delta = current - S->risingedge;
-
-    // if (digitalRead(S->pinName)) {
-    //   // This was a rising edge
-    //   // if (delta > 0) {
-    //   //   //  sometimes period is 1000+what it should be
-    //   //   if (delta > maxPeriod)
-    //   //     S->period = delta - 1000;
-    //   //   else if (delta < minPeriod)
-    //   //     S->period = delta + 1000;
-    //   //   else 
-    //       S->period = delta;
-    //   // }
-    //   S->risingedge = current;
-    // } else {
-    //   // This was a falling edge
-    //   S->pulsewidth = delta;
-    //   if (S->pulsewidth < 0)
-    //     S->pulsewidth += S->period;
-    //   if (S->pulsewidth > S->period)
-    //     S->pulsewidth -= S->period;
-    // }
   } else {
     // ELSE fetch the user function pointer from the array
     ISRType handler = S->handler;
