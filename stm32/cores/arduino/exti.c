@@ -145,6 +145,12 @@ void attachInterruptWithPriority(uint8_t pinName, ISRType ISR, InterruptTrigger 
 
   // Enable the interrupt with low priority.
   // TODO: check https://github.com/spark/core-firmware/blob/master/src/spark_wiring_interrupts.cpp does something peculiar with special cases??
+  // if (pinfo->pin < 5)
+  //   priority = 4;
+  // else if (pinfo->pin < 10)
+  //   priority = 5;
+  // else
+  //   priority = 6;
   nvicEnable(extiIRQn[pinfo->pin], priority);
 }
 
@@ -183,13 +189,14 @@ void interrupts() {
 }
 
 void wirishExternalInterruptHandler(uint8_t i) {
-  static EXTIChannel *S;
-  static int currentMs, currentSubMs, delta;
-
+  EXTIChannel *S;
   EXTI_ClearITPendingBit(extiLines[i]);
   S = &EXTI_MAP[i];
   // PWM_IN_EXTI pin?
   if (S->bPwmIn == 1) {
+    // __disable_irq();
+    int currentMs = 0, currentSubMs = 0, delta = 0;
+
     // NEW
     currentMs = millis();
     currentSubMs = SysTick->LOAD - SysTick->VAL;
@@ -213,6 +220,7 @@ void wirishExternalInterruptHandler(uint8_t i) {
       if (S->pulsewidth > S->period)
         S->pulsewidth -= S->period;
     }
+    // __enable_irq();
   } else {
     // ELSE fetch the user function pointer from the array
     ISRType handler = S->handler;
