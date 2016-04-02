@@ -209,6 +209,7 @@ protected:
   Barrier barrier;
   //
   bool enableFlag;
+  bool bContinuousRotation;
   //
   float curPos;
 };

@@ -44,6 +44,7 @@ void Motor::init(float zero, int8_t direction, float gearRatio) {
   driverDirection = 1;
   barrier.init();
   enableFlag = false; // Only matters for BLCon v3.4
+  bContinuousRotation = true;
   pd.init(Motor::velSmooth, Motor::updateRate, DLPF_ANGRATE);
 }
 
@@ -64,7 +65,7 @@ float Motor::getPosition() {
   // Additionally, this won't work if the output shaft can complete a full revolution. 
   // E.g. with a 2:1 gear ratio, the output shaft must start in the range (-pi/2, pi/2) of
   // your desired output zero.
-  curPos = fmodf_mpi_pi(getRawPosition()-zero);
+  curPos = bContinuousRotation ? fmodf_mpi_pi(getRawPosition()-zero) : (getRawPosition()-zero);
   // curPos = getRawPosition()-zero*direction;
   if (!isnan(prevPosition)) {
     // if (curPos - prevPosition < -PI)
@@ -88,7 +89,10 @@ float Motor::getPosition() {
   }
 
   prevPosition = curPos;
-  return fmodf_mpi_pi((TWO_PI*unwrapOffset + curPos) * direction / gearRatio);
+  if (bContinuousRotation)
+    return fmodf_mpi_pi((TWO_PI*unwrapOffset + curPos) * direction / gearRatio);
+  else
+    return (TWO_PI*unwrapOffset + curPos) * direction / gearRatio;
 }
 
 float Motor::getVelocity() {
@@ -121,7 +125,7 @@ float Motor::update() {
   float pos = getPosition();
 
   // Velocity calculation should happen independent of mode
-  float error = fmodf_mpi_pi(pos - setpoint);
+  float error = (bContinuousRotation) ? fmodf_mpi_pi(pos - setpoint) : (pos - setpoint);
   float posCtrlVal = pd.update(error);
 
   // In position mode, update the motor command
