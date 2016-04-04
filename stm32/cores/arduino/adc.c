@@ -124,20 +124,28 @@ uint16_t analogRead(uint8_t pin) {
   // Check ioConfig and set?
   // pinMode(pin, INPUT_ANALOG);
 
-  ADC_RegularChannelConfig(ADC1, PIN_MAP[pin].adcChannel, 1, ADC_SAMPLE_TIME);
+  // which ADC? mostly use ADC1
+  ADC_TypeDef *ADCx = ADC1;
+  // special cases:
+#if defined(STM32F303xC)
+  if (pin==PC4 || pin==PC5)
+    ADCx = ADC2;
+#endif
+
+  ADC_RegularChannelConfig(ADCx, PIN_MAP[pin].adcChannel, 1, ADC_SAMPLE_TIME);
   // Start the conversion
 #if defined(SERIES_STM32F10x)
-  ADC_SoftwareStartConvCmd(ADC1, ENABLE);
+  ADC_SoftwareStartConvCmd(ADCx, ENABLE);
 #elif defined(SERIES_STM32F30x)
-  ADC_StartConversion(ADC1);
+  ADC_StartConversion(ADCx);
 #else
-  ADC_SoftwareStartConv(ADC1);
+  ADC_SoftwareStartConv(ADCx);
 #endif
 
   // Wait until conversion completion
-  while(ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC) == RESET);
+  while(ADC_GetFlagStatus(ADCx, ADC_FLAG_EOC) == RESET);
   // Get the conversion value
-  return ADC_GetConversionValue(ADC1);
+  return ADC_GetConversionValue(ADCx);
 }
 
 
