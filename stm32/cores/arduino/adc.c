@@ -56,24 +56,32 @@ void adcCommonInit() {
   ADC_CommonInitStructure.ADC_DMAAccessMode = ADC_DMAAccessMode_Disabled;
   ADC_CommonInitStructure.ADC_TwoSamplingDelay = 0x0;
   ADC_CommonInit(ADC1, &ADC_CommonInitStructure);
+#if defined(STM32F303xC)
+  ADC_CommonInit(ADC2, &ADC_CommonInitStructure);
+#endif
 #endif
 }
 
 void adcInit(ADC_TypeDef *ADCx) {
-  ADC_InitTypeDef  ADC_InitStructure;
-
 #if defined(SERIES_STM32F37x) || defined(SERIES_STM32F30x)
-  ADC_DeInit(ADCx);
+  // was causing problems if initing multiple ADCs
+  // ADC_DeInit(ADCx);
 #endif
+
+  ADC_InitTypeDef  ADC_InitStructure;
+  ADC_StructInit(&ADC_InitStructure);
 
   // Common
   ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;
+
+  // Data align right
   ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
 
   // Continuous conv
 #if defined(SERIES_STM32F37x) || defined(SERIES_STM32F10x) || defined(SERIES_STM32F4xx)
   ADC_InitStructure.ADC_ScanConvMode = DISABLE;
 #endif
+
   // Resolution
 #if defined(SERIES_STM32F30x)
   ADC_InitStructure.ADC_Resolution = ADC_Resolution_12b;
@@ -97,10 +105,10 @@ void adcInit(ADC_TypeDef *ADCx) {
   ADC_InitStructure.ADC_ExternalTrigConvEvent = ADC_ExternalTrigConvEvent_0;
 #endif
 
-  // Data alignment
-#if defined(SERIES_STM32F30x)
-  ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
-#endif
+  // Independent
+// #if defined(SERIES_STM32F37x)
+//   ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
+// #endif
 
   // other options
 #if defined(SERIES_STM32F30x)
@@ -128,7 +136,8 @@ uint16_t analogRead(uint8_t pin) {
   ADC_TypeDef *ADCx = ADC1;
   // special cases:
 #if defined(STM32F303xC)
-  if (pin==PC4 || pin==PC5)
+  // PC4 and PC5 on ADC2
+  if ((PIN_MAP[pin].port==GPIOC && PIN_MAP[pin].pin==4) || (PIN_MAP[pin].port==GPIOC && PIN_MAP[pin].pin==5))
     ADCx = ADC2;
 #endif
 
