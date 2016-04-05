@@ -60,10 +60,6 @@ static inline void wirishExternalInterruptHandler(uint8_t i) {
     } else {
       // This was a falling edge
       S->pulsewidth = delta;
-      if (S->pulsewidth < 0)
-        S->pulsewidth += S->period;
-      if (S->pulsewidth > S->period)
-        S->pulsewidth -= S->period;
     }
   } else {
     // ELSE fetch the user function pointer from the array
