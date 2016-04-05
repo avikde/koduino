@@ -21,6 +21,8 @@
 #define _exti_h_
 
 #include "types.h"
+#include "system_clock.h"
+#include "gpio.h"
 
 #ifdef __cplusplus
 extern "C"{
@@ -31,9 +33,47 @@ extern int PWM_IN_EXTI_MINPERIOD;
 extern int PWM_IN_MAXPERIOD;
 extern int PWM_IN_MINPERIOD;
 
+extern const uint32_t extiLines[];
 // This function is called by any of the interrupt handlers. It essentially fetches the user function pointer from the array and calls it.
-void wirishExternalInterruptHandler(uint8_t EXTI_Line_Number);
+static inline void wirishExternalInterruptHandler(uint8_t i) __attribute__((always_inline, unused));
+static inline void wirishExternalInterruptHandler(uint8_t i) {
+  EXTI_ClearITPendingBit(extiLines[i]);
+  __disable_irq();
+  EXTIChannel *S = &EXTI_MAP[i];
+  // PWM_IN_EXTI pin?
+  if (S->bPwmIn == 1) {
+    
+    // NEW
+    volatile int currentMs = millis();
+    volatile int currentSubMs = SysTick->LOAD - SysTick->VAL;
+    volatile int delta = (currentMs - S->risingEdgeMs) * SysTick->LOAD + currentSubMs - S->risingEdgeSubMs;
 
+    if (digitalRead(S->pinName)) {
+      // This was a rising edge
+      S->risingEdgeMs = currentMs;
+      S->risingEdgeSubMs = currentSubMs;
+      S->period = delta;
+      if (delta > PWM_IN_EXTI_MAXPERIOD)
+        S->period = delta - SysTick->LOAD;
+      else if (delta < PWM_IN_EXTI_MINPERIOD)
+        S->period = delta + SysTick->LOAD;
+    } else {
+      // This was a falling edge
+      S->pulsewidth = delta;
+      if (S->pulsewidth < 0)
+        S->pulsewidth += S->period;
+      if (S->pulsewidth > S->period)
+        S->pulsewidth -= S->period;
+    }
+  } else {
+    // ELSE fetch the user function pointer from the array
+    ISRType handler = S->handler;
+    //Check to see if the user handle is NULL
+    if (handler != 0)
+      handler();
+  }
+  __enable_irq();
+}
 
 /** @addtogroup EXTI External interrupts
  *  @{

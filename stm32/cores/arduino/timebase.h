@@ -74,10 +74,16 @@ void timerInterrupts();
 /** @} */ // end of addtogroup
 
 
-
 // General ISR for all timebase
-void timebaseISR(uint8_t i, uint8_t timer);
-
+static inline void timebaseISR(uint8_t i, uint8_t timer) __attribute__((always_inline, unused));
+static inline void timebaseISR(uint8_t i, uint8_t timer) {
+  if (TIM_GetITStatus(TIMER_MAP[timer].TIMx, TIM_IT_Update) != RESET)
+  {
+    TIM_ClearITPendingBit(TIMER_MAP[timer].TIMx, TIM_IT_Update);
+    if (TIMEBASE_MAP[i].isr != 0)
+      TIMEBASE_MAP[i].isr();
+  }
+}
 // Specialized timer interrupt initialization functions
 // 
 // Uses a basic timer to setup up millisecond interrupts such that the period is 1000. OLD...now SysTick

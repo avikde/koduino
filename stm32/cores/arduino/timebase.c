@@ -91,12 +91,3 @@ void timerInterrupts()
     NVIC_EnableIRQ(TIMER_MAP[TIMEBASE_MAP[i].timer].IRQn);
 }
 
-void timebaseISR(uint8_t i, uint8_t timer)
-{
-  if (TIM_GetITStatus(TIMER_MAP[timer].TIMx, TIM_IT_Update) != RESET)
-  {
-    TIM_ClearITPendingBit(TIMER_MAP[timer].TIMx, TIM_IT_Update);
-    if (TIMEBASE_MAP[i].isr != 0)
-      TIMEBASE_MAP[i].isr();
-  }
-}

@@ -21,17 +21,6 @@
 #include "pins.h"
 #include "system_clock.h"
 
-// RingBuffer helper
-inline void ringBufferStore(unsigned char c, RingBuffer *buffer) {
-  unsigned i = (unsigned int)(buffer->head + 1) % SERIAL_BUFFER_SIZE;
-
-	if (i != buffer->tail) {
-		buffer->head = i;
-    // head==tail means empty, should store at old_head+1
-    buffer->buffer[i] = c;
-	}
-}
-
 // Initialize Class Variables //////////////////////////////////////////////////
 USART_InitTypeDef USARTClass::USART_InitStructure;
 // bool USARTClass::USARTSerial_Enabled = false;
@@ -221,38 +210,3 @@ uint8_t USARTClass::peekAt(uint8_t pos) {
 // bool USARTClass::isEnabled() {
 //  return USARTSerial_Enabled;
 // }
-
-// ==========================================================
-// Custom USART interrupt handler
-// ==========================================================
-
-extern "C"{
-
-// interrupt handler
-void wirishUSARTInterruptHandler(USARTInfo *usartMap)
-{
-  if(USART_GetITStatus(usartMap->USARTx, USART_IT_RXNE) != RESET) {
-    // Read byte from the receive data register
-    uint8_t c = USART_ReceiveData(usartMap->USARTx);
-    // If interrupt is attached then don't use the RingBuffer
-    if (usartMap->rxCallback != NULL)
-      usartMap->rxCallback(c);
-    else
-      ringBufferStore(c, usartMap->rxBuf);
-  }
-
-  if(USART_GetITStatus(usartMap->USARTx, USART_IT_TXE) != RESET) {
-    // Write byte to the transmit data register
-    if (usartMap->txBuf->head == usartMap->txBuf->tail) {
-      // Buffer empty, so disable the USART Transmit interrupt
-      USART_ITConfig(usartMap->USARTx, USART_IT_TXE, DISABLE);
-    }
-    else {
-      // There is more data in the output buffer. Send the next byte
-      USART_SendData(usartMap->USARTx, usartMap->txBuf->buffer[usartMap->txBuf->tail++]);
-      usartMap->txBuf->tail %= SERIAL_BUFFER_SIZE;
-    }
-  }
-}
-
-} // extern "C"

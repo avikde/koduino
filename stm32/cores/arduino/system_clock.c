@@ -51,26 +51,6 @@ void SysTick_Handler() {
   _millis++;
 }
 
-// OLD--using timer
-// void systemClockISR()
-// {
-//   // _millis++;
-// }
-
-uint32_t millis()
-{
-  return _millis;
-}
-
-uint32_t micros()
-{
-  // OLD--using timer
-  // return _millis * 1000 + TIM_GetCounter(TIMER_MAP[ TIMEBASE_MAP[ SYSCLK_TIMEBASE ].timer ].TIMx);
-  // systick is a downcounter
-  return _millis * 1000 + 1000 - SysTick->VAL/microsDivider;
-}
-
-
 //--------------------------------------------------------
 
 void delayMicroseconds(uint32_t n)

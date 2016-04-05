@@ -21,7 +21,8 @@
 
 // Uses interrupts and timer 16 for millis() and micros() time keeping
 #include <stdint.h>
-#include "timer.h"
+#include "chip.h"
+#include "types.h"
 
 #ifdef __cplusplus
 extern "C"{
@@ -38,20 +39,34 @@ void systemClockISR();
 /** @addtogroup Time Keeping time
  *  @{
  */
-
+extern volatile uint32_t _millis;
+extern int microsDivider;
 /**
  * @brief 
  * @details Rolls over at max of uint32_t or ~50 days
  * @return Time elapsed in milliseconds since the start of the program
  */
-uint32_t millis();
+static inline uint32_t millis() __attribute__((always_inline, unused));
+static inline uint32_t millis() {
+  volatile uint32_t ret = _millis;
+  return ret;
+}
+
 
 /**
  * @brief 
  * @details Rolls over at max of uint32_t or ~71 minutes
  * @return Time elapsed in microseconds since the start of the program
  */
-uint32_t micros();
+static inline uint32_t micros() __attribute__((always_inline, unused));
+static inline uint32_t micros()
+{
+  // OLD--using timer
+  // return _millis * 1000 + TIM_GetCounter(TIMER_MAP[ TIMEBASE_MAP[ SYSCLK_TIMEBASE ].timer ].TIMx);
+  // systick is a downcounter
+  volatile uint32_t ret = _millis * 1000 + 1000 - SysTick->VAL/microsDivider;
+  return ret;
+}
 
 /**
  * @brief Blocks execution for a specified number of milliseconds

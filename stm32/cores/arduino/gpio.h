@@ -53,6 +53,7 @@ void digitalWrite(uint8_t pin, LogicValue val);
  * @param pin Pin to read 
  * @return 1 if the pin is a logic HIGH level, 0 for LOW
  */
+static inline uint8_t digitalRead(uint8_t pin) __attribute__((always_inline, unused));
 static inline uint8_t digitalRead(uint8_t pin) {
   return GPIO_ReadInputDataBit(PIN_MAP[pin].port, 1<<PIN_MAP[pin].pin);
 }

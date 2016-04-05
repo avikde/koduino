@@ -70,7 +70,7 @@ void analogWriteResolution(uint8_t nbits) {
 
 void timerInit(uint8_t timer, int freqHz) {
   // Enable interrupts for the timer (but not any of the timer updates yet)
-  nvicEnable(TIMER_MAP[timer].IRQn, 2);
+  nvicEnable(TIMER_MAP[timer].IRQn, 3);
 
   timerInitHelper(timer, 1, TIMER_PERIOD(freqHz));
   TIM_Cmd(TIMER_MAP[timer].TIMx, ENABLE);
@@ -80,7 +80,7 @@ void timerInit(uint8_t timer, int freqHz) {
 void pinTimerInit(uint8_t pin) {
   uint8_t timer = PIN_MAP[pin].timer;
 
-  nvicEnable(TIMER_MAP[timer].IRQn, 2);
+  nvicEnable(TIMER_MAP[timer].IRQn, 3);
   // Use the frequency set using analogWriteFrequency
   timerInitHelper(timer, 1, TIMER_PERIOD(TIMER_MAP[timer].freqHz));
   TIM_Cmd(TIMER_MAP[timer].TIMx, ENABLE);
@@ -162,66 +162,6 @@ void pwmInRaw(uint8_t name, int *period, int *pulseWidth) {
 
 // Main ISR =============================================
 
-// Helper for each channel
-void timerCCxISR(TIM_TypeDef *TIMx, TimerChannelData *C, int current, uint32_t currRollover) {
-  // Is this a pwmIn pin?
-  if (C->bPwmIn == 1) {
-    // Keep track of how many times timer rolled over since last time
-    int newRollovers = currRollover - C->lastRollover;
-    int delta = current + TIMx->ARR * newRollovers - C->risingEdge;
-
-    if (digitalRead(C->pin)) {
-      // This was a rising edge
-      if (delta > PWM_IN_MAXPERIOD)
-        C->period = delta - TIMx->ARR;
-      else if (delta < PWM_IN_MINPERIOD)
-        C->period = delta + TIMx->ARR;
-      else 
-        C->period = delta;
-
-      C->risingEdge = current;
-      C->lastRollover = currRollover;
-    } else {
-      // This was a falling edge
-      C->pulseWidth = delta;
-      
-      // HACK: sometimes it is greater than the period
-      if (C->pulseWidth > C->period)
-        C->pulseWidth -= C->period;
-      if (C->pulseWidth < 0)
-        C->pulseWidth += C->period;
-    }
-  }
-}
-
-void timerISR(uint8_t timer) {
-  TIM_TypeDef *TIMx = TIMER_MAP[timer].TIMx;
-  TimerInfo *cfg = &TIMER_MAP[timer];
-
-  // Update for rollover
-  if (TIM_GetITStatus(TIMx, TIM_IT_Update) != RESET) {
-    TIM_ClearITPendingBit(TIMx, TIM_IT_Update);
-    cfg->numRollovers++;
-  }
-
-  // CCx for pwmIn
-  if (TIM_GetITStatus(TIMx, TIM_IT_CC1) != RESET) {
-    TIM_ClearITPendingBit(TIMx, TIM_IT_CC1);
-    timerCCxISR(TIMx, &cfg->channelData[0], TIM_GetCapture1(TIMx), cfg->numRollovers);
-  }
-  if (TIM_GetITStatus(TIMx, TIM_IT_CC2) != RESET) {
-    TIM_ClearITPendingBit(TIMx, TIM_IT_CC2);
-    timerCCxISR(TIMx, &cfg->channelData[1], TIM_GetCapture2(TIMx), cfg->numRollovers);
-  }
-  if (TIM_GetITStatus(TIMx, TIM_IT_CC3) != RESET) {
-    TIM_ClearITPendingBit(TIMx, TIM_IT_CC3);
-    timerCCxISR(TIMx, &cfg->channelData[2], TIM_GetCapture3(TIMx), cfg->numRollovers);
-  }
-  if (TIM_GetITStatus(TIMx, TIM_IT_CC4) != RESET) {
-    TIM_ClearITPendingBit(TIMx, TIM_IT_CC4);
-    timerCCxISR(TIMx, &cfg->channelData[3], TIM_GetCapture4(TIMx), cfg->numRollovers);
-  }
-}
 
 // ==================
 

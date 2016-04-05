@@ -145,12 +145,6 @@ void attachInterruptWithPriority(uint8_t pinName, ISRType ISR, InterruptTrigger 
 
   // Enable the interrupt with low priority.
   // TODO: check https://github.com/spark/core-firmware/blob/master/src/spark_wiring_interrupts.cpp does something peculiar with special cases??
-  // if (pinfo->pin < 5)
-  //   priority = 4;
-  // else if (pinfo->pin < 10)
-  //   priority = 5;
-  // else
-  //   priority = 6;
   nvicEnable(extiIRQn[pinfo->pin], priority);
 }
 
@@ -188,47 +182,6 @@ void interrupts() {
     NVIC_EnableIRQ(extiIRQn[i]);
 }
 
-void wirishExternalInterruptHandler(uint8_t i) {
-  EXTIChannel *S;
-  EXTI_ClearITPendingBit(extiLines[i]);
-  S = &EXTI_MAP[i];
-  // PWM_IN_EXTI pin?
-  if (S->bPwmIn == 1) {
-    // __disable_irq();
-    int currentMs = 0, currentSubMs = 0, delta = 0;
-
-    // NEW
-    currentMs = millis();
-    currentSubMs = SysTick->LOAD - SysTick->VAL;
-    delta = (currentMs - S->risingEdgeMs) * SysTick->LOAD + currentSubMs - S->risingEdgeSubMs;
-
-    if (digitalRead(S->pinName)) {
-      // This was a rising edge
-      if (delta > PWM_IN_EXTI_MAXPERIOD)
-        S->period = delta - SysTick->LOAD;
-      else if (delta < PWM_IN_EXTI_MINPERIOD)
-        S->period = delta + SysTick->LOAD;
-      else 
-        S->period = delta;
-      S->risingEdgeMs = currentMs;
-      S->risingEdgeSubMs = currentSubMs;
-    } else {
-      // This was a falling edge
-      S->pulsewidth = delta;
-      if (S->pulsewidth < 0)
-        S->pulsewidth += S->period;
-      if (S->pulsewidth > S->period)
-        S->pulsewidth -= S->period;
-    }
-    // __enable_irq();
-  } else {
-    // ELSE fetch the user function pointer from the array
-    ISRType handler = S->handler;
-    //Check to see if the user handle is NULL
-    if (handler != 0)
-      handler();
-  }
-}
 
 
 // EXTI interrupts: these seem to be the same for every series, so goes here instead of in variant

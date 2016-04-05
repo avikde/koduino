@@ -21,6 +21,8 @@
 
 #include "chip.h"
 #include "types.h"
+#include "exti.h"
+#include "gpio.h"
 
 #ifdef __cplusplus
 extern "C"{
@@ -124,8 +126,71 @@ void pinTimerInit(uint8_t pin);
 // Timer init with period: mostly a helper function
 void timerInitHelper(uint8_t timer, uint16_t prescaler, uint32_t period);
 
+
+
+// Helper for each channel
+static inline void timerCCxISR(TIM_TypeDef *TIMx, TimerChannelData *C, int current, uint32_t currRollover) __attribute__((always_inline, unused));
+static inline void timerCCxISR(TIM_TypeDef *TIMx, TimerChannelData *C, int current, uint32_t currRollover) {
+  // Is this a pwmIn pin?
+  if (C->bPwmIn == 1) {
+    // Keep track of how many times timer rolled over since last time
+    int newRollovers = currRollover - C->lastRollover;
+    int delta = current + TIMx->ARR * newRollovers - C->risingEdge;
+
+    if (digitalRead(C->pin)) {
+      // This was a rising edge
+      if (delta > PWM_IN_MAXPERIOD)
+        C->period = delta - TIMx->ARR;
+      else if (delta < PWM_IN_MINPERIOD)
+        C->period = delta + TIMx->ARR;
+      else 
+        C->period = delta;
+
+      C->risingEdge = current;
+      C->lastRollover = currRollover;
+    } else {
+      // This was a falling edge
+      C->pulseWidth = delta;
+      
+      // HACK: sometimes it is greater than the period
+      if (C->pulseWidth > C->period)
+        C->pulseWidth -= C->period;
+      if (C->pulseWidth < 0)
+        C->pulseWidth += C->period;
+    }
+  }
+}
+
 // Main GP timer ISR
-void timerISR(uint8_t timer);
+static inline void timerISR(uint8_t timer) __attribute__((always_inline, unused));
+static inline void timerISR(uint8_t timer) {
+  TIM_TypeDef *TIMx = TIMER_MAP[timer].TIMx;
+  TimerInfo *cfg = &TIMER_MAP[timer];
+
+  // Update for rollover
+  if (TIM_GetITStatus(TIMx, TIM_IT_Update) != RESET) {
+    TIM_ClearITPendingBit(TIMx, TIM_IT_Update);
+    cfg->numRollovers++;
+  }
+
+  // CCx for pwmIn
+  if (TIM_GetITStatus(TIMx, TIM_IT_CC1) != RESET) {
+    TIM_ClearITPendingBit(TIMx, TIM_IT_CC1);
+    timerCCxISR(TIMx, &cfg->channelData[0], TIM_GetCapture1(TIMx), cfg->numRollovers);
+  }
+  if (TIM_GetITStatus(TIMx, TIM_IT_CC2) != RESET) {
+    TIM_ClearITPendingBit(TIMx, TIM_IT_CC2);
+    timerCCxISR(TIMx, &cfg->channelData[1], TIM_GetCapture2(TIMx), cfg->numRollovers);
+  }
+  if (TIM_GetITStatus(TIMx, TIM_IT_CC3) != RESET) {
+    TIM_ClearITPendingBit(TIMx, TIM_IT_CC3);
+    timerCCxISR(TIMx, &cfg->channelData[2], TIM_GetCapture3(TIMx), cfg->numRollovers);
+  }
+  if (TIM_GetITStatus(TIMx, TIM_IT_CC4) != RESET) {
+    TIM_ClearITPendingBit(TIMx, TIM_IT_CC4);
+    timerCCxISR(TIMx, &cfg->channelData[3], TIM_GetCapture4(TIMx), cfg->numRollovers);
+  }
+}
 
 
 // Special timer features
