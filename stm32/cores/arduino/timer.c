@@ -131,8 +131,13 @@ float pwmIn(uint8_t name) {
     static int timediff;
     timediff = millis() - S->risingEdgeMs;
     // HACK: need to detect if the signal goes flat. 5ms = 5000us
-    if (timediff > 10)
+    if (timediff > 5)
       return 0;
+
+    if (S->pulsewidth < 0)
+      S->pulsewidth += S->period;
+    if (S->pulsewidth > S->period)
+      S->pulsewidth -= S->period;
     return (S->period > 0) ? S->pulsewidth/(float)S->period : 0;
   }
 

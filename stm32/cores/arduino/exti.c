@@ -182,8 +182,6 @@ void interrupts() {
     NVIC_EnableIRQ(extiIRQn[i]);
 }
 
-
-
 // EXTI interrupts: these seem to be the same for every series, so goes here instead of in variant
 
 void EXTI0_IRQHandler()
