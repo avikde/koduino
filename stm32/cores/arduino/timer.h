@@ -162,7 +162,11 @@ static inline void timerCCxISR(TIM_TypeDef *TIMx, TimerChannelData *C, int curre
 }
 
 // Main GP timer ISR
+#if defined(KODUINO_ISRS_INLINE)
 static inline void timerISR(uint8_t timer) __attribute__((always_inline, unused));
+#else
+static inline void timerISR(uint8_t timer);
+#endif
 static inline void timerISR(uint8_t timer) {
   TIM_TypeDef *TIMx = TIMER_MAP[timer].TIMx;
   TimerInfo *cfg = &TIMER_MAP[timer];

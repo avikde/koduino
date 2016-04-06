@@ -35,7 +35,11 @@ extern int PWM_IN_MINPERIOD;
 
 extern const uint32_t extiLines[];
 // This function is called by any of the interrupt handlers. It essentially fetches the user function pointer from the array and calls it.
+#if defined(KODUINO_ISRS_INLINE)
 static inline void wirishExternalInterruptHandler(uint8_t i) __attribute__((always_inline, unused));
+#else
+static inline void wirishExternalInterruptHandler(uint8_t i);
+#endif
 static inline void wirishExternalInterruptHandler(uint8_t i) {
   EXTI_ClearITPendingBit(extiLines[i]);
   __disable_irq();

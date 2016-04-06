@@ -33,7 +33,7 @@ UPLOAD_METHOD ?= SERIAL
 UPLOAD_PORT ?= 
 SECTOR_ERASE ?= 0
 LIBRARIES ?=
-
+KODUINO_ISRS ?= CALL
 
 ######################################################################################
 
@@ -95,7 +95,7 @@ BFLAGS = -O3 -Os -Wall -Werror-implicit-function-declaration -Wno-sign-compare -
 -mlittle-endian -mthumb \
 $(BFLAGSMCU) \
 -fno-common -fno-exceptions -ffunction-sections -fdata-sections -nostartfiles \
--DHSE_VALUE=$(HSE_VALUE) -DCLKSRC_$(CLKSRC) -DMAX_PROGRAM_SIZE=$(MAX_PROGRAM_SIZE) -D$(MCU) -DUSE_STDPERIPH_DRIVER -DSERIES_$(SERIES)
+-DHSE_VALUE=$(HSE_VALUE) -DCLKSRC_$(CLKSRC) -DKODUINO_ISRS_$(KODUINO_ISRS) -DMAX_PROGRAM_SIZE=$(MAX_PROGRAM_SIZE) -D$(MCU) -DUSE_STDPERIPH_DRIVER -DSERIES_$(SERIES)
 
 INCFLAGS = -I$(CMSIS_DIR)/Device/ST/$(SERIES)/Include -I$(CMSIS_DIR)/Include -I$(STD_PERIPH_DIR)/inc -I$(VARIANT_DIR) -I$(CORE_DIR) $(EXTRA_LIB_INCS)
 
