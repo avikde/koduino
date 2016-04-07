@@ -70,7 +70,7 @@ void analogWriteResolution(uint8_t nbits) {
 
 void timerInit(uint8_t timer, int freqHz) {
   // Enable interrupts for the timer (but not any of the timer updates yet)
-  nvicEnable(TIMER_MAP[timer].IRQn, 3);
+  nvicEnable(TIMER_MAP[timer].IRQn, 0);
 
   timerInitHelper(timer, 1, TIMER_PERIOD(freqHz));
   TIM_Cmd(TIMER_MAP[timer].TIMx, ENABLE);
@@ -80,7 +80,7 @@ void timerInit(uint8_t timer, int freqHz) {
 void pinTimerInit(uint8_t pin) {
   uint8_t timer = PIN_MAP[pin].timer;
 
-  nvicEnable(TIMER_MAP[timer].IRQn, 3);
+  nvicEnable(TIMER_MAP[timer].IRQn, 0);
   // Use the frequency set using analogWriteFrequency
   timerInitHelper(timer, 1, TIMER_PERIOD(TIMER_MAP[timer].freqHz));
   TIM_Cmd(TIMER_MAP[timer].TIMx, ENABLE);
