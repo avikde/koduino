@@ -21,7 +21,7 @@ menu.bootloader=Bootloader
 
 ###########################################################
 
-f301.name=F301/F302
+f301.name=F301/F302 (gRBL)
 f301.build.mcu=STM32F302x8
 f301.build.series=STM32F30x
 f301.build.core=arduino
@@ -29,6 +29,7 @@ f301.build.extra_flags=
 f301.build.ldscript=STM32F302R8_FLASH.ld
 f301.build.variant=f301
 f301.build.dependency=true
+f301.build.isrs=CALL
 
 # Flash size choices
 f301.menu.flashsize.64k = 64KB (F30**8)
@@ -51,20 +52,15 @@ f301.menu.hse.8m.build.hse_value=8000000UL
 f301.menu.hse.8m.build.f_cpu=72000000L
 f301.menu.hse.8m.build.clksrc=HSE_8M
 
-f301.menu.hse.8m_oc96=96MHz (overclock from 8MHz HSE)
-f301.menu.hse.8m_oc96.build.hse_value=8000000UL
-f301.menu.hse.8m_oc96.build.f_cpu=96000000L
-f301.menu.hse.8m_oc96.build.clksrc=HSE_8M_OC96
+# f301.menu.hse.8m_oc96=96MHz (overclock from 8MHz HSE)
+# f301.menu.hse.8m_oc96.build.hse_value=8000000UL
+# f301.menu.hse.8m_oc96.build.f_cpu=96000000L
+# f301.menu.hse.8m_oc96.build.clksrc=HSE_8M_OC96
 
-f301.menu.hse.8m_oc112=112MHz (overclock from 8MHz HSE)
-f301.menu.hse.8m_oc112.build.hse_value=8000000UL
-f301.menu.hse.8m_oc112.build.f_cpu=112000000L
-f301.menu.hse.8m_oc112.build.clksrc=HSE_8M_OC112
-
-# f301.menu.hse.16m=72MHz (from 16MHz HSE)
-# f301.menu.hse.16m.build.hse_value=16000000UL
-# f301.menu.hse.16m.build.f_cpu=72000000L
-# f301.menu.hse.16m.build.clksrc=HSE_16M
+# f301.menu.hse.8m_oc112=112MHz (overclock from 8MHz HSE)
+# f301.menu.hse.8m_oc112.build.hse_value=8000000UL
+# f301.menu.hse.8m_oc112.build.f_cpu=112000000L
+# f301.menu.hse.8m_oc112.build.clksrc=HSE_8M_OC112
 
 # Upload choices
 # f301.upload.tool=stlink
@@ -99,13 +95,14 @@ f301.menu.bootloader.texanestlink.upload.options=
 
 ###########################################################
 
-f303v.name=F303V
+f303v.name=F303V (gRMb, F3 discovery)
 f303v.build.mcu=STM32F303xC
 f303v.build.series=STM32F30x
 f303v.build.core=arduino
 f303v.build.extra_flags=
 f303v.build.ldscript=STM32F303VC_FLASH.ld
 f303v.build.variant=f303v
+f303v.build.isrs=INLINE
 
 # HSE choices
 f303v.menu.hse.8m=72MHz (from 8MHz HSE)
@@ -113,10 +110,10 @@ f303v.menu.hse.8m.build.hse_value=8000000UL
 f303v.menu.hse.8m.build.f_cpu=72000000L
 f303v.menu.hse.8m.build.clksrc=HSE_8M
 
-f303v.menu.hse.8m_oc96=96MHz (overclock from 8MHz HSE)
-f303v.menu.hse.8m_oc96.build.hse_value=8000000UL
-f303v.menu.hse.8m_oc96.build.f_cpu=96000000L
-f303v.menu.hse.8m_oc96.build.clksrc=HSE_8M_OC96
+# f303v.menu.hse.8m_oc96=96MHz (overclock from 8MHz HSE)
+# f303v.menu.hse.8m_oc96.build.hse_value=8000000UL
+# f303v.menu.hse.8m_oc96.build.f_cpu=96000000L
+# f303v.menu.hse.8m_oc96.build.clksrc=HSE_8M_OC96
 
 f303v.menu.hse.8m_oc112=112MHz (overclock from 8MHz HSE)
 f303v.menu.hse.8m_oc112.build.hse_value=8000000UL
@@ -152,6 +149,7 @@ f37x.build.variant=f37x
 # HSE choices
 f37x.build.hse_value=16000000UL
 f37x.build.clksrc=HSE_16M
+f37x.build.isrs=INLINE
 
 # f37x.menu.hse.8mhz=8MHz clock
 # f37x.menu.hse.8mhz.build.hse_value=8000000UL
@@ -198,6 +196,7 @@ f40_41x.build.variant=f40_41x
 # HSE choices
 f40_41x.build.hse_value=16000000UL
 f40_41x.build.clksrc=HSE_16M
+f40_41x.build.isrs=INLINE
 
 # Upload common
 f40_41x.upload.baud=115200
