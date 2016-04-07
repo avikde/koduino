@@ -157,12 +157,24 @@ float pwmIn(uint8_t name) {
 }
 
 void pwmInRaw(uint8_t name, int *period, int *pulseWidth) {
-  uint8_t timer = PIN_MAP[name].timer;
-  TimerChannelData *C = &TIMER_MAP[ timer ].channelData[ PIN_MAP[name].channel-1];
+  EXTIChannel *S = &EXTI_MAP[ PIN_MAP[name].pin ];
+  // Pin configured for PWM_IN_EXTI?
+  if (S->pinName == name) {
+    if (S->pulsewidth < 0)
+      S->pulsewidth += S->period;
+    if (S->pulsewidth > S->period)
+      S->pulsewidth -= S->period;
 
-  // *period = (PWM_IN_FIXED_PERIOD > 0) ? PWM_IN_FIXED_PERIOD : C->period;
-  *period = C->period;
-  *pulseWidth = C->pulseWidth;
+    *period = S->period;
+    *pulseWidth = S->pulsewidth;
+  } else {
+    uint8_t timer = PIN_MAP[name].timer;
+    TimerChannelData *C = &TIMER_MAP[ timer ].channelData[ PIN_MAP[name].channel-1];
+
+    // *period = (PWM_IN_FIXED_PERIOD > 0) ? PWM_IN_FIXED_PERIOD : C->period;
+    *period = C->period;
+    *pulseWidth = C->pulseWidth;
+  }
 }
 
 // Main ISR =============================================
