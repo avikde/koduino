@@ -99,14 +99,14 @@ DxlRxStatus DxlNode::listen() {
 
 void DxlNode::setTX() {
   digitalWrite(DE, HIGH);
-  delayMicroseconds(10);
+  delayMicroseconds(1);
 }
 
 void DxlNode::setRX() {
   Ser.flush();
-  delayMicroseconds(10);
+  delayMicroseconds(1);
   digitalWrite(DE, LOW);
-  delayMicroseconds(10);
+  delayMicroseconds(1);
 }
 
 bool DxlNode::completeTX() {

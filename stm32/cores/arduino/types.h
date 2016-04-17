@@ -114,9 +114,9 @@ typedef struct {
 #define SERIAL_BUFFER_SIZE 64
 
 typedef struct RingBuffer {
-  unsigned char buffer[SERIAL_BUFFER_SIZE];
-  volatile unsigned int head;
-  volatile unsigned int tail;
+  uint8_t buffer[SERIAL_BUFFER_SIZE];
+  volatile uint8_t head;
+  volatile uint8_t tail;
 } RingBuffer;
 
 typedef void (*ByteFunc)(uint8_t);

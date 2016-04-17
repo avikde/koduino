@@ -100,7 +100,6 @@ void USARTClass::begin(uint32_t baud, uint8_t config) {
   }
 
   // USART interrupts
-  // USART_ITConfig(USARTx, USART_IT_TXE, ENABLE);
   USART_ClearFlag(usartMap->USARTx, USART_FLAG_RXNE);
   USART_ClearITPendingBit(usartMap->USARTx, USART_IT_RXNE);
   USART_ITConfig(usartMap->USARTx, USART_IT_RXNE, ENABLE);
@@ -167,10 +166,10 @@ size_t USARTClass::write(uint8_t c) {
   if (usartMap->USARTx == USART1 && millis() < 1000)
     return 0;
 
-  int i = (_txBuf.head + 1) % SERIAL_BUFFER_SIZE;
+  uint8_t next = (_txBuf.head + 1) % SERIAL_BUFFER_SIZE;
 
   // Buffer overrun protection?
-  while (i == _txBuf.tail || ((__get_PRIMASK() & 1) && _txBuf.head != _txBuf.tail)) {
+  while (next == _txBuf.tail || ((__get_PRIMASK() & 1) && _txBuf.head != _txBuf.tail)) {
     // Interrupts are on but they are not being serviced because this was called from a higher priority interrupt
     if (USART_GetITStatus(usartMap->USARTx, USART_IT_TXE) && USART_GetFlagStatus(usartMap->USARTx, USART_FLAG_TXE)) {
       // protect for good measure
@@ -184,7 +183,7 @@ size_t USARTClass::write(uint8_t c) {
   }
 
   _txBuf.buffer[_txBuf.head] = c;
-  _txBuf.head = i;
+  _txBuf.head = next;
 
   USART_ITConfig(usartMap->USARTx, USART_IT_TXE, ENABLE);
 

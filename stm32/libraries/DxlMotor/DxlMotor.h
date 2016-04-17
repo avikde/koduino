@@ -49,7 +49,7 @@ public:
   }
   // From base class
   void enable(bool flag) {enableFlag = flag;}
-  float getRawPosition() {return rawPos;}=
+  float getRawPosition() {return rawPos;}
   /**
    * @brief Send a packet to the slave with a desired open loop value.
    * @details This is called by Motor::update(), the user should not call this.

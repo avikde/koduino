@@ -20,6 +20,7 @@
 #include "timebase.h"
 #include "exti.h"
 #include "variant.h"
+#include "pins.h"
 #include "USARTClass.h"
 
 /* Private typedef -----------------------------------------------------------*/

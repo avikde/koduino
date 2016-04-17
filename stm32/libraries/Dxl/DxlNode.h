@@ -88,9 +88,9 @@ public:
   uint8_t getInstruction() const { return packet[4]; }
   const void * getPacket() const { return (const void *)&packet[5]; }
 
-protected:
   void setTX();
   void setRX();
+protected:
   uint8_t writeByte(uint8_t c);
 
   uint32_t txTime;

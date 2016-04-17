@@ -165,12 +165,12 @@ extern "C"{
 
 static inline void ringBufferStore(unsigned char c, RingBuffer *buffer) __attribute__((always_inline, unused));
 static inline void ringBufferStore(unsigned char c, RingBuffer *buffer) {
-  unsigned i = (unsigned int)(buffer->head + 1) % SERIAL_BUFFER_SIZE;
+  uint8_t next = (uint8_t)(buffer->head + 1) % SERIAL_BUFFER_SIZE;
 
-  if (i != buffer->tail) {
-    buffer->head = i;
+  if (next != buffer->tail) {
+    buffer->head = next;
     // head==tail means empty, should store at old_head+1
-    buffer->buffer[i] = c;
+    buffer->buffer[next] = c;
   }
 }
 
@@ -178,6 +178,7 @@ static inline void ringBufferStore(unsigned char c, RingBuffer *buffer) {
 static inline void wirishUSARTInterruptHandler(USARTInfo *usartMap) __attribute__((always_inline, unused));
 static inline void wirishUSARTInterruptHandler(USARTInfo *usartMap)
 {
+  __disable_irq();
   if(USART_GetITStatus(usartMap->USARTx, USART_IT_RXNE) != RESET) {
     // Read byte from the receive data register
     uint8_t c = USART_ReceiveData(usartMap->USARTx);
@@ -186,8 +187,9 @@ static inline void wirishUSARTInterruptHandler(USARTInfo *usartMap)
       usartMap->rxCallback(c);
     else
       ringBufferStore(c, usartMap->rxBuf);
+    // USART_ClearITPendingBit(usartMap->USARTx, USART_IT_RXNE);
   }
-
+  __enable_irq();
   if(USART_GetITStatus(usartMap->USARTx, USART_IT_TXE) != RESET) {
     // Write byte to the transmit data register
     if (usartMap->txBuf->head == usartMap->txBuf->tail) {
@@ -199,6 +201,7 @@ static inline void wirishUSARTInterruptHandler(USARTInfo *usartMap)
       USART_SendData(usartMap->USARTx, usartMap->txBuf->buffer[usartMap->txBuf->tail++]);
       usartMap->txBuf->tail %= SERIAL_BUFFER_SIZE;
     }
+    // USART_ClearITPendingBit(usartMap->USARTx, USART_IT_TXE);
   }
 }
 
