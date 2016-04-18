@@ -76,7 +76,7 @@ inline Print &operator <<(Print &obj, const _BYTE_CODE &arg)
 inline Print &operator <<(Print &obj, const _BASED &arg)
 { obj.print(arg.val, arg.base); return obj; } 
 
-#if ARDUINO >= 18
+// #if ARDUINO >= 18
 // Specialization for class _FLOAT
 // Thanks to Michael Margolis for suggesting a way
 // to accommodate Arduino 0018's floating point precision
@@ -93,7 +93,7 @@ struct _FLOAT
 
 inline Print &operator <<(Print &obj, const _FLOAT &arg)
 { obj.print(arg.val, arg.digits); return obj; }
-#endif
+// #endif
 
 // Specialization for enum _EndLineCode
 // Thanks to Arduino forum user Paul V. who suggested this
