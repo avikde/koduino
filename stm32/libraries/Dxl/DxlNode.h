@@ -43,9 +43,9 @@ enum DxlRxStatus {
 // ...set position etc.
 
 // the bus is forced to release after this many us
-#define DXL_TX_TIMEOUT 800
+#define DXL_TX_TIMEOUT 300
 // this is how long the master waits to get a response from the slave
-#define DXL_RX_TIMEOUT 1000
+#define DXL_RX_TIMEOUT 500
 
 // Return packet types
 typedef struct {
