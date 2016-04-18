@@ -39,7 +39,7 @@ void DxlMotor::sendOpenLoop(float val) {
 bool DxlMotor::updated() {
   while (micros() - lastTX < DXL_TX_TIMEOUT) {
     if (master->listen() == DXL_RX_SUCCESS) {
-      if (master->getInstruction() == DXL_STATUS) {
+      if (master->getInstruction() == DXL_STATUS && master->packet[2] == id) {
         DxlPacketBLConStatus *status = (DxlPacketBLConStatus *)master->getPacket();
         rawPos = status->position;
         rawCurrent = status->current;
