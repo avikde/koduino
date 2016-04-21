@@ -42,7 +42,7 @@ static inline void wirishExternalInterruptHandler(uint8_t i);
 #endif
 static inline void wirishExternalInterruptHandler(uint8_t i) {
   EXTI_ClearITPendingBit(extiLines[i]);
-  __disable_irq();
+  // __disable_irq();
   EXTIChannel *S = &EXTI_MAP[i];
   // PWM_IN_EXTI pin?
   if (S->bPwmIn == 1) {
@@ -72,7 +72,7 @@ static inline void wirishExternalInterruptHandler(uint8_t i) {
     if (handler != 0)
       handler();
   }
-  __enable_irq();
+  // __enable_irq();
 }
 
 /** @addtogroup EXTI External interrupts
