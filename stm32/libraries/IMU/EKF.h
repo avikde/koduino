@@ -55,8 +55,8 @@ public:
   const mat3 I = mat3::Identity();
   vec3 gravity;
   
-  EKF(float stateNoise, float measNoise);
-  EKF() : EKF(0.1, 10) {}
+  EKF(float stateNoise, float measNoise, float dt);
+  EKF() : EKF(0.1, 10, 0.001) {}
   void init(const float *acc);
 
   // Main function

@@ -53,7 +53,8 @@ static inline mat3 crossSkew(const vec3 &w) {
   return W;
 }
 
-EKF::EKF(float stateNoise, float measNoise) : dt(0.001) {
+EKF::EKF(float stateNoise, float measNoise, float dt) {
+  this->dt = dt;
   gravity << 0, 0, kOneG;
 
   P.setZero();
