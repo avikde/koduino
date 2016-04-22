@@ -33,8 +33,9 @@
 template<int N> 
 class AbstractMotor {
 public:
+  bool autoUpdate;
   // Constructor?
-  // AbstractMotor()
+  AbstractMotor() : autoUpdate(true) {}
 
   /**
    * @brief Transformation for forces at the toe to joint torques
@@ -166,11 +167,18 @@ public:
     // invert the coordinate change
     abstractToPhysical(val, physicalVal);
 
-    for (int i=0; i<N; ++i) {
-      // Send command, but don't modify "val" (set by user)
-      correctedPhysicalVal[i] = motors[i]->mapVal(physicalVal[i]);
-      // send the command
-      motors[i]->sendOpenLoop(correctedPhysicalVal[i]);
+    // NOTE: the following is essentially calling "update()" on each motor
+    if (autoUpdate) {
+      for (int i=0; i<N; ++i) {
+        // Send command, but don't modify "val" (set by user)
+        correctedPhysicalVal[i] = motors[i]->mapVal(physicalVal[i]);
+        // send the command
+        motors[i]->sendOpenLoop(correctedPhysicalVal[i]);
+      }
+    } else {
+      // User will call update() on individual motors in the proper orders
+      for (int i=0; i<N; ++i)
+        motors[i]->setOpenLoop(physicalVal[i]);
     }
   }
 
