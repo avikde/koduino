@@ -27,7 +27,7 @@ bool MPU6000::init(uint8_t csPin) {
   pinMode(csPin, OUTPUT);
   digitalWrite(csPin, HIGH);
   theSPI.begin();
-  theSPI.setClockDivider(SPI_CLOCK_DIV2);
+  theSPI.setClockDivider(SPI_CLOCK_DIV4);
   theSPI.setBitOrder(MSBFIRST);
   theSPI.setDataMode(SPI_MODE0);
 
