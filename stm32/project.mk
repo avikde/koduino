@@ -138,7 +138,7 @@ ifeq ($(strip $(UPLOAD_PORT)),)
 ifeq ($(UNAME), Linux)
 	@python $(KODUINO_DIR)/system/stm32loader.py -p /dev/ttyUSB -E $(EEP_START) -L $(EEP_LEN) -b $(UPLOAD_BAUD) -y $(UPLOAD_ENTRY) -s $(SECTOR_ERASE) -ew $<
 else
-	@python $(KODUINO_DIR)/system/stm32loader.py -E $(EEP_START) -L $(EEP_LEN)  -b $(UPLOAD_BAUD) -y $(UPLOAD_ENTRY) -s $(SECTOR_ERASE) -ew $<
+	@python $(KODUINO_DIR)/system/stm32loader.py -E $(EEP_START) -L $(EEP_LEN) -b $(UPLOAD_BAUD) -y $(UPLOAD_ENTRY) -s $(SECTOR_ERASE) -ew $<
 endif
 else
 	@python $(KODUINO_DIR)/system/stm32loader.py -p $(UPLOAD_PORT) -E $(EEP_START) -L $(EEP_LEN) -b $(UPLOAD_BAUD) -y $(UPLOAD_ENTRY) -s $(SECTOR_ERASE) -ew $<
