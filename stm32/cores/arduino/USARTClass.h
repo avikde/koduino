@@ -178,7 +178,7 @@ static inline void ringBufferStore(unsigned char c, RingBuffer *buffer) {
 static inline void wirishUSARTInterruptHandler(USARTInfo *usartMap) __attribute__((always_inline, unused));
 static inline void wirishUSARTInterruptHandler(USARTInfo *usartMap)
 {
-  __disable_irq();
+  // __disable_irq();
   if(USART_GetITStatus(usartMap->USARTx, USART_IT_RXNE) != RESET) {
     // Read byte from the receive data register
     uint8_t c = USART_ReceiveData(usartMap->USARTx);
@@ -189,7 +189,7 @@ static inline void wirishUSARTInterruptHandler(USARTInfo *usartMap)
       ringBufferStore(c, usartMap->rxBuf);
     // USART_ClearITPendingBit(usartMap->USARTx, USART_IT_RXNE);
   }
-  __enable_irq();
+  // __enable_irq();
   if(USART_GetITStatus(usartMap->USARTx, USART_IT_TXE) != RESET) {
     // Write byte to the transmit data register
     if (usartMap->txBuf->head == usartMap->txBuf->tail) {
