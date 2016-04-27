@@ -50,7 +50,11 @@ public:
    * @param packetSize Size of the entire packet
    * @return true if connected, false if failed
    */
-  bool init(const char *header, const char *fmt, uint32_t packetSize);
+  bool init(const char *header, const char *fmt, uint32_t packetSize, bool check);
+
+  bool init(const char *header, const char *fmt, uint32_t packetSize) {
+    return init(header, fmt, packetSize, true);
+  }
 
   /**
    * @brief Start / stop logging data

@@ -22,11 +22,22 @@
 
 const uint8_t OL_ALIGNMENT[] = {0xaa, 0xbb};
 
-bool OpenLog::init(const char *header, const char *fmt, uint32_t packetSize) {
+bool OpenLog::init(const char *header, const char *fmt, uint32_t packetSize, bool check) {
   enabled = false;
   this->packetSize = packetSize;
-  pinMode(rst, OUTPUT);
   Ser.begin(baud);
+
+  if (!check) {
+    // simple
+    delay(500);
+    Ser << header << '\n';
+    Ser.flush();
+    Ser << fmt << '\n';
+    mode = OL_NORMAL;
+    return true;
+  }
+
+  pinMode(rst, OUTPUT);
   digitalWrite(rst, LOW);
   delay(100);
   digitalWrite(rst, HIGH);
