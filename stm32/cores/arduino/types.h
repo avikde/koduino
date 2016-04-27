@@ -111,7 +111,7 @@ typedef struct {
 } __attribute__ ((packed)) TimebaseChannel;
 
 // USART
-#define SERIAL_BUFFER_SIZE 64
+#define SERIAL_BUFFER_SIZE 80
 
 typedef struct RingBuffer {
   uint8_t buffer[SERIAL_BUFFER_SIZE];
