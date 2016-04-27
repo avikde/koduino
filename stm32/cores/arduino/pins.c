@@ -126,11 +126,11 @@ void pinMode(uint8_t pin, WiringPinMode wiringMode) {
     // setting this to high priority, just after SysTick
     uint8_t priority;
     if (PIN_MAP[pin].pin < 5)
-      priority = 4;
+      priority = 3;
     else if (PIN_MAP[pin].pin < 10)
-      priority = 5;
+      priority = 4;
     else
-      priority = 6;
+      priority = 5;
     attachInterruptWithPriority(pin, (ISRType)0, CHANGE, priority);
   } else {
     // Regular GPIO

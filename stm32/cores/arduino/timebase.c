@@ -39,7 +39,8 @@ void setupTimerUpdateInterrupt(uint8_t i, ISRType ISR, uint16_t prescaler, uint3
   TIM_ITConfig(TIMER_MAP[timer].TIMx, TIM_IT_Update, ENABLE);
   TIM_Cmd(TIMER_MAP[timer].TIMx, ENABLE);
   // Start interrupts with low priority
-  nvicEnable(TIMER_MAP[timer].IRQn, 0xf);
+  uint8_t priority = (i==0) ? 0xe : 0xf;
+  nvicEnable(TIMER_MAP[timer].IRQn, priority);
   
   TIMEBASE_MAP[i].isr = ISR;
 }
