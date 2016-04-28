@@ -72,6 +72,8 @@ private:
   void init(uint32_t baud, uint32_t wordLength, uint32_t parity, uint32_t stopBits);
 
 public:
+  uint8_t irqnPriority;
+  
   USARTClass(USARTInfo *usartMapPtr);
   // virtual ~USARTClass() {};
 

@@ -25,6 +25,10 @@ const uint8_t OL_ALIGNMENT[] = {0xaa, 0xbb};
 bool OpenLog::init(const char *header, const char *fmt, uint32_t packetSize, bool check) {
   enabled = false;
   this->packetSize = packetSize;
+
+  // new: set lower priority
+  Ser.irqnPriority = 0xd;
+
   Ser.begin(baud);
 
   if (!check) {

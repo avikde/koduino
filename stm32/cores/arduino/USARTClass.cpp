@@ -38,11 +38,13 @@ USARTClass::USARTClass(USARTInfo *usartMapPtr) {
 
   // transmitting = false;
   usartMap->rxCallback = NULL;
+
+  irqnPriority = 3;
 }
 
 void USARTClass::init(uint32_t baud, uint32_t wordLength, uint32_t parity, uint32_t stopBits) {
   // Enable interrupt (for RXNE)
-  nvicEnable(usartMap->irqChannel, 3);
+  nvicEnable(usartMap->irqChannel, irqnPriority);
   
   // Init USART
   USART_InitStructure.USART_BaudRate = baud;
