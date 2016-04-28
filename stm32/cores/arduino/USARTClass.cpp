@@ -159,6 +159,12 @@ void USARTClass::flush() {
 	while (USART_GetFlagStatus(usartMap->USARTx, USART_FLAG_TC) == RESET);
 }
 
+void USARTClass::stopTX() {
+  // don't wait for transmission of outgoing data
+  USART_ITConfig(usartMap->USARTx, USART_IT_TXE, DISABLE);
+  _txBuf.head = _txBuf.tail = 0;
+}
+
 void USARTClass::flushInput() {
   _rxBuf.tail = _rxBuf.head;
 }

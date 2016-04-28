@@ -21,7 +21,7 @@
 
 
 void DxlNode::init() {
-  Ser.begin(2000000);
+  Ser.begin(921600);
   digitalWrite(DE, LOW);
   pinMode(DE, OUTPUT);
 }
@@ -102,19 +102,28 @@ void DxlNode::setTX() {
   delayMicroseconds(1);
 }
 
-void DxlNode::setRX() {
-  Ser.flush();
+void DxlNode::setRX(bool force) {
+  // both of these ensure the out buffer is empty
+  if (force)
+    Ser.stopTX();
+  else
+    Ser.flush();
   delayMicroseconds(1);
   digitalWrite(DE, LOW);
   delayMicroseconds(1);
 }
 
 bool DxlNode::completeTX() {
-  // implement a timeout here: if 800 us have elapsed since the packet sending started (no idea why this would happen), then definitely release the bus
-  if (Ser.writeComplete() || (micros() - txTime) > DXL_TX_TIMEOUT) {
+  // implement a timeout here: if DXL_TX_TIMEOUT us have elapsed since the packet sending started (no idea why this would happen), then definitely release the bus
+  if (micros() - txTime > DXL_TX_TIMEOUT) {
+    setRX(true);
+    return true;
+  }
+  if (Ser.writeComplete()) {
     setRX();
     return true;
   }
+  // keep waiting
   return false;
 }
 

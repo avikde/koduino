@@ -113,6 +113,8 @@ public:
   virtual int read(void);
   virtual void flush(void);
 
+  void stopTX();
+
   /**
    * @brief Check if the previous write operation is finished
    * @details 

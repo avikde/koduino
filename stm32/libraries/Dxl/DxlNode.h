@@ -89,7 +89,7 @@ public:
   const void * getPacket() const { return (const void *)&packet[5]; }
 
   void setTX();
-  void setRX();
+  void setRX(bool force=false);
 protected:
   uint8_t writeByte(uint8_t c);
 
