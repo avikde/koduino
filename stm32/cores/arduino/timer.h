@@ -28,6 +28,8 @@
 extern "C"{
 #endif // __cplusplus
 
+extern uint8_t TIMER_IC_PRIORITY;
+
 // FUTURE IDEAS?
 // 
 // pinModeTimer should take another argument: ENCODER_AB, PWM_IN or PWM_OUT

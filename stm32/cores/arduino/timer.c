@@ -35,6 +35,8 @@
 #endif
 #define TIMER_PERIOD(freq_hz) ((int)TIMER_BASE_CLOCK/(freq_hz) - 1)
 
+uint8_t TIMER_IC_PRIORITY = 0;
+
 void pwmInExpectedPeriod(int expectedUs) {
   PWM_IN_EXTI_MAXPERIOD = SysTick->LOAD/1000*((int)(1.8 * expectedUs));
   PWM_IN_EXTI_MINPERIOD = SysTick->LOAD/1000*((int)(0.2 * expectedUs));
@@ -70,7 +72,7 @@ void analogWriteResolution(uint8_t nbits) {
 
 void timerInit(uint8_t timer, int freqHz) {
   // Enable interrupts for the timer (but not any of the timer updates yet)
-  nvicEnable(TIMER_MAP[timer].IRQn, 0);
+  nvicEnable(TIMER_MAP[timer].IRQn, TIMER_IC_PRIORITY);
 
   timerInitHelper(timer, 1, TIMER_PERIOD(freqHz));
   TIM_Cmd(TIMER_MAP[timer].TIMx, ENABLE);
@@ -80,7 +82,7 @@ void timerInit(uint8_t timer, int freqHz) {
 void pinTimerInit(uint8_t pin) {
   uint8_t timer = PIN_MAP[pin].timer;
 
-  nvicEnable(TIMER_MAP[timer].IRQn, 0);
+  nvicEnable(TIMER_MAP[timer].IRQn, TIMER_IC_PRIORITY);
   // Use the frequency set using analogWriteFrequency
   timerInitHelper(timer, 1, TIMER_PERIOD(TIMER_MAP[timer].freqHz));
   TIM_Cmd(TIMER_MAP[timer].TIMx, ENABLE);
