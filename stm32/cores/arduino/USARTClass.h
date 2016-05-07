@@ -59,7 +59,7 @@
  * @details 
  */
 class USARTClass : public Stream {
-private:
+public:
   // should this be static? i would think one per instance
   static USART_InitTypeDef USART_InitStructure;
   // static bool USARTSerial_Enabled;
@@ -71,7 +71,7 @@ private:
   // helper
   void init(uint32_t baud, uint32_t wordLength, uint32_t parity, uint32_t stopBits);
 
-public:
+// public:
   uint8_t irqnPriority;
   
   USARTClass(USARTInfo *usartMapPtr);
@@ -129,7 +129,7 @@ public:
   void flushInput();
 
   // override a block write from Print
-  // virtual size_t write(const uint8_t *buffer, size_t size);
+  virtual size_t write(const uint8_t *buffer, size_t size);
 
   /**
    * @brief Write a single character
@@ -155,9 +155,12 @@ public:
 
   operator bool() { return true; }
 
-  // Expose RX interrupt for PacketParser
-  virtual void attachInterrupt(ByteFunc);
-  virtual void detachInterrupt();
+  // // Expose RX interrupt for PacketParser
+  // virtual void attachInterrupt(ByteFunc);
+  // virtual void detachInterrupt();
+
+  // new for RS485
+  void attachBus(void *busObject) {usartMap->busObject = busObject;}
 
 // static bool isEnabled(void);
 };
@@ -166,6 +169,12 @@ public:
 
 extern "C"{
 #endif // __cplusplus
+
+// NEW for bus. these are defined in the bus class
+void busHandlerTC(void *busObject);
+void busHandlerRX(void *busObject, uint8_t byte);
+
+// Regular USART handlers
 
 static inline void ringBufferStore(unsigned char c, RingBuffer *buffer) __attribute__((always_inline, unused));
 static inline void ringBufferStore(unsigned char c, RingBuffer *buffer) {
@@ -182,30 +191,37 @@ static inline void ringBufferStore(unsigned char c, RingBuffer *buffer) {
 static inline void wirishUSARTInterruptHandler(USARTInfo *usartMap) __attribute__((always_inline, unused));
 static inline void wirishUSARTInterruptHandler(USARTInfo *usartMap)
 {
-  // __disable_irq();
   if(USART_GetITStatus(usartMap->USARTx, USART_IT_RXNE) != RESET) {
     // Read byte from the receive data register
     uint8_t c = USART_ReceiveData(usartMap->USARTx);
     // If interrupt is attached then don't use the RingBuffer
-    if (usartMap->rxCallback != 0)
-      usartMap->rxCallback(c);
+    if (usartMap->busObject != 0)
+      busHandlerRX(usartMap->busObject, c);
     else
       ringBufferStore(c, usartMap->rxBuf);
-    // USART_ClearITPendingBit(usartMap->USARTx, USART_IT_RXNE);
   }
-  // __enable_irq();
   if(USART_GetITStatus(usartMap->USARTx, USART_IT_TXE) != RESET) {
     // Write byte to the transmit data register
     if (usartMap->txBuf->head == usartMap->txBuf->tail) {
       // Buffer empty, so disable the USART Transmit interrupt
       USART_ITConfig(usartMap->USARTx, USART_IT_TXE, DISABLE);
+      // if (usartMap->busObject != 0) {
+      //   // delayMicroseconds(1);
+      //   busHandlerTC(usartMap->busObject);
+      // }
     }
     else {
       // There is more data in the output buffer. Send the next byte
       USART_SendData(usartMap->USARTx, usartMap->txBuf->buffer[usartMap->txBuf->tail++]);
       usartMap->txBuf->tail %= SERIAL_BUFFER_SIZE;
     }
-    // USART_ClearITPendingBit(usartMap->USARTx, USART_IT_TXE);
+  }
+  // New for bus: IT_TC is only enabled if a busObject is set
+  if(USART_GetITStatus(usartMap->USARTx, USART_IT_TC) != RESET) {
+    USART_ClearITPendingBit(usartMap->USARTx, USART_IT_TC);
+    USART_ITConfig(usartMap->USARTx, USART_IT_TC, DISABLE);
+    // this will link only if bus class is included
+    busHandlerTC(usartMap->busObject);
   }
 }
 
