@@ -133,6 +133,7 @@ typedef struct USARTInfo {
 
   // for callback on RX
   ByteFunc rxCallback;
+  void *busObject;
 } USARTInfo;
 
 /**

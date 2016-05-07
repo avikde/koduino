@@ -183,7 +183,7 @@ size_t USARTClass::write(uint8_t c) {
       // protect for good measure
       USART_ITConfig(usartMap->USARTx, USART_IT_TXE, DISABLE);
       // Write out a byte
-      USART_SendData(usartMap->USARTx,  _txBuf.buffer[_txBuf.tail++]);
+      USART_SendData(usartMap->USARTx, _txBuf.buffer[_txBuf.tail++]);
       _txBuf.tail %= SERIAL_BUFFER_SIZE;
       // unprotect
       USART_ITConfig(usartMap->USARTx, USART_IT_TXE, ENABLE);
@@ -195,16 +195,20 @@ size_t USARTClass::write(uint8_t c) {
 
   USART_ITConfig(usartMap->USARTx, USART_IT_TXE, ENABLE);
 
+  // NEW
+  if (usartMap->busObject != 0)
+    USART_ITConfig(usartMap->USARTx, USART_IT_TC, ENABLE);
+
 	return 1;
 }
 
-void USARTClass::attachInterrupt(ByteFunc f) {
-  usartMap->rxCallback = f;
-}
+// void USARTClass::attachInterrupt(ByteFunc f) {
+//   usartMap->rxCallback = f;
+// }
 
-void USARTClass::detachInterrupt() {
-  usartMap->rxCallback = NULL;
-}
+// void USARTClass::detachInterrupt() {
+//   usartMap->rxCallback = NULL;
+// }
 
 // CUSTOM FUNCTIONS
 
