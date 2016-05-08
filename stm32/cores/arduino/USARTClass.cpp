@@ -198,24 +198,24 @@ size_t USARTClass::write(uint8_t c) {
 	return 1;
 }
 
-size_t USARTClass::write(const uint8_t *buffer, size_t size) {
-  // HACK: to stop bootloading problems, don't output to Serial1 for the first second
-  // if (usartMap->USARTx == USART1 && millis() < 1000)
-  //   return 0;
+// size_t USARTClass::write(const uint8_t *buffer, size_t size) {
+//   // HACK: to stop bootloading problems, don't output to Serial1 for the first second
+//   // if (usartMap->USARTx == USART1 && millis() < 1000)
+//   //   return 0;
 
-  for (uint8_t i=0; i<size; ++i) {
-    uint8_t next = (_txBuf.head+1) % SERIAL_BUFFER_SIZE;
-    if (next == _txBuf.tail) {
-      return i;
-    }
-    _txBuf.buffer[next] = buffer[i];
-    _txBuf.head = next;
-  }
+//   for (uint8_t i=0; i<size; ++i) {
+//     uint8_t next = (_txBuf.head+1) % SERIAL_BUFFER_SIZE;
+//     if (next == _txBuf.tail) {
+//       return i;
+//     }
+//     _txBuf.buffer[next] = buffer[i];
+//     _txBuf.head = next;
+//   }
 
-  USART_ITConfig(usartMap->USARTx, USART_IT_TXE, ENABLE);
-  // bus uses its own write command
-  return size;
-}
+//   USART_ITConfig(usartMap->USARTx, USART_IT_TXE, ENABLE);
+//   // bus uses its own write command
+//   return size;
+// }
 
 // void USARTClass::attachInterrupt(ByteFunc f) {
 //   usartMap->rxCallback = f;
