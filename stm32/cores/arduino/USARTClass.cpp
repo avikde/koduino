@@ -171,8 +171,8 @@ void USARTClass::flushInput() {
 
 size_t USARTClass::write(uint8_t c) {
   // HACK: to stop bootloading problems, don't output to Serial1 for the first second
-  // if (usartMap->USARTx == USART1 && millis() < 1000)
-  //   return 0;
+  if (usartMap->USARTx == USART1 && millis() < 1000)
+    return 0;
 
   uint8_t next = (_txBuf.head + 1) % SERIAL_BUFFER_SIZE;
 

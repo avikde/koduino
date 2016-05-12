@@ -30,26 +30,40 @@ void DxlMotor::sendOpenLoop(float val) {
   // sign reversed
   float valToSend = (enableFlag) ? map(-val, -1, 1, 0.12, 0.88) : 0;
   // clear RX
-  master->Ser.flushInput();
   master->sendPacket(id, DXL_CMD_SET_OPEN_LOOP, 4, (uint8_t *)&valToSend);
-  lastTX = micros();
+  master->parserState = DXL_SEARCH_FIRST_FF;
+  master->Ser.flushInput();
+  // lastTX = micros();
   // don't wait here, instead make user call updated() before using this master again
-}
 
-bool DxlMotor::updated() {
-  while (micros() - lastTX < DXL_TX_TIMEOUT) {
-    if (master->listen() == DXL_RX_SUCCESS) {
-      if (master->getInstruction() == DXL_STATUS && master->packet[2] == id) {
-        DxlPacketBLConStatus *status = (DxlPacketBLConStatus *)master->getPacket();
-        rawPos = status->position;
-        rawCurrent = status->current;
-      }
-      delayMicroseconds(10);
-      return true;
+  // NEW BLOCKING
+  uint32_t tic1 = micros();
+  while (micros()-tic1 < 350) {
+    master->listen();
+    if (master->responseReceived) {
+      updateStatus(master->pktId, (DxlPacketBLConStatus *)master->packet);
+      break;
     }
   }
-  // timed out: get rid of anything received
-  master->Ser.flushInput();
-  return false;
+}
+
+void DxlMotor::updateStatus(uint8_t id, DxlPacketBLConStatus *status) {
+  if (id == this->id) {
+    rawPos = status->position;
+    rawCurrent = status->current;
+  }
+  // while (micros() - lastTX < DXL_TX_TIMEOUT) {
+  //   if (master->listen() == DXL_RX_SUCCESS) {
+  //     if (master->getInstruction() == DXL_STATUS && master->packet[2] == id) {
+  //       DxlPacketBLConStatus *status = (DxlPacketBLConStatus *)master->getPacket();
+        
+  //     }
+  //     delayMicroseconds(10);
+  //     return true;
+  //   }
+  // }
+  // // timed out: get rid of anything received
+  // master->Ser.flushInput();
+  // return false;
 }
 

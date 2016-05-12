@@ -134,7 +134,7 @@ float Motor::update() {
   // In open-loop mode, val has been set and nothing else needs to be done
 
   // Send command, but don't modify "val" (set by user)
-  correctedVal = mapVal(val + barrier.calculate(pos));
+  correctedVal = mapVal(val);// + barrier.calculate(pos));
 
   // send the command
   sendOpenLoop(correctedVal);

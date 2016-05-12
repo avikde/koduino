@@ -21,15 +21,15 @@
 
 #include <Arduino.h>
 
-#define DXL_MAX_PACKET_SIZE 32
+#define DXL_RX_SIZE 32
 
-enum DxlRxStatus {
-  DXL_RX_SUCCESS = 0,
-  DXL_RX_ID_WRONG = 1,
-  DXL_RX_BAD_CHECKSUM = 2,
-  DXL_RX_BAD_LENGTH = 3,
-  DXL_RX_WAITING = 4
-};
+// enum DxlRxStatus {
+//   DXL_RX_SUCCESS = 0,
+//   DXL_RX_ID_WRONG = 1,
+//   DXL_RX_BAD_CHECKSUM = 2,
+//   DXL_RX_BAD_LENGTH = 3,
+//   DXL_RX_WAITING = 4
+// };
 
 // Configuration commands
 #define DXL_STATUS 0x00 // slave return packet has this as instruction byte
@@ -52,6 +52,16 @@ typedef struct {
   float position, current;
 } __attribute__ ((packed)) DxlPacketBLConStatus;
 
+typedef void (*PacketReceivedCallback)(uint8_t, uint8_t, volatile uint8_t *);
+
+enum DxlParserState {
+  DXL_SEARCH_FIRST_FF=0,
+  DXL_SEARCH_SECOND_FF,
+  DXL_SEARCH_ID,
+  DXL_SEARCH_LENGTH,
+  DXL_SEARCH_COMMAND,
+  DXL_GET_PARAMETERS
+};
 
 class DxlNode {
 public:
@@ -61,39 +71,137 @@ public:
   const bool isMaster;
   
   // incoming packet
-  uint8_t packet[DXL_MAX_PACKET_SIZE];
+  volatile uint8_t packet[DXL_RX_SIZE];
+  // packet parser variables
+  volatile uint8_t nParams, pktId, pktCmd, paramsSeen, rxChecksum, txChecksum;
+  volatile DxlParserState parserState;
+  // callback to call when a good packet is received
+  PacketReceivedCallback packetReceived;
+  volatile bool responseReceived;
 
   // functions
-  DxlNode(uint8_t rts, USARTClass& ser, uint8_t myAddress) : DE(rts), myAddress(myAddress), Ser(ser), isMaster(false), txTime(0) {}
-  DxlNode(uint8_t rts, USARTClass& ser) : DE(rts), myAddress(0), Ser(ser), isMaster(true), txTime(0) {}
+  DxlNode(uint8_t rts, USARTClass& ser, uint8_t myAddress) : DE(rts), myAddress(myAddress), Ser(ser), isMaster(false) {}
+  DxlNode(uint8_t rts, USARTClass& ser) : DE(rts), myAddress(0), Ser(ser), isMaster(true) {}
 
-
-  void init();
+  // for slave, this makes the packet parsing part of the Serial RXNE interrupt
+  // for master, pass NULL. this uses the standard Serial RX and master needs to call parseRX()
+  void init(PacketReceivedCallback cb);
   // instErr can be instruction (instruction packet) or error code (status packet)
   // params is of length N
   // wait = true => waits till TX finished and puts back in RX mode
   // wait = false => returns immediately
-  void sendPacket(uint8_t id, uint8_t instErr, uint8_t N, uint8_t *params, bool wait);
-  void sendPacket(uint8_t id, uint8_t instErr, uint8_t N, uint8_t *params) {
-    sendPacket(id, instErr, N, params, true);
+
+  // void sendPacket(uint8_t id, uint8_t instErr, uint8_t N, uint8_t *params, bool wait);
+  inline void sendPacket(uint8_t id, uint8_t instErr, uint8_t N, uint8_t *params) {
+    if (isMaster)
+      responseReceived = false;
+    
+    uint8_t checksum = 0;
+
+    // set to TX mode. TC interrupt sets back.
+    digitalWrite(DE, HIGH);
+
+    // packet = 0xFF,0xFF,ID,N+2,INST_ERR,<N BYTES>,CHECKSUM
+    Ser._txBuf.tail = 0;
+    Ser._txBuf.buffer[0] = Ser._txBuf.buffer[1] = 0xff;
+    checksum += (Ser._txBuf.buffer[2] = id);
+    checksum += (Ser._txBuf.buffer[3] = N+2);
+    checksum += (Ser._txBuf.buffer[4] = instErr);
+    for (uint8_t i=0; i<N; ++i) {
+      checksum += (Ser._txBuf.buffer[5+i] = params[i]);
+    }
+    Ser._txBuf.buffer[N+5] = ~checksum;
+    txChecksum = Ser._txBuf.buffer[N+5];
+    // set head past the end
+    Ser._txBuf.head = N+6;
+    // start interrupts
+    USART_ITConfig(Ser.usartMap->USARTx, USART_IT_TXE, ENABLE);
+    USART_ITConfig(Ser.usartMap->USARTx, USART_IT_TC, ENABLE);
   }
-  // checks if TX complete, if so sets to RX mode
-  bool completeTX();
 
-  // Update function that should be called as often as possible
-  DxlRxStatus listen();
-  DxlRxStatus checkPacket();
+  inline void parseRX(uint8_t c) {
+    // packet = 0xFF,0xFF,ID,N+2,INST_ERR,<N BYTES>,CHECKSUM
+    switch (parserState) {
 
-  // functions on the latest packet
-  uint8_t getInstruction() const { return packet[4]; }
-  const void * getPacket() const { return (const void *)&packet[5]; }
+      case DXL_SEARCH_FIRST_FF:
+        if (c == 0xFF)
+          parserState = DXL_SEARCH_SECOND_FF;
+        break;
 
-  void setTX();
-  void setRX(bool force=false);
-protected:
-  uint8_t writeByte(uint8_t c);
+      case DXL_SEARCH_SECOND_FF:
+        if (c == 0xFF) {
+          parserState = DXL_SEARCH_ID;
+          rxChecksum = 0;
+        } else
+          parserState = DXL_SEARCH_FIRST_FF;
+        break;
 
-  uint32_t txTime;
+      case DXL_SEARCH_ID:
+        rxChecksum += (pktId = c);
+        parserState = DXL_SEARCH_LENGTH;
+        break;
+
+      case DXL_SEARCH_LENGTH:
+        if ((isMaster || (pktId == myAddress)) && c < DXL_RX_SIZE) {
+          nParams = c-2;
+          rxChecksum += c;
+          paramsSeen = 0;
+          parserState = DXL_SEARCH_COMMAND;
+        } else
+          parserState = DXL_SEARCH_FIRST_FF;
+        break;
+
+      case DXL_SEARCH_COMMAND:
+        rxChecksum += (pktCmd = c);
+        parserState = DXL_GET_PARAMETERS;
+        break;
+
+      case DXL_GET_PARAMETERS:
+        if (paramsSeen >= nParams) {
+          if (c == (uint8_t)~rxChecksum) {
+            // callback
+            if (isMaster)
+              responseReceived = true;
+            if (packetReceived != NULL) {
+              packetReceived(pktId, pktCmd, packet);
+            }
+            parserState = DXL_SEARCH_FIRST_FF;
+          } else {
+            parserState = (c == 0xFF) ? DXL_SEARCH_SECOND_FF : DXL_SEARCH_FIRST_FF;
+          }
+        } else {
+          rxChecksum += (packet[paramsSeen++] = c);
+        }
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  inline void listen() {
+    while (Ser.available()) {
+      parseRX(Ser.read());
+    }
+  }
+
+  // // checks if TX complete, if so sets to RX mode
+  // bool completeTX();
+
+  // // Update function that should be called as often as possible
+  // DxlRxStatus listen();
+  // DxlRxStatus checkPacket();
+
+  // // functions on the latest packet
+  // uint8_t getInstruction() const { return packet[4]; }
+  // const void * getPacket() const { return (const void *)&packet[5]; }
+
+  // void setTX();
+  // void setRX(bool force=false);
+// protected:
+  // uint8_t writeByte(uint8_t c);
+
+  // uint32_t txTime;
 };
 
 

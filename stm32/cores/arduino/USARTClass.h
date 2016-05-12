@@ -171,9 +171,10 @@ extern "C"{
 #endif // __cplusplus
 
 // NEW for bus. these are defined in the bus class
-void busHandlerTC(void *busObject);
-void busHandlerRX(void *busObject, uint8_t byte);
-
+void busHandlerTC(void *busObject) WEAK;
+void busHandlerTC(void *busObject) {}
+void busHandlerRX(void *busObject, uint8_t byte) WEAK;
+void busHandlerRX(void *busObject, uint8_t byte) {}
 // Regular USART handlers
 
 static inline void ringBufferStore(unsigned char c, RingBuffer *buffer) __attribute__((always_inline, unused));
