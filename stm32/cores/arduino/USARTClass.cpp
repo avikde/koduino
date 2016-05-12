@@ -232,3 +232,9 @@ uint8_t USARTClass::peekAt(uint8_t pos) {
   // initially tail=head. so peekAt(0) should return tail+1
   return _rxBuf.buffer[(_rxBuf.tail + pos + 1) % SERIAL_BUFFER_SIZE];
 }
+
+extern "C" {
+// weak definitions
+void busHandlerTC(void *busObject) {}
+void busHandlerRX(void *busObject, uint8_t byte) {}
+}
