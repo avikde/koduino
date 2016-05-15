@@ -72,15 +72,15 @@ STD_PERIPH_MODULES = adc exti flash gpio i2c misc pwr rcc spi syscfg tim usart d
 
 # Cygwin needs a prefix, also if not windows, get kernel name
 UNAME := 
-ifeq ($(OS),Windows_NT)
-	PREF := /cygwin64
-else
-	UNAME := $(shell uname)
-	PREF := 
-endif
+# ifeq ($(OS),Windows_NT)
+# 	PREF := /cygwin64
+# else
+UNAME := $(shell uname)
+PREF := 
+# endif
 
 # Libraries
-EXTRA_LIB_INCS = $(patsubst %,-I$(PREF)$(KODUINO_DIR)/libraries/%,$(LIBRARIES))
+EXTRA_LIB_INCS = $(patsubst %,-I"$(PREF)$(KODUINO_DIR)/libraries/%",$(LIBRARIES))
 
 # Compile and link flags
 BFLAGSMCU = -mfpu=fpv4-sp-d16 -mfloat-abi=hard -fsingle-precision-constant -ffast-math -D__FPU_PRESENT=1 -DARM_MATH_CM4 -mcpu=cortex-m4
@@ -97,7 +97,7 @@ $(BFLAGSMCU) \
 -fno-common -fno-exceptions -ffunction-sections -fdata-sections -nostartfiles \
 -DHSE_VALUE=$(HSE_VALUE) -DCLKSRC_$(CLKSRC) -DKODUINO_ISRS_$(KODUINO_ISRS) -DMAX_PROGRAM_SIZE=$(MAX_PROGRAM_SIZE) -D$(MCU) -DUSE_STDPERIPH_DRIVER -DSERIES_$(SERIES)
 
-INCFLAGS = -I$(CMSIS_DIR)/Device/ST/$(SERIES)/Include -I$(CMSIS_DIR)/Include -I$(STD_PERIPH_DIR)/inc -I$(VARIANT_DIR) -I$(CORE_DIR) $(EXTRA_LIB_INCS)
+INCFLAGS = -I"$(CMSIS_DIR)/Device/ST/$(SERIES)/Include" -I"$(CMSIS_DIR)/Include" -I"$(STD_PERIPH_DIR)/inc" -I"$(VARIANT_DIR)" -I"$(CORE_DIR)" $(EXTRA_LIB_INCS)
 
 CFLAGS = -std=c99 -Wall $(BFLAGS) $(INCFLAGS)
 CXXFLAGS = -std=c++0x -felide-constructors -fno-rtti $(BFLAGS) $(INCFLAGS)
