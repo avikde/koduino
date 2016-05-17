@@ -169,7 +169,7 @@ $(BUILDDIR)/$(PROJNAME).bin: $(OBJS)
 	@echo "[LD] $(@F)"
 	@$(LD) $(LDFLAGS) $(OBJS) $(KODUINO_DIR)/system/lib$(SERIES).a -o $(BUILDDIR)/$(PROJNAME).elf $(LDFLAGSMCU)
 	@arm-none-eabi-objcopy --output-target=binary $(BUILDDIR)/$(PROJNAME).elf $(BUILDDIR)/$(PROJNAME).bin
-	@$(SZ) $(BUILDDIR)/$(PROJNAME).elf | tail -n 1 | awk '{print "Flash: ", $$1+$$2, ", RAM: ", $$2+$$3}'
+	@$(SZ) $(BUILDDIR)/$(PROJNAME).elf | tail -n 1 | awk '{print "Flash: ", $$1+$$2, "\tRAM: ", $$2+$$3}'
 
 disassemble: $(BUILDDIR)/$(PROJNAME).bin
 	@$(OBJDMP) -x --syms $(PREF)$< > $(BUILDDIR)/$(PROJNAME).dmp
