@@ -30,6 +30,7 @@ f301.build.ldscript=STM32F302R8_FLASH.ld
 f301.build.variant=f301
 f301.build.dependency=true
 f301.build.isrs=CALL
+f301.build.board=STM32_F301
 
 # Flash size choices
 f301.menu.flashsize.64k = 64KB (F30**8)
@@ -103,6 +104,7 @@ f303v.build.extra_flags=
 f303v.build.ldscript=STM32F303VC_FLASH.ld
 f303v.build.variant=f303v
 f303v.build.isrs=INLINE
+f303v.build.board=STM32_F303V
 
 # HSE choices
 f303v.menu.hse.8m=72MHz (from 8MHz HSE)
@@ -145,6 +147,7 @@ f37x.build.core=arduino
 f37x.build.extra_flags=
 f37x.build.ldscript=STM32_FLASH.ld
 f37x.build.variant=f37x
+f37x.build.board=STM32_F37X
 
 # HSE choices
 f37x.build.hse_value=16000000UL
@@ -192,6 +195,7 @@ f40_41x.build.core=arduino
 f40_41x.build.extra_flags=
 f40_41x.build.ldscript=STM32F417IG_FLASH.ld
 f40_41x.build.variant=f40_41x
+f40_41x.build.board=STM32_F40_41X
 
 # HSE choices
 f40_41x.build.hse_value=16000000UL
