@@ -133,7 +133,13 @@ all: flash
 
 # $(KODUINO_DIR)/system/stm32flash/stm32flash -i -rts,-dtr,dtr:rts,-dtr,dtr -w $< -R -b $(UPLOAD_BAUD) -n 1000
 flash: $(BUILDDIR)/$(PROJNAME).bin
+
 ifeq ($(UPLOAD_METHOD), SERIAL)
+ifneq (,$(findstring MINGW, $(UNAME)))
+# stm32ld
+	@$(KODUINO_DIR)/system/stm32ld/stm32ld.exe $(UPLOAD_PORT) $(UPLOAD_BAUD) $(UPLOAD_ENTRY) $< 1
+else
+# stm32loader.py
 ifeq ($(strip $(UPLOAD_PORT)),)
 ifeq ($(UNAME), Linux)
 	@python $(KODUINO_DIR)/system/stm32loader.py -p /dev/ttyUSB -E $(EEP_START) -L $(EEP_LEN) -b $(UPLOAD_BAUD) -y $(UPLOAD_ENTRY) -s $(SECTOR_ERASE) -ew $<
@@ -143,11 +149,14 @@ endif
 else
 	@python $(KODUINO_DIR)/system/stm32loader.py -p $(UPLOAD_PORT) -E $(EEP_START) -L $(EEP_LEN) -b $(UPLOAD_BAUD) -y $(UPLOAD_ENTRY) -s $(SECTOR_ERASE) -ew $<
 endif
+endif
 else
 ifeq ($(UPLOAD_METHOD), NUCLEO)
+# nucleo
 	@sudo python $(KODUINO_DIR)/system/mbedremounter.py
 	@cp $< /Volumes/NUCLEO/
 else
+# dfu-util
 ifeq ($(UNAME),Linux)
 	@sudo dfu-util -d 0483:df11 -a 0 -s 0x08000000 -D $<
 else
