@@ -191,10 +191,10 @@ void Brushless::init(uint32_t absPos, int commutationRate) {
   accF.init(0.1, commutationRate, DLPF_RATE);
 }
 
-void Brushless::calibrate(float sweepAmplitude, float convergenceThreshold) {
+void Brushless::calibrate(float sweepAmplitude, uint32_t pauseDuration) {
   // 
   const uint32_t sweepDuration = 500;
-  const uint32_t pauseDuration = 500;
+  const float convergenceThreshold = 1.0;
 
   // detect if motor wires need to be swapped
   noTimerInterrupts();

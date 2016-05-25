@@ -80,10 +80,10 @@ public:
    * @details This will first command 3 positions in open loop to determine the order of the wires, and write this setting to EEPROM position 1. Next, it will spin the motor back and forth, doing gradient descent on the total angle swept till it spins equally well in both directions. It writes the magnet zero to EEPROM position 0.
    * 
    * @param sweepAmplitude The amplitude of the sweeping back and forth. This should be increased for low Kv motors, decreased when bus voltage is higher.
-   * @param convergenceThreshold Threshold of difference between left and right sweeps (default is 1)
+   * @param pauseDuration ms to stop for. Need higher for higher inertia motors. Default = 500
    */
-  void calibrate(float sweepAmplitude, float convergenceThreshold);
-  void calibrate(float sweepAmplitude) {calibrate(sweepAmplitude, 1);}
+  void calibrate(float sweepAmplitude, uint32_t pauseDuration);
+  void calibrate(float sweepAmplitude) {calibrate(sweepAmplitude, 500);}
 
   /**
    * @brief Update the desired amplitude
