@@ -32,7 +32,7 @@
 class DxlMotor : public Motor {
 public:
   // Constructor (sets defaults)
-  DxlMotor() :  id(0), rawPos(0) {}
+  DxlMotor() :  id(0), failures(0), wrongID(0), rawPos(0), prevPos(NAN), lastRX(0) {}
 
   void init(DxlNode *master_, uint8_t id_, float zero, int8_t dir, float gearRatio);
   /**
@@ -62,7 +62,8 @@ public:
    * @details Waits will master is free after the previous Motor::update(). This must be called before trying to use the same master again.
    * @return true if the ping succeeded, false if there was a comms failure.
    */
-  void updateStatus(uint8_t id, DxlPacketBLConStatus *status);
+  // void updateStatus(uint8_t id, DxlPacketBLConStatus *status);
+  void update2();
 
   /**
    * @brief Returns the current value received from the motor controller
@@ -71,11 +72,13 @@ public:
   float getCurrent() {return rawCurrent;}
 
   uint8_t id;
+  uint32_t failures, wrongID;
 protected:
   DxlNode *master;
-  float rawPos;
+  float rawPos, prevPos;
+  uint32_t lastRX;
   float rawCurrent;
-  // uint32_t lastTX;
+  uint32_t lastTX;
 };
 
 /** @} */ // end of addtogroup

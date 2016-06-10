@@ -33,37 +33,85 @@ void DxlMotor::sendOpenLoop(float val) {
   master->sendPacket(id, DXL_CMD_SET_OPEN_LOOP, 4, (uint8_t *)&valToSend);
   master->parserState = DXL_SEARCH_FIRST_FF;
   master->Ser.flushInput();
-  // lastTX = micros();
+  lastTX = micros();
   // don't wait here, instead make user call updated() before using this master again
 
-  // NEW BLOCKING
-  uint32_t tic1 = micros();
-  while (micros()-tic1 < 350) {
-    master->listen();
-    if (master->responseReceived) {
-      updateStatus(master->pktId, (DxlPacketBLConStatus *)master->packet);
-      break;
-    }
-  }
+  // // NEW BLOCKING
+  // uint32_t tic1 = micros();
+  // bool timedout = false;
+  // while (!timedout) {
+  //   master->listen();
+  //   if (master->responseReceived) {
+  //     updateStatus(master->pktId, (DxlPacketBLConStatus *)master->packet);
+  //     return;
+  //   }
+  //   uint32_t delt = micros()-tic1;
+  //   // FIXME micros bug when bus is running
+  //   timedout = (delt > 320 && delt < 1000);
+  // }
+  // // timed out (no updateStatus called)
+  // failures++;
 }
 
-void DxlMotor::updateStatus(uint8_t id, DxlPacketBLConStatus *status) {
-  if (id == this->id) {
-    rawPos = status->position;
-    rawCurrent = status->current;
+
+void DxlMotor::update2() {
+  // TIMEOUT and disable 
+  // FIXME micros bug
+  bool timedout = (micros() - lastRX > 25000 && micros() - lastRX < 30000);
+  // safety
+  if (!isnan(prevPos) && timedout) {
+    enableFlag = false;
   }
-  // while (micros() - lastTX < DXL_TX_TIMEOUT) {
-  //   if (master->listen() == DXL_RX_SUCCESS) {
-  //     if (master->getInstruction() == DXL_STATUS && master->packet[2] == id) {
-  //       DxlPacketBLConStatus *status = (DxlPacketBLConStatus *)master->getPacket();
-        
-  //     }
-  //     delayMicroseconds(10);
-  //     return true;
-  //   }
-  // }
-  // // timed out: get rid of anything received
-  // master->Ser.flushInput();
-  // return false;
+
+  // BLock here till the update comes back
+  timedout = false;
+  while (!timedout) {
+    master->listen();
+    if (master->responseReceived) {
+      DxlPacketBLConStatus *status = (DxlPacketBLConStatus *)master->packet;
+      if (master->pktId == this->id) {
+        prevPos = rawPos = status->position;
+        rawCurrent = status->current;
+        // timestamp this received packet
+        lastRX = micros();
+      } else {
+        wrongID++;
+      }
+      return;
+    }
+    uint32_t delt = micros()-lastTX;
+    // FIXME micros bug when bus is running
+    timedout = (delt > 320 && delt < 1000);
+  }
+  // timed out (no updateStatus called)
+  failures++;
 }
+
+
+// void DxlMotor::updateStatus(uint8_t id, DxlPacketBLConStatus *status) {
+//    // FIXME micros bug
+//   bool timedout = (micros() - lastRX > 25000 && micros() - lastRX < 30000);
+//   // safety
+//   if (!isnan(prevPos) && timedout) {
+//     enableFlag = false;
+//   }
+
+//   if (id == this->id) {
+//     // const float rpusLimit = 50 / ((float)1000000);
+//     // float dispLimit = rpusLimit * (micros() - lastRX);
+//     // if (!isnan(prevPos)) {
+//     //   float absDisplacement = fabsf(fmodf_mpi_pi(status->position - prevPos));
+//     //   if (absDisplacement > dispLimit) {
+//     //     // this is a pos read error
+//     //     return;
+//     //   }
+//     // }
+//     // no pos read error
+//     prevPos = rawPos = status->position;
+//     rawCurrent = status->current;
+//     lastRX = micros();
+//   } else {
+//     wrongID++;
+//   }
+// }
 
