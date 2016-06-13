@@ -131,6 +131,11 @@ f303v.menu.bootloader.stm32ld.upload.baud=230400
 f303v.menu.bootloader.stm32ld.upload.protocol=serial
 f303v.menu.bootloader.stm32ld.upload.options=mblc
 
+f303v.menu.bootloader.stlink=ST-LINK
+f303v.menu.bootloader.stlink.upload.tool=stlink
+f303v.menu.bootloader.stlink.upload.protocol=stlink
+f303v.menu.bootloader.stlink.upload.options=
+
 f303v.menu.bootloader.dfu_util=dfu-util
 f303v.menu.bootloader.dfu_util.upload.tool=dfu_util
 f303v.menu.bootloader.dfu_util.upload.protocol=dfu
