@@ -184,9 +184,9 @@ void TIM1_BRK_TIM15_IRQHandler() {
 // EXTI
 
 // USART
-void USART1_IRQHandler() {
-  wirishUSARTInterruptHandler(&USART_MAP[0]);
-}
+// void USART1_IRQHandler() {
+//   wirishUSARTInterruptHandler(&USART_MAP[0]);
+// }
 void USART2_IRQHandler() {
   wirishUSARTInterruptHandler(&USART_MAP[1]);
 }
