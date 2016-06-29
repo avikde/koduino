@@ -21,6 +21,26 @@
 #include "pins.h"
 #include "system_clock.h"
 
+void configUSARTPins(USART_TypeDef *USARTx, uint8_t txPin, uint8_t rxPin) {
+  // Need to check datasheet
+  uint8_t af = 7;
+#if defined(SERIES_STM32F4xx)
+  // FIXME: this will need to be expanded
+  if (USARTx == USART6) {
+    af = 8;
+  }
+#endif
+#if defined(SERIES_STM32F30x)
+  // FIXME: this will need to be expanded
+  if (USARTx == UART4 || USARTx == UART5) {
+    af = 5;
+  }
+#endif
+  pinModeAlt(txPin, GPIO_OType_PP, GPIO_PuPd_UP, af);
+  pinModeAlt(rxPin, GPIO_OType_PP, GPIO_PuPd_UP, af);
+}
+
+
 // Initialize Class Variables //////////////////////////////////////////////////
 USART_InitTypeDef USARTClass::USART_InitStructure;
 // bool USARTClass::USARTSerial_Enabled = false;
@@ -61,22 +81,7 @@ void USARTClass::init(uint32_t baud, uint32_t wordLength, uint32_t parity, uint3
 // Public Methods //////////////////////////////////////////////////////////////
 
 void USARTClass::begin(uint32_t baud, uint8_t config) {
-  // Need to check datasheet
-  uint8_t af = 7;
-#if defined(SERIES_STM32F4xx)
-  // FIXME: this will need to be expanded
-  if (usartMap->USARTx == USART6) {
-    af = 8;
-  }
-#endif
-#if defined(SERIES_STM32F30x)
-  // FIXME: this will need to be expanded
-  if (usartMap->USARTx == UART4 || usartMap->USARTx == UART5) {
-    af = 5;
-  }
-#endif
-  pinModeAlt(usartMap->txPin, GPIO_OType_PP, GPIO_PuPd_UP, af);
-  pinModeAlt(usartMap->rxPin, GPIO_OType_PP, GPIO_PuPd_UP, af);
+  configUSARTPins(usartMap->USARTx, usartMap->txPin, usartMap->rxPin);
 
   switch (config) {
     case SERIAL_8N1: init(baud, USART_WordLength_8b, USART_Parity_No, USART_StopBits_1);

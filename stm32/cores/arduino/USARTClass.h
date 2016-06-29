@@ -53,6 +53,14 @@
 #include "Stream.h"
 
 
+/**
+ * @brief Helper function that configures pins for USART
+ * 
+ * @param USARTx which USART
+ * @param txPin transmit pin
+ * @param rxPin receive pin
+ */
+void configUSARTPins(USART_TypeDef *USARTx, uint8_t txPin, uint8_t rxPin);
 
 /**
  * @brief Serial / USART library (use on global objects `Serial<x>` where `<x>` can be 1, 2, 3)
