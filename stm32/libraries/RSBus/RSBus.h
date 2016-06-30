@@ -57,7 +57,7 @@ void rsBusInit(uint8_t txPin, uint8_t rxPin, uint8_t slaveid);
  * if (rsBusGetS2M(cmd, pos, cur, vel))
  * 
  */
-void rsBusTxDMA();
+bool rsBusMasterLoop();
 
 // FOR TESTING ONLY
 void rsBusTxPolling();
@@ -69,5 +69,7 @@ bool rsBusGetM2S(uint8_t& cmd, float& param1);
 
 void rsBusSetS2M(uint8_t cmd, float param1, float param2, float param3);
 bool rsBusGetS2M(uint8_t& cmd, float& param1, float& param2, float& param3);
+
+extern uint16_t s2mBuf[];
 
 #endif

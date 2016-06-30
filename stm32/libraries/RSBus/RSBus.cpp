@@ -58,7 +58,7 @@ typedef struct {
   uint16_t checksum[2];
 } __attribute__ ((packed)) RSBusS2M;
 uint16_t m2sBuf[RSBUS_M2S_PACKET_SIZE] = {0,0,0,0,0,0,0,0};
-uint16_t s2mBuf[RSBUS_S2M_PACKET_SIZE] = {RSBUS_MASTER_ID, 0,0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0};
+uint16_t s2mBuf[RSBUS_S2M_PACKET_SIZE] = {RSBUS_MASTER_ID,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0};
 
 // helper returns sum of bytes to go into checksum as well
 static inline uint16_t param2buf(int paramSize, const uint8_t *param, uint16_t *bufParam) {
@@ -132,7 +132,10 @@ void rsBusInit(uint8_t txPin, uint8_t rxPin, uint8_t slaveId) {
 
   configUSARTPins(RSBUS_USARTx, txPin, rxPin);
 
-  nvicEnable(RSBUS_USART_IRQn, priority);
+  // slave needs interrupt for stuff
+  if (RSBUS_ID != RSBUS_MASTER_ID) {
+    nvicEnable(RSBUS_USART_IRQn, priority);
+  }
   
   // Init USART
   USART_OverSampling8Cmd(RSBUS_USARTx, ENABLE);
@@ -145,25 +148,18 @@ void rsBusInit(uint8_t txPin, uint8_t rxPin, uint8_t slaveId) {
   USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
   USART_Init(RSBUS_USARTx, &USART_InitStructure);
 
-  if (RSBUS_ID != RSBUS_MASTER_ID) {
-    // slave config multiprocessor comms stuff
-    //   2. Configures the USART address using the USART_SetAddress() function.
-    USART_AddressDetectionConfig(RSBUS_USARTx, USART_AddressLength_7b);
-    USART_SetAddress(RSBUS_USARTx, RSBUS_ID);
-    // 3. Configures the wake up methode (USART_WakeUp_IdleLine or
-    // USART_WakeUp_AddressMark) using USART_WakeUpConfig() function only for the
-    // slaves.
-    USART_MuteModeWakeUpConfig(RSBUS_USARTx, USART_WakeUp_AddressMark);
-    // 4. Enable the USART using the USART_Cmd() function.
-  }
-
+  // // 2. Configures the USART address using the USART_SetAddress() function.
+  // USART_AddressDetectionConfig(RSBUS_USARTx, USART_AddressLength_7b);
+  // USART_SetAddress(RSBUS_USARTx, RSBUS_ID);
+  // // 3. Configures the wake up methode (USART_WakeUp_IdleLine or
+  // // USART_WakeUp_AddressMark) using USART_WakeUpConfig() function only for the
+  // // slaves.
+  // USART_MuteModeWakeUpConfig(RSBUS_USARTx, USART_WakeUp_AddressMark);
+  // // 4. Enable the USART using the USART_Cmd() function.
   USART_Cmd(RSBUS_USARTx, ENABLE);
-  
-  if (RSBUS_ID != RSBUS_MASTER_ID) {
-    // 5. Enter the USART slaves in mute mode using USART_ReceiverWakeUpCmd()
-    // function.
-    USART_MuteModeCmd(RSBUS_USARTx, ENABLE);
-  }
+  // // 5. Enter the USART slaves in mute mode using USART_ReceiverWakeUpCmd()
+  // // function.
+  // USART_MuteModeCmd(RSBUS_USARTx, ENABLE);
 
   // DMA configuration
   
@@ -210,47 +206,99 @@ void rsBusInit(uint8_t txPin, uint8_t rxPin, uint8_t slaveId) {
 
   // setup RX
 
-  DMA_DeInit(chRx);
-  DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;
-  DMA_InitStructure.DMA_MemoryBaseAddr = (RSBUS_ID == RSBUS_MASTER_ID) ? (uint32_t)s2mBuf : (uint32_t)m2sBuf;
-  DMA_InitStructure.DMA_BufferSize = (RSBUS_ID == RSBUS_MASTER_ID) ? RSBUS_S2M_PACKET_SIZE : RSBUS_M2S_PACKET_SIZE;
-  DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&RSBUS_USARTx->RDR;
-  DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
-  DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
-  DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
-  DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;
-  // TODO circular for slave but what about for master?
-  DMA_InitStructure.DMA_Mode = (RSBUS_ID == RSBUS_MASTER_ID) ? DMA_Mode_Normal : DMA_Mode_Circular;
-  DMA_InitStructure.DMA_Priority = DMA_Priority_High;
-  DMA_Init(chRx, &DMA_InitStructure);
+  // DMA_DeInit(chRx);
+  // DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;
+  // DMA_InitStructure.DMA_MemoryBaseAddr = (RSBUS_ID == RSBUS_MASTER_ID) ? (uint32_t)s2mBuf : (uint32_t)m2sBuf;
+  // DMA_InitStructure.DMA_BufferSize = (RSBUS_ID == RSBUS_MASTER_ID) ? RSBUS_S2M_PACKET_SIZE : RSBUS_M2S_PACKET_SIZE;
+  // DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&RSBUS_USARTx->RDR;
+  // DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+  // DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
+  // DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
+  // DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;
+  // // TODO circular for slave but what about for master?
+  // DMA_InitStructure.DMA_Mode = (RSBUS_ID == RSBUS_MASTER_ID) ? DMA_Mode_Circular : DMA_Mode_Circular;
+  // DMA_InitStructure.DMA_Priority = DMA_Priority_High;
+  // DMA_Init(chRx, &DMA_InitStructure);
 
-  if (RSBUS_ID != RSBUS_MASTER_ID) {
-    DMA_ITConfig(chRx, DMA_IT_TC, ENABLE);
-    DMA_Cmd(chRx, ENABLE);
-  }
-  // master will enable DMA RX right when sending a packet
+  // if (RSBUS_ID != RSBUS_MASTER_ID) {
+  //   DMA_ITConfig(chRx, DMA_IT_TC, ENABLE);
+  //   DMA_Cmd(chRx, ENABLE);
+  // }
+  // // master will enable DMA RX right when sending a packet
 
-  USART_DMACmd(RSBUS_USARTx, USART_DMAReq_Rx, ENABLE);
+  // USART_DMACmd(RSBUS_USARTx, USART_DMAReq_Rx, ENABLE);
 }
 
 void rsBusTxDMA() {
   // give time for DE change
   digitalWrite(RSBUS_DE, HIGH);
-
   DMA_Cmd(chTx, DISABLE);
   DMA_SetCurrDataCounter(chTx, (RSBUS_ID == RSBUS_MASTER_ID) ? RSBUS_M2S_PACKET_SIZE : RSBUS_S2M_PACKET_SIZE);
   DMA_Cmd(chTx, ENABLE);
+  // interrupt will deassert
+}
 
-  // If master, do more stuff 
-  if (RSBUS_ID == RSBUS_MASTER_ID) {
-    // use flags to block and de-assert DE
-    while (!DMA_GetFlagStatus(flagTxTC)); // wait till TC
-    DMA_ClearFlag(flagTxTC);
-    digitalWrite(RSBUS_DE, LOW);
+bool rsBusMasterLoop() {
+  DMA_InitTypeDef  DMA_InitStructure;
+  bool timedout = false;
 
-    // setup DMA for RX
-    // wait till RX DMA TC, or timeout
-  }
+  // setup DMA for TX
+  DMA_Cmd(chTx, DISABLE);
+  DMA_DeInit(chTx);
+  DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralDST; // Transmit
+  DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)m2sBuf;
+  DMA_InitStructure.DMA_BufferSize = RSBUS_M2S_PACKET_SIZE;
+  DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&RSBUS_USARTx->TDR;
+  DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+  DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
+  DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
+  DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;
+  DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;// or Circular
+  DMA_InitStructure.DMA_Priority = DMA_Priority_High;
+  DMA_Init(chTx, &DMA_InitStructure);
+  USART_DMACmd(RSBUS_USARTx, USART_DMAReq_Tx, ENABLE);
+
+
+  // give time for DE change
+  digitalWrite(RSBUS_DE, HIGH);
+
+  DMA_Cmd(chTx, ENABLE);
+
+  // wait till TX finishes, then deassert DE
+  while (!DMA_GetFlagStatus(flagTxTC)); // wait till TC
+  DMA_ClearFlag(flagTxTC);
+  while (USART_GetFlagStatus(RSBUS_USARTx, USART_FLAG_TC) == RESET);
+  digitalWrite(RSBUS_DE, LOW);
+
+  // setup DMA for RX
+  // DMA_DeInit(chRx);
+  // DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;
+  // DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)s2mBuf;
+  // DMA_InitStructure.DMA_BufferSize = RSBUS_S2M_PACKET_SIZE;
+  // DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&RSBUS_USARTx->RDR;
+  // DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+  // DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
+  // DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
+  // DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;
+  // // TODO circular for slave but what about for master?
+  // DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
+  // DMA_InitStructure.DMA_Priority = DMA_Priority_High;
+  // DMA_Init(chRx, &DMA_InitStructure);
+  // USART_DMACmd(RSBUS_USARTx, USART_DMAReq_Rx, ENABLE);
+  // // // DMA_Cmd(chRx, DISABLE);
+  // // // DMA_SetCurrDataCounter(chRx, RSBUS_S2M_PACKET_SIZE);
+  // DMA_Cmd(chRx, ENABLE);
+
+  // // // wait till RX DMA TC, or timeout
+  // uint32_t t1 = micros();
+  // while (!DMA_GetFlagStatus(flagRxTC)) {
+  //   if (micros() - t1 > 50) {
+  //     timedout = true;
+  //     break;
+  //   }
+  // }
+  // DMA_ClearFlag(flagRxTC);
+  return !timedout;
 }
 
 // SHOULD NOT BE USED ANY MORE
