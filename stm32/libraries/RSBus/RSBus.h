@@ -24,7 +24,7 @@
 // highest 7-bit number reserved for master ID (slaves can have ID 0--126)
 #define RSBUS_MASTER_ID 0x7F
 
-#define RSBUS_STATUS 0x00 // slave return packet has this as instruction byte
+#define RSBUS_CMD_STATUS 0x00 // slave return packet has this as instruction byte
 #define RSBUS_CMD_SET_OPEN_LOOP 0x12 // 1 float = 4 bytes
 
 // hard to encapsulate in a class yet, since there are callbacks from C ISRs

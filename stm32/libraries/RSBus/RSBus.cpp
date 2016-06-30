@@ -27,15 +27,21 @@
 uint8_t RSBUS_DE = PA15;
 uint8_t RSBUS_ID = 0;//overwritten by init
 USART_TypeDef *RSBUS_USARTx = USART1;
+IRQn_Type RSBUS_USART_IRQn = USART1_IRQn;
 DMA_Channel_TypeDef *chTx = DMA1_Channel4;
 DMA_Channel_TypeDef *chRx = DMA1_Channel5;
+uint32_t flagTxTC = DMA1_FLAG_TC4;//not used--interrupts for slave
+uint32_t flagRxTC = DMA1_FLAG_TC5;//not used--interrupts for slave
 #else
 // assume MBLC F303V UART4
 uint8_t RSBUS_DE = PA12;
 uint8_t RSBUS_ID = RSBUS_MASTER_ID;
 USART_TypeDef *RSBUS_USARTx = UART4;
+IRQn_Type RSBUS_USART_IRQn = UART4_IRQn;// should not be activated for master
 DMA_Channel_TypeDef *chTx = DMA2_Channel5;
 DMA_Channel_TypeDef *chRx = DMA2_Channel3;
+uint32_t flagTxTC = DMA2_FLAG_TC5;
+uint32_t flagRxTC = DMA2_FLAG_TC3;
 #endif
 
 // checksum adds the lower byte of everything except the first (target address) and the last two (the checksum itself)
@@ -51,8 +57,8 @@ typedef struct {
   uint16_t param1[4], param2[4], param3[4];
   uint16_t checksum[2];
 } __attribute__ ((packed)) RSBusS2M;
-RSBusM2S m2sBuf;
-RSBusS2M s2mBuf;
+uint16_t m2sBuf[RSBUS_M2S_PACKET_SIZE] = {0,0,0,0,0,0,0,0};
+uint16_t s2mBuf[RSBUS_S2M_PACKET_SIZE] = {RSBUS_MASTER_ID, 0,0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0};
 
 // helper returns sum of bytes to go into checksum as well
 static inline uint16_t param2buf(int paramSize, const uint8_t *param, uint16_t *bufParam) {
@@ -73,39 +79,46 @@ static inline uint16_t buf2param(int paramSize, const uint16_t *bufParam, uint8_
 
 // 
 void rsBusSetM2S(uint8_t slaveId, uint8_t cmd, float param1) {
-  m2sBuf[0] = slaveId;
-  bitSet(m2sBuf[0], 8);
+  RSBusM2S *buf = (RSBusM2S *)m2sBuf;
+  buf->slaveAddr = slaveId;
+  bitSet(buf->slaveAddr, 8);
 
   uint16_t sum = 0;
-  sum += (m2sBuf.cmd = cmd);
-  sum += param2buf(4, (const uint8_t *)&param1, &m2sBuf.param1);
-  param2buf(2, (const uint8_t *)&sum, &m2sBuf.checksum);
+  sum += (buf->cmd = cmd);
+  sum += param2buf(4, (const uint8_t *)&param1, buf->param1);
+  param2buf(2, (const uint8_t *)&sum, buf->checksum);
 }
 bool rsBusGetM2S(uint8_t& cmd, float& param1) {
+  RSBusM2S *buf = (RSBusM2S *)m2sBuf;
   uint16_t sum = 0;
-  sum += (cmd = (uint8_t)(s2mBuf.cmd & 0xff));
-  sum += buf2param(4, &s2mBuf.param1, (uint8_t *)&param1);
-  return (s2mBuf.checksum == sum);
+  sum += (cmd = (uint8_t)(buf->cmd & 0xff));
+  sum += buf2param(4, buf->param1, (uint8_t *)&param1);
+  uint16_t checksum = 0;
+  buf2param(4, buf->checksum, (uint8_t *)&checksum);
+  return (checksum == sum);
 }
 
 void rsBusSetS2M(uint8_t cmd, float param1, float param2, float param3) {
-  uint16_t sum = 0;
-  sum += (s2mBuf.selfAddr = RSBUS_ID);
-  sum += (s2mBuf.cmd = cmd);
-  sum += param2buf(4, (const uint8_t *)&param1, &s2mBuf.param1);
-  sum += param2buf(4, (const uint8_t *)&param2, &s2mBuf.param2);
-  sum += param2buf(4, (const uint8_t *)&param3, &s2mBuf.param3);
-  param2buf(2, (const uint8_t *)&sum, &s2mBuf.checksum);
+  RSBusS2M *buf = (RSBusS2M *)s2mBuf;
+  uint16_t sum = RSBUS_ID;
+  sum += (buf->cmd = cmd);
+  sum += param2buf(4, (const uint8_t *)&param1, buf->param1);
+  sum += param2buf(4, (const uint8_t *)&param2, buf->param2);
+  sum += param2buf(4, (const uint8_t *)&param3, buf->param3);
+  param2buf(2, (const uint8_t *)&sum, buf->checksum);
 }
 
 bool rsBusGetS2M(uint8_t& cmd, float& param1, float& param2, float& param3) {
+  RSBusS2M *buf = (RSBusS2M *)s2mBuf;
   uint16_t sum = 0;
-  sum += (uint8_t)(s2mBuf.selfAddr & 0xff);
-  sum += (cmd = (uint8_t)(s2mBuf.cmd & 0xff));
-  sum += buf2param(4, &s2mBuf.param1, (uint8_t *)&param1);
-  sum += buf2param(4, &s2mBuf.param2, (uint8_t *)&param2);
-  sum += buf2param(4, &s2mBuf.param3, (uint8_t *)&param3);
-  return (s2mBuf.checksum == sum);
+  sum += (uint8_t)(buf->selfAddr & 0xff);
+  sum += (cmd = (uint8_t)(buf->cmd & 0xff));
+  sum += buf2param(4, buf->param1, (uint8_t *)&param1);
+  sum += buf2param(4, buf->param2, (uint8_t *)&param2);
+  sum += buf2param(4, buf->param3, (uint8_t *)&param3);
+  uint16_t checksum = 0;
+  buf2param(2, buf->checksum, (uint8_t *)&checksum);
+  return (checksum == sum);
 }
 
 
@@ -114,12 +127,12 @@ void rsBusInit(uint8_t txPin, uint8_t rxPin, uint8_t slaveId) {
   const uint8_t priority = 1;
   RSBUS_ID = slaveId;
 
-  digitalWrite(DE, LOW);
-  pinMode(DE, OUTPUT);
+  digitalWrite(RSBUS_DE, LOW);
+  pinMode(RSBUS_DE, OUTPUT);
 
   configUSARTPins(RSBUS_USARTx, txPin, rxPin);
 
-  nvicEnable(irqn, priority);
+  nvicEnable(RSBUS_USART_IRQn, priority);
   
   // Init USART
   USART_OverSampling8Cmd(RSBUS_USARTx, ENABLE);
@@ -157,7 +170,7 @@ void rsBusInit(uint8_t txPin, uint8_t rxPin, uint8_t slaveId) {
   if (RSBUS_ID != RSBUS_MASTER_ID) {
     // F301 (grBL): DMA1 channel 4 = USART1_TX, channel 5 = USART1_RX
     RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
-    // slave needs interrupts
+    // slave needs interrupts FIXME irqn hardcoded here
     nvicEnable(DMA1_Channel4_IRQn, 3);
     nvicEnable(DMA1_Channel5_IRQn, 2);
 
@@ -165,8 +178,6 @@ void rsBusInit(uint8_t txPin, uint8_t rxPin, uint8_t slaveId) {
     s2mBuf[0] = RSBUS_MASTER_ID;// addr = master
     bitSet(s2mBuf[0], 8);
     s2mBuf[1] = RSBUS_ID;
-    // used by the C interrupt below
-    RSBUS_DE = DE;
   } else {
     // F303V (MBLC J9): DMA2 channel 3 = UART4_RX, channel 5 = UART4_TX
     RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA2, ENABLE);
@@ -179,7 +190,7 @@ void rsBusInit(uint8_t txPin, uint8_t rxPin, uint8_t slaveId) {
   DMA_InitTypeDef  DMA_InitStructure;
   DMA_DeInit(chTx);
   DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralDST; // Transmit
-  DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)((RSBUS_ID == RSBUS_MASTER_ID) ? m2sBuf : s2mBuf);
+  DMA_InitStructure.DMA_MemoryBaseAddr = (RSBUS_ID == RSBUS_MASTER_ID) ? (uint32_t)m2sBuf : (uint32_t)s2mBuf;
   DMA_InitStructure.DMA_BufferSize = (RSBUS_ID == RSBUS_MASTER_ID) ? RSBUS_M2S_PACKET_SIZE : RSBUS_S2M_PACKET_SIZE;
   DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&RSBUS_USARTx->TDR;
   DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
@@ -201,7 +212,7 @@ void rsBusInit(uint8_t txPin, uint8_t rxPin, uint8_t slaveId) {
 
   DMA_DeInit(chRx);
   DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;
-  DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)((RSBUS_ID == RSBUS_MASTER_ID) ? s2mBuf : m2sBuf)
+  DMA_InitStructure.DMA_MemoryBaseAddr = (RSBUS_ID == RSBUS_MASTER_ID) ? (uint32_t)s2mBuf : (uint32_t)m2sBuf;
   DMA_InitStructure.DMA_BufferSize = (RSBUS_ID == RSBUS_MASTER_ID) ? RSBUS_S2M_PACKET_SIZE : RSBUS_M2S_PACKET_SIZE;
   DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&RSBUS_USARTx->RDR;
   DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
@@ -209,7 +220,7 @@ void rsBusInit(uint8_t txPin, uint8_t rxPin, uint8_t slaveId) {
   DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
   DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;
   // TODO circular for slave but what about for master?
-  DMA_InitStructure.DMA_Mode = (RSBUS_ID == RSBUS_MASTER_ID) ? DMA_Mode_Normal ? DMA_Mode_Circular;
+  DMA_InitStructure.DMA_Mode = (RSBUS_ID == RSBUS_MASTER_ID) ? DMA_Mode_Normal : DMA_Mode_Circular;
   DMA_InitStructure.DMA_Priority = DMA_Priority_High;
   DMA_Init(chRx, &DMA_InitStructure);
 
@@ -233,6 +244,10 @@ void rsBusTxDMA() {
   // If master, do more stuff 
   if (RSBUS_ID == RSBUS_MASTER_ID) {
     // use flags to block and de-assert DE
+    while (!DMA_GetFlagStatus(flagTxTC)); // wait till TC
+    DMA_ClearFlag(flagTxTC);
+    digitalWrite(RSBUS_DE, LOW);
+
     // setup DMA for RX
     // wait till RX DMA TC, or timeout
   }
@@ -243,12 +258,13 @@ void rsBusTxPolling() {
   // set to TX mode
   digitalWrite(RSBUS_DE, HIGH);
 
+  uint16_t *pBuf = (uint16_t *)&m2sBuf;
   for (int i=0; i<RSBUS_M2S_PACKET_SIZE; ++i) {
-    while (USART_GetFlagStatus(USARTx, USART_FLAG_TXE) == RESET);
-    USART_SendData(USARTx, m2sBuf[i]);
+    while (USART_GetFlagStatus(RSBUS_USARTx, USART_FLAG_TXE) == RESET);
+    USART_SendData(RSBUS_USARTx, pBuf[i]);
   }
-  while (USART_GetFlagStatus(USARTx, USART_FLAG_TC) == RESET);
-  digitalWrite(DE, LOW);
+  while (USART_GetFlagStatus(RSBUS_USARTx, USART_FLAG_TC) == RESET);
+  digitalWrite(RSBUS_DE, LOW);
 }
 
 
