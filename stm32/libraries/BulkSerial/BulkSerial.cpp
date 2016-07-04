@@ -50,7 +50,7 @@ void BulkSerial::begin(uint32_t baud, uint16_t sizeTx, void *bufTx, uint16_t siz
     DMA_DeInit(bss.chTx);
     DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralDST; // Transmit
     DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)bufTx;
-    DMA_InitStructure.DMA_BufferSize = sizeTx;
+    DMA_InitStructure.DMA_BufferSize = sizeTx-1;
     DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&bss.USARTx->TDR;
     DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
     DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
@@ -105,8 +105,12 @@ void BulkSerial::initOpenLog(const char *header, const char *fmt) {
     while (USART_GetFlagStatus(bss.USARTx, USART_FLAG_TXE) == RESET);
     USART_SendData(bss.USARTx, header[i]);
   }
+  while (USART_GetFlagStatus(bss.USARTx, USART_FLAG_TXE) == RESET);
+  USART_SendData(bss.USARTx, '\n');
   for (int i = 0; fmt[i] != 0; i++){
     while (USART_GetFlagStatus(bss.USARTx, USART_FLAG_TXE) == RESET);
     USART_SendData(bss.USARTx, fmt[i]);
   }
+  while (USART_GetFlagStatus(bss.USARTx, USART_FLAG_TXE) == RESET);
+  USART_SendData(bss.USARTx, '\n');
 }
