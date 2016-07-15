@@ -123,13 +123,28 @@ public:
    * @brief Get motor velocity after direction and zero are taken into account
    * @return Velocity in rad/s
    */
-  float getVelocity();
+  float getVelocity() { return pd.vel; }
   /**
    * @brief Get the PWM duty cycle commanded to the motor
    * @details Useful to record input when getPosition() is used
    * @return Commanded PWM in [-1, 1]
    */
-  float getOpenLoop();
+  float getOpenLoop() { return correctedVal; }
+
+  /**
+   * @brief Details for torque estimate in getTorque(). Not used elsewhere.
+   * 
+   * @param Kt in Nm/A
+   * @param res in Ohms
+   * @param Vsource in Volts
+   */
+  void setTorqueEstParams(float Kt, float res, float Vsource) { torqueFactor = gearRatio * Kt * Vsource/res; }
+  /**
+   * @brief Returns an estimate of torque assuming quasistatic
+   * @details Need to call setTorqueEstParams() beforhand
+   * @return Estimate of torque in Nm
+   */
+  float getTorque() { return torqueFactor * getOpenLoop(); }
   /**
    * @brief Set an open loop PWM command for the motor
    * @details These commands are only sent by update()
@@ -191,6 +206,8 @@ public:
   
   // used to ignore readings corresponding to physically impossible changes in motor position 
   float posLimit;
+  // Command
+  float val, correctedVal, setpoint;
 
 protected:
   MotorControlMode mode;
@@ -201,8 +218,6 @@ protected:
   // +/-1. Relates encoder forward with LOW dirPin or +ve PWM drive signal
   int8_t driverDirection;
   // Reduction ratio (AFTER the encoder), i.e. > 1 if there is a reduction. The motor must be started near 0.
-  // Command
-  float val, correctedVal, setpoint;
   // PD controller
   PD pd;
   // Barrier
@@ -212,6 +227,8 @@ protected:
   bool bContinuousRotation;
   //
   float curPos;
+  // for given open loop (assume static compute torque)
+  float torqueFactor;
 };
 
 // ===============================================================================

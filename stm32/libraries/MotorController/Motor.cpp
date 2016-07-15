@@ -95,14 +95,6 @@ float Motor::getPosition() {
     return (TWO_PI*unwrapOffset + curPos) * direction / gearRatio;
 }
 
-float Motor::getVelocity() {
-  return pd.vel;
-}
-
-float Motor::getOpenLoop() {
-  return val;
-}
-
 void Motor::setGain(float Kp, float Kd) {
   pd.setGain(Kp, Kd);
 }

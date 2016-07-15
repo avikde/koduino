@@ -174,6 +174,8 @@ public:
         correctedPhysicalVal[i] = motors[i]->mapVal(physicalVal[i]);
         // send the command
         motors[i]->sendOpenLoop(correctedPhysicalVal[i]);
+        // store so that getOpenLoop works
+        motors[i]->correctedVal = correctedPhysicalVal[i];
       }
     } else {
       // User will call update() on individual motors in the proper orders
