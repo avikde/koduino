@@ -64,6 +64,8 @@ public:
    */
   float getSpeed(float bodyPitch);
 
+  void getToeForce(float& ur, float& uth);
+
 protected:
   // this does the full FK irrespective of if useLengths is false
   float FKext(float meanAng);

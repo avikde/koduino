@@ -98,3 +98,14 @@ float MinitaurLeg::getSpeed(float bodyPitch) {
   return rdot * arm_sin_f32(theta) + r * arm_cos_f32(theta) * thetadot;
 }
 
+void MinitaurLeg::getToeForce(float& ur, float& uth) {
+  float u0 = motors[0]->getTorque();
+  float u1 = motors[1]->getTorque();
+  
+  float meanAng = 0, diffAng = 0;
+  meanDiffAngles(physicalPos, &meanAng, &diffAng);
+  float l1proj = l1*arm_sin_f32(meanAng);
+  float dummy = -2/(-2*l1proj + l1*l1*arm_sin_f32(physicalPos[0] + physicalPos[1])/sqrtf(l2*l2 - l1proj*l1proj));
+  ur = dummy * (u0+u1);
+  uth = u0-u1;
+}
