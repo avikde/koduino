@@ -87,7 +87,7 @@ public:
     digitalWrite(csPin, LOW);
     delayMicroseconds(1);
     for (int i=0; i<N+4; ++i) {
-      uint8_t c = theSPI.transfer(0x00);
+      theSPI.transfer(0x00);
       // if (i==3 && c!= 0)
       // if (i >= 4) {
       //   buf[i-4] = c;
@@ -97,12 +97,17 @@ public:
     digitalWrite(csPin, HIGH);
   }
 
-  void getYPR(float& yaw, float& pitch, float& roll) {
-    float ypr[3];
-    readReg(8, 12, (uint8_t *)ypr);
-    yaw = radians(ypr[0]);
-    pitch = radians(ypr[1]);
-    roll = radians(ypr[2]);
+  void get(float& yaw, float& pitch, float& roll, float& yawd, float& pitchd, float& rolld) {
+    float dat[3];
+    readReg(8, 12, (uint8_t *)dat);
+    yaw = radians(dat[0]);
+    pitch = radians(dat[1]);
+    roll = radians(dat[2]);
+    delayMicroseconds(30);
+    readReg(19, 12, (uint8_t *)dat);
+    yawd = dat[2];
+    pitchd = dat[1];
+    rolld = dat[0];
   }
 };
 
