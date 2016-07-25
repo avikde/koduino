@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['behavior',['Behavior',['../md__behavior.html',1,'']]],
-  ['brushless',['Brushless',['../md__brushless.html',1,'']]]
+  ['behavior',['Behavior',['../md_Behavior.html',1,'']]],
+  ['brushless',['Brushless',['../md_Brushless.html',1,'']]]
 ];

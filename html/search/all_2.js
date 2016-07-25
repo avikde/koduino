@@ -6,6 +6,6 @@ var searchData=
   ['blcon34',['BlCon34',['../class_bl_con34.html',1,'']]],
   ['brushless',['Brushless',['../class_brushless.html',1,'']]],
   ['basic_20and_20advanced_20math',['Basic and advanced math',['../group___math.html',1,'']]],
-  ['behavior',['Behavior',['../md__behavior.html',1,'']]],
-  ['brushless',['Brushless',['../md__brushless.html',1,'']]]
+  ['behavior',['Behavior',['../md_Behavior.html',1,'']]],
+  ['brushless',['Brushless',['../md_Brushless.html',1,'']]]
 ];

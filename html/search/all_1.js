@@ -15,6 +15,6 @@ var searchData=
   ['attachinterrupt',['attachInterrupt',['../group___e_x_t_i.html#gafb1e263c44d0ba4a97eccc2ab6f7a99d',1,'attachInterrupt(uint8_t pinName, ISRType ISR, InterruptTrigger mode):&#160;exti.c'],['../group___e_x_t_i.html#gafb1e263c44d0ba4a97eccc2ab6f7a99d',1,'attachInterrupt(uint8_t pinName, ISRType ISR, InterruptTrigger mode):&#160;exti.c']]],
   ['attachtimerinterrupt',['attachTimerInterrupt',['../group___timebase.html#ga5bf1468dbfe70bf8a0a511df76075992',1,'attachTimerInterrupt(uint8_t i, ISRType ISR, int freqHz):&#160;timebase.c'],['../group___timebase.html#ga5bf1468dbfe70bf8a0a511df76075992',1,'attachTimerInterrupt(uint8_t i, ISRType ISR, int freqHz):&#160;timebase.c']]],
   ['available',['available',['../class_stream.html#a9c98a763395005c08ce95afb2f06c7b1',1,'Stream::available()'],['../class_u_s_a_r_t_class.html#aa72ca41dffc66d47530f47ac4662d1e2',1,'USARTClass::available()'],['../class_two_wire.html#aee57bc52bee06508e231c5fc6bc35ada',1,'TwoWire::available()']]],
-  ['analog',['Analog',['../md__analog.html',1,'']]],
-  ['arduino_20ide_20setup',['Arduino IDE Setup',['../md__setup_i_d_e.html',1,'']]]
+  ['analog',['Analog',['../md_Analog.html',1,'']]],
+  ['arduino_20ide_20setup',['Arduino IDE Setup',['../md_SetupIDE.html',1,'']]]
 ];

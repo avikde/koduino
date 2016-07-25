@@ -12,6 +12,6 @@ var searchData=
   ['drv8303',['DRV8303',['../class_d_r_v8303.html',1,'']]],
   ['dxl',['Dxl',['../class_dxl.html',1,'']]],
   ['dxlmotor',['DxlMotor',['../class_dxl_motor.html',1,'']]],
-  ['digital',['Digital',['../md__digital.html',1,'']]],
-  ['dxl',['Dxl',['../md__dxl.html',1,'']]]
+  ['digital',['Digital',['../md_Digital.html',1,'']]],
+  ['dxl',['Dxl',['../md_Dxl.html',1,'']]]
 ];
