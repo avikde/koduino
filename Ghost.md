@@ -12,7 +12,7 @@ This guide assumes the robot is fully assembled.
 
 #### 1.1.1 Removing the top plate
 
-Photos here?
+**TODO photos here**
 
 #### 1.1.2. Charging the battery
 
@@ -28,9 +28,12 @@ Use the following charger settings:
 
 #### 1.1.3. Using the remote
 
-Photo of remote
+The default mappings as of 2016/07/25:
+![Remote mappings in default firmware](../remote.jpg "Remote mappings in default firmware")
 
-![Remote](../remote.jpg "Remote")
+**WARNING:** In the default minitaur firmware, the robot starts operating as soon as the remote connects. Make sure the `behavior on/off` switch (top left) is at `2` (down) before turning on the remote.
+
+These mappings, as well as the sensitivities, are not fixed, and can be changed in software. The default firmware comes with a low sensitivity.
 
 #### 1.1.4. Logging data
 
@@ -45,10 +48,11 @@ at approximately 100 Hz.
 ##### Log some data
 1. Get a micro SD card formatted FAT32 (up to 64GB should be fine)
 2. Place the following text in a file called `CONFIG.TXT`
+~~~
+115200,26,3,0,1,1,0
+baud,escape,esc#,mode,verb,echo,ignoreRX
+~~~
 3. Insert the micro SD card in the vertical socket on the mainboard with the gold contacts facing down, and towards the micro USB connector on the mainboard. Be careful, it's easy to insert it crooked, but ultimately it only goes in one way.
-~~~
-
-~~~
 
 ##### Reading logs
 
@@ -109,10 +113,7 @@ The main microcontroller board at the center of the robot is called the "mainboa
 4. Now plug in a Micro-B USB cable from your computer to the mainboard. Check that at least the red power LED has turned on.
 5. Click `Tools -> Port` again; a new COM port should have appeared. Select the new COM port.
 6. Paste in the code below
-7. Click `File -> Upload`, and wait for 10-20 seconds till a success or failure message appears at the bottom. Sometimes if the upload fails, try just unplugging and plugging the mainboard in and trying again. *Hint: you can also enable verbose compilation/upload output in the Arduino console from Arduino's Preferences menu.*
-8. After successfully uploading, look at the mainboard. The green LED should be blinking once per second
 ~~~{.cpp}
-
 #include <Arduino.h>
 
 // Change to whatever pin an LED is connected to
@@ -126,8 +127,9 @@ void loop() {
   digitalWrite(led, TOGGLE);
   delay(1000);
 }
-
 ~~~
+7. Click `File -> Upload`, and wait for 10-20 seconds till a success or failure message appears at the bottom. Sometimes if the upload fails, try just unplugging and plugging the mainboard in and trying again. *Hint: you can also enable verbose compilation/upload output in the Arduino console from Arduino's Preferences menu.*
+8. After successfully uploading, look at the mainboard. The green LED should be blinking once per second
 
 ### 2.3. Template code
 

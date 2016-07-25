@@ -90,7 +90,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h2>1. Getting to know the hardware</h2>
 <h3>1.1. Day-to-day usage</h3>
 <h4>1.1.1 Removing the top plate</h4>
-<p>Photos here?</p>
+<p><b>TODO photos here</b></p>
 <h4>1.1.2. Charging the battery</h4>
 <p><b>WARNING: Handle the battery very carefully.</b> If the battery is dropped, immediately place it in a LiPo-safe bag and never use it again.</p>
 <p><b>WARNING: Never over-discharge the battery</b> Check the voltage every 5-10 minutes while running the robot. If the voltage is lower than 14V, charge the battery.</p>
@@ -101,10 +101,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li><b>Never leave a charging battery unattended</b></li>
 </ol>
 <h4>1.1.3. Using the remote</h4>
-<p>Photo of remote</p>
-<div class="image">
-<img src="../remote.jpg"  alt="Remote" title="Remote"/>
+<p>The default mappings as of 2016/07/25: </p><div class="image">
+<img src="../remote.jpg"  alt="Remote mappings in default firmware" title="Remote mappings in default firmware"/>
 </div>
+<p><b>WARNING:</b> In the default minitaur firmware, the robot starts operating as soon as the remote connects. Make sure the <code>behavior on/off</code> switch (top left) is at <code>2</code> (down) before turning on the remote.</p>
+<p>These mappings, as well as the sensitivities, are not fixed, and can be changed in software. The default firmware comes with a low sensitivity.</p>
 <h4>1.1.4. Logging data</h4>
 <p>The default firmware logs</p><ul>
 <li>motor positions,</li>
@@ -116,8 +117,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h5>Log some data</h5>
 <ol type="1">
 <li>Get a micro SD card formatted FAT32 (up to 64GB should be fine)</li>
-<li>Place the following text in a file called <code>CONFIG.TXT</code></li>
-<li>Insert the micro SD card in the vertical socket on the mainboard with the gold contacts facing down, and towards the micro USB connector on the mainboard. Be careful, it's easy to insert it crooked, but ultimately it only goes in one way. <div class="fragment"></div><!-- fragment --></li>
+<li>Place the following text in a file called <code>CONFIG.TXT</code> <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;115200,26,3,0,1,1,0</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;baud,escape,esc#,mode,verb,echo,ignoreRX</div></div><!-- fragment --></li>
+<li>Insert the micro SD card in the vertical socket on the mainboard with the gold contacts facing down, and towards the micro USB connector on the mainboard. Be careful, it's easy to insert it crooked, but ultimately it only goes in one way.</li>
 </ol>
 <h5>Reading logs</h5>
 <p>First, you need to have Python</p><ol type="1">
@@ -172,9 +173,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>Click <code>Tools -&gt; Port</code> and look at which COM ports are listed</li>
 <li>Now plug in a Micro-B USB cable from your computer to the mainboard. Check that at least the red power LED has turned on.</li>
 <li>Click <code>Tools -&gt; Port</code> again; a new COM port should have appeared. Select the new COM port.</li>
-<li>Paste in the code below</li>
+<li>Paste in the code below <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Arduino.h&gt;</span></div><div class="line"></div><div class="line"><span class="comment">// Change to whatever pin an LED is connected to</span></div><div class="line"><span class="keyword">const</span> uint8_t led = PD0;</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> setup() {</div><div class="line">  <a class="code" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730">pinMode</a>(led, OUTPUT);</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> loop() {</div><div class="line">  <a class="code" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7">digitalWrite</a>(led, TOGGLE);</div><div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(1000);</div><div class="line">}</div></div><!-- fragment --></li>
 <li>Click <code>File -&gt; Upload</code>, and wait for 10-20 seconds till a success or failure message appears at the bottom. Sometimes if the upload fails, try just unplugging and plugging the mainboard in and trying again. <em>Hint: you can also enable verbose compilation/upload output in the Arduino console from Arduino's Preferences menu.</em></li>
-<li>After successfully uploading, look at the mainboard. The green LED should be blinking once per second <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Arduino.h&gt;</span></div><div class="line"></div><div class="line"><span class="comment">// Change to whatever pin an LED is connected to</span></div><div class="line"><span class="keyword">const</span> uint8_t led = PD0;</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> setup() {</div><div class="line">  <a class="code" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730">pinMode</a>(led, OUTPUT);</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> loop() {</div><div class="line">  <a class="code" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7">digitalWrite</a>(led, TOGGLE);</div><div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(1000);</div><div class="line">}</div></div><!-- fragment --></li>
+<li>After successfully uploading, look at the mainboard. The green LED should be blinking once per second</li>
 </ol>
 <h3>2.3. Template code</h3>
 <p>Download these (right click, save as)</p><ul>
@@ -192,7 +193,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jul 25 2016 02:29:04 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jul 25 2016 07:32:02 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.11
 </small></address>
