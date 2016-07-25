@@ -1,17 +1,7 @@
 var searchData=
 [
-  ['delay',['delay',['../group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d',1,'delay(uint32_t n):&#160;system_clock.c'],['../group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d',1,'delay(uint32_t nTime):&#160;system_clock.c']]],
-  ['delaymicroseconds',['delayMicroseconds',['../group___time.html#ga3ff9db8978fbc49767c96b3ccd7b9a68',1,'delayMicroseconds(uint32_t n):&#160;system_clock.c'],['../group___time.html#ga3ff9db8978fbc49767c96b3ccd7b9a68',1,'delayMicroseconds(uint32_t nTime):&#160;system_clock.c']]],
-  ['delaynb',['delayNB',['../group___time.html#ga1ca1758040a4581015e74b8371edfcea',1,'delayNB(uint32_t nTime, ISRType iterate):&#160;system_clock.c'],['../group___time.html#ga1ca1758040a4581015e74b8371edfcea',1,'delayNB(uint32_t nTime, ISRType iterate):&#160;system_clock.c']]],
-  ['detachinterrupt',['detachInterrupt',['../group___e_x_t_i.html#ga4d6f04e458d226b547767b1d62278ad9',1,'detachInterrupt(uint8_t pinName):&#160;exti.c'],['../group___e_x_t_i.html#ga4d6f04e458d226b547767b1d62278ad9',1,'detachInterrupt(uint8_t pinName):&#160;exti.c']]],
-  ['detachtimerinterrupt',['detachTimerInterrupt',['../group___timebase.html#ga690a6cd131cae1b82b60c07f901f6b02',1,'detachTimerInterrupt(uint8_t i):&#160;timebase.c'],['../group___timebase.html#ga690a6cd131cae1b82b60c07f901f6b02',1,'detachTimerInterrupt(uint8_t i):&#160;timebase.c']]],
-  ['digital_20i_2fo',['Digital I/O',['../group___digital.html',1,'']]],
-  ['digitalread',['digitalRead',['../group___digital.html#ga3f9e2d2c30df9ba03affa325d5a0eb53',1,'gpio.h']]],
-  ['digitalwrite',['digitalWrite',['../group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7',1,'digitalWrite(uint8_t name, LogicValue val):&#160;gpio.c'],['../group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7',1,'digitalWrite(uint8_t pin, LogicValue val):&#160;gpio.c']]],
-  ['dlpf',['DLPF',['../class_d_l_p_f.html',1,'']]],
-  ['drv8303',['DRV8303',['../class_d_r_v8303.html',1,'']]],
-  ['dxl',['Dxl',['../class_dxl.html',1,'']]],
-  ['dxlmotor',['DxlMotor',['../class_dxl_motor.html',1,'']]],
-  ['digital',['Digital',['../md__digital.html',1,'']]],
-  ['dxl',['Dxl',['../md__dxl.html',1,'']]]
+  ['calibrate',['calibrate',['../class_brushless.html#a86f0f5b944c1a78078d2d279fe21ff3c',1,'Brushless']]],
+  ['circlemeandiff',['circleMeanDiff',['../group___math.html#ga6d79ae0ee177237c0a82b6a0ca805f74',1,'circleMeanDiff(float a, float b, float *mean, float *diff):&#160;WMath.cpp'],['../group___math.html#ga6d79ae0ee177237c0a82b6a0ca805f74',1,'circleMeanDiff(float a, float b, float *mean, float *diff):&#160;WMath.cpp']]],
+  ['commutate',['commutate',['../class_brushless.html#a01bb9cebd1eb84538bdab2d63b7d39a8',1,'Brushless']]],
+  ['complementaryfilter',['ComplementaryFilter',['../class_complementary_filter.html',1,'']]]
 ];

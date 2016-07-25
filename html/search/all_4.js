@@ -1,13 +1,17 @@
 var searchData=
 [
-  ['eepromclass',['EEPROMClass',['../class_e_e_p_r_o_m_class.html',1,'']]],
-  ['ekf',['EKF',['../class_e_k_f.html',1,'']]],
-  ['enable',['enable',['../class_abstract_motor.html#a9c57a5b89e44bd332951b172420efb4c',1,'AbstractMotor::enable()'],['../class_motor.html#a3674d10b8a8e59bc54fedd73c8bc458c',1,'Motor::enable()'],['../class_bl_con34.html#ac294cec048f4ef08b75cafb49802fdb6',1,'BlCon34::enable()'],['../class_open_log.html#a4da3a163f0d5f389a6d663717a6d46ce',1,'OpenLog::enable()'],['../class_dxl_motor.html#a124457cb996aa9c8fcfe6e8b1353c601',1,'DxlMotor::enable()'],['../class_fat_log.html#a15daa448cae803a3f1b483e17dfbfcad',1,'FatLog::enable()']]],
-  ['encoder',['Encoder',['../class_encoder.html',1,'']]],
-  ['end',['end',['../class_u_s_a_r_t_class.html#a71c831424f02ae9f21a4eca28ee547c7',1,'USARTClass::end()'],['../class_s_p_i_class.html#a79d89d8e3f5f1b003cb7b0aed2d77eab',1,'SPIClass::end()']]],
-  ['endtransmission',['endTransmission',['../class_two_wire.html#a1a32e8abde1410a2ad7938475840b0bc',1,'TwoWire::endTransmission(bool stop)'],['../class_two_wire.html#a294bec855a25d7d2009ea4675484474d',1,'TwoWire::endTransmission()']]],
-  ['external_20interrupts',['External interrupts',['../group___e_x_t_i.html',1,'']]],
-  ['eeprom',['EEPROM',['../md__e_e_p_r_o_m.html',1,'']]],
-  ['encoder',['Encoder',['../md__encoder.html',1,'']]],
-  ['exti',['EXTI',['../md__e_x_t_i.html',1,'']]]
+  ['delay',['delay',['../group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d',1,'delay(uint32_t n):&#160;system_clock.c'],['../group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d',1,'delay(uint32_t nTime):&#160;system_clock.c']]],
+  ['delaymicroseconds',['delayMicroseconds',['../group___time.html#ga3ff9db8978fbc49767c96b3ccd7b9a68',1,'delayMicroseconds(uint32_t n):&#160;system_clock.c'],['../group___time.html#ga3ff9db8978fbc49767c96b3ccd7b9a68',1,'delayMicroseconds(uint32_t nTime):&#160;system_clock.c']]],
+  ['delaynb',['delayNB',['../group___time.html#ga1ca1758040a4581015e74b8371edfcea',1,'delayNB(uint32_t nTime, ISRType iterate):&#160;system_clock.c'],['../group___time.html#ga1ca1758040a4581015e74b8371edfcea',1,'delayNB(uint32_t nTime, ISRType iterate):&#160;system_clock.c']]],
+  ['detachinterrupt',['detachInterrupt',['../group___e_x_t_i.html#ga4d6f04e458d226b547767b1d62278ad9',1,'detachInterrupt(uint8_t pinName):&#160;exti.c'],['../group___e_x_t_i.html#ga4d6f04e458d226b547767b1d62278ad9',1,'detachInterrupt(uint8_t pinName):&#160;exti.c']]],
+  ['detachtimerinterrupt',['detachTimerInterrupt',['../group___timebase.html#ga690a6cd131cae1b82b60c07f901f6b02',1,'detachTimerInterrupt(uint8_t i):&#160;timebase.c'],['../group___timebase.html#ga690a6cd131cae1b82b60c07f901f6b02',1,'detachTimerInterrupt(uint8_t i):&#160;timebase.c']]],
+  ['digital_20i_2fo',['Digital I/O',['../group___digital.html',1,'']]],
+  ['digitalread',['digitalRead',['../group___digital.html#ga9a2ae9e13f0de4cc01fbd535849c4696',1,'gpio.h']]],
+  ['digitalwrite',['digitalWrite',['../group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7',1,'digitalWrite(uint8_t name, LogicValue val):&#160;gpio.c'],['../group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7',1,'digitalWrite(uint8_t pin, LogicValue val):&#160;gpio.c']]],
+  ['dlpf',['DLPF',['../class_d_l_p_f.html',1,'']]],
+  ['drv8303',['DRV8303',['../class_d_r_v8303.html',1,'']]],
+  ['dxl',['Dxl',['../class_dxl.html',1,'']]],
+  ['dxlmotor',['DxlMotor',['../class_dxl_motor.html',1,'']]],
+  ['digital',['Digital',['../md_Digital.html',1,'']]],
+  ['dxl',['Dxl',['../md_Dxl.html',1,'']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['w',['w',['../class_e_k_f.html#a95cfff5dc185cb4090b8b5e6d13d6fa4',1,'EKF']]]
+  ['velsmooth',['velSmooth',['../class_motor.html#aaf7ec1963f7a56e500a2ad35cb886293',1,'Motor']]]
 ];
