@@ -11,7 +11,7 @@ body, table, div, p, dl,
 table.directory, #nav-tree,#nav-tree .label {
 font-family: "Lato", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
 color: #111;
-font-size: 0.9rem;
+font-size: 1.0rem;
 }
 .arrow,
 .navpath li.navelem a,
@@ -188,7 +188,7 @@ div.fragment {
 }
 div.line {
 	min-height: 11pt;
-	line-height: 1.0;
+	line-height: 1.2;
 	text-wrap: unrestricted;
 	white-space: -moz-pre-wrap; /* Moz */
 	white-space: -pre-wrap;     /* Opera 4-6 */

@@ -45,7 +45,7 @@ The default firmware logs
 * some discrete states (stance/flight etc.)
 at approximately 100 Hz.
 
-##### Log some data
+To log some data,
 1. Get a micro SD card formatted FAT32 (up to 64GB should be fine)
 2. Place the following text in a file called `CONFIG.TXT`
 ~~~
@@ -54,9 +54,8 @@ baud,escape,esc#,mode,verb,echo,ignoreRX
 ~~~
 3. Insert the micro SD card in the vertical socket on the mainboard with the gold contacts facing down, and towards the micro USB connector on the mainboard. Be careful, it's easy to insert it crooked, but ultimately it only goes in one way.
 
-##### Reading logs
 
-First, you need to have Python
+To read these logs, first, you need to have Python:
 1. Install Python 2.7 using package managers (on Linux/Mac), or from [Anaconda](https://www.continuum.io/downloads) (recommended on Windows)
 2. Right click the Windows start button, click `System`, and then click `Advanced system settings` on the left.
 3. Click `Environment variables` in the windows that opens. 
