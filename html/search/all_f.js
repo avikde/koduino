@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['reference',['Reference',['../md_Reference.html',1,'']]],
-  ['rtc',['RTC',['../md_RTC.html',1,'']]],
+  ['reference',['Reference',['../md__reference.html',1,'']]],
+  ['rtc',['RTC',['../md__r_t_c.html',1,'']]],
   ['randomseed',['randomSeed',['../group___math.html#ga7c6a75fa6e3b281532b43c23233ada96',1,'randomSeed(uint32_t dwSeed):&#160;WMath.cpp'],['../group___math.html#ga7c6a75fa6e3b281532b43c23233ada96',1,'randomSeed(uint32_t dwSeed):&#160;WMath.cpp']]],
   ['read',['read',['../class_stream.html#aea5dee9fcb038148515b7c9212d38dc0',1,'Stream::read()'],['../class_u_s_a_r_t_class.html#ae1657d0b30cd3063854a330cc5a91b85',1,'USARTClass::read()'],['../class_two_wire.html#aa361b83500d00dfb93bb25b6473b33e9',1,'TwoWire::read()'],['../class_e_e_p_r_o_m_class.html#a8f7aacb0a1464c988a3001a316a186f0',1,'EEPROMClass::read()'],['../class_encoder.html#af9a9931cdbef185172ec698d70fef77d',1,'Encoder::read()']]],
   ['readbytes',['readBytes',['../class_stream.html#a45fd1336a323ea83b16e8507055f44ea',1,'Stream']]],

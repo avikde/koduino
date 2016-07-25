@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['serial',['Serial',['../md_Serial.html',1,'']]],
-  ['spi',['SPI',['../md_SPI.html',1,'']]],
-  ['streaming',['Streaming',['../md_Streaming.html',1,'']]],
+  ['serial',['Serial',['../md__serial.html',1,'']]],
+  ['spi',['SPI',['../md__s_p_i.html',1,'']]],
+  ['streaming',['Streaming',['../md__streaming.html',1,'']]],
   ['sagittalpair',['SagittalPair',['../class_sagittal_pair.html',1,'']]],
   ['sendopenloop',['sendOpenLoop',['../class_motor.html#ac4810cdc34eaa0281e89165655acd1f9',1,'Motor::sendOpenLoop()'],['../class_bl_con34.html#a5d2ba16a38c8d16b861e1588aaa8a19d',1,'BlCon34::sendOpenLoop()'],['../class_dxl_motor.html#afadb33b1c033730fd7dfbe3510490f2a',1,'DxlMotor::sendOpenLoop()']]],
   ['setbitorder',['setBitOrder',['../class_s_p_i_class.html#afde3febd4ff7bf33bb2b54e8a9b9694d',1,'SPIClass']]],
@@ -18,7 +18,6 @@ var searchData=
   ['setposition',['setPosition',['../class_abstract_motor.html#ab921ccb46270d5a4c0a78e057efa7b00',1,'AbstractMotor::setPosition(int i, float setpoint)'],['../class_abstract_motor.html#a04836948bc79b0d8b4be84962f8d2a95',1,'AbstractMotor::setPosition(float pos)'],['../class_motor.html#a7494377351ccb26b43fd1971c15aca30',1,'Motor::setPosition()']]],
   ['setspeed',['setSpeed',['../class_two_wire.html#ad10fdb3bc506ea45833ec7107278b02f',1,'TwoWire']]],
   ['settimeout',['setTimeout',['../class_stream.html#a46b2d7c7e65159c07b9ea877d0d53299',1,'Stream']]],
-  ['settorqueestparams',['setTorqueEstParams',['../class_motor.html#adaab9607113849b3a6242cd41ab5943f',1,'Motor']]],
   ['spiclass',['SPIClass',['../class_s_p_i_class.html',1,'SPIClass'],['../class_s_p_i_class.html#a65218d40a8fca99ca9d453f539075773',1,'SPIClass::SPIClass()']]],
   ['stream',['Stream',['../class_stream.html',1,'']]],
   ['stretchclock',['stretchClock',['../class_two_wire.html#ae6a23f97fd2ee62fc085f4666bd0b4f1',1,'TwoWire']]],

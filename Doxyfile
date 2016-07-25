@@ -755,21 +755,21 @@ WARN_LOGFILE           =
 
 INPUT                  = . 
 # avik mac
-# INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/cores/arduino 
-# INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/libraries/Wire
-# INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/libraries/SPI
-# INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/libraries/EEPROM
-# INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/libraries/Encoder
-# INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/libraries/IMU
-# INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/libraries/MotorController
-# INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/libraries/OpenLog
-# INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/libraries/DxlMotor
-# INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/libraries/Dxl
-# INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/libraries/Brushless
-# INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/libraries/RTC
-# INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/libraries/FatLog
-# INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/libraries/Nunchuck
-# INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/libraries/Robot
+INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/cores/arduino 
+INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/libraries/Wire
+INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/libraries/SPI
+INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/libraries/EEPROM
+INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/libraries/Encoder
+INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/libraries/IMU
+INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/libraries/MotorController
+INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/libraries/OpenLog
+INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/libraries/DxlMotor
+INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/libraries/Dxl
+INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/libraries/Brushless
+INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/libraries/RTC
+INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/libraries/FatLog
+INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/libraries/Nunchuck
+INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/libraries/Robot
 # avik desktop
 # INPUT += "C:\Users\avik\Desktop\arduino-1.6.1\hardware\koduino\stm32\cores\arduino"
 # INPUT += "C:\Users\avik\Desktop\arduino-1.6.1\hardware\koduino\stm32\libraries\Wire"
@@ -787,21 +787,21 @@ INPUT                  = .
 # INPUT += "C:\Users\avik\Desktop\arduino-1.6.1\hardware\koduino\stm32\libraries\Nunchuck"
 # INPUT += "C:\Users\avik\Desktop\arduino-1.6.1\hardware\koduino\stm32\libraries\Robot"
 # avik laptop
-INPUT += "C:\Users\avik\Documents\arduino-1.6.1\hardware\koduino\stm32\cores\arduino"
-INPUT += "C:\Users\avik\Documents\arduino-1.6.1\hardware\koduino\stm32\libraries\Wire"
-INPUT += "C:\Users\avik\Documents\arduino-1.6.1\hardware\koduino\stm32\libraries\SPI"
-INPUT += "C:\Users\avik\Documents\arduino-1.6.1\hardware\koduino\stm32\libraries\EEPROM"
-INPUT += "C:\Users\avik\Documents\arduino-1.6.1\hardware\koduino\stm32\libraries\Encoder"
-INPUT += "C:\Users\avik\Documents\arduino-1.6.1\hardware\koduino\stm32\libraries\IMU"
-INPUT += "C:\Users\avik\Documents\arduino-1.6.1\hardware\koduino\stm32\libraries\MotorController"
-INPUT += "C:\Users\avik\Documents\arduino-1.6.1\hardware\koduino\stm32\libraries\OpenLog"
-INPUT += "C:\Users\avik\Documents\arduino-1.6.1\hardware\koduino\stm32\libraries\Dxl"
-INPUT += "C:\Users\avik\Documents\arduino-1.6.1\hardware\koduino\stm32\libraries\DxlMotor"
-INPUT += "C:\Users\avik\Documents\arduino-1.6.1\hardware\koduino\stm32\libraries\Brushless"
-INPUT += "C:\Users\avik\Documents\arduino-1.6.1\hardware\koduino\stm32\libraries\RTC"
-INPUT += "C:\Users\avik\Documents\arduino-1.6.1\hardware\koduino\stm32\libraries\FatLog"
-INPUT += "C:\Users\avik\Documents\arduino-1.6.1\hardware\koduino\stm32\libraries\Nunchuck"
-INPUT += "C:\Users\avik\Documents\arduino-1.6.1\hardware\koduino\stm32\libraries\Robot"
+# INPUT += "C:\Users\avik\Documents\arduino-1.6.1\hardware\koduino\stm32\cores\arduino"
+# INPUT += "C:\Users\avik\Documents\arduino-1.6.1\hardware\koduino\stm32\libraries\Wire"
+# INPUT += "C:\Users\avik\Documents\arduino-1.6.1\hardware\koduino\stm32\libraries\SPI"
+# INPUT += "C:\Users\avik\Documents\arduino-1.6.1\hardware\koduino\stm32\libraries\EEPROM"
+# INPUT += "C:\Users\avik\Documents\arduino-1.6.1\hardware\koduino\stm32\libraries\Encoder"
+# INPUT += "C:\Users\avik\Documents\arduino-1.6.1\hardware\koduino\stm32\libraries\IMU"
+# INPUT += "C:\Users\avik\Documents\arduino-1.6.1\hardware\koduino\stm32\libraries\MotorController"
+# INPUT += "C:\Users\avik\Documents\arduino-1.6.1\hardware\koduino\stm32\libraries\OpenLog"
+# INPUT += "C:\Users\avik\Documents\arduino-1.6.1\hardware\koduino\stm32\libraries\Dxl"
+# INPUT += "C:\Users\avik\Documents\arduino-1.6.1\hardware\koduino\stm32\libraries\DxlMotor"
+# INPUT += "C:\Users\avik\Documents\arduino-1.6.1\hardware\koduino\stm32\libraries\Brushless"
+# INPUT += "C:\Users\avik\Documents\arduino-1.6.1\hardware\koduino\stm32\libraries\RTC"
+# INPUT += "C:\Users\avik\Documents\arduino-1.6.1\hardware\koduino\stm32\libraries\FatLog"
+# INPUT += "C:\Users\avik\Documents\arduino-1.6.1\hardware\koduino\stm32\libraries\Nunchuck"
+# INPUT += "C:\Users\avik\Documents\arduino-1.6.1\hardware\koduino\stm32\libraries\Robot"
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses

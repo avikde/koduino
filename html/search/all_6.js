@@ -8,5 +8,5 @@ var searchData=
   ['fmodf_5f0_5f2pi',['fmodf_0_2pi',['../group___math.html#ga83f72abc2839379823b7fa271546a97d',1,'fmodf_0_2pi(float f):&#160;WMath.cpp'],['../group___math.html#ga83f72abc2839379823b7fa271546a97d',1,'fmodf_0_2pi(float f):&#160;WMath.cpp']]],
   ['fmodf_5fmp5_5fp5',['fmodf_mp5_p5',['../group___math.html#gae59417c716f01b7d2e7e63ad71a4cb33',1,'fmodf_mp5_p5(float f):&#160;WMath.cpp'],['../group___math.html#gae59417c716f01b7d2e7e63ad71a4cb33',1,'fmodf_mp5_p5(float f):&#160;WMath.cpp']]],
   ['fmodf_5fmpi_5fpi',['fmodf_mpi_pi',['../group___math.html#gaa193518a091a27f5e8555a341eaab735',1,'fmodf_mpi_pi(float f):&#160;WMath.cpp'],['../group___math.html#gaa193518a091a27f5e8555a341eaab735',1,'fmodf_mpi_pi(float f):&#160;WMath.cpp']]],
-  ['fatlog',['FatLog',['../md_FatLog.html',1,'']]]
+  ['fatlog',['FatLog',['../md__fat_log.html',1,'']]]
 ];
