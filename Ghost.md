@@ -12,7 +12,9 @@ This guide assumes the robot is fully assembled.
 
 #### 1.1.1 Removing the top plate
 
-**TODO photos here**
+Unscrew the four bolts on the simple top plate or slide the panel off from between the Picatinny mounts depending on configuration. Remove battery by undoing the velcro strap and try to minimize tension on the battery wires during removal.
+
+![Minitaur with top panel off](../openhatch.jpg "Minitaur with top panel off")
 
 #### 1.1.2. Charging the battery
 
@@ -145,6 +147,8 @@ The leg zeros are hard-coded for now. To do this, look at the "Setting motor zer
 ### 2.5. API documentation
 
 There is a lot of [API documentation](http://avikde.me/koduino/html/)!
+
+![Leg Numbering](../legnumbering.jpg "Leg Numbering")
 
 ---
 
