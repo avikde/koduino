@@ -25,6 +25,7 @@ struct BulkSerialSettings {
   uint8_t txPin, rxPin;
   USART_TypeDef *USARTx;
   DMA_Channel_TypeDef *chTx, *chRx;
+  uint32_t flagRxTc;
 };
 extern const BulkSerialSettings MBLC_OPENLOG;
 extern const BulkSerialSettings MBLC_RPI;
@@ -53,8 +54,12 @@ public:
 
   void write();
 
+  bool received();
+
   // special function to init OpenLog before bulk transmits start
   void initOpenLog(const char *header, const char *fmt);
+protected:
+  DMA_InitTypeDef  DMA_InitStructureTx, DMA_InitStructureRx;
 };
 
 #endif

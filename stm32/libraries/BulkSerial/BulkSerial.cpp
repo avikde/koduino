@@ -18,8 +18,8 @@
  */
 #include "BulkSerial.h"
 
-const BulkSerialSettings MBLC_OPENLOG = {PB10, PB11, USART3, DMA1_Channel2, DMA1_Channel3};
-const BulkSerialSettings MBLC_RPI = {PA2, PA3, USART2, DMA1_Channel6, DMA1_Channel7};
+const BulkSerialSettings MBLC_OPENLOG = {PB10, PB11, USART3, DMA1_Channel2, DMA1_Channel3, DMA1_FLAG_TC3};
+const BulkSerialSettings MBLC_RPI = {PA2, PA3, USART2, DMA1_Channel7, DMA1_Channel6, DMA1_FLAG_TC6};
 
 const uint8_t OPENLOG_ALIGNMENT_WORD[] = {0xaa, 0xbb};
 
@@ -43,24 +43,23 @@ void BulkSerial::begin(uint32_t baud, uint16_t sizeTx, void *bufTx, uint16_t siz
   // this is the same for each chip so far
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
 
-  DMA_InitTypeDef  DMA_InitStructure;
-
   if (sizeTx > 0) {
     // setup TX
     DMA_DeInit(bss.chTx);
-    DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralDST; // Transmit
-    DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)bufTx;
-    DMA_InitStructure.DMA_BufferSize = sizeTx-1;
-    DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&bss.USARTx->TDR;
-    DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
-    DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
-    DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
-    DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_Byte;
-    DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;// or Circular
-    DMA_InitStructure.DMA_Priority = DMA_Priority_High;
-    DMA_Init(bss.chTx, &DMA_InitStructure);
+    DMA_InitStructureTx.DMA_DIR = DMA_DIR_PeripheralDST; // Transmit
+    DMA_InitStructureTx.DMA_MemoryBaseAddr = (uint32_t)bufTx;
+    DMA_InitStructureTx.DMA_BufferSize = sizeTx;//CHECK
+    DMA_InitStructureTx.DMA_PeripheralBaseAddr = (uint32_t)&bss.USARTx->TDR;
+    DMA_InitStructureTx.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+    DMA_InitStructureTx.DMA_MemoryInc = DMA_MemoryInc_Enable;
+    DMA_InitStructureTx.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
+    DMA_InitStructureTx.DMA_MemoryDataSize = DMA_MemoryDataSize_Byte;
+    DMA_InitStructureTx.DMA_Mode = DMA_Mode_Normal;// or Circular
+    DMA_InitStructureTx.DMA_Priority = DMA_Priority_High;
+    // DMA_Init(bss.chTx, &DMA_InitStructure);
     
     // Don't enable till a TX is needed
+  // DMA_Cmd(bss.chTx, ENABLE);
 
     USART_DMACmd(bss.USARTx, USART_DMAReq_Tx, ENABLE);
   }
@@ -70,17 +69,17 @@ void BulkSerial::begin(uint32_t baud, uint16_t sizeTx, void *bufTx, uint16_t siz
     // nvicEnable(bss.irqnRx, 14);
 
     DMA_DeInit(bss.chRx);
-    DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;
-    DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)bufRx;
-    DMA_InitStructure.DMA_BufferSize = sizeRx;
-    DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&bss.USARTx->RDR;
-    DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
-    DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
-    DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
-    DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_Byte;
-    DMA_InitStructure.DMA_Mode = DMA_Mode_Circular;// or Circular
-    DMA_InitStructure.DMA_Priority = DMA_Priority_High;
-    DMA_Init(bss.chRx, &DMA_InitStructure);
+    DMA_InitStructureRx.DMA_DIR = DMA_DIR_PeripheralSRC;
+    DMA_InitStructureRx.DMA_MemoryBaseAddr = (uint32_t)bufRx;
+    DMA_InitStructureRx.DMA_BufferSize = sizeRx;
+    DMA_InitStructureRx.DMA_PeripheralBaseAddr = (uint32_t)&bss.USARTx->RDR;
+    DMA_InitStructureRx.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+    DMA_InitStructureRx.DMA_MemoryInc = DMA_MemoryInc_Enable;
+    DMA_InitStructureRx.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
+    DMA_InitStructureRx.DMA_MemoryDataSize = DMA_MemoryDataSize_Byte;
+    DMA_InitStructureRx.DMA_Mode = DMA_Mode_Circular;// or Circular
+    DMA_InitStructureRx.DMA_Priority = DMA_Priority_High;
+    DMA_Init(bss.chRx, &DMA_InitStructureRx);
 
     // later we can enable callback interrupts when a new message has arrived
     // DMA_ITConfig(bss.chRx, DMA_IT_TC, ENABLE);
@@ -95,8 +94,16 @@ void BulkSerial::write() {
   if (!enabled) return;
 
   DMA_Cmd(bss.chTx, DISABLE);
-  DMA_SetCurrDataCounter(bss.chTx, sizeTx);
+  DMA_Init(bss.chTx, &DMA_InitStructureTx);
   DMA_Cmd(bss.chTx, ENABLE);
+}
+
+bool BulkSerial::received() {
+  if (DMA_GetFlagStatus(bss.flagRxTc)) {
+    DMA_ClearFlag(bss.flagRxTc);
+    return true;
+  }
+  return false;
 }
 
 void BulkSerial::initOpenLog(const char *header, const char *fmt) {
