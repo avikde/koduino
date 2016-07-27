@@ -9,6 +9,7 @@ var searchData=
   ['getspeed',['getSpeed',['../class_minitaur_leg.html#a072a9c8ab914026608d5b6eb285a3ba3',1,'MinitaurLeg']]],
   ['gettorque',['getTorque',['../class_motor.html#acc47360642e78ce4cf5a740e3a66edf4',1,'Motor']]],
   ['getvelocity',['getVelocity',['../class_abstract_motor.html#ad625a9a4ef63844ae27f30d8d405ca5d',1,'AbstractMotor::getVelocity(int i)'],['../class_abstract_motor.html#a635c1db28feffc5c93944a6dff21addc',1,'AbstractMotor::getVelocity()'],['../class_motor.html#a3c0f019abe39b8f7a5110ff3366d5fc9',1,'Motor::getVelocity()']]],
-  ['getting_20started_20with_20ghost_20robots',['Getting started with Ghost robots',['../md_Ghost.html',1,'']]],
-  ['guide',['Guide',['../md_Guide.html',1,'']]]
+  ['ghost',['Ghost',['../group___ghost.html',1,'']]],
+  ['ghost',['Ghost',['../md__ghost.html',1,'']]],
+  ['guide',['Guide',['../md__guide.html',1,'']]]
 ];

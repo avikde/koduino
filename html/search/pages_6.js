@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['imu',['IMU',['../md_IMU.html',1,'']]],
-  ['installation',['Installation',['../md_Installation.html',1,'']]]
+  ['imu',['IMU',['../md__i_m_u.html',1,'']]],
+  ['installation',['Installation',['../md__installation.html',1,'']]]
 ];

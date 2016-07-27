@@ -1,12 +1,12 @@
+@addtogroup Ghost
 
-# Getting started with Ghost robots
+# Getting started
 
-Page created for http://www.ghostrobotics.io/
-This guide assumes the robot is fully assembled.
+Page created for http://www.ghostrobotics.io/. This guide assumes the robot is fully assembled.
 
 ---
 
-## 1. Getting to know the hardware 
+## 1. Getting to know the hardware
 
 ### 1.1. Day-to-day usage
 
@@ -79,7 +79,7 @@ To use Python to open the latest log, follow the instructions under the "Example
 
 ---
 
-## 2. Programming the mainboard
+## 2. Programming the mainboard {#programming}
 
 ### 2.1. Get your computer ready
 
@@ -96,11 +96,19 @@ I recommend cloning the repository to your computer so that you can easily updat
 1. Download [SourceTree](https://www.sourcetreeapp.com/) and install it
 2. Open SourceTree, click `Clone / New` on the toolbar
 3. Enter the URL `https://github.com/avikde/koduino.git`
-4. Under `Destination Path`, click `...` and navigate to `Documents\arduino-1.6.1\hardware`
+4. Under `Destination Path`, click `...` and navigate to
+  (a) `Documents\arduino-1.6.1\hardware` (Windows), or
+  (b) `/Applications/Arduino.app/Contents/Resources/Java/hardware` (Mac)
 5. Click `Clone` and wait for it to finish
 6. If Arduino is open, you must close and re-open it any time you make changes to the `arduino\hardware` directory.
 
 To get the latest version of the libraries at any later time, just open SourceTree, double click `koduino` on the left, and click the `Pull` button on the toolbar.
+
+#### 2.1.3. (Mac only) Get the FTDI drivers
+
+The default Mac FTDI drivers can't do the auto-reset to bootloader.
+1. Go to http://www.ftdichip.com/Drivers/VCP.htm and get the latest driver for your OS
+2. Restart
 
 ### 2.2. Upload a Blink sketch
 
@@ -109,11 +117,11 @@ The main microcontroller board at the center of the robot is called the "mainboa
 1. Open `Documents\arduino-1.6.1\arduino.exe`
 2. Click `Tools -> Board -> F303V (...)`
 3. Select `Tools -> Bootloader -> Serial`, and `Tools -> CPU Speed -> 72 MHz`
-3. Make sure the mainboard is *NOT* plugged in
-3. Click `Tools -> Port` and look at which COM ports are listed
-4. Now plug in a Micro-B USB cable from your computer to the mainboard. Check that at least the red power LED has turned on.
-5. Click `Tools -> Port` again; a new COM port should have appeared. Select the new COM port.
-6. Paste in the code below
+4. Make sure the mainboard is *NOT* plugged in
+5. Click `Tools -> Port` and look at which COM ports are listed
+6. Now plug in a Micro-B USB cable from your computer to the mainboard. Check that at least the red power LED has turned on.
+7. Click `Tools -> Port` again; a new COM port should have appeared. Select the new COM port.
+8. Paste in the code below
 ~~~{.cpp}
 #include <Arduino.h>
 
@@ -129,10 +137,26 @@ void loop() {
   delay(1000);
 }
 ~~~
-7. Click `File -> Upload`, and wait for 10-20 seconds till a success or failure message appears at the bottom. Sometimes if the upload fails, try just unplugging and plugging the mainboard in and trying again. *Hint: you can also enable verbose compilation/upload output in the Arduino console from Arduino's Preferences menu.*
-8. After successfully uploading, look at the mainboard. The green LED should be blinking once per second
+9. Click `File -> Upload`, and wait for 10-20 seconds till a success or failure message appears at the bottom. Sometimes if the upload fails, try just unplugging and plugging the mainboard in and trying again. *Hint: you can also enable verbose compilation/upload output in the Arduino console from Arduino's Preferences menu.*
+10. After successfully uploading, look at the mainboard. The green LED should be blinking once per second
 
-### 2.3. Template code
+### 2.3. Programming legs
+
+#### 2.3.1. Leg numbering
+
+![Leg Numbering](../legnumbering.jpg "Leg Numbering")
+
+#### 2.3.2 Zeroing motors
+
+Just once per actuator module, the encoder absolute encoder zeros need to be calibrated.
+
+The motor zeros are hard-coded for now. To do this, look at the "Setting motor zero" section of the [motor controller library docs](http://avikde.me/koduino/html/group___motor_controller.html).
+
+#### 2.3.3 Driving motors with setOpenLoop and setPosition
+
+See the [motor controller library docs](http://avikde.me/koduino/html/group___motor_controller.html).
+
+### 2.4. Template code
 
 Download these (right click, save as)
 * [Mainboard template](../code/mblc_template.ino) -- basic mainboard code
@@ -140,19 +164,13 @@ Download these (right click, save as)
 
 **NOTE:** For either of these, **you MUST check the leg zeros** for your specific robot before enabling motors. In the default minitaur firmware, the motors are enabled on power-up!
 
-### 2.4. Zeroing legs
-
-The leg zeros are hard-coded for now. To do this, look at the "Setting motor zero" section of the [motor controller library docs](http://avikde.me/koduino/html/group___motor_controller.html).
-
 ### 2.5. API documentation
 
 There is a lot of [API documentation](http://avikde.me/koduino/html/)!
 
-![Leg Numbering](../legnumbering.jpg "Leg Numbering")
-
 ---
 
-## 3. FAQ
+## 3. FAQ {#faq}
 
 coming soon
 

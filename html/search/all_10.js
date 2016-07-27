@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['serial',['Serial',['../md_Serial.html',1,'']]],
-  ['spi',['SPI',['../md_SPI.html',1,'']]],
-  ['streaming',['Streaming',['../md_Streaming.html',1,'']]],
+  ['serial',['Serial',['../md__serial.html',1,'']]],
+  ['spi',['SPI',['../md__s_p_i.html',1,'']]],
+  ['streaming',['Streaming',['../md__streaming.html',1,'']]],
   ['sagittalpair',['SagittalPair',['../class_sagittal_pair.html',1,'']]],
   ['sendopenloop',['sendOpenLoop',['../class_motor.html#ac4810cdc34eaa0281e89165655acd1f9',1,'Motor::sendOpenLoop()'],['../class_bl_con34.html#a5d2ba16a38c8d16b861e1588aaa8a19d',1,'BlCon34::sendOpenLoop()'],['../class_dxl_motor.html#afadb33b1c033730fd7dfbe3510490f2a',1,'DxlMotor::sendOpenLoop()']]],
   ['setbitorder',['setBitOrder',['../class_s_p_i_class.html#afde3febd4ff7bf33bb2b54e8a9b9694d',1,'SPIClass']]],
