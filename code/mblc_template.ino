@@ -1,7 +1,7 @@
 
 #define IMU_MPU6000 1
 #define IMU_VN100 2
-#define IMU_TYPE IMU_VN100
+#define IMU_TYPE IMU_MPU6000
 
 #include <Arduino.h>
 #include <BulkSerial.h>
@@ -121,9 +121,6 @@ void debug() {
   state.x = PI;
   state.bit = 1;
   openLog.write();
-
-  // while (USART_GetFlagStatus(USART3, USART_FLAG_TXE) == RESET);
-  // USART_SendData(USART3, 'a');
 
   Serial1 << "\n";
 }

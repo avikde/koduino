@@ -159,8 +159,8 @@ See the [motor controller library docs](http://avikde.me/koduino/html/group___mo
 ### 2.4. Template code
 
 Download these (right click, save as)
-* [Mainboard template](../code/mblc_template.ino) -- basic mainboard code
-* [Minitaur bounding firmware (BETA)](../code/minitaur.zip)
+* [Mainboard template](../code/mblc_template.ino) -- basic mainboard code *updated 2016/07/27*
+* [Minitaur bounding firmware (BETA)](../code/minitaur.zip) *updated 2016/07/25*
 
 **NOTE:** For either of these, **you MUST check the leg zeros** for your specific robot before enabling motors. In the default minitaur firmware, the motors are enabled on power-up!
 
