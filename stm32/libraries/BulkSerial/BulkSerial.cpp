@@ -23,7 +23,7 @@ const BulkSerialSettings MBLC_RPI = {PA2, PA3, USART2, DMA1_Channel7, DMA1_Chann
 
 const uint8_t OPENLOG_ALIGNMENT_WORD[] = {0xaa, 0xbb};
 
-void BulkSerial::begin(uint32_t baud, uint16_t sizeTx, void *bufTx, uint16_t sizeRx, void *bufRx) {
+void BulkSerial::begin(uint32_t baud, uint16_t sizeTx, void *bufTx, uint16_t sizeRx) {
   this->sizeTx = sizeTx;
   this->sizeRx = sizeRx;
 
@@ -70,7 +70,7 @@ void BulkSerial::begin(uint32_t baud, uint16_t sizeTx, void *bufTx, uint16_t siz
 
     DMA_DeInit(bss.chRx);
     DMA_InitStructureRx.DMA_DIR = DMA_DIR_PeripheralSRC;
-    DMA_InitStructureRx.DMA_MemoryBaseAddr = (uint32_t)bufRx;
+    DMA_InitStructureRx.DMA_MemoryBaseAddr = (uint32_t)localBuf;
     DMA_InitStructureRx.DMA_BufferSize = sizeRx;
     DMA_InitStructureRx.DMA_PeripheralBaseAddr = (uint32_t)&bss.USARTx->RDR;
     DMA_InitStructureRx.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
@@ -98,9 +98,26 @@ void BulkSerial::write() {
   DMA_Cmd(bss.chTx, ENABLE);
 }
 
-bool BulkSerial::received() {
+bool BulkSerial::received(uint16_t alignment, uint8_t *dest) {
   if (DMA_GetFlagStatus(bss.flagRxTc)) {
     DMA_ClearFlag(bss.flagRxTc);
+    // che
+    uint8_t align1 = alignment >> 8;
+    uint8_t align2 = alignment & 0xff;
+    for (int i=0; i<sizeRx; ++i) {
+      // if ()
+      // TODO make local buffer (or just have a "big enough" one)
+      // use mod arith to check 2 bytes at a time
+      if (localBuf[i] == align1 && localBuf[(i+1) % sizeRx] == align2) {
+        // found right alignment
+        for (int j=0; j<sizeRx; ++j) {
+          dest[j] = localBuf[(i+j) % sizeRx];
+        }
+        break;
+      }
+      // nothing aligned
+      return false;
+    }
     return true;
   }
   return false;

@@ -21,6 +21,9 @@
 
 #include <Arduino.h>
 
+// Needs to be double buffered for alignment
+#define BULKSERIAL_MAX_RX_SIZE 64
+
 struct BulkSerialSettings {
   uint8_t txPin, rxPin;
   USART_TypeDef *USARTx;
@@ -46,7 +49,7 @@ public:
 
   BulkSerial(const BulkSerialSettings& bss) : bss(bss), sizeTx(0), sizeRx(0), enabled(false) {}
 
-  void begin(uint32_t baud, uint16_t sizeTx, void *bufTx, uint16_t sizeRx, void *bufRx);
+  void begin(uint32_t baud, uint16_t sizeTx, void *bufTx, uint16_t sizeRx);
   // user will have to do RX sync
 
   // to maintain compatibility with OpenLog functionality it can be enabled/disabled. if disabled tx is ignored. in the future it can ignore rx too?
@@ -54,12 +57,14 @@ public:
 
   void write();
 
-  bool received();
+  bool received(uint16_t alignment, uint8_t *dest);
 
   // special function to init OpenLog before bulk transmits start
   void initOpenLog(const char *header, const char *fmt);
 protected:
   DMA_InitTypeDef  DMA_InitStructureTx, DMA_InitStructureRx;
+  // Need to "double buffer" RX so that when TC happens we can align the packet
+  uint8_t localBuf[BULKSERIAL_MAX_RX_SIZE];
 };
 
 #endif
