@@ -98,29 +98,27 @@ void BulkSerial::write() {
   DMA_Cmd(bss.chTx, ENABLE);
 }
 
-bool BulkSerial::received(uint16_t alignment, uint8_t *dest) {
+int BulkSerial::received(uint16_t alignment, uint8_t *dest) {
   if (DMA_GetFlagStatus(bss.flagRxTc)) {
     DMA_ClearFlag(bss.flagRxTc);
-    // che
-    uint8_t align1 = alignment >> 8;
-    uint8_t align2 = alignment & 0xff;
+    // check alignment
+    uint8_t align2 = alignment >> 8;
+    uint8_t align1 = alignment & 0xff;
     for (int i=0; i<sizeRx; ++i) {
-      // if ()
-      // TODO make local buffer (or just have a "big enough" one)
-      // use mod arith to check 2 bytes at a time
-      if (localBuf[i] == align1 && localBuf[(i+1) % sizeRx] == align2) {
+      // check for alignment in different indices into the localBuffer
+      if (localBuf[(curLocalBufIndex+i) % sizeRx] == align1 && localBuf[(curLocalBufIndex+i+1) % sizeRx] == align2) {
         // found right alignment
         for (int j=0; j<sizeRx; ++j) {
-          dest[j] = localBuf[(i+j) % sizeRx];
+          dest[j] = localBuf[(curLocalBufIndex+i+j) % sizeRx];
         }
-        break;
+        curLocalBufIndex = curLocalBufIndex+i;
+        return 1;
       }
-      // nothing aligned
-      return false;
     }
-    return true;
+    // nothing aligned
+    return -1;
   }
-  return false;
+  return 0;
 }
 
 void BulkSerial::initOpenLog(const char *header, const char *fmt) {
