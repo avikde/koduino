@@ -42,7 +42,7 @@ try
       continue;
     end
 
-     i = i+1;
+    i = i+1;
      
     for j=1:length(fmt)
       if (fmt(j)=='f')
@@ -54,12 +54,9 @@ try
       else
         error('unspecfied datatype in fmt');
       end
-      %fmt(j)
+
       data(i,j)=fread(fileID,1,type);
     end
-%          data(i,1) = fread(fileID,1,'uint32')/1000;
-%          data(i,2:21) = fread(fileID,[1,20],'float');
-%          data(i,22) = fread(fileID,1,'uint8');
   end
   fclose(fileID);
 catch
@@ -69,6 +66,10 @@ end
 % Return data in a struct
 s = struct();
 for cn=1:length(colnames)
+  % convert time to seconds
+  if strcmp(colnames{cn},'t')
+    data(:,cn) = 0.001 * data(:,cn);
+  end
   s = setfield(s,colnames{cn},data(:,cn));
 end
 
