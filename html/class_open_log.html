@@ -141,6 +141,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">  openLog.write((<span class="keyword">const</span> uint8_t *)&amp;state);</div>
 <div class="line">}</div>
 </div><!-- fragment --><h3>Example: Reading on a computer</h3>
+<h4>Using MATLAB</h4>
+<p>In a MATLAB command window, </p><div class="fragment"><div class="line">&gt;&gt; cd $KODUINO_DIR/libraries/<a class="code" href="class_open_log.html">OpenLog</a></div>
+<div class="line">&gt;&gt; s = <a class="code" href="namespaceopen__log.html">open_log</a>(<span class="stringliteral">&#39;LOG00000.TXT&#39;</span>);</div>
+<div class="line">Opened LOG00000.TXT</div>
+<div class="line">Keys: t,r,p,y,q0,q1,q2,q3,q4,q5,q6,q7,u0,u1,u2,u3,u4,u5,u6,u7,xd,mo</div>
+<div class="line">Format: IffffffffffffffffffffB</div>
+<div class="line">Finished reading</div>
+<div class="line">&gt;&gt; plot(s.t, s.p)</div>
+</div><!-- fragment --><h4>Using Python</h4>
 <p>From a terminal,</p>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;...$ cd $KODUINO_DIR/libraries/OpenLog</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;.../OpenLog$ python open_log.py -p &lt;log_file_path_root&gt; [-e &lt;experiment_type&gt;] &lt;log_file_number&gt;</div>
@@ -320,7 +329,7 @@ Public Member Functions</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 27 2016 09:26:42 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jul 30 2016 17:50:32 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

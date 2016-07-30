@@ -48,6 +48,23 @@ void loop() {
 
 ### Example: Reading on a computer
 
+#### Using MATLAB
+
+In a MATLAB command window,
+~~~~{.m}
+>> cd $KODUINO_DIR/libraries/OpenLog
+>> s = open_log('LOG00000.TXT');
+Opened LOG00000.TXT
+Keys: t,r,p,y,q0,q1,q2,q3,q4,q5,q6,q7,u0,u1,u2,u3,u4,u5,u6,u7,xd,mo
+Format: IffffffffffffffffffffB
+Finished reading
+>> plot(s.t, s.p)
+
+~~~~
+Thanks, Pranav Bhounsule, for help with this parsing script.
+
+#### Using Python
+
 From a terminal,
 
 ~~~{.sh}

@@ -114,7 +114,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  uint16_t sizeTx, sizeRx;</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="keywordtype">bool</span> enabled;</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <a class="code" href="class_bulk_serial.html">BulkSerial</a>(<span class="keyword">const</span> BulkSerialSettings&amp; bss) : bss(bss), sizeTx(0), sizeRx(0), enabled(<span class="keyword">false</span>) {}</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <a class="code" href="class_bulk_serial.html">BulkSerial</a>(<span class="keyword">const</span> BulkSerialSettings&amp; bss) : bss(bss), sizeTx(0), sizeRx(0), enabled(<span class="keyword">false</span>), curLocalBufIndex(0) {}</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordtype">void</span> begin(uint32_t baud, uint16_t sizeTx, <span class="keywordtype">void</span> *bufTx, uint16_t sizeRx);</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="comment">// user will have to do RX sync</span></div>
@@ -124,23 +124,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keywordtype">void</span> write();</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keywordtype">bool</span> received(uint16_t alignment, uint8_t *dest);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keywordtype">int</span> received(uint16_t alignment, uint8_t *dest);</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="comment">// special function to init OpenLog before bulk transmits start</span></div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keywordtype">void</span> initOpenLog(<span class="keyword">const</span> <span class="keywordtype">char</span> *header, <span class="keyword">const</span> <span class="keywordtype">char</span> *fmt);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">// protected:</span></div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  DMA_InitTypeDef  DMA_InitStructureTx, DMA_InitStructureRx;</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <span class="comment">// Need to &quot;double buffer&quot; RX so that when TC happens we can align the packet</span></div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  uint8_t localBuf[BULKSERIAL_MAX_RX_SIZE];</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;};</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  uint8_t curLocalBufIndex;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;};</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="class_bulk_serial_html"><div class="ttname"><a href="class_bulk_serial.html">BulkSerial</a></div><div class="ttdoc">Fixed length bulk serial data transfers using DMA. </div><div class="ttdef"><b>Definition:</b> BulkSerial.h:44</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 27 2016 09:26:40 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jul 30 2016 17:50:30 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>
