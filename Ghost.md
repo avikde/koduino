@@ -150,7 +150,8 @@ void loop() {
 
 Just once per actuator module, the encoder absolute encoder zeros need to be calibrated.
 
-The motor zeros are hard-coded for now. To do this, look at the "Setting motor zero" section of the [motor controller library docs](http://avikde.me/koduino/html/group___motor_controller.html).
+* The motor zeros are hard-coded for now. To do this, look at the "Setting motor zero" section of the [motor controller library docs](http://avikde.me/koduino/html/group___motor_controller.html).
+* [CAD file for leg zeroing jig](../GhostMinitaurLegZeroJig.STL) -- 3D print this to help zero the motors
 
 #### 2.3.3 Driving motors with setOpenLoop and setPosition
 
@@ -159,8 +160,8 @@ See the [motor controller library docs](http://avikde.me/koduino/html/group___mo
 ### 2.4. Template code
 
 Download these (right click, save as)
-* [Mainboard template](../code/mblc_template.ino) -- basic mainboard code *updated 2016/07/27*
-* [Minitaur bounding firmware (BETA)](../code/minitaur.zip) *updated 2016/07/25*
+* [Mainboard template](../code/mblc_template.ino) -- basic mainboard code -- *updated 2016/08/01*
+* [Minitaur bounding firmware (BETA)](../code/minitaur.zip) -- *updated 2016/08/01*
 
 **NOTE:** For either of these, **you MUST check the leg zeros** for your specific robot before enabling motors. In the default minitaur firmware, the motors are enabled on power-up!
 

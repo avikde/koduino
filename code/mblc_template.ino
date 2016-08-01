@@ -157,7 +157,7 @@ void setup() {
   // Serial2.begin(115200);
   
   // Try to start logger
-  openLog.begin(115200, sizeof(state), &state, 0, NULL);
+  openLog.begin(115200, sizeof(state), &state, 0);
   openLog.initOpenLog("t,pi,bit", "IfB");
   openLog.enable(true);
   

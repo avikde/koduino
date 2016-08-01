@@ -201,13 +201,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <h4>2.3.2 Zeroing motors</h4>
 <p>Just once per actuator module, the encoder absolute encoder zeros need to be calibrated.</p>
-<p>The motor zeros are hard-coded for now. To do this, look at the "Setting motor zero" section of the <a href="http://avikde.me/koduino/html/group___motor_controller.html">motor controller library docs</a>.</p>
+<ul>
+<li>The motor zeros are hard-coded for now. To do this, look at the "Setting motor zero" section of the <a href="http://avikde.me/koduino/html/group___motor_controller.html">motor controller library docs</a>.</li>
+<li><a href="../GhostMinitaurLegZeroJig.STL">CAD file for leg zeroing jig</a> &ndash; 3D print this to help zero the motors</li>
+</ul>
 <h4>2.3.3 Driving motors with setOpenLoop and setPosition</h4>
 <p>See the <a href="http://avikde.me/koduino/html/group___motor_controller.html">motor controller library docs</a>.</p>
 <h3>2.4. Template code</h3>
 <p>Download these (right click, save as)</p><ul>
-<li><a href="../code/mblc_template.ino">Mainboard template</a> &ndash; basic mainboard code <em>updated 2016/07/27</em></li>
-<li><a href="../code/minitaur.zip">Minitaur bounding firmware (BETA)</a> <em>updated 2016/07/25</em></li>
+<li><a href="../code/mblc_template.ino">Mainboard template</a> &ndash; basic mainboard code &ndash; <em>updated 2016/08/01</em></li>
+<li><a href="../code/minitaur.zip">Minitaur bounding firmware (BETA)</a> &ndash; <em>updated 2016/08/01</em></li>
 </ul>
 <p><b>NOTE:</b> For either of these, <b>you MUST check the leg zeros</b> for your specific robot before enabling motors. In the default minitaur firmware, the motors are enabled on power-up!</p>
 <h3>2.5. API documentation</h3>
@@ -217,7 +220,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jul 30 2016 17:50:31 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Aug 1 2016 19:58:54 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>
