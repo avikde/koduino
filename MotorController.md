@@ -19,18 +19,18 @@ Basic control of a single motor:
 #include <Motor.h>
 
 // Uncomment the lines corresponding to your board
-// Mainboard v1.1
-const int NMOT = 8;
-const uint8_t outPin[] = {PA0, PA11, PA2, PA3, PB0, PB8, PA14, PA1};
-const uint8_t inPin[] = {PA6, PB5, PB6, PB7, PB1, PB9, PA15, PA5};
+// MBLC 0.5
+const int NMOT = 10;
+const uint8_t pwmPin[] = {PE9, PE11, PE13, PE14, PA0, PD4, PD7, PD6, PB4, PB5};
+const uint8_t posPin[] = {PD12, PD13, PD14, PD15, PC6, PC7, PC8, PC9, PE2, PE3};
+// // Mainboard v1.1
+// const int NMOT = 8;
+// const uint8_t outPin[] = {PA0, PA11, PA2, PA3, PB0, PB8, PA14, PA1};
+// const uint8_t inPin[] = {PA6, PB5, PB6, PB7, PB1, PB9, PA15, PA5};
 // // Mainboard v2
 // const int NMOT = 8;
 // const uint8_t outPin[] = {PA3, PA2, PA0, PA1, PB0, PB1, PA6, PB5};
 // const uint8_t inPin[] = {PB8, PB9, PB3, PA8, PA11, PA15, PB14, PB15};
-// // MBLC
-// const int NMOT = 10;
-// const uint8_t outPin[] = {PA5, PA1, PB10, PB11, PC0, PC1, PC2, PC3, PB4, PB5};
-// const uint8_t inPin[] = {PF1, PB2, PB0, PC4, PC5, PC6, PC7, PC8, PA11, PA12};
 
 const int CONTROL_RATE = 1000;
 BlCon34 M[NMOT];
@@ -44,9 +44,7 @@ void setup() {
   Serial1.begin(115200);
 
   Motor::updateRate = CONTROL_RATE;
-  Motor::velSmooth = 0.9;
-  // Uncomment this for MBLC
-  // BlCon34::useEXTI = true;
+  Motor::velSmooth = 0.55;
 
   // Arguments are pwmPin, pulsePin, zero(rad), direction(+/- 1)
   for (int i=0; i<NMOT; ++i) {
@@ -110,18 +108,19 @@ To use these classes:
 #include <MinitaurLeg.h>
 
 // Uncomment the lines corresponding to your board
-// Mainboard v1.1
-const int NMOT = 8;
-const uint8_t outPin[] = {PA0, PA11, PA2, PA3, PB0, PB8, PA14, PA1};
-const uint8_t inPin[] = {PA6, PB5, PB6, PB7, PB1, PB9, PA15, PA5};
+// MBLC 0.5
+const int NMOT = 10;
+const uint8_t pwmPin[] = {PE9, PE11, PE13, PE14, PA0, PD4, PD7, PD6, PB4, PB5};
+const uint8_t posPin[] = {PD12, PD13, PD14, PD15, PC6, PC7, PC8, PC9, PE2, PE3};
+// // Mainboard v1.1
+// const int NMOT = 8;
+// const uint8_t outPin[] = {PA0, PA11, PA2, PA3, PB0, PB8, PA14, PA1};
+// const uint8_t inPin[] = {PA6, PB5, PB6, PB7, PB1, PB9, PA15, PA5};
 // // Mainboard v2
 // const int NMOT = 8;
 // const uint8_t outPin[] = {PA3, PA2, PA0, PA1, PB0, PB1, PA6, PB5};
 // const uint8_t inPin[] = {PB8, PB9, PB3, PA8, PA11, PA15, PB14, PB15};
-// // MBLC
-// const int NMOT = 10;
-// const uint8_t outPin[] = {PA5, PA1, PB10, PB11, PC0, PC1, PC2, PC3, PB4, PB5};
-// const uint8_t inPin[] = {PF1, PB2, PB0, PC4, PC5, PC6, PC7, PC8, PA11, PA12};
+
 
 const int CONTROL_RATE = 1000;
 BlCon34 M[NMOT];

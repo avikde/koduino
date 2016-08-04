@@ -103,18 +103,18 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Motor.h&gt;</span></div>
 <div class="line"></div>
 <div class="line"><span class="comment">// Uncomment the lines corresponding to your board</span></div>
-<div class="line"><span class="comment">// Mainboard v1.1</span></div>
-<div class="line"><span class="keyword">const</span> <span class="keywordtype">int</span> NMOT = 8;</div>
-<div class="line"><span class="keyword">const</span> uint8_t outPin[] = {PA0, PA11, PA2, PA3, PB0, PB8, PA14, PA1};</div>
-<div class="line"><span class="keyword">const</span> uint8_t inPin[] = {PA6, PB5, PB6, PB7, PB1, PB9, PA15, PA5};</div>
+<div class="line"><span class="comment">// MBLC 0.5</span></div>
+<div class="line"><span class="keyword">const</span> <span class="keywordtype">int</span> NMOT = 10;</div>
+<div class="line"><span class="keyword">const</span> uint8_t pwmPin[] = {PE9, PE11, PE13, PE14, PA0, PD4, PD7, PD6, PB4, PB5};</div>
+<div class="line"><span class="keyword">const</span> uint8_t posPin[] = {PD12, PD13, PD14, PD15, PC6, PC7, PC8, PC9, PE2, PE3};</div>
+<div class="line"><span class="comment">// // Mainboard v1.1</span></div>
+<div class="line"><span class="comment">// const int NMOT = 8;</span></div>
+<div class="line"><span class="comment">// const uint8_t outPin[] = {PA0, PA11, PA2, PA3, PB0, PB8, PA14, PA1};</span></div>
+<div class="line"><span class="comment">// const uint8_t inPin[] = {PA6, PB5, PB6, PB7, PB1, PB9, PA15, PA5};</span></div>
 <div class="line"><span class="comment">// // Mainboard v2</span></div>
 <div class="line"><span class="comment">// const int NMOT = 8;</span></div>
 <div class="line"><span class="comment">// const uint8_t outPin[] = {PA3, PA2, PA0, PA1, PB0, PB1, PA6, PB5};</span></div>
 <div class="line"><span class="comment">// const uint8_t inPin[] = {PB8, PB9, PB3, PA8, PA11, PA15, PB14, PB15};</span></div>
-<div class="line"><span class="comment">// // MBLC</span></div>
-<div class="line"><span class="comment">// const int NMOT = 10;</span></div>
-<div class="line"><span class="comment">// const uint8_t outPin[] = {PA5, PA1, PB10, PB11, PC0, PC1, PC2, PC3, PB4, PB5};</span></div>
-<div class="line"><span class="comment">// const uint8_t inPin[] = {PF1, PB2, PB0, PC4, PC5, PC6, PC7, PC8, PA11, PA12};</span></div>
 <div class="line"></div>
 <div class="line"><span class="keyword">const</span> <span class="keywordtype">int</span> CONTROL_RATE = 1000;</div>
 <div class="line"><a class="code" href="class_bl_con34.html">BlCon34</a> M[NMOT];</div>
@@ -128,9 +128,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">  Serial1.begin(115200);</div>
 <div class="line"></div>
 <div class="line">  <a class="code" href="class_motor.html#a89362d8b2dd1b125576cff1c08428072">Motor::updateRate</a> = CONTROL_RATE;</div>
-<div class="line">  <a class="code" href="class_motor.html#aaf7ec1963f7a56e500a2ad35cb886293">Motor::velSmooth</a> = 0.9;</div>
-<div class="line">  <span class="comment">// Uncomment this for MBLC</span></div>
-<div class="line">  <span class="comment">// BlCon34::useEXTI = true;</span></div>
+<div class="line">  <a class="code" href="class_motor.html#aaf7ec1963f7a56e500a2ad35cb886293">Motor::velSmooth</a> = 0.55;</div>
 <div class="line"></div>
 <div class="line">  <span class="comment">// Arguments are pwmPin, pulsePin, zero(rad), direction(+/- 1)</span></div>
 <div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=0; i&lt;NMOT; ++i) {</div>
@@ -185,18 +183,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><span class="preprocessor">#include &lt;MinitaurLeg.h&gt;</span></div>
 <div class="line"></div>
 <div class="line"><span class="comment">// Uncomment the lines corresponding to your board</span></div>
-<div class="line"><span class="comment">// Mainboard v1.1</span></div>
-<div class="line"><span class="keyword">const</span> <span class="keywordtype">int</span> NMOT = 8;</div>
-<div class="line"><span class="keyword">const</span> uint8_t outPin[] = {PA0, PA11, PA2, PA3, PB0, PB8, PA14, PA1};</div>
-<div class="line"><span class="keyword">const</span> uint8_t inPin[] = {PA6, PB5, PB6, PB7, PB1, PB9, PA15, PA5};</div>
+<div class="line"><span class="comment">// MBLC 0.5</span></div>
+<div class="line"><span class="keyword">const</span> <span class="keywordtype">int</span> NMOT = 10;</div>
+<div class="line"><span class="keyword">const</span> uint8_t pwmPin[] = {PE9, PE11, PE13, PE14, PA0, PD4, PD7, PD6, PB4, PB5};</div>
+<div class="line"><span class="keyword">const</span> uint8_t posPin[] = {PD12, PD13, PD14, PD15, PC6, PC7, PC8, PC9, PE2, PE3};</div>
+<div class="line"><span class="comment">// // Mainboard v1.1</span></div>
+<div class="line"><span class="comment">// const int NMOT = 8;</span></div>
+<div class="line"><span class="comment">// const uint8_t outPin[] = {PA0, PA11, PA2, PA3, PB0, PB8, PA14, PA1};</span></div>
+<div class="line"><span class="comment">// const uint8_t inPin[] = {PA6, PB5, PB6, PB7, PB1, PB9, PA15, PA5};</span></div>
 <div class="line"><span class="comment">// // Mainboard v2</span></div>
 <div class="line"><span class="comment">// const int NMOT = 8;</span></div>
 <div class="line"><span class="comment">// const uint8_t outPin[] = {PA3, PA2, PA0, PA1, PB0, PB1, PA6, PB5};</span></div>
 <div class="line"><span class="comment">// const uint8_t inPin[] = {PB8, PB9, PB3, PA8, PA11, PA15, PB14, PB15};</span></div>
-<div class="line"><span class="comment">// // MBLC</span></div>
-<div class="line"><span class="comment">// const int NMOT = 10;</span></div>
-<div class="line"><span class="comment">// const uint8_t outPin[] = {PA5, PA1, PB10, PB11, PC0, PC1, PC2, PC3, PB4, PB5};</span></div>
-<div class="line"><span class="comment">// const uint8_t inPin[] = {PF1, PB2, PB0, PC4, PC5, PC6, PC7, PC8, PA11, PA12};</span></div>
+<div class="line"></div>
 <div class="line"></div>
 <div class="line"><span class="keyword">const</span> <span class="keywordtype">int</span> CONTROL_RATE = 1000;</div>
 <div class="line"><a class="code" href="class_bl_con34.html">BlCon34</a> M[NMOT];</div>
@@ -274,7 +273,7 @@ Classes</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 1 2016 19:58:54 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 4 2016 16:02:15 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>
