@@ -23,7 +23,7 @@
 
 
 /**
- * @brief MPU6000 hardware interface library
+ * @brief VN100 hardware interface library
  */
 class VN100 {
 public:
@@ -36,6 +36,11 @@ public:
    */
   VN100(SPIClass& theSPI) : theSPI(theSPI) {}
   
+  /**
+   * @brief Send initialization commands to the VN100
+   * 
+   * @param csPin chip select pin
+   */
   void init(uint8_t csPin) {
     this->csPin = csPin;
 
@@ -97,6 +102,17 @@ public:
     digitalWrite(csPin, HIGH);
   }
 
+  /**
+   * @brief Retrieves angles and angular rates
+   * @details This function blocks for a few hundred microseconds.
+   * 
+   * @param yaw in radians
+   * @param pitch in radians
+   * @param roll in radians
+   * @param yawd in rad/s
+   * @param pitchd in rad/s
+   * @param rolld in rad/s
+   */
   void get(float& yaw, float& pitch, float& roll, float& yawd, float& pitchd, float& rolld) {
     float dat[3];
     readReg(8, 12, (uint8_t *)dat);
@@ -111,6 +127,5 @@ public:
   }
 };
 
-/** @} */ // end of addtogroup
 
 #endif
