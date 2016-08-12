@@ -1,5 +1,7 @@
 @class OpenLog OpenLog.h
 
+**NOTE: the preferred way to talk to the OpenLog now is using the BulkSerial class. The "reading on a computer" example below is still pertinent and log files are back/forward compatible.**
+
 This is a library of high level functions for [OpenLog v3 firmware](https://github.com/sparkfun/OpenLog/tree/master/firmware/OpenLog_v3) attached on some serial port. A lot of the functions are from the [read example from SparkFun](https://github.com/sparkfun/OpenLog/blob/master/firmware/examples/OpenLog_ReadExample/OpenLog_ReadExample.ino). All the file ops are performed by OpenLog, and this library adds
 
 * a hardware interface including resetting, opening and verifying a write connection, 

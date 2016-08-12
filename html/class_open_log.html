@@ -100,7 +100,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p><code>#include &lt;<a class="el" href="_open_log_8h_source.html">OpenLog.h</a>&gt;</code></p>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This is a library of high level functions for <a href="https://github.com/sparkfun/OpenLog/tree/master/firmware/OpenLog_v3">OpenLog v3 firmware</a> attached on some serial port. A lot of the functions are from the <a href="https://github.com/sparkfun/OpenLog/blob/master/firmware/examples/OpenLog_ReadExample/OpenLog_ReadExample.ino">read example from SparkFun</a>. All the file ops are performed by <a class="el" href="class_open_log.html">OpenLog</a>, and this library adds</p>
+<div class="textblock"><p><b>NOTE: the preferred way to talk to the <a class="el" href="class_open_log.html">OpenLog</a> now is using the <a class="el" href="class_bulk_serial.html" title="Fixed length bulk serial data transfers using DMA. ">BulkSerial</a> class. The "reading on a computer" example below is still pertinent and log files are back/forward compatible.</b></p>
+<p>This is a library of high level functions for <a href="https://github.com/sparkfun/OpenLog/tree/master/firmware/OpenLog_v3">OpenLog v3 firmware</a> attached on some serial port. A lot of the functions are from the <a href="https://github.com/sparkfun/OpenLog/blob/master/firmware/examples/OpenLog_ReadExample/OpenLog_ReadExample.ino">read example from SparkFun</a>. All the file ops are performed by <a class="el" href="class_open_log.html">OpenLog</a>, and this library adds</p>
 <ul>
 <li>a hardware interface including resetting, opening and verifying a write connection,</li>
 <li>"as fast as possible" (only limited by Serial write speed) binary dumping with an alignment word, and</li>
@@ -330,7 +331,7 @@ Public Member Functions</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Aug 12 2016 12:11:03 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Aug 12 2016 13:46:20 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

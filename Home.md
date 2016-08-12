@@ -38,6 +38,7 @@ The API functions here are in general optimized for speed and concurrency, at th
 ### Communication
 
 * [Serial / USART](@ref USARTClass) --- FTDI (USB/Serial), XBee, ...
+* [Serial with DMA](@ref BulkSerial) --- for when packet sizes are known apriori
 * [SPI](@ref SPIClass) --- MPU-6000, ...
 * [Wire / I2C / SMBus](@ref TwoWire) --- Nunchuck, MPU-6050, ...
 * [Dxl real-time bus (TODO)](@ref Dxl)
@@ -45,7 +46,9 @@ The API functions here are in general optimized for speed and concurrency, at th
 ### Peripheral device drivers
 
 * [Reading a quadrature encoder](@ref Encoder)
-* [Data logging: OpenLog driver](@ref OpenLog) --- on Sparkfun OpenLog, or Mainboard v1
+* [Data logging: OpenLog driver](@ref OpenLog) --- on Sparkfun OpenLog, MBLC, or Mainboard v1
+* [IMU drivers and orientation filter](@ref IMU) --- MPU6000 drivers, complementary filter, EKF
+* [Vectornav IMU driver](@ref VN100)
 * [Data logging: FatLog over SDIO (TODO)](@ref FatLog) --- on Mainboard v2 only
 * [Wii Nunchuck (TODO)](@ref Nunchuck)
 
@@ -53,9 +56,8 @@ The API functions here are in general optimized for speed and concurrency, at th
 
 * [Storing data in non-volatile memory (EEPROM)](@ref EEPROMClass)
 * [Basic and advanced Math](@ref Math) --- also, the [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page) libraries exist
-* [Real-time clock (TODO)](@ref RTCClass) --- on Mainboard v2 only
 * [Motor controller library with multi-motor coordination](@ref MotorController)
-* [IMU drivers and orientation filter](@ref IMU) --- MPU6000 drivers, complementary filter, EKF
+* [Real-time clock (TODO)](@ref RTCClass) --- on Mainboard v2 only
 * [Behaviors base class, clocked gaits (TODO)](@ref Behavior)
 * [Brushless commutation with field-oriented control (WIP)](@ref Brushless) --- *Warning: advanced!*
 

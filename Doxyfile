@@ -787,7 +787,7 @@ INPUT += "$(KODUINO_DIR)\libraries\RTC"
 INPUT += "$(KODUINO_DIR)\libraries\FatLog"
 INPUT += "$(KODUINO_DIR)\libraries\Nunchuck"
 INPUT += "$(KODUINO_DIR)\libraries\Robot"
-INPUT += "$(KODUINO_DIR)\libraries\VN100"
+INPUT += "$(KODUINO_DIR)\libraries\VectorNav"
 INPUT += "$(KODUINO_DIR)\libraries\BulkSerial"
 
 # This tag can be used to specify the character encoding of the source files

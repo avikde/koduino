@@ -115,6 +115,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h3>Communication</h3>
 <ul>
 <li><a class="el" href="class_u_s_a_r_t_class.html">Serial / USART</a> &mdash; FTDI (USB/Serial), XBee, ...</li>
+<li><a class="el" href="class_bulk_serial.html">Serial with DMA</a> &mdash; for when packet sizes are known apriori</li>
 <li><a class="el" href="class_s_p_i_class.html">SPI</a> &mdash; MPU-6000, ...</li>
 <li><a class="el" href="class_two_wire.html">Wire / I2C / SMBus</a> &mdash; <a class="el" href="class_nunchuck.html" title="Nunchuck class. ">Nunchuck</a>, MPU-6050, ...</li>
 <li><a class="el" href="class_dxl.html">Dxl real-time bus (TODO)</a></li>
@@ -122,7 +123,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h3>Peripheral device drivers</h3>
 <ul>
 <li><a class="el" href="class_encoder.html">Reading a quadrature encoder</a></li>
-<li><a class="el" href="class_open_log.html">Data logging: OpenLog driver</a> &mdash; on Sparkfun <a class="el" href="class_open_log.html">OpenLog</a>, or Mainboard v1</li>
+<li><a class="el" href="class_open_log.html">Data logging: OpenLog driver</a> &mdash; on Sparkfun <a class="el" href="class_open_log.html">OpenLog</a>, MBLC, or Mainboard v1</li>
+<li><a class="el" href="group___i_m_u.html">IMU drivers and orientation filter</a> &mdash; <a class="el" href="class_m_p_u6000.html" title="MPU6000 hardware interface library. ">MPU6000</a> drivers, complementary filter, <a class="el" href="class_e_k_f.html" title="EKF implementation. ">EKF</a></li>
+<li><a class="el" href="class_v_n100.html">Vectornav IMU driver</a></li>
 <li><a class="el" href="class_fat_log.html">Data logging: FatLog over SDIO (TODO)</a> &mdash; on Mainboard v2 only</li>
 <li><a class="el" href="class_nunchuck.html">Wii Nunchuck (TODO)</a></li>
 </ul>
@@ -130,9 +133,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <ul>
 <li><a class="el" href="class_e_e_p_r_o_m_class.html">Storing data in non-volatile memory (EEPROM)</a></li>
 <li><a class="el" href="group___math.html">Basic and advanced Math</a> &mdash; also, the <a href="http://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen</a> libraries exist</li>
-<li><a class="el" href="class_r_t_c_class.html">Real-time clock (TODO)</a> &mdash; on Mainboard v2 only</li>
 <li><a class="el" href="group___motor_controller.html">Motor controller library with multi-motor coordination</a></li>
-<li><a class="el" href="group___i_m_u.html">IMU drivers and orientation filter</a> &mdash; <a class="el" href="class_m_p_u6000.html" title="MPU6000 hardware interface library. ">MPU6000</a> drivers, complementary filter, <a class="el" href="class_e_k_f.html" title="EKF implementation. ">EKF</a></li>
+<li><a class="el" href="class_r_t_c_class.html">Real-time clock (TODO)</a> &mdash; on Mainboard v2 only</li>
 <li><a class="el" href="group___behavior.html">Behaviors base class, clocked gaits (TODO)</a></li>
 <li><a class="el" href="class_brushless.html">Brushless commutation with field-oriented control (WIP)</a> &mdash; <em>Warning: advanced!</em> </li>
 </ul>
@@ -140,7 +142,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Aug 12 2016 12:11:04 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Aug 12 2016 13:46:21 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>
