@@ -109,10 +109,30 @@ class AbstractMotor&lt; N &gt;</h3>
 <p>Class for coordinating N motors in parallel. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">N</td><td>number of motors to be coordinated </td></tr>
+    <tr><td class="paramname">N</td><td>number of motors to be coordinated</td></tr>
   </table>
   </dd>
 </dl>
+<h3>Description of multi-DOF motor coordination</h3>
+<p>The <a class="el" href="class_abstract_motor.html" title="Class for coordinating N motors in parallel. ">AbstractMotor</a> base class is useful for coordinating multi-DOF appendages. Some useful derived classes are <a class="el" href="class_minitaur_leg.html" title="Class for coordinating two parallel coaxial motors in the Minitaur config. ">MinitaurLeg</a>, <a class="el" href="class_sagittal_pair.html" title="Coordinates a pair of motors (for instance for sagittal plane behaviors) ">SagittalPair</a>, etc.</p>
+<p>To use these classes:</p>
+<ol type="1">
+<li>Each motor needs to be intialized (by <a class="el" href="class_bl_con34.html#aae0df02b2a2a7b948eafcf3e1c873283" title="Initialize a motor for PWM communication. ">BlCon34::init()</a>, <a class="el" href="class_dxl_motor.html#acd6a880d4875407cd9aa780cb021ecfd">DxlMotor::init()</a>, etc.) even though they are being coordinated together, just as in step 1 in the <a class="el" href="group___motor_controller.html">MotorController help page</a></li>
+<li>Call the constructor <a class="el" href="class_minitaur_leg.html#a9aa885dc3f493e4b86db958e8bc7cbeb" title="Declare the leg based on the consituent motors. ">MinitaurLeg::MinitaurLeg()</a> (or whichever <a class="el" href="class_abstract_motor.html" title="Class for coordinating N motors in parallel. ">AbstractMotor</a> -derived class) with pointers to constituent <a class="el" href="class_motor.html" title="Base single-motor class. ">Motor</a> s</li>
+<li>Set the direction and zero of each <a class="el" href="class_motor.html" title="Base single-motor class. ">Motor</a> object first (do this before applying power)</li>
+<li>Call <a class="el" href="class_abstract_motor.html#a9c57a5b89e44bd332951b172420efb4c" title="Enables all the motors in this &quot;leg&quot;. ">AbstractMotor::enable()</a> (or on derived class)</li>
+<li>As in the <a class="el" href="class_motor.html" title="Base single-motor class. ">Motor</a> class, <a class="el" href="class_abstract_motor.html#ac76ff65b8a1fe44bcbdabbdb7d06b610" title="Set open loop command to coordinate i. ">AbstractMotor::setOpenLoop()</a>, <a class="el" href="class_abstract_motor.html#abf2a54f92e70a2db97168546bfc03866" title="Set PD gains for coordinate i. ">AbstractMotor::setGain()</a> and <a class="el" href="class_abstract_motor.html#ab921ccb46270d5a4c0a78e057efa7b00" title="Set position setpoint for coordinate i, and change to position control mode. ">AbstractMotor::setPosition()</a> exist, but they have a new first argument. The first argument represents the end-effector coordinate. For example, in <a class="el" href="class_minitaur_leg.html" title="Class for coordinating two parallel coaxial motors in the Minitaur config. ">MinitaurLeg</a>, the first argument can be <code>EXTENSION</code> (defined as 0) or <code>ANGLE</code> (defined as 1).</li>
+<li>Call <a class="el" href="class_abstract_motor.html#ac76ff65b8a1fe44bcbdabbdb7d06b610" title="Set open loop command to coordinate i. ">AbstractMotor::setOpenLoop()</a> with first argument in (0, 1, ...) indicating the end-effector coordinate, and second argument between -1 and 1 to spin freely</li>
+<li>Call <a class="el" href="class_abstract_motor.html#abf2a54f92e70a2db97168546bfc03866" title="Set PD gains for coordinate i. ">AbstractMotor::setGain()</a> and <a class="el" href="class_abstract_motor.html#ab921ccb46270d5a4c0a78e057efa7b00" title="Set position setpoint for coordinate i, and change to position control mode. ">AbstractMotor::setPosition()</a> to command a position</li>
+<li>Call <a class="el" href="class_abstract_motor.html#aaa471f524702c30a99df49099d6bb3d5" title="Get position of 0th coordinate. ">AbstractMotor::getPosition()</a> or <a class="el" href="class_abstract_motor.html#a635c1db28feffc5c93944a6dff21addc" title="Get velocity of 0th coordinate. ">AbstractMotor::getVelocity()</a> to get back data</li>
+<li><a class="el" href="class_abstract_motor.html#a41bc149f07b2a88622f11dc8b2fb18c2" title="This should be called at a more or less fixed rate (once per iteration) ">AbstractMotor::update()</a> must be called frequently (don't call <a class="el" href="class_motor.html#a1aed5249d7e088b34bf5e45da6c7f21e" title="Function that communicates with the motor controller (including getting position, commanding PWM) ...">Motor::update()</a> on the constituent motors)</li>
+</ol>
+<p>An example for <a class="el" href="class_minitaur_leg.html" title="Class for coordinating two parallel coaxial motors in the Minitaur config. ">MinitaurLeg</a> is found on its help page.</p>
+<h4>Creating a new multi-DOF appendage (derived class)</h4>
+<ol type="1">
+<li>Implement forward kinematics in <a class="el" href="class_abstract_motor.html#a76fd95ef263081117e60615b98bec505" title="Transformation for forces at the toe to joint torques. ">AbstractMotor::physicalToAbstract</a></li>
+<li>Implement mapping of end effector forces to joint torques in <a class="el" href="class_abstract_motor.html#a86651072beff21fb167a3bdd844fe9b9" title="Forward kinematics. ">AbstractMotor::abstractToPhysical</a> </li>
+</ol>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -703,7 +723,7 @@ template&lt;int N&gt; </div>
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 4 2016 16:02:15 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Aug 12 2016 12:11:02 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

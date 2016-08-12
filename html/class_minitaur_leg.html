@@ -105,8 +105,76 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p><code>#include &lt;<a class="el" href="_minitaur_leg_8h_source.html">MinitaurLeg.h</a>&gt;</code></p>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class for coordinating two parallel coaxial motors in the Minitaur config. </p>
-<p>Link lengths can be set, and kinematics are implemented. The user can choose to use meters for the extension, or a nonlinear mapping from 0 (folded up) to pi (all the way extended) </p>
-</div><table class="memberdecls">
+<p>Link lengths can be set, and kinematics are implemented. The user can choose to use meters for the extension, or a nonlinear mapping from 0 (folded up) to pi (all the way extended)</p>
+<p>This class is derived from <a class="el" href="class_abstract_motor.html" title="Class for coordinating N motors in parallel. ">AbstractMotor</a>, in particular it coordinates two motors together in a parallel five-bar configuration.</p>
+<h3>Kinematics</h3>
+<p>The kinematics of the leg can be found in <a href="http://kodlab.seas.upenn.edu/Gavin/IROS15">http://kodlab.seas.upenn.edu/Gavin/IROS15</a>. In particular, Fig. 1 (borrowed from the paper and included below) will be helpful to follow this help page.</p>
+<div class="image">
+<img src="../MinitaurLeg.PNG"  alt="Minitaur leg kinematics definitions" title="Minitaur leg kinematics definitions"/>
+</div>
+<p>The end-effector coordinates (first argument to <a class="el" href="class_abstract_motor.html#ac76ff65b8a1fe44bcbdabbdb7d06b610" title="Set open loop command to coordinate i. ">MinitaurLeg::setOpenLoop()</a>, <a class="el" href="class_abstract_motor.html#abf2a54f92e70a2db97168546bfc03866" title="Set PD gains for coordinate i. ">MinitaurLeg::setGain()</a>, and <a class="el" href="class_abstract_motor.html#ab921ccb46270d5a4c0a78e057efa7b00" title="Set position setpoint for coordinate i, and change to position control mode. ">MinitaurLeg::setPosition()</a>) are <code>EXTENSION</code> and <code>ANGLE</code>. Assuming the inidividual motor zeros are set when the upper links are pointing vertically up, and the motor directions are set so the positions increase as the motors sweep down (this is the default of Minitaur),</p><ul>
+<li>The <code>ANGLE</code> coordinate always refers to <em>α - π</em> in radians (where the front of the robot is to the right in the figure above). I.e., when the leg is vertically pointing down, <code>ANGLE</code> is 0, if it sweeps back, <code>ANGLE</code> is positive, etc.</li>
+<li>When <a class="el" href="class_minitaur_leg.html#a8fcdc76593af6f41de9606ce1db88b2d" title="If true, use the exact leg kinematics, and the extension coordinate is in length units. If false, use the mean angle as a proxy for extension (between 0 and PI). ">MinitaurLeg::useLengths</a> is false (this is default), the <code>EXTENSION</code> coordinate either refers to <em>β</em> in radians from 0 (fully retracted) to <em>π</em> (fully extended)</li>
+<li>When <a class="el" href="class_minitaur_leg.html#a8fcdc76593af6f41de9606ce1db88b2d" title="If true, use the exact leg kinematics, and the extension coordinate is in length units. If false, use the mean angle as a proxy for extension (between 0 and PI). ">MinitaurLeg::useLengths</a> is true, the <code>EXTENSION</code> coordinate refers to <em>r</em> in meters.</li>
+</ul>
+<h3>Usage</h3>
+<p>To use a <a class="el" href="class_minitaur_leg.html" title="Class for coordinating two parallel coaxial motors in the Minitaur config. ">MinitaurLeg</a> in your code, follow the usage steps in the <a class="el" href="class_abstract_motor.html" title="Class for coordinating N motors in parallel. ">AbstractMotor</a> help page. Additionally,</p><ol type="1">
+<li>Set <a class="el" href="class_minitaur_leg.html#a8fcdc76593af6f41de9606ce1db88b2d" title="If true, use the exact leg kinematics, and the extension coordinate is in length units. If false, use the mean angle as a proxy for extension (between 0 and PI). ">MinitaurLeg::useLengths</a> to true if you would like to use the <em>r</em> coordinate instead of <em>β</em> for the leg extension</li>
+<li>Set the upper link length <a class="el" href="class_minitaur_leg.html#aa28e6d6c4cccb9b233b944085953a16e" title="Upper and lower link lengths. ">MinitaurLeg::l1</a> (default is 0.1 m) and the lower link length MinitaurLeg::l2 (default is 0.2 m)</li>
+<li>You can call <a class="el" href="class_minitaur_leg.html#a072a9c8ab914026608d5b6eb285a3ba3" title="Return forward speed. ">MinitaurLeg::getSpeed()</a> to get a body speed estimate if you supply the body pitch (leaning forward is assumed to be positive pitch).</li>
+<li>To get proprioceptive torque estimates, you can still use <a class="el" href="class_motor.html#acc47360642e78ce4cf5a740e3a66edf4" title="Returns an estimate of torque assuming quasistatic. ">Motor::getTorque()</a> as long as <a class="el" href="class_motor.html#adaab9607113849b3a6242cd41ab5943f" title="Details for torque estimate in getTorque(). Not used elsewhere. ">Motor::setTorqueEstParams()</a> has been called.</li>
+</ol>
+<h3>Example</h3>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Motor.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;MinitaurLeg.h&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="comment">// Uncomment the lines corresponding to your board</span></div>
+<div class="line"><span class="comment">// MBLC 0.5</span></div>
+<div class="line"><span class="keyword">const</span> <span class="keywordtype">int</span> NMOT = 10;</div>
+<div class="line"><span class="keyword">const</span> uint8_t pwmPin[] = {PE9, PE11, PE13, PE14, PA0, PD4, PD7, PD6, PB4, PB5};</div>
+<div class="line"><span class="keyword">const</span> uint8_t posPin[] = {PD12, PD13, PD14, PD15, PC6, PC7, PC8, PC9, PE2, PE3};</div>
+<div class="line"><span class="comment">// // Mainboard v1.1</span></div>
+<div class="line"><span class="comment">// const int NMOT = 8;</span></div>
+<div class="line"><span class="comment">// const uint8_t outPin[] = {PA0, PA11, PA2, PA3, PB0, PB8, PA14, PA1};</span></div>
+<div class="line"><span class="comment">// const uint8_t inPin[] = {PA6, PB5, PB6, PB7, PB1, PB9, PA15, PA5};</span></div>
+<div class="line"><span class="comment">// // Mainboard v2</span></div>
+<div class="line"><span class="comment">// const int NMOT = 8;</span></div>
+<div class="line"><span class="comment">// const uint8_t outPin[] = {PA3, PA2, PA0, PA1, PB0, PB1, PA6, PB5};</span></div>
+<div class="line"><span class="comment">// const uint8_t inPin[] = {PB8, PB9, PB3, PA8, PA11, PA15, PB14, PB15};</span></div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"><span class="keyword">const</span> <span class="keywordtype">int</span> CONTROL_RATE = 1000;</div>
+<div class="line"><a class="code" href="class_bl_con34.html">BlCon34</a> M[NMOT];</div>
+<div class="line"><a class="code" href="class_minitaur_leg.html">MinitaurLeg</a> leg0(&amp;M[1], &amp;M[0]);</div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">void</span> controlLoop() {</div>
+<div class="line">  leg0.update();</div>
+<div class="line">}</div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">void</span> setup() {</div>
+<div class="line">  Serial1.begin(115200);</div>
+<div class="line"></div>
+<div class="line">  <a class="code" href="class_motor.html#a89362d8b2dd1b125576cff1c08428072">Motor::updateRate</a> = CONTROL_RATE;</div>
+<div class="line">  <a class="code" href="class_motor.html#aaf7ec1963f7a56e500a2ad35cb886293">Motor::velSmooth</a> = 0.9;</div>
+<div class="line">  <span class="comment">// Uncomment this for MBLC</span></div>
+<div class="line">  <span class="comment">// BlCon34::useEXTI = true;</span></div>
+<div class="line"></div>
+<div class="line">  <span class="comment">// Arguments are pwmPin, pulsePin, zero(rad), direction(+/- 1)</span></div>
+<div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=0; i&lt;NMOT; ++i)</div>
+<div class="line">    M[i].init(outPin[i], inPin[i], 0, 1);</div>
+<div class="line"></div>
+<div class="line">  <a class="code" href="group___timebase.html#ga5bf1468dbfe70bf8a0a511df76075992">attachTimerInterrupt</a>(0, controlLoop, CONTROL_RATE);</div>
+<div class="line">}</div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">void</span> loop() {</div>
+<div class="line">  leg0.enable();</div>
+<div class="line">  <span class="comment">// These commands are similar to Motor commands, except with an added first argument</span></div>
+<div class="line">  leg0.setGain(ANGLE, 0.3);</div>
+<div class="line">  leg0.setPosition(ANGLE, 0);</div>
+<div class="line"></div>
+<div class="line">  leg0.setOpenLoop(EXTENSION, 0.1);</div>
+<div class="line">}</div>
+</div><!-- fragment --> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a9aa885dc3f493e4b86db958e8bc7cbeb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9aa885dc3f493e4b86db958e8bc7cbeb"></a>
@@ -237,7 +305,7 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 4 2016 16:02:15 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Aug 12 2016 12:11:03 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

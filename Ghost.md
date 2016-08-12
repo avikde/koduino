@@ -77,6 +77,8 @@ To use Python to open the latest log, follow the instructions under the "Example
 
 ![Mainboard](../mblc0.5.2.jpg "Mainboard")
 
+The two bullet terminals at the bottom are meant to have a high-current hard on/off switch connected across them. We recommend using AWG10 or lower for the wires here. If you are using a power supply to power motors, these can just be connected with a (low AWG) wre.
+
 ---
 
 ## 2. Programming the mainboard {#programming}
@@ -97,7 +99,7 @@ I recommend cloning the repository to your computer so that you can easily updat
 2. Open SourceTree, click `Clone / New` on the toolbar
 3. Enter the URL `https://github.com/avikde/koduino.git`
 4. Under `Destination Path`, click `...` and navigate to
-  (a) `Documents\arduino-1.6.1\hardware` (Windows), or
+  (a) `Documents\arduino-1.6.1\hardware\koduino` (Windows), or
   (b) `/Applications/Arduino.app/Contents/Resources/Java/hardware` (Mac)
 5. Click `Clone` and wait for it to finish
 6. If Arduino is open, you must close and re-open it any time you make changes to the `arduino\hardware` directory.
@@ -137,8 +139,31 @@ void loop() {
   delay(1000);
 }
 ~~~
-9. Click `File -> Upload`, and wait for 10-20 seconds till a success or failure message appears at the bottom. Sometimes if the upload fails, try just unplugging and plugging the mainboard in and trying again. *Hint: you can also enable verbose compilation/upload output in the Arduino console from Arduino's Preferences menu.*
-10. After successfully uploading, look at the mainboard. The green LED should be blinking once per second
+9. If you prefer to use the `Makefile` build system (everyone else, specifically those on Windows, please skip this step), you can use the following Makefile
+~~~
+VARIANT = f303v
+UPLOAD_METHOD = SERIAL
+UPLOAD_ENTRY = mblc
+# UPLOAD_PORT = COM4
+HSE_VALUE = 8000000UL
+KODUINO_ISRS = INLINE
+# 72MHz
+CLKSRC = HSE_8M
+# overclocked to 112 MHz
+# CLKSRC = HSE_8M_OC112
+
+# Don't save EEPROM
+EEP_START = 0x0800F000
+EEP_LEN = 0
+# 256kB
+MAX_PROGRAM_SIZE = 262144
+
+LIBRARIES = 
+
+include $(KODUINO_DIR)/project.mk
+~~~
+10. Click `File -> Upload`, and wait for 10-20 seconds till a success or failure message appears at the bottom. Sometimes if the upload fails, try just unplugging and plugging the mainboard in right after you click "Upload" and trying again. *Hint: you can also enable verbose compilation/upload output in the Arduino console from Arduino's Preferences menu.*
+11. After successfully uploading, look at the mainboard. The green LED should be blinking once per second
 
 ### 2.3. Programming legs
 
@@ -155,7 +180,7 @@ Just once per actuator module, the encoder absolute encoder zeros need to be cal
 
 #### 2.3.3 Driving motors with setOpenLoop and setPosition
 
-See the [motor controller library docs](http://avikde.me/koduino/html/group___motor_controller.html).
+See the [motor controller library docs](http://avikde.me/koduino/html/group___motor_controller.html). Specifically, the [MinitaurLeg class](http://avikde.me/koduino/html/class_minitaur_leg.html) will be important.
 
 ### 2.4. Template code
 

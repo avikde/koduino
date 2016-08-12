@@ -1,6 +1,6 @@
 @addtogroup MotorController
 
-This class is to control a single motor. In robots with multi-DOF appendages, the AbstractMotor class and its derived classes (MinitaurLeg, SagittalPair, etc.) are useful.
+This class is to control a single motor. In robots with multi-DOF appendages, the AbstractMotor class and its derived classes (MinitaurLeg, SagittalPair, etc.) are useful. If you need to use MinitaurLeg, be sure to look at its help page.
 
 ### Single motor
 
@@ -9,8 +9,9 @@ Basic control of a single motor:
 2. Call Motor::enable()
 3. Call Motor::setOpenLoop() with an argument between -1 and 1 to spin freely
 4. Call Motor::setGain() and Motor::setPosition() to command a position
-5. Call Motor::getPosition() or Motor::getVelocity() to get back data
-6. Motor::update() must be called frequently, preferably through a timer interrupt (attachTimerInterrupt()) for BlCon34, or just as often as possible for DxlMotor
+5. Call Motor::getPosition(), Motor::getVelocity() to get back data
+6. To get back proprioceptive torque estimates, call Motor::setTorqueEstParams() during initialization, and Motor::getTorque()
+7. Motor::update() must be called frequently, preferably through a timer interrupt (attachTimerInterrupt()) for BlCon34, or just as often as possible for DxlMotor
 
 #### Example: single motor test
 
@@ -83,83 +84,6 @@ void loop() {
 }
 
 ~~~
-
-### Multi-DOF motor coordination
-
-The AbstractMotor base class is useful for coordinating multi-DOF appendages. Some useful derived classes are MinitaurLeg, SagittalPair, etc.
-
-To use these classes:
-
-1. Each motor needs to be intialized (by BlCon34::init(), DxlMotor::init(), etc.) even though they are being coordinated together, just as in step 1 above
-2. Call the constructor MinitaurLeg::MinitaurLeg() (or whichever AbstractMotor -derived class) with pointers to constituent Motor s
-3. Set the direction and zero of each Motor object first (do this before applying power)
-4. Call AbstractMotor::enable() (or on derived class)
-5. Call AbstractMotor::setOpenLoop() with first argument in (0, 1, ...) indicating the end-effector coordinate, and second argument between -1 and 1 to spin freely
-6. Call AbstractMotor::setGain() and AbstractMotor::setPosition() to command a position
-7. Call AbstractMotor::getPosition() or AbstractMotor::getVelocity() to get back data
-8. AbstractMotor::update() must be called frequently (don't call Motor::update() on the constituent motors)
-
-#### Example (MinitaurLeg)
-
-
-~~~{.cpp}
-
-#include <Motor.h>
-#include <MinitaurLeg.h>
-
-// Uncomment the lines corresponding to your board
-// MBLC 0.5
-const int NMOT = 10;
-const uint8_t pwmPin[] = {PE9, PE11, PE13, PE14, PA0, PD4, PD7, PD6, PB4, PB5};
-const uint8_t posPin[] = {PD12, PD13, PD14, PD15, PC6, PC7, PC8, PC9, PE2, PE3};
-// // Mainboard v1.1
-// const int NMOT = 8;
-// const uint8_t outPin[] = {PA0, PA11, PA2, PA3, PB0, PB8, PA14, PA1};
-// const uint8_t inPin[] = {PA6, PB5, PB6, PB7, PB1, PB9, PA15, PA5};
-// // Mainboard v2
-// const int NMOT = 8;
-// const uint8_t outPin[] = {PA3, PA2, PA0, PA1, PB0, PB1, PA6, PB5};
-// const uint8_t inPin[] = {PB8, PB9, PB3, PA8, PA11, PA15, PB14, PB15};
-
-
-const int CONTROL_RATE = 1000;
-BlCon34 M[NMOT];
-MinitaurLeg leg0(&M[1], &M[0]);
-
-void controlLoop() {
-  leg0.update();
-}
-
-void setup() {
-  Serial1.begin(115200);
-
-  Motor::updateRate = CONTROL_RATE;
-  Motor::velSmooth = 0.9;
-  // Uncomment this for MBLC
-  // BlCon34::useEXTI = true;
-
-  // Arguments are pwmPin, pulsePin, zero(rad), direction(+/- 1)
-  for (int i=0; i<NMOT; ++i)
-    M[i].init(outPin[i], inPin[i], 0, 1);
-
-  attachTimerInterrupt(0, controlLoop, CONTROL_RATE);
-}
-
-void loop() {
-  leg0.enable();
-  // These commands are similar to Motor commands, except with an added first argument
-  leg0.setGain(ANGLE, 0.3);
-  leg0.setPosition(ANGLE, 0);
-
-  leg0.setOpenLoop(EXTENSION, 0.1);
-}
-
-~~~
-
-#### Creating a new multi-DOF appendage object:
-
-1. Implement forward kinematics in AbstractMotor::physicalToAbstract
-2. Implement mapping of end effector forces to joint torques in AbstractMotor::abstractToPhysical
 
 ### Setting motor zero (independent of physical setup)
 
