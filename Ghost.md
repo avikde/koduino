@@ -56,18 +56,7 @@ baud,escape,esc#,mode,verb,echo,ignoreRX
 ~~~
 3. Insert the micro SD card in the vertical socket on the mainboard with the gold contacts facing down, and towards the micro USB connector on the mainboard. Be careful, it's easy to insert it crooked, but ultimately it only goes in one way.
 
-
-To read these logs, first, you need to have Python:
-1. Install Python 2.7 using package managers (on Linux/Mac), or from [Anaconda](https://www.continuum.io/downloads) (recommended on Windows)
-2. Right click the Windows start button, click `System`, and then click `Advanced system settings` on the left.
-3. Click `Environment variables` in the windows that opens. 
-4. Click `New...` in the top pane; enter `KODUINO_DIR` for "variable name," and `C:\Users\<username>\Documents\arduino-1.6.1\hardware\koduino\stm32` for "Variable value," where you replace `<username` with your Windows username. Click `OK`.
-5. Select the existing environment variable `PATH`, click `Edit...`
-6. Make sure these three folders are in the path: `C:\Users\<username>\Anaconda2`, `C:\Users\<username>\Anaconda2\Scripts`, `C:\Users\<username>\Anaconda2\Library\bin`
-7. Open a new command prompt or terminal window. Type `conda install numpy scipy matplotlib`
-8. To test that that worked, type `python` in command prompt.
-
-To use Python to open the latest log, follow the instructions under the "Example: Reading on a computer" heading in http://avikde.me/koduino/html/class_open_log.html
+To read these logs, you can use either MATLAB or Python. The details are under the "Example: Reading on a computer" heading in the [OpenLog page](http://avikde.me/koduino/html/class_open_log.html).
 
 #### 1.1.5. Modular payload system
 
@@ -135,7 +124,7 @@ If interfacing with a different computer, it is easiest to use Serial1 through t
 
 ##### 1.2.4.3. Interfacing with other microcontrollers
 
-The mett is easiest to use Serial1 on the mainboard, which is connected to the Micro USB programming port.
+Since you will have to write your own software for communication with the mainboard, this depends on you. The options include Serial2 and SPI1 (see 1.2.3), or Serial1 through the micro USB port if your microcontroller can be a USB host.
 
 #### 1.2.5. Interfacing with hobby servos
 

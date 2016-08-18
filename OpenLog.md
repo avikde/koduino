@@ -67,7 +67,17 @@ Thanks, Pranav Bhounsule, for help with this parsing script.
 
 #### Using Python
 
-From a terminal,
+First, you need to have Python:
+1. Install Python 2.7 using package managers (on Linux/Mac), or from [Anaconda](https://www.continuum.io/downloads) (recommended on Windows)
+2. Right click the Windows start button, click `System`, and then click `Advanced system settings` on the left.
+3. Click `Environment variables` in the windows that opens. 
+4. Click `New...` in the top pane; enter `KODUINO_DIR` for "variable name," and `C:\Users\<username>\Documents\arduino-1.6.1\hardware\koduino\stm32` for "Variable value," where you replace `<username` with your Windows username. Click `OK`.
+5. Select the existing environment variable `PATH`, click `Edit...`
+6. Make sure these three folders are in the path: `C:\Users\<username>\Anaconda2`, `C:\Users\<username>\Anaconda2\Scripts`, `C:\Users\<username>\Anaconda2\Library\bin`
+7. Open a new command prompt or terminal window. Type `conda install numpy scipy matplotlib`
+8. To test that that worked, type `python` in command prompt.
+
+Once you have Python, from a terminal,
 
 ~~~{.sh}
 ...$ cd $KODUINO_DIR/libraries/OpenLog

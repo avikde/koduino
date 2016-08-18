@@ -125,17 +125,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></li>
 <li>Insert the micro SD card in the vertical socket on the mainboard with the gold contacts facing down, and towards the micro USB connector on the mainboard. Be careful, it's easy to insert it crooked, but ultimately it only goes in one way.</li>
 </ol>
-<p>To read these logs, first, you need to have Python:</p><ol type="1">
-<li>Install Python 2.7 using package managers (on Linux/Mac), or from <a href="https://www.continuum.io/downloads">Anaconda</a> (recommended on Windows)</li>
-<li>Right click the Windows start button, click <code>System</code>, and then click <code>Advanced system settings</code> on the left.</li>
-<li>Click <code>Environment variables</code> in the windows that opens.</li>
-<li>Click <code>New...</code> in the top pane; enter <code>KODUINO_DIR</code> for "variable name," and <code>C:\Users\&lt;username&gt;\Documents\arduino-1.6.1\hardware\koduino\stm32</code> for "Variable value," where you replace <code>&lt;username</code> with your Windows username. Click <code>OK</code>.</li>
-<li>Select the existing environment variable <code>PATH</code>, click <code>Edit...</code></li>
-<li>Make sure these three folders are in the path: <code>C:\Users\&lt;username&gt;\Anaconda2</code>, <code>C:\Users\&lt;username&gt;\Anaconda2\Scripts</code>, <code>C:\Users\&lt;username&gt;\Anaconda2\Library\bin</code></li>
-<li>Open a new command prompt or terminal window. Type <code>conda install numpy scipy matplotlib</code></li>
-<li>To test that that worked, type <code>python</code> in command prompt.</li>
-</ol>
-<p>To use Python to open the latest log, follow the instructions under the "Example: Reading on a computer" heading in <a href="http://avikde.me/koduino/html/class_open_log.html">http://avikde.me/koduino/html/class_open_log.html</a></p>
+<p>To read these logs, you can use either MATLAB or Python. The details are under the "Example: Reading on a computer" heading in the <a href="http://avikde.me/koduino/html/class_open_log.html">OpenLog page</a>.</p>
 <h4>1.1.5. Modular payload system</h4>
 <div class="image">
 <img src="../payload.jpg"  alt="Payload" title="Payload"/>
@@ -184,7 +174,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h5>1.2.4.2. Interfacing with a different computer</h5>
 <p>If interfacing with a different computer, it is easiest to use Serial1 through the micro USB connection.</p>
 <h5>1.2.4.3. Interfacing with other microcontrollers</h5>
-<p>The mett is easiest to use Serial1 on the mainboard, which is connected to the Micro USB programming port.</p>
+<p>Since you will have to write your own software for communication with the mainboard, this depends on you. The options include Serial2 and SPI1 (see 1.2.3), or Serial1 through the micro USB port if your microcontroller can be a USB host.</p>
 <h4>1.2.5. Interfacing with hobby servos</h4>
 <p>Up to 4 hobby servos can be connected to the 4x3 header: </p><div class="image">
 <img src="../servo.jpg"  alt="Mainboard servo" title="Mainboard servo"/>
@@ -291,7 +281,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Aug 17 2016 21:32:18 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 18 2016 10:24:55 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

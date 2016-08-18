@@ -152,7 +152,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">&gt;&gt; plot(s.t, s.p)</div>
 </div><!-- fragment --><p> Thanks, Pranav Bhounsule, for help with this parsing script.</p>
 <h4>Using Python</h4>
-<p>From a terminal,</p>
+<p>First, you need to have Python:</p><ol type="1">
+<li>Install Python 2.7 using package managers (on Linux/Mac), or from <a href="https://www.continuum.io/downloads">Anaconda</a> (recommended on Windows)</li>
+<li>Right click the Windows start button, click <code>System</code>, and then click <code>Advanced system settings</code> on the left.</li>
+<li>Click <code>Environment variables</code> in the windows that opens.</li>
+<li>Click <code>New...</code> in the top pane; enter <code>KODUINO_DIR</code> for "variable name," and <code>C:\Users\&lt;username&gt;\Documents\arduino-1.6.1\hardware\koduino\stm32</code> for "Variable value," where you replace <code>&lt;username</code> with your Windows username. Click <code>OK</code>.</li>
+<li>Select the existing environment variable <code>PATH</code>, click <code>Edit...</code></li>
+<li>Make sure these three folders are in the path: <code>C:\Users\&lt;username&gt;\Anaconda2</code>, <code>C:\Users\&lt;username&gt;\Anaconda2\Scripts</code>, <code>C:\Users\&lt;username&gt;\Anaconda2\Library\bin</code></li>
+<li>Open a new command prompt or terminal window. Type <code>conda install numpy scipy matplotlib</code></li>
+<li>To test that that worked, type <code>python</code> in command prompt.</li>
+</ol>
+<p>Once you have Python, from a terminal,</p>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;...$ cd $KODUINO_DIR/libraries/OpenLog</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;.../OpenLog$ python open_log.py -p &lt;log_file_path_root&gt; [-e &lt;experiment_type&gt;] &lt;log_file_number&gt;</div>
 </div><!-- fragment --><p>To display more information about the command line options: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;.../OpenLog$ python open_log.py -h</div>
@@ -331,7 +341,7 @@ Public Member Functions</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Aug 17 2016 21:32:19 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 18 2016 10:24:55 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>
