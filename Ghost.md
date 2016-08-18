@@ -20,7 +20,7 @@ Unscrew the four bolts on the simple top plate or slide the panel off from betwe
 
 **WARNING: Handle the battery very carefully.** If the battery is dropped, immediately place it in a LiPo-safe bag and never use it again.
 
-**WARNING: Never over-discharge the battery** Check the voltage every 5-10 minutes while running the robot. If the voltage is lower than 14V, charge the battery.
+**WARNING: Never over-discharge the battery** Check the voltage every 5-10 minutes while running the robot. If the voltage is lower than 14V, charge the battery. A future mainboard update may incorporate this functionality, but for now you are welcome to use a LiPo low voltage alarm such as [this one](http://www.hobbyking.com/hobbyking/store/__41178__HobbyKing_8482_Lipoly_Low_Voltage_Alarm_2s_4s_US_Warehouse_.html).
 
 Use the following charger settings:
 1. LiPo Charge 4S
@@ -77,7 +77,75 @@ To use Python to open the latest log, follow the instructions under the "Example
 
 ![Mainboard](../mblc0.5.2.jpg "Mainboard")
 
-The two bullet terminals at the bottom are meant to have a high-current hard on/off switch connected across them. We recommend using AWG10 or lower for the wires here. If you are using a power supply to power motors, these can just be connected with a (low AWG) wre.
+#### 1.2.1. Power distribution and switch
+
+The two bullet terminals at the bottom are meant to have a high-current hard on/off switch connected across them. We recommend using AWG10 or lower for the wires here. If you are using a power supply to power motors, these can just be connected with a (low AWG) wire.
+
+There are two switching regulators on board: 3.4V @ 25.A, and 5V @ 2.5A (only turns on when V+ > 8V is connected).
+
+**Note:** the rest of the 1.2.x section is for advanced customization, and can be skipped if this is your first time setting things up.
+
+#### 1.2.2. Interfacing with analog sensors
+
+Four analog inputs are conveniently located near where the remote is connected:
+
+![Mainboard ADC](../adc.jpg "Mainboard ADC")
+
+All of them are set up for ADC, so you can just use [analogRead](http://avikde.me/koduino/html/group___analog.html).
+
+**WARNING:** The ADC pins are not 5V tolerant; make sure your sensor is outputting a voltage less than 3.3V, or use level shifters.
+
+#### 1.2.3. Interfacing with digital peripherals
+
+**Serial/USART:** [Serial2](http://avikde.me/koduino/html/class_u_s_a_r_t_class.html) is available on pins 8 (RX) and 10 (TX) on the 2x20 RASPI header.
+
+**SPI:** SPI1 is available 4x2 header (image below)
+![Mainboard SPI](../spi.jpg "Mainboard SPI")
+
+The pin names for the SPI functions are:
+* SS -- PA4 (this is just a digital pin, convenient to use for SS)
+* SCK -- PA5
+* MISO -- PA6
+* MOSI -- PA7
+* PC4 and PF4 are just two available GPIO pins
+
+**FIXME:** for now need to use [SPI.setPins](http://avikde.me/koduino/html/class_s_p_i_class.html), but in a future koduino update these pins will be made the default for SPI1, so that you can just call [SPI.begin](http://avikde.me/koduino/html/class_s_p_i_class.html) etc.
+
+#### 1.2.4. Interfacing with other computers / microcontrollers
+
+The micro USB programming port can also be used for communication with the host computer. In mainboard code, it is connected to [Serial1](http://avikde.me/koduino/html/class_u_s_a_r_t_class.html) which works just like the [Arduino Serial class](https://www.arduino.cc/en/Reference/Serial).
+
+The mainboard in itself does not have any wireless capabilities, but keep the following subsection in mind:
+
+##### 1.2.4.1. Raspberry Pi
+
+This can be plugged directly to the mainboard, lining up the four mounting holes and the 2x20 header. For mechanical attachment:
+* some spacers are needed to separate the boards
+* to use M3 bolts, the mounting holes on the Raspberry Pi should be drilled out to 3mm
+
+In terms of the electrical connection,
+* the Pi is powered by the 5V regulator on the mainboard (only on when V+ > 8V is connected),
+* the UART on the 2x20 header interfaces with Serial2 on the mainboard
+
+In a future update, we will make a basic ROS interface available to the robot, including software to establish communication between the Pi and the mainboard.
+
+##### 1.2.4.2. Interfacing with a different computer
+
+If interfacing with a different computer, it is easiest to use Serial1 through the micro USB connection.
+
+##### 1.2.4.3. Interfacing with other microcontrollers
+
+The mett is easiest to use Serial1 on the mainboard, which is connected to the Micro USB programming port.
+
+#### 1.2.5. Interfacing with hobby servos
+
+Up to 4 hobby servos can be connected to the 4x3 header:
+![Mainboard servo](../servo.jpg "Mainboard servo")
+* the whole second columns is Vsrv and the whole third column is GND
+* Vsrv can be selected as 3.3V or 5V, using the jumper on the bottom side of the board **NOTE:** the jumper must be closed on only one side! On a brand new board it is open and so Vsrv is connected to nothing
+
+The pins PE2--PE5 are already set up for PWM, and you can just use [analogWriteFloat or analogWrite](http://avikde.me/koduino/html/group___p_w_m.html). Make sure the [analogWriteFrequency](http://avikde.me/koduino/html/group___p_w_m.html) is set low enough!
+
 
 ---
 

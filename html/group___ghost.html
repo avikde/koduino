@@ -97,7 +97,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <h4>1.1.2. Charging the battery</h4>
 <p><b>WARNING: Handle the battery very carefully.</b> If the battery is dropped, immediately place it in a LiPo-safe bag and never use it again.</p>
-<p><b>WARNING: Never over-discharge the battery</b> Check the voltage every 5-10 minutes while running the robot. If the voltage is lower than 14V, charge the battery.</p>
+<p><b>WARNING: Never over-discharge the battery</b> Check the voltage every 5-10 minutes while running the robot. If the voltage is lower than 14V, charge the battery. A future mainboard update may incorporate this functionality, but for now you are welcome to use a LiPo low voltage alarm such as <a href="http://www.hobbyking.com/hobbyking/store/__41178__HobbyKing_8482_Lipoly_Low_Voltage_Alarm_2s_4s_US_Warehouse_.html">this one</a>.</p>
 <p>Use the following charger settings:</p><ol type="1">
 <li>LiPo Charge 4S</li>
 <li>Capacity 5300 mAh</li>
@@ -144,7 +144,57 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="image">
 <img src="../mblc0.5.2.jpg"  alt="Mainboard" title="Mainboard"/>
 </div>
-<p>The two bullet terminals at the bottom are meant to have a high-current hard on/off switch connected across them. We recommend using AWG10 or lower for the wires here. If you are using a power supply to power motors, these can just be connected with a (low AWG) wre. </p><hr/>
+<h4>1.2.1. Power distribution and switch</h4>
+<p>The two bullet terminals at the bottom are meant to have a high-current hard on/off switch connected across them. We recommend using AWG10 or lower for the wires here. If you are using a power supply to power motors, these can just be connected with a (low AWG) wire.</p>
+<p>There are two switching regulators on board: 3.4V @ 25.A, and 5V @ 2.5A (only turns on when V+ &gt; 8V is connected).</p>
+<p><b>Note:</b> the rest of the 1.2.x section is for advanced customization, and can be skipped if this is your first time setting things up.</p>
+<h4>1.2.2. Interfacing with analog sensors</h4>
+<p>Four analog inputs are conveniently located near where the remote is connected:</p>
+<div class="image">
+<img src="../adc.jpg"  alt="Mainboard ADC" title="Mainboard ADC"/>
+</div>
+<p>All of them are set up for ADC, so you can just use <a href="http://avikde.me/koduino/html/group___analog.html">analogRead</a>.</p>
+<p><b>WARNING:</b> The ADC pins are not 5V tolerant; make sure your sensor is outputting a voltage less than 3.3V, or use level shifters.</p>
+<h4>1.2.3. Interfacing with digital peripherals</h4>
+<p><b>Serial/USART:</b> <a href="http://avikde.me/koduino/html/class_u_s_a_r_t_class.html">Serial2</a> is available on pins 8 (RX) and 10 (TX) on the 2x20 RASPI header.</p>
+<p><b>SPI:</b> SPI1 is available 4x2 header (image below) </p><div class="image">
+<img src="../spi.jpg"  alt="Mainboard SPI" title="Mainboard SPI"/>
+</div>
+<p>The pin names for the SPI functions are:</p><ul>
+<li>SS &ndash; PA4 (this is just a digital pin, convenient to use for SS)</li>
+<li>SCK &ndash; PA5</li>
+<li>MISO &ndash; PA6</li>
+<li>MOSI &ndash; PA7</li>
+<li>PC4 and PF4 are just two available GPIO pins</li>
+</ul>
+<p><b>FIXME:</b> for now need to use <a href="http://avikde.me/koduino/html/class_s_p_i_class.html">SPI.setPins</a>, but in a future koduino update these pins will be made the default for SPI1, so that you can just call <a href="http://avikde.me/koduino/html/class_s_p_i_class.html">SPI.begin</a> etc.</p>
+<h4>1.2.4. Interfacing with other computers / microcontrollers</h4>
+<p>The micro USB programming port can also be used for communication with the host computer. In mainboard code, it is connected to <a href="http://avikde.me/koduino/html/class_u_s_a_r_t_class.html">Serial1</a> which works just like the <a href="https://www.arduino.cc/en/Reference/Serial">Arduino Serial class</a>.</p>
+<p>The mainboard in itself does not have any wireless capabilities, but keep the following subsection in mind:</p>
+<h5>1.2.4.1. Raspberry Pi</h5>
+<p>This can be plugged directly to the mainboard, lining up the four mounting holes and the 2x20 header. For mechanical attachment:</p><ul>
+<li>some spacers are needed to separate the boards</li>
+<li>to use M3 bolts, the mounting holes on the Raspberry Pi should be drilled out to 3mm</li>
+</ul>
+<p>In terms of the electrical connection,</p><ul>
+<li>the Pi is powered by the 5V regulator on the mainboard (only on when V+ &gt; 8V is connected),</li>
+<li>the UART on the 2x20 header interfaces with Serial2 on the mainboard</li>
+</ul>
+<p>In a future update, we will make a basic ROS interface available to the robot, including software to establish communication between the Pi and the mainboard.</p>
+<h5>1.2.4.2. Interfacing with a different computer</h5>
+<p>If interfacing with a different computer, it is easiest to use Serial1 through the micro USB connection.</p>
+<h5>1.2.4.3. Interfacing with other microcontrollers</h5>
+<p>The mett is easiest to use Serial1 on the mainboard, which is connected to the Micro USB programming port.</p>
+<h4>1.2.5. Interfacing with hobby servos</h4>
+<p>Up to 4 hobby servos can be connected to the 4x3 header: </p><div class="image">
+<img src="../servo.jpg"  alt="Mainboard servo" title="Mainboard servo"/>
+</div>
+<ul>
+<li>the whole second columns is Vsrv and the whole third column is GND</li>
+<li>Vsrv can be selected as 3.3V or 5V, using the jumper on the bottom side of the board <b>NOTE:</b> the jumper must be closed on only one side! On a brand new board it is open and so Vsrv is connected to nothing</li>
+</ul>
+<p>The pins PE2&ndash;PE5 are already set up for PWM, and you can just use <a href="http://avikde.me/koduino/html/group___p_w_m.html">analogWriteFloat or analogWrite</a>. Make sure the <a href="http://avikde.me/koduino/html/group___p_w_m.html">analogWriteFrequency</a> is set low enough!</p>
+<hr/>
 <h3>2.1. Get your computer ready</h3>
 <p>The following instructions are for Windows for now.</p>
 <h4>2.1.1. Get the Arduino IDE</h4>
@@ -241,7 +291,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Aug 12 2016 13:46:20 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 17 2016 21:32:18 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>
