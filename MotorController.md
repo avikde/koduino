@@ -22,8 +22,8 @@ Basic control of a single motor:
 // Uncomment the lines corresponding to your board
 // MBLC 0.5
 const int NMOT = 10;
-const uint8_t pwmPin[] = {PE9, PE11, PE13, PE14, PA0, PD4, PD7, PD6, PB4, PB5};
-const uint8_t posPin[] = {PD12, PD13, PD14, PD15, PC6, PC7, PC8, PC9, PE2, PE3};
+const uint8_t outPin[] = {PE9, PE11, PE13, PE14, PA0, PD4, PD7, PD6, PB4, PB5};
+const uint8_t inPin[] = {PD12, PD13, PD14, PD15, PC6, PC7, PC8, PC9, PE2, PE3};
 // // Mainboard v1.1
 // const int NMOT = 8;
 // const uint8_t outPin[] = {PA0, PA11, PA2, PA3, PB0, PB8, PA14, PA1};
