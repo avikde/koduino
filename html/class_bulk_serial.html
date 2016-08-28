@@ -91,6 +91,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="class_bulk_serial-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">BulkSerial Class Reference</div>  </div>
@@ -103,12 +104,219 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p><code>#include &lt;<a class="el" href="_bulk_serial_8h_source.html">BulkSerial.h</a>&gt;</code></p>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Fixed length bulk serial data transfers using DMA. </p>
-<p>No interrupts are used for either RX or TX, but the tradeoff is that the transfer length must be known beforehand. Since the DMA availability depends on the chip, this is only supported on some USARTSs, and the connections from USART to DMA must be hardcoded here. Settings to use:</p>
+<p>No interrupts are used for either RX or TX, but the tradeoff is that the transfer length must be known beforehand. Since the DMA availability depends on the chip, this is only supported on some USARTSs, and the connections from USART to DMA must be hardcoded here.</p>
 <h3>Usage</h3>
 <p>TODO!</p>
 <h3>Example (on MBLC 0.5 to talk to the <a class="el" href="class_open_log.html">OpenLog</a>)</h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;BulkSerial.h&gt;</span></div><div class="line"></div><div class="line"><span class="comment">// Logging</span></div><div class="line"><a class="code" href="class_bulk_serial.html">BulkSerial</a> openLog(MBLC_OPENLOG);</div><div class="line"><span class="keyword">struct </span>StateVector {</div><div class="line">  uint16_t align = 0xbbaa;<span class="comment">//endianness reverses bytes to aabb</span></div><div class="line">  uint32_t t;</div><div class="line">  <span class="keywordtype">float</span> x;</div><div class="line">  uint8_t bit;</div><div class="line">} __attribute__ ((packed));</div><div class="line">StateVector state;</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> setup() {</div><div class="line">  openLog.begin(115200, <span class="keyword">sizeof</span>(state), &amp;state, 0);</div><div class="line">  openLog.initOpenLog(<span class="stringliteral">&quot;t,pi,bit&quot;</span>, <span class="stringliteral">&quot;IfB&quot;</span>);</div><div class="line">  openLog.enable(<span class="keyword">true</span>);</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> loop() {</div><div class="line">  state.t = <a class="code" href="group___time.html#ga1c63eb57e58bbf89c28c992ad3fe42b8">millis</a>();</div><div class="line">  state.x = PI;</div><div class="line">  state.bit = 1;</div><div class="line">  openLog.write();</div><div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(10);</div><div class="line">}</div></div><!-- fragment --><h3>Example (on MBLC 0.5 to talk to the raspberry pi serial port)</h3>
-<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;BulkSerial.h&gt;</span></div><div class="line"></div><div class="line"><a class="code" href="class_bulk_serial.html">BulkSerial</a> rpi(MBLC_RPI);</div><div class="line"></div><div class="line">uint8_t txBuf[10]= {0xaa, 0xbb, 1, 2, 3, 4, 5, 6, 7, 8};</div><div class="line">uint8_t rxBuf[10] = {0,0,0,0,0,0,0,0,0,0};</div><div class="line"></div><div class="line"><span class="keyword">volatile</span> uint32_t lastWrite = 0, lastRx = 0;</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> controlLoop() {</div><div class="line">  uint32_t t = <a class="code" href="group___time.html#ga1c63eb57e58bbf89c28c992ad3fe42b8">millis</a>();</div><div class="line">  <span class="comment">// this will print when it receives a full packet, aligned with {0xaa,0xbb}</span></div><div class="line">  <span class="keywordtype">int</span> res = rpi.received(0xbbaa, rxBuf);</div><div class="line">  <span class="keywordflow">if</span> (res) {</div><div class="line">    lastRx = t;</div><div class="line">    Serial1 &lt;&lt; t &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span>;</div><div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=0; i&lt;10; ++i) {</div><div class="line">      Serial1 &lt;&lt; rxBuf[i] &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span>;</div><div class="line">    }</div><div class="line">    Serial1 &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div><div class="line">  } </div><div class="line"></div><div class="line">  <span class="keywordflow">if</span> (t - lastWrite &gt; 9) {</div><div class="line">    <a class="code" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7">digitalWrite</a>(PD0, TOGGLE);</div><div class="line">    rpi.write();<span class="comment">//send the txBuf</span></div><div class="line">    lastWrite = t;</div><div class="line">  }</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> setup() {</div><div class="line">  <a class="code" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730">pinMode</a>(PD0, OUTPUT);</div><div class="line">  Serial1.begin(115200);</div><div class="line">  rpi.begin(115200, 10, txBuf, 10);</div><div class="line">  rpi.enable(<span class="keyword">true</span>);<span class="comment">// this enables the transmit</span></div><div class="line"></div><div class="line">  <a class="code" href="group___timebase.html#ga5bf1468dbfe70bf8a0a511df76075992">attachTimerInterrupt</a>(0, controlLoop, 1000);</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> loop() {</div><div class="line">}</div></div><!-- fragment --> </div><hr/>The documentation for this class was generated from the following files:<ul>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;BulkSerial.h&gt;</span></div><div class="line"></div><div class="line"><a class="code" href="class_bulk_serial.html">BulkSerial</a> rpi(MBLC_RPI);</div><div class="line"></div><div class="line">uint8_t txBuf[10]= {0xaa, 0xbb, 1, 2, 3, 4, 5, 6, 7, 8};</div><div class="line">uint8_t rxBuf[10] = {0,0,0,0,0,0,0,0,0,0};</div><div class="line"></div><div class="line"><span class="keyword">volatile</span> uint32_t lastWrite = 0, lastRx = 0;</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> controlLoop() {</div><div class="line">  uint32_t t = <a class="code" href="group___time.html#ga1c63eb57e58bbf89c28c992ad3fe42b8">millis</a>();</div><div class="line">  <span class="comment">// this will print when it receives a full packet, aligned with {0xaa,0xbb}</span></div><div class="line">  <span class="keywordtype">int</span> res = rpi.received(0xbbaa, rxBuf);</div><div class="line">  <span class="keywordflow">if</span> (res) {</div><div class="line">    lastRx = t;</div><div class="line">    Serial1 &lt;&lt; t &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span>;</div><div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=0; i&lt;10; ++i) {</div><div class="line">      Serial1 &lt;&lt; rxBuf[i] &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span>;</div><div class="line">    }</div><div class="line">    Serial1 &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div><div class="line">  } </div><div class="line"></div><div class="line">  <span class="keywordflow">if</span> (t - lastWrite &gt; 9) {</div><div class="line">    <a class="code" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7">digitalWrite</a>(PD0, TOGGLE);</div><div class="line">    rpi.write();<span class="comment">//send the txBuf</span></div><div class="line">    lastWrite = t;</div><div class="line">  }</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> setup() {</div><div class="line">  <a class="code" href="group___pins.html#ga34d257d1f45a539062543dc6f0aea730">pinMode</a>(PD0, OUTPUT);</div><div class="line">  Serial1.begin(115200);</div><div class="line">  rpi.begin(115200, 10, txBuf, 10);</div><div class="line">  rpi.enable(<span class="keyword">true</span>);<span class="comment">// this enables the transmit</span></div><div class="line"></div><div class="line">  <a class="code" href="group___timebase.html#ga5bf1468dbfe70bf8a0a511df76075992">attachTimerInterrupt</a>(0, controlLoop, 1000);</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> loop() {</div><div class="line">}</div></div><!-- fragment --> </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a23eb1897ea7a626b22a85f15950b00c1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bulk_serial.html#a23eb1897ea7a626b22a85f15950b00c1">BulkSerial</a> (const <a class="el" href="struct_bulk_serial_settings.html">BulkSerialSettings</a> &amp;bss)</td></tr>
+<tr class="memdesc:a23eb1897ea7a626b22a85f15950b00c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor needs a <a class="el" href="struct_bulk_serial_settings.html" title="Presets for using BulkSerial. ">BulkSerialSettings</a> instance.  <a href="#a23eb1897ea7a626b22a85f15950b00c1">More...</a><br /></td></tr>
+<tr class="separator:a23eb1897ea7a626b22a85f15950b00c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a626bea1622970443169a2779e4b2f538"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bulk_serial.html#a626bea1622970443169a2779e4b2f538">begin</a> (uint32_t baud, uint16_t sizeTx, void *bufTx, uint16_t sizeRx)</td></tr>
+<tr class="memdesc:a626bea1622970443169a2779e4b2f538"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call this in setup.  <a href="#a626bea1622970443169a2779e4b2f538">More...</a><br /></td></tr>
+<tr class="separator:a626bea1622970443169a2779e4b2f538"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6106ee5a2a635b3ca8b652431a233c23"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bulk_serial.html#a6106ee5a2a635b3ca8b652431a233c23">enable</a> (bool flag)</td></tr>
+<tr class="memdesc:a6106ee5a2a635b3ca8b652431a233c23"><td class="mdescLeft">&#160;</td><td class="mdescRight">TX can be disabled or enabled (default is disabled)  <a href="#a6106ee5a2a635b3ca8b652431a233c23">More...</a><br /></td></tr>
+<tr class="separator:a6106ee5a2a635b3ca8b652431a233c23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bd47dc8c81e5bbc3ef7bf1cddf57fe5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7bd47dc8c81e5bbc3ef7bf1cddf57fe5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bulk_serial.html#a7bd47dc8c81e5bbc3ef7bf1cddf57fe5">write</a> ()</td></tr>
+<tr class="memdesc:a7bd47dc8c81e5bbc3ef7bf1cddf57fe5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends the TX buffer. <br /></td></tr>
+<tr class="separator:a7bd47dc8c81e5bbc3ef7bf1cddf57fe5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7164bc0fcdd84e2c9a9bdd429642bcb8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bulk_serial.html#a7164bc0fcdd84e2c9a9bdd429642bcb8">received</a> (uint16_t alignment, uint8_t *dest)</td></tr>
+<tr class="memdesc:a7164bc0fcdd84e2c9a9bdd429642bcb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag to check if a new packet was received (call this often)  <a href="#a7164bc0fcdd84e2c9a9bdd429642bcb8">More...</a><br /></td></tr>
+<tr class="separator:a7164bc0fcdd84e2c9a9bdd429642bcb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5dace476aecedbe34d395b92ab17fe97"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bulk_serial.html#a5dace476aecedbe34d395b92ab17fe97">initOpenLog</a> (const char *header, const char *fmt)</td></tr>
+<tr class="memdesc:a5dace476aecedbe34d395b92ab17fe97"><td class="mdescLeft">&#160;</td><td class="mdescRight">special function to init <a class="el" href="class_open_log.html">OpenLog</a> before bulk transmits start  <a href="#a5dace476aecedbe34d395b92ab17fe97">More...</a><br /></td></tr>
+<tr class="separator:a5dace476aecedbe34d395b92ab17fe97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a23eb1897ea7a626b22a85f15950b00c1"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">BulkSerial::BulkSerial </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_bulk_serial_settings.html">BulkSerialSettings</a> &amp;&#160;</td>
+          <td class="paramname"><em>bss</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor needs a <a class="el" href="struct_bulk_serial_settings.html" title="Presets for using BulkSerial. ">BulkSerialSettings</a> instance. </p>
+<p>Use predefined <code>MBLC_OPENLOG</code> or <code>MBLC_RPI</code> for now </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a626bea1622970443169a2779e4b2f538"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BulkSerial::begin </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>baud</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>sizeTx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>bufTx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>sizeRx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Call this in setup. </p>
+<p>[long description]</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">baud</td><td>Baud rate </td></tr>
+    <tr><td class="paramname">sizeTx</td><td>Set 0 to disable TX, otherwise specify the packet size in bytes </td></tr>
+    <tr><td class="paramname">bufTx</td><td>Pointer to TX struct (can pass NULL if sizeTx is 0) </td></tr>
+    <tr><td class="paramname">sizeRx</td><td>Set 0 to disable RX, otherwise specify the packet size in bytes </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a6106ee5a2a635b3ca8b652431a233c23"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BulkSerial::enable </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>flag</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>TX can be disabled or enabled (default is disabled) </p>
+<p>This is to maintain compatibility with <a class="el" href="class_open_log.html">OpenLog</a> functionality</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">flag</td><td>enable TX </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a5dace476aecedbe34d395b92ab17fe97"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BulkSerial::initOpenLog </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>header</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>fmt</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>special function to init <a class="el" href="class_open_log.html">OpenLog</a> before bulk transmits start </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">header</td><td>see <a class="el" href="class_open_log.html#a04f97d33a57652367b526d90dad8bc82" title="Reset OpenLog and start a new log. ">OpenLog::init()</a> </td></tr>
+    <tr><td class="paramname">fmt</td><td>see <a class="el" href="class_open_log.html#a04f97d33a57652367b526d90dad8bc82" title="Reset OpenLog and start a new log. ">OpenLog::init()</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a7164bc0fcdd84e2c9a9bdd429642bcb8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int BulkSerial::received </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>alignment</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>dest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flag to check if a new packet was received (call this often) </p>
+<p>Once this is called, the flag is reset, and will return</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">alignment</td><td>alignment word (remember this is little endian!) </td></tr>
+    <tr><td class="paramname">dest</td><td>copies the received buffer here starting with alignment on success</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 when there is a new packet, 0 if not new, -1 if it failed to find the alignment </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="_bulk_serial_8h_source.html">BulkSerial.h</a></li>
 <li>BulkSerial.cpp</li>
 </ul>
@@ -116,7 +324,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 28 2016 11:54:59 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 28 2016 12:01:58 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.11
 </small></address>

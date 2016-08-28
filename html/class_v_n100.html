@@ -98,12 +98,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="class_m_p_u6000.html" title="MPU6000 hardware interface library. ">MPU6000</a> hardware interface library.  
+<p><a class="el" href="class_v_n100.html" title="VN100 hardware interface library. ">VN100</a> hardware interface library.  
  <a href="class_v_n100.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_v_n100_8h_source.html">VN100.h</a>&gt;</code></p>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="class_m_p_u6000.html" title="MPU6000 hardware interface library. ">MPU6000</a> hardware interface library. </p>
+<div class="textblock"><p><a class="el" href="class_v_n100.html" title="VN100 hardware interface library. ">VN100</a> hardware interface library. </p>
 <dl class="section author"><dt>Authors</dt><dd>Avik De <a href="#" onclick="location.href='mai'+'lto:'+'avi'+'kd'+'e@g'+'ma'+'il.'+'co'+'m'; return false;">avikd<span style="display: none;">.nosp@m.</span>e@gm<span style="display: none;">.nosp@m.</span>ail.c<span style="display: none;">.nosp@m.</span>om</a></dd></dl>
 <p>This file is part of koduino <a href="https://github.com/avikde/koduino">https://github.com/avikde/koduino</a></p>
 <p>This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
@@ -111,9 +111,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>You should have received a copy of the GNU Lesser General Public License along with this library; if not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>
 <h3>Usage</h3>
 <ol type="1">
-<li>Declare an instance of <a class="el" href="class_v_n100.html" title="MPU6000 hardware interface library. ">VN100</a> with constructor <a class="el" href="class_v_n100.html#acfb216b3b29fdb7bf031c2e1ce28f1ef" title="Construct with reference to which SPI. ">VN100()</a> taking <a class="el" href="class_s_p_i_class.html" title="SPI library (call with global object SPI) ">SPIClass</a> as argument. E.g. use <code><a class="el" href="class_v_n100.html" title="MPU6000 hardware interface library. ">VN100</a> vn100(SPI_2);</code> for MBLC</li>
-<li>Call VN100::init() with the chip select pin (<code>PB12</code> on MBLC)</li>
-<li>Call VN100::get() with output arguments to get the filtered angles and angular rates.</li>
+<li>Declare an instance of <a class="el" href="class_v_n100.html" title="VN100 hardware interface library. ">VN100</a> with constructor <a class="el" href="class_v_n100.html#acfb216b3b29fdb7bf031c2e1ce28f1ef" title="Construct with reference to which SPI. ">VN100()</a> taking <a class="el" href="class_s_p_i_class.html" title="SPI library (call with global object SPI) ">SPIClass</a> as argument. E.g. use <code><a class="el" href="class_v_n100.html" title="VN100 hardware interface library. ">VN100</a> vn100(SPI_2);</code> for MBLC</li>
+<li>Call <a class="el" href="class_v_n100.html#a1ce82b073a2f217238693a4cff760a73" title="Send initialization commands to the VN100. ">VN100::init()</a> with the chip select pin (<code>PB12</code> on MBLC)</li>
+<li>Call <a class="el" href="class_v_n100.html#afb40c81cbaff40b00ae13430a5499a43" title="Retrieves angles and angular rates. ">VN100::get()</a> with output arguments to get the filtered angles and angular rates.</li>
 </ol>
 <h3>Example (on MBLC 0.5)</h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;SPI.h&gt;</span></div><div class="line"><span class="preprocessor">#include &lt;VN100.h&gt;</span></div><div class="line"></div><div class="line"><a class="code" href="class_v_n100.html">VN100</a> vn100(SPI_2);</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> setup() {</div><div class="line">  Serial1.begin(115200);</div><div class="line">  vn100.init(PB12);</div><div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(1000);</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> loop() {</div><div class="line">  uint32_t tic = <a class="code" href="group___time.html#ga1cf44df892da65a01dd99a39f87f9243">micros</a>();</div><div class="line">  tic = <a class="code" href="group___time.html#ga1cf44df892da65a01dd99a39f87f9243">micros</a>();</div><div class="line">  <span class="keywordtype">float</span> ypr[3], rates[3]];</div><div class="line">  vn100.get(ypr[0], ypr[1], ypr[2], rates[0], rates[1], rates[2]);</div><div class="line">  tic = <a class="code" href="group___time.html#ga1cf44df892da65a01dd99a39f87f9243">micros</a>() - tic;</div><div class="line"></div><div class="line">  Serial1 &lt;&lt; tic &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; ypr[0] &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; ypr[1] &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; ypr[2] &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span>;</div><div class="line">  Serial1 &lt;&lt; rates[0] &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; rates[1] &lt;&lt; <span class="stringliteral">&quot;\t&quot;</span> &lt;&lt; rates[2] &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div><div class="line"></div><div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(10);</div><div class="line">}</div></div><!-- fragment --> </div><table class="memberdecls">
@@ -122,6 +122,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:acfb216b3b29fdb7bf031c2e1ce28f1ef"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_v_n100.html#acfb216b3b29fdb7bf031c2e1ce28f1ef">VN100</a> (<a class="el" href="class_s_p_i_class.html">SPIClass</a> &amp;theSPI)</td></tr>
 <tr class="memdesc:acfb216b3b29fdb7bf031c2e1ce28f1ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct with reference to which SPI.  <a href="#acfb216b3b29fdb7bf031c2e1ce28f1ef">More...</a><br /></td></tr>
 <tr class="separator:acfb216b3b29fdb7bf031c2e1ce28f1ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ce82b073a2f217238693a4cff760a73"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_v_n100.html#a1ce82b073a2f217238693a4cff760a73">init</a> (uint8_t csPin)</td></tr>
+<tr class="memdesc:a1ce82b073a2f217238693a4cff760a73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send initialization commands to the <a class="el" href="class_v_n100.html" title="VN100 hardware interface library. ">VN100</a>.  <a href="#a1ce82b073a2f217238693a4cff760a73">More...</a><br /></td></tr>
+<tr class="separator:a1ce82b073a2f217238693a4cff760a73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb40c81cbaff40b00ae13430a5499a43"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_v_n100.html#afb40c81cbaff40b00ae13430a5499a43">get</a> (float &amp;yaw, float &amp;pitch, float &amp;roll, float &amp;yawd, float &amp;pitchd, float &amp;rolld)</td></tr>
+<tr class="memdesc:afb40c81cbaff40b00ae13430a5499a43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves angles and angular rates.  <a href="#afb40c81cbaff40b00ae13430a5499a43">More...</a><br /></td></tr>
+<tr class="separator:afb40c81cbaff40b00ae13430a5499a43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="acfb216b3b29fdb7bf031c2e1ce28f1ef"></a>
@@ -156,6 +162,111 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="afb40c81cbaff40b00ae13430a5499a43"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void VN100::get </td>
+          <td>(</td>
+          <td class="paramtype">float &amp;&#160;</td>
+          <td class="paramname"><em>yaw</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float &amp;&#160;</td>
+          <td class="paramname"><em>pitch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float &amp;&#160;</td>
+          <td class="paramname"><em>roll</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float &amp;&#160;</td>
+          <td class="paramname"><em>yawd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float &amp;&#160;</td>
+          <td class="paramname"><em>pitchd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float &amp;&#160;</td>
+          <td class="paramname"><em>rolld</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieves angles and angular rates. </p>
+<p>This function blocks for a few hundred microseconds.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">yaw</td><td>in radians </td></tr>
+    <tr><td class="paramname">pitch</td><td>in radians </td></tr>
+    <tr><td class="paramname">roll</td><td>in radians </td></tr>
+    <tr><td class="paramname">yawd</td><td>in rad/s </td></tr>
+    <tr><td class="paramname">pitchd</td><td>in rad/s </td></tr>
+    <tr><td class="paramname">rolld</td><td>in rad/s </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a1ce82b073a2f217238693a4cff760a73"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void VN100::init </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>csPin</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Send initialization commands to the <a class="el" href="class_v_n100.html" title="VN100 hardware interface library. ">VN100</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">csPin</td><td>chip select pin </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="_v_n100_8h_source.html">VN100.h</a></li>
 </ul>
@@ -163,7 +274,7 @@ Public Member Functions</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 28 2016 11:55:00 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 28 2016 12:01:59 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.11
 </small></address>
