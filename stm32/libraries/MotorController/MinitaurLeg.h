@@ -64,6 +64,13 @@ public:
    */
   float getSpeed(float bodyPitch);
 
+  /**
+   * @brief Get force at the toe
+   * @details The lengths MinitaurLeg::l1 and MinitaurLeg::l2 need to be correct, and also Motor::setTorqueEstParams needs to have be called for this to work.
+   * 
+   * @param ur Radial force in N. This is an output parameter (declare before this function)
+   * @param uth Tangential torque in N-m. This is an output parameter (declare before this function)
+   */
   void getToeForce(float& ur, float& uth);
 
 protected:
