@@ -121,6 +121,7 @@ tools.dfu_util.upload.params.verbose=-v
 tools.dfu_util.upload.params.quiet=
 tools.dfu_util.upload.pattern="{path}/{cmd}" -d 0483:df11 -a 0 -s 0x08000000 -D "{build.path}/{build.project_name}.bin"
 
+# stm32ld
 tools.stm32ld.cmd=stm32ld
 tools.stm32ld.cmd.windows=stm32ld.exe
 tools.stm32ld.cmd.macosx=stm32ld.mac
@@ -129,6 +130,13 @@ tools.stm32ld.path={runtime.ide.path}/hardware/koduino/stm32/system/stm32ld
 tools.stm32ld.upload.params.verbose=
 tools.stm32ld.upload.params.quiet=
 tools.stm32ld.upload.pattern="{path}/{cmd}" {serial.port} {upload.baud} {upload.options} "{build.path}/{build.project_name}.bin" 1
+
+# stm32loader
+tools.stm32loader.cmd=stm32loader.py
+tools.stm32loader.path={runtime.ide.path}/hardware/koduino/stm32/system
+tools.stm32loader.upload.params.verbose=
+tools.stm32loader.upload.params.quiet=
+tools.stm32loader.upload.pattern=python "{path}/{cmd}" -p {serial.port} -b {upload.baud} -y {upload.options} -ew "{build.path}/{build.project_name}.bin"
 
 # ST-LINK (Windows)
 tools.stlink.cmd=ST-LINK_CLI.exe

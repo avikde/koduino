@@ -50,6 +50,7 @@ QUIET = 5
 def mdebug(level, message):
   if QUIET >= level:
     print(message, file=sys.stderr)
+    sys.stderr.flush()
 
 # Takes chip IDs (obtained via Get ID command) to human-readable names
 CHIP_ID_STRS = {
@@ -64,7 +65,8 @@ CHIP_ID_STRS = {
   0x428: 'STM32F1, value, high-density',
   0x430: 'STM32F1, performance, XL-density',
   0x432: 'F37x',
-  0x439: 'F30x'
+  0x439: 'F30x',
+  0x422: 'F303'
 }
 
 class CmdException(Exception):
@@ -373,6 +375,8 @@ class CommandInterface(object):
     while lng > 256:
       if usepbar:
         pbar.update(pbar.maxval-lng)
+        sys.stdout.flush()
+        sys.stderr.flush()
       else:
         mdebug(5, "Read %(len)d bytes at 0x%(addr)X" % {'addr': addr, 'len': 256})
       data = data + self.cmdReadMemory(addr, 256)
@@ -400,6 +404,8 @@ class CommandInterface(object):
     while lng > 256:
       if usepbar:
         pbar.update(pbar.maxval-lng)
+        sys.stdout.flush()
+        sys.stderr.flush()
       else:
         mdebug(5, "Write %(len)d bytes at 0x%(addr)X" % {'addr': addr, 'len': 256})
       self.cmdWriteMemory(addr, data[offs:offs+256])
@@ -546,17 +552,18 @@ if __name__ == "__main__":
   # Find a port assuming a partial name was passed in, mostly this is to allow make to work
   # on different opertaing systems without specifying an upload port
   else: 
-    # Get a list of ports that start with the passed in argument
-    ports = glob.glob('%s*' % conf['port'])
-    ports = sorted(ports)
+    pass
+    # # Get a list of ports that start with the passed in argument
+    # ports = glob.glob('%s*' % conf['port'])
+    # ports = sorted(ports)
 
-    # If the argument is actually in the port list, use the argument, otherwise grab
-    # the highest sorted port. E.g. if the port list is ttyUSB0, ttyUSB1, ttyUSB10 and the 
-    # argument is ttyUSB1, then ports = ['ttyUSB1', 'ttyUSB10'] and ttyUSB1 will be used. 
-    # If ttyUSB is the argument, ports = ['ttyUSB0', ttyUSB1', 'ttyUSB10'] and 
-    # ttyUSB0 will be used
-    if conf['port'] not in ports:
-      conf['port'] = ports[0]
+    # # If the argument is actually in the port list, use the argument, otherwise grab
+    # # the highest sorted port. E.g. if the port list is ttyUSB0, ttyUSB1, ttyUSB10 and the 
+    # # argument is ttyUSB1, then ports = ['ttyUSB1', 'ttyUSB10'] and ttyUSB1 will be used. 
+    # # If ttyUSB is the argument, ports = ['ttyUSB0', ttyUSB1', 'ttyUSB10'] and 
+    # # ttyUSB0 will be used
+    # if conf['port'] not in ports:
+    #   conf['port'] = ports[0]
 
   cmd = CommandInterface()
   cmd.open(conf['port'], conf['baud'])
@@ -576,6 +583,7 @@ if __name__ == "__main__":
 
     if bootversion < 20 or bootversion >= 100:
       raise Exception('Unreasonable bootloader version %d' % bootversion)
+      sys.stdout.flush()
 
     chip_id = cmd.cmdGetID()
     assert len(chip_id) == 2, "Unreasonable chip id: %s" % repr(chip_id)

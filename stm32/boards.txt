@@ -125,11 +125,17 @@ f303v.menu.hse.8m_oc112.build.clksrc=HSE_8M_OC112
 # Upload
 f303v.upload.maximum_size=262144
 
-f303v.menu.bootloader.stm32ld=Serial
+f303v.menu.bootloader.stm32ld=Serial (stm32ld)
 f303v.menu.bootloader.stm32ld.upload.tool=stm32ld
 f303v.menu.bootloader.stm32ld.upload.baud=230400
 f303v.menu.bootloader.stm32ld.upload.protocol=serial
 f303v.menu.bootloader.stm32ld.upload.options=mblc
+
+f303v.menu.bootloader.stm32loader=Serial (stm32loader)
+f303v.menu.bootloader.stm32loader.upload.tool=stm32loader
+f303v.menu.bootloader.stm32loader.upload.baud=230400
+f303v.menu.bootloader.stm32loader.upload.protocol=serial
+f303v.menu.bootloader.stm32loader.upload.options=mblc
 
 f303v.menu.bootloader.stlink=ST-LINK
 f303v.menu.bootloader.stlink.upload.tool=stlink
