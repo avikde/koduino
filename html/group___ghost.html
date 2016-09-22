@@ -210,7 +210,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <ol type="1">
 <li>Open <code>Documents\arduino-1.6.1\arduino.exe</code></li>
 <li>Click <code>Tools -&gt; Board -&gt; F303V (...)</code></li>
-<li>Select <code>Tools -&gt; Bootloader -&gt; Serial</code>, and <code>Tools -&gt; CPU Speed -&gt; 72 MHz</code></li>
+<li>Select <code>Tools -&gt; Bootloader -&gt; Serial</code>, and <code>Tools -&gt; CPU Speed -&gt; 72 MHz</code> (<b>note see below about bootloader</b>)</li>
 <li>Make sure the mainboard is <em>NOT</em> plugged in</li>
 <li>Click <code>Tools -&gt; Port</code> and look at which COM ports are listed</li>
 <li>Now plug in a Micro-B USB cable from your computer to the mainboard. Check that at least the red power LED has turned on.</li>
@@ -220,6 +220,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>Click <code>File -&gt; Upload</code>, and wait for 10-20 seconds till a success or failure message appears at the bottom. Sometimes if the upload fails, try just unplugging and plugging the mainboard in right after you click "Upload" and trying again. <em>Hint: you can also enable verbose compilation/upload output in the Arduino console from Arduino's Preferences menu.</em></li>
 <li>After successfully uploading, look at the mainboard. The green LED should be blinking once per second</li>
 </ol>
+<h4>2.2.1. stm32loader bootloader</h4>
+<p>The default bootloader (based on stm32ld) has been performing worse than the Python stm32loader program on Windows operating systems. If you are using Windows, and keep getting "unable to connect to bootloader" errors, try the stm32loader bootloader. Note, you must have Python installed&ndash;my suggested way of installing Python is on the <a href="http://avikde.me/koduino/html/class_open_log.html">OpenLog page</a>.</p>
 <h3>2.3. Programming legs</h3>
 <h4>2.3.1. Leg numbering</h4>
 <div class="image">
@@ -246,7 +248,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Sep 21 2016 20:51:50 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Sep 21 2016 20:56:07 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.11
 </small></address>

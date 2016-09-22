@@ -175,7 +175,7 @@ The main microcontroller board at the center of the robot is called the "mainboa
 
 1. Open `Documents\arduino-1.6.1\arduino.exe`
 2. Click `Tools -> Board -> F303V (...)`
-3. Select `Tools -> Bootloader -> Serial`, and `Tools -> CPU Speed -> 72 MHz`
+3. Select `Tools -> Bootloader -> Serial`, and `Tools -> CPU Speed -> 72 MHz` (**note see below about bootloader**)
 4. Make sure the mainboard is *NOT* plugged in
 5. Click `Tools -> Port` and look at which COM ports are listed
 6. Now plug in a Micro-B USB cable from your computer to the mainboard. Check that at least the red power LED has turned on.
@@ -221,6 +221,10 @@ include $(KODUINO_DIR)/project.mk
 ~~~
 10. Click `File -> Upload`, and wait for 10-20 seconds till a success or failure message appears at the bottom. Sometimes if the upload fails, try just unplugging and plugging the mainboard in right after you click "Upload" and trying again. *Hint: you can also enable verbose compilation/upload output in the Arduino console from Arduino's Preferences menu.*
 11. After successfully uploading, look at the mainboard. The green LED should be blinking once per second
+
+#### 2.2.1. stm32loader bootloader
+
+The default bootloader (based on stm32ld) has been performing worse than the Python stm32loader program on Windows operating systems. If you are using Windows, and keep getting "unable to connect to bootloader" errors, try the stm32loader bootloader. Note, you must have Python installed--my suggested way of installing Python is on the [OpenLog page](http://avikde.me/koduino/html/class_open_log.html).
 
 ### 2.3. Programming legs
 
