@@ -114,7 +114,7 @@ recipe.size.regex=\.text\s+([0-9]+).*
 
 # DFU
 tools.dfu_util.cmd=dfu-util
-tools.dfu_util.cmd.windows=dfu-util.exe
+tools.dfu_util.cmd.windows=dfu-util-static.exe
 tools.dfu_util.path={runtime.ide.path}/hardware/koduino/stm32/system/dfu-util
 
 tools.dfu_util.upload.params.verbose=-v

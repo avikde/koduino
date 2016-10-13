@@ -305,11 +305,8 @@ static void SetSysClock(void)
 
   /* SYSCLK, HCLK, PCLK2 and PCLK1 configuration -----------*/
   /* Enable HSE */
-#if defined(M4) && ~defined(M4_WHITE)
-  RCC->CR |= ((uint32_t)RCC_CR_HSEON);
-#else
+  // RCC->CR |= ((uint32_t)RCC_CR_HSEON);
   RCC->CR |= ((uint32_t) (RCC_CR_HSEON | RCC_CR_HSEBYP));
-#endif
   
   /* Wait till HSE is ready and if Time out is reached exit */
   do

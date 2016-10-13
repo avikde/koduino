@@ -159,38 +159,39 @@ f37x.build.extra_flags=
 f37x.build.ldscript=STM32_FLASH.ld
 f37x.build.variant=f37x
 f37x.build.board=STM32_F37X
-
-# HSE choices
-f37x.build.hse_value=16000000UL
-f37x.build.clksrc=HSE_16M
 f37x.build.isrs=INLINE
 
-# f37x.menu.hse.8mhz=8MHz clock
-# f37x.menu.hse.8mhz.build.hse_value=8000000UL
-# f37x.menu.hse.8mhz.build.hse_clock=1
+# HSE choices
+f37x.menu.hse.8m=72MHz (from 8MHz HSE)
+f37x.menu.hse.8m.build.hse_value=8000000UL
+f37x.menu.hse.8m.build.f_cpu=72000000L
+f37x.menu.hse.8m.build.clksrc=HSE_8M
 
-# f37x.menu.hse.16mhz=16MHz
-# f37x.menu.hse.16mhz.build.hse_value=16000000UL
-# f37x.menu.hse.16mhz.build.hse_clock=0
+f37x.menu.hse.16m=72MHz (from 16MHz HSE)
+f37x.menu.hse.16m.build.hse_value=16000000UL
+f37x.menu.hse.16m.build.f_cpu=72000000L
+f37x.menu.hse.16m.build.clksrc=HSE_16M
 
-# f37x.menu.hse.24mhz=24MHz clock
-# f37x.menu.hse.24mhz.build.hse_value=24000000UL
-# f37x.menu.hse.24mhz.build.hse_clock=1
+
+f37x.upload.maximum_size=262144
 
 # Upload choices
-f37x.upload.tool=stm32ld
-f37x.upload.protocol=serial
-# f37x.upload.sequence=-rts,-dtr,dtr:rts,-dtr,dtr
-f37x.upload.options=dtr_rts
-f37x.upload.baud=230400
-f37x.upload.maximum_size=65536
-# f37x.menu.bootloader.serial=Serial
-# f37x.menu.bootloader.serial.upload.tool=stm32loader
-# f37x.menu.bootloader.serial.upload.protocol=serial
+f37x.menu.bootloader.stm32loader=Serial (no pulse)
+f37x.menu.bootloader.stm32loader.upload.tool=stm32loader
+f37x.menu.bootloader.stm32loader.upload.protocol=serial
+f37x.menu.bootloader.stm32loader.upload.options=none
+f37x.menu.bootloader.stm32loader.upload.baud=230400
 
-# f37x.menu.bootloader.dfu_util=DFU
-# f37x.menu.bootloader.dfu_util.upload.tool=dfu_util
-# f37x.menu.bootloader.dfu_util.upload.protocol=dfu
+f37x.menu.bootloader.stm32loadermb=Serial (pulse DTR/RTS)
+f37x.menu.bootloader.stm32loadermb.upload.tool=stm32loader
+f37x.menu.bootloader.stm32loadermb.upload.protocol=serial
+# f37x.upload.sequence=-rts,-dtr,dtr:rts,-dtr,dtr
+f37x.menu.bootloader.stm32loadermb.upload.options=dtr_rts
+f37x.menu.bootloader.stm32loadermb.upload.baud=230400
+
+f37x.menu.bootloader.dfu_util=dfu-util
+f37x.menu.bootloader.dfu_util.upload.tool=dfu_util
+f37x.menu.bootloader.dfu_util.upload.protocol=dfu
 
 # f37x.build.vid=0x2341
 # f37x.build.pid=0x003e
