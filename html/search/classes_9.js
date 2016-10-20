@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['nunchuck',['Nunchuck',['../class_nunchuck.html',1,'']]]
+  ['rtcclass',['RTCClass',['../class_r_t_c_class.html',1,'']]]
 ];

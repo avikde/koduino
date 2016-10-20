@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['dlpf',['DLPF',['../class_d_l_p_f.html',1,'']]],
-  ['drv8303',['DRV8303',['../class_d_r_v8303.html',1,'']]],
-  ['dxl',['Dxl',['../class_dxl.html',1,'']]],
-  ['dxlmotor',['DxlMotor',['../class_dxl_motor.html',1,'']]]
+  ['eepromclass',['EEPROMClass',['../class_e_e_p_r_o_m_class.html',1,'']]],
+  ['encoder',['Encoder',['../class_encoder.html',1,'']]]
 ];

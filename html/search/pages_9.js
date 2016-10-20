@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['nunchuck',['Nunchuck',['../md_Nunchuck.html',1,'']]]
+  ['nunchuck',['Nunchuck',['../md__nunchuck.html',1,'']]]
 ];

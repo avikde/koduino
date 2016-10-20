@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['fatlog',['FatLog',['../class_fat_log.html',1,'']]]
+  ['minitaurleg',['MinitaurLeg',['../class_minitaur_leg.html',1,'']]]
 ];

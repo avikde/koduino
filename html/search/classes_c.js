@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['rtcclass',['RTCClass',['../class_r_t_c_class.html',1,'']]]
+  ['usartclass',['USARTClass',['../class_u_s_a_r_t_class.html',1,'']]]
 ];

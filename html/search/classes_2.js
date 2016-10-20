@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['complementaryfilter',['ComplementaryFilter',['../class_complementary_filter.html',1,'']]]
+  ['dlpf',['DLPF',['../class_d_l_p_f.html',1,'']]],
+  ['dxl',['Dxl',['../class_dxl.html',1,'']]]
 ];

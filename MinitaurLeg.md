@@ -68,7 +68,7 @@ void setup() {
 }
 
 void loop() {
-  leg0.enable();
+  leg0.enable(true);
   // These commands are similar to Motor commands, except with an added first argument
   leg0.setGain(ANGLE, 0.3);
   leg0.setPosition(ANGLE, 0);
