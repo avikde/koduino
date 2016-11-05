@@ -10,6 +10,6 @@ var searchData=
   ['digitalwrite',['digitalWrite',['../group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7',1,'digitalWrite(uint8_t name, LogicValue val):&#160;gpio.c'],['../group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7',1,'digitalWrite(uint8_t pin, LogicValue val):&#160;gpio.c']]],
   ['dlpf',['DLPF',['../class_d_l_p_f.html',1,'']]],
   ['dxl',['Dxl',['../class_dxl.html',1,'']]],
-  ['digital',['Digital',['../md__digital.html',1,'']]],
-  ['dxl',['Dxl',['../md__dxl.html',1,'']]]
+  ['digital',['Digital',['../md_Digital.html',1,'']]],
+  ['dxl',['Dxl',['../md_Dxl.html',1,'']]]
 ];

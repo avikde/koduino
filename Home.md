@@ -59,5 +59,5 @@ The API functions here are in general optimized for speed and concurrency, at th
 * [Motor controller library with multi-motor coordination](@ref MotorController)
 * [Real-time clock (TODO)](@ref RTCClass) --- on Mainboard v2 only
 * [Behaviors base class, clocked gaits (TODO)](@ref Behavior)
-* [Brushless commutation with field-oriented control (WIP)](@ref Brushless) --- *Warning: advanced!*
+<!-- * [Brushless commutation with field-oriented control (WIP)](@ref Brushless) --- *Warning: advanced!* -->
 
