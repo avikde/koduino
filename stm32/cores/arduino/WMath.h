@@ -172,8 +172,9 @@ public:
    * @param val Tracking error
    * @return - Kp * val - Kd * (filtered velocity)
    */
-  virtual float update(float val) {
-    return - Kp * val - Kd * DLPF::update(val);
+  virtual float update(float pos, float setpoint) {
+    float error = (type == DLPF_ANGRATE) ? fmodf_mpi_pi(pos - setpoint) : (pos - setpoint);
+    return - Kp * error - Kd * DLPF::update(pos);
   }
 
   /**
