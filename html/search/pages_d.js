@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['serial',['Serial',['../md_Serial.html',1,'']]],
-  ['spi',['SPI',['../md_SPI.html',1,'']]],
-  ['streaming',['Streaming',['../md_Streaming.html',1,'']]]
+  ['serial',['Serial',['../md__serial.html',1,'']]],
+  ['spi',['SPI',['../md__s_p_i.html',1,'']]],
+  ['streaming',['Streaming',['../md__streaming.html',1,'']]]
 ];

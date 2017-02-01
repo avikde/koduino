@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['math',['Math',['../md_Math.html',1,'']]],
-  ['minitaurleg',['MinitaurLeg',['../md_MinitaurLeg.html',1,'']]],
-  ['motorcontroller',['MotorController',['../md_MotorController.html',1,'']]],
-  ['makefile_20setup',['Makefile Setup',['../md_SetupMakefile.html',1,'']]]
+  ['math',['Math',['../md__math.html',1,'']]],
+  ['minitaurleg',['MinitaurLeg',['../md__minitaur_leg.html',1,'']]],
+  ['motorcontroller',['MotorController',['../md__motor_controller.html',1,'']]],
+  ['makefile_20setup',['Makefile Setup',['../md__setup_makefile.html',1,'']]]
 ];

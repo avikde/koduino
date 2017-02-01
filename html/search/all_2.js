@@ -5,6 +5,6 @@ var searchData=
   ['behavior',['Behavior',['../group___behavior.html',1,'']]],
   ['bulkserial',['BulkSerial',['../class_bulk_serial.html',1,'']]],
   ['basic_20and_20advanced_20math',['Basic and advanced math',['../group___math.html',1,'']]],
-  ['behavior',['Behavior',['../md_Behavior.html',1,'']]],
-  ['bulkserial',['BulkSerial',['../md_BulkSerial.html',1,'']]]
+  ['behavior',['Behavior',['../md__behavior.html',1,'']]],
+  ['bulkserial',['BulkSerial',['../md__bulk_serial.html',1,'']]]
 ];

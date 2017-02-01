@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['serial',['Serial',['../md_Serial.html',1,'']]],
-  ['spi',['SPI',['../md_SPI.html',1,'']]],
-  ['streaming',['Streaming',['../md_Streaming.html',1,'']]],
+  ['serial',['Serial',['../md__serial.html',1,'']]],
+  ['spi',['SPI',['../md__s_p_i.html',1,'']]],
+  ['streaming',['Streaming',['../md__streaming.html',1,'']]],
   ['setbitorder',['setBitOrder',['../class_s_p_i_class.html#afde3febd4ff7bf33bb2b54e8a9b9694d',1,'SPIClass']]],
   ['setclockdivider',['setClockDivider',['../class_s_p_i_class.html#aa8440b0652b8a0d3d56434b57a8fec1d',1,'SPIClass']]],
   ['setdatamode',['setDataMode',['../class_s_p_i_class.html#a13cf0985428fd08a5e056c747e296cc1',1,'SPIClass']]],

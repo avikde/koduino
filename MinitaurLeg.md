@@ -47,6 +47,7 @@ const uint8_t inPin[] = {PD12, PD13, PD14, PD15, PC6, PC7, PC8, PC9, PE2, PE3};
 const int CONTROL_RATE = 1000;
 BlCon34 M[NMOT];
 MinitaurLeg leg0(&M[1], &M[0]);
+const float motZeros[NMOT] = {0,0,0,0,0,0,0,0,0,0};
 
 void controlLoop() {
   leg0.update();
@@ -56,13 +57,11 @@ void setup() {
   Serial1.begin(115200);
 
   Motor::updateRate = CONTROL_RATE;
-  Motor::velSmooth = 0.9;
-  // Uncomment this for MBLC
-  // BlCon34::useEXTI = true;
+  Motor::velSmooth = 0.55;
 
   // Arguments are pwmPin, pulsePin, zero(rad), direction(+/- 1)
   for (int i=0; i<NMOT; ++i)
-    M[i].init(outPin[i], inPin[i], 0, 1);
+    M[i].init(outPin[i], inPin[i], motZeros[i], 1);
 
   attachTimerInterrupt(0, controlLoop, CONTROL_RATE);
 }

@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['pins',['Pins',['../md_Pins.html',1,'']]],
-  ['porting',['Porting',['../md_Porting.html',1,'']]],
-  ['pwm',['PWM',['../md_PWM.html',1,'']]],
+  ['pins',['Pins',['../md__pins.html',1,'']]],
+  ['porting',['Porting',['../md__porting.html',1,'']]],
+  ['pwm',['PWM',['../md__p_w_m.html',1,'']]],
   ['parsefloat',['parseFloat',['../class_stream.html#a5e5a0cc11eb586d89dcb7fa8e53a87e8',1,'Stream']]],
   ['parseint',['parseInt',['../class_stream.html#abeda6a8584f0214ff4a2e99c1f96d60c',1,'Stream']]],
   ['pd',['PD',['../class_p_d.html',1,'']]],
