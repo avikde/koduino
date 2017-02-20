@@ -24,9 +24,9 @@
 void configUSARTPins(USART_TypeDef *USARTx, uint8_t txPin, uint8_t rxPin) {
   // Need to check datasheet
   uint8_t af = 7;
-#if defined(SERIES_STM32F4xx)
+#if defined(STM32F446xx)
   // FIXME: this will need to be expanded
-  if (USARTx == USART6) {
+  if (USARTx == UART4 || USARTx == UART5 || USARTx == USART6) {
     af = 8;
   }
 #endif
