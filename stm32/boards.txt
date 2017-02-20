@@ -229,3 +229,43 @@ f40_41x.menu.bootloader.bootbut=Boot button
 f40_41x.menu.bootloader.bootbut.upload.options=dtr_rts
 
 
+###########################################################
+
+f446.name=F446 (gRMbm)
+f446.build.mcu=STM32F446xx
+f446.build.series=STM32F4xx
+f446.build.core=arduino
+f446.build.extra_flags=
+f446.build.ldscript=STM32F446ZE_FLASH.ld
+f446.build.variant=f446
+f446.build.isrs=INLINE
+f446.build.board=STM32_F446
+
+# HSE choices
+f446.build.hse_value=8000000UL
+f446.build.f_cpu=180000000L
+# f446.build.clksrc=HSE_8M
+
+# Upload
+f446.upload.maximum_size=524288
+
+f446.menu.bootloader.stm32ld=Serial (stm32ld)
+f446.menu.bootloader.stm32ld.upload.tool=stm32ld
+f446.menu.bootloader.stm32ld.upload.baud=230400
+f446.menu.bootloader.stm32ld.upload.protocol=serial
+f446.menu.bootloader.stm32ld.upload.options=mblc
+
+f446.menu.bootloader.stm32loader=Serial (stm32loader)
+f446.menu.bootloader.stm32loader.upload.tool=stm32loader
+f446.menu.bootloader.stm32loader.upload.baud=230400
+f446.menu.bootloader.stm32loader.upload.protocol=serial
+f446.menu.bootloader.stm32loader.upload.options=mblc
+
+f446.menu.bootloader.stlink=ST-LINK
+f446.menu.bootloader.stlink.upload.tool=stlink
+f446.menu.bootloader.stlink.upload.protocol=stlink
+f446.menu.bootloader.stlink.upload.options=
+
+f446.menu.bootloader.dfu_util=dfu-util
+f446.menu.bootloader.dfu_util.upload.tool=dfu_util
+f446.menu.bootloader.dfu_util.upload.protocol=dfu

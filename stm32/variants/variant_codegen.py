@@ -18,7 +18,7 @@
 '''
 import csv
 
-variant = 'f303v'
+variant = 'f446'
 
 keyChipPin = 'Chip pin'
 keyIndex = 'kod#'

@@ -66,6 +66,7 @@ CHIP_ID_STRS = {
   0x430: 'STM32F1, performance, XL-density',
   0x432: 'F37x',
   0x439: 'F30x',
+  0x421: 'F446',
   0x422: 'F303'
 }
 
