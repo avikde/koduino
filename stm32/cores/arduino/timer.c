@@ -30,6 +30,10 @@
 #define TIMER_BASE_CLOCK 36000000
 #elif defined(SERIES_STM32F30x)
 #define TIMER_BASE_CLOCK (SystemCoreClock/2)
+#elif defined(STM32F446xx)
+#define TIMER_BASE_CLOCK (SystemCoreClock/4)//APB1
+// #define TIMER_BASE_CLOCK2 (SystemCoreClock/2)//APB2
+// #define TIMER_PERIOD2(freq_hz) ((int)TIMER_BASE_CLOCK2/(freq_hz) - 1)
 #else
 #define TIMER_BASE_CLOCK 42000000
 #endif
@@ -74,7 +78,14 @@ void timerInit(uint8_t timer, int freqHz) {
   // Enable interrupts for the timer (but not any of the timer updates yet)
   nvicEnable(TIMER_MAP[timer].IRQn, TIMER_IC_PRIORITY);
 
+// #if defined(STM32F446xx)
+//   if (TIMER_MAP[timer].TIMx == TIM9)// timers clocked from APB2
+//     timerInitHelper(timer, 1, TIMER_PERIOD2(freqHz));
+//   else
+//     timerInitHelper(timer, 1, TIMER_PERIOD(freqHz));
+// #else
   timerInitHelper(timer, 1, TIMER_PERIOD(freqHz));
+// #endif
   TIM_Cmd(TIMER_MAP[timer].TIMx, ENABLE);
 }
 
@@ -91,8 +102,8 @@ void pinTimerInit(uint8_t pin) {
   // isAdvancedTimer() ir something
   // http://www.disca.upv.es/aperles/arm_cortex_m3/curset/STM32F4xx_DSP_StdPeriph_Lib_V1.0.1/html/group___t_i_m___group4.html
 #if defined(SERIES_STM32F4xx)
-  if (TIMER_MAP[timer].TIMx == TIM1) {
-    TIM_CtrlPWMOutputs(TIM1, ENABLE);
+  if (IS_TIM_LIST4_PERIPH(TIMER_MAP[timer].TIMx)) {
+    TIM_CtrlPWMOutputs(TIMER_MAP[timer].TIMx, ENABLE);
   }
 #endif
 #if defined(SERIES_STM32F30x)
