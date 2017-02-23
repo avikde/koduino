@@ -31,7 +31,6 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">Koduino
    </div>
-   <div id="projectbrief">Arduino core for STM32</div>
   </td>
  </tr>
  </tbody>
@@ -46,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -89,12 +89,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="class_open_log-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">OpenLog Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_open_log_8h_source.html">OpenLog.h</a>&gt;</code></p>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><b>NOTE: the preferred way to talk to the <a class="el" href="class_open_log.html">OpenLog</a> now is using the <a class="el" href="class_bulk_serial.html">BulkSerial</a> class. The "reading on a computer" example below is still pertinent and log files are back/forward compatible.</b></p>
+<div class="textblock"><p><b>NOTE: the preferred way to talk to the <a class="el" href="class_open_log.html">OpenLog</a> now is using the <a class="el" href="class_bulk_serial.html" title="Fixed length bulk serial data transfers using DMA. ">BulkSerial</a> class. The "reading on a computer" example below is still pertinent and log files are back/forward compatible.</b></p>
 <p>This is a library of high level functions for <a href="https://github.com/sparkfun/OpenLog/tree/master/firmware/OpenLog_v3">OpenLog v3 firmware</a> attached on some serial port. A lot of the functions are from the <a href="https://github.com/sparkfun/OpenLog/blob/master/firmware/examples/OpenLog_ReadExample/OpenLog_ReadExample.ino">read example from SparkFun</a>. All the file ops are performed by <a class="el" href="class_open_log.html">OpenLog</a>, and this library adds</p>
 <ul>
 <li>a hardware interface including resetting, opening and verifying a write connection,</li>
@@ -103,12 +108,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </ul>
 <h3>Usage</h3>
 <ol type="1">
-<li>Set up the hardware connections with the constructor <a class="el" href="class_open_log.html">OpenLog()</a>.</li>
-<li>Declare a packet structure with <code>__attribute__ ((packed))</code>.</li>
-<li>Call init() with the header, format and size of the declared packet structure.</li>
+<li>Set up the hardware connections with the constructor <a class="el" href="class_open_log.html#a581a88a6607d1db4f95dc7b7db9b0ed0" title="Constructor to set up hardware connections to the OpenLog. ">OpenLog()</a>.</li>
+<li>Declare a packet structure with <code><a class="el" href="struct____attribute____.html">__attribute__</a> ((packed))</code>.</li>
+<li>Call <a class="el" href="class_open_log.html#a04f97d33a57652367b526d90dad8bc82" title="Reset OpenLog and start a new log. ">init()</a> with the header, format and size of the declared packet structure.</li>
 <li>Populate the structure fields while the program runs.</li>
-<li>Call enable() with <code>true</code> to start logging, <code>false</code> to stop.</li>
-<li>Call write() as often as desired (it will only write after the previous write finishes), or from a <a class="el" href="group___timebase.html">timer interrupt</a>.</li>
+<li>Call <a class="el" href="class_open_log.html#a4da3a163f0d5f389a6d663717a6d46ce" title="Start / stop logging data. ">enable()</a> with <code>true</code> to start logging, <code>false</code> to stop.</li>
+<li>Call <a class="el" href="class_open_log.html#ae9c1a384229172d46c16adcfbdbb0a02" title="Write a data buffer of size packetSize specified during init() ">write()</a> as often as desired (it will only write after the previous write finishes), or from a <a class="el" href="group___timebase.html">timer interrupt</a>.</li>
 </ol>
 <h3>Example: Writing from the microcontroller (Mainboard v1.1)</h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Arduino.h&gt;</span></div>
@@ -118,7 +123,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">  uint32_t t;</div>
 <div class="line">  <span class="keywordtype">float</span> PI;</div>
 <div class="line">  uint8_t bit;</div>
-<div class="line">} __attribute__ ((packed));</div>
+<div class="line">} <a class="code" href="struct____attribute____.html">__attribute__</a> ((packed));</div>
 <div class="line">StateVector state;</div>
 <div class="line"><a class="code" href="class_open_log.html">OpenLog</a> openLog(PB2, Serial2, 115200);</div>
 <div class="line"></div>
@@ -138,7 +143,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --><h3>Example: Reading on a computer</h3>
 <h4>Using MATLAB</h4>
 <p>In a MATLAB command window, </p><div class="fragment"><div class="line">&gt;&gt; cd $KODUINO_DIR/libraries/<a class="code" href="class_open_log.html">OpenLog</a></div>
-<div class="line">&gt;&gt; s = open_log(<span class="stringliteral">&#39;LOG00000.TXT&#39;</span>);</div>
+<div class="line">&gt;&gt; s = <a class="code" href="namespaceopen__log.html">open_log</a>(<span class="stringliteral">&#39;LOG00000.TXT&#39;</span>);</div>
 <div class="line">Opened LOG00000.TXT</div>
 <div class="line">Keys: t,r,p,y,q0,q1,q2,q3,q4,q5,q6,q7,u0,u1,u2,u3,u4,u5,u6,u7,xd,mo</div>
 <div class="line">Format: IffffffffffffffffffffB</div>
@@ -160,14 +165,182 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;...$ cd $KODUINO_DIR/libraries/OpenLog</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;.../OpenLog$ python open_log.py -p &lt;log_file_path_root&gt; [-e &lt;experiment_type&gt;] &lt;log_file_number&gt;</div>
 </div><!-- fragment --><p>To display more information about the command line options: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;.../OpenLog$ python open_log.py -h</div>
-</div><!-- fragment --> </div><hr/>The documentation for this class was generated from the following file:<ul>
-<li>OpenLog.md</li>
+</div><!-- fragment --> </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a581a88a6607d1db4f95dc7b7db9b0ed0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_log.html#a581a88a6607d1db4f95dc7b7db9b0ed0">OpenLog</a> (uint8_t rst, <a class="el" href="class_u_s_a_r_t_class.html">USARTClass</a> &amp;Ser, uint32_t baud)</td></tr>
+<tr class="memdesc:a581a88a6607d1db4f95dc7b7db9b0ed0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor to set up hardware connections to the <a class="el" href="class_open_log.html">OpenLog</a>.  <a href="#a581a88a6607d1db4f95dc7b7db9b0ed0">More...</a><br /></td></tr>
+<tr class="separator:a581a88a6607d1db4f95dc7b7db9b0ed0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04f97d33a57652367b526d90dad8bc82"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_log.html#a04f97d33a57652367b526d90dad8bc82">init</a> (const char *header, const char *fmt, uint32_t packetSize, bool check)</td></tr>
+<tr class="memdesc:a04f97d33a57652367b526d90dad8bc82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset <a class="el" href="class_open_log.html">OpenLog</a> and start a new log.  <a href="#a04f97d33a57652367b526d90dad8bc82">More...</a><br /></td></tr>
+<tr class="separator:a04f97d33a57652367b526d90dad8bc82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4da3a163f0d5f389a6d663717a6d46ce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_log.html#a4da3a163f0d5f389a6d663717a6d46ce">enable</a> (bool flag)</td></tr>
+<tr class="memdesc:a4da3a163f0d5f389a6d663717a6d46ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start / stop logging data.  <a href="#a4da3a163f0d5f389a6d663717a6d46ce">More...</a><br /></td></tr>
+<tr class="separator:a4da3a163f0d5f389a6d663717a6d46ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9c1a384229172d46c16adcfbdbb0a02"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_open_log.html#ae9c1a384229172d46c16adcfbdbb0a02">write</a> (const uint8_t *bytes)</td></tr>
+<tr class="memdesc:ae9c1a384229172d46c16adcfbdbb0a02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a data buffer of size <code>packetSize</code> specified during <a class="el" href="class_open_log.html#a04f97d33a57652367b526d90dad8bc82" title="Reset OpenLog and start a new log. ">init()</a>  <a href="#ae9c1a384229172d46c16adcfbdbb0a02">More...</a><br /></td></tr>
+<tr class="separator:ae9c1a384229172d46c16adcfbdbb0a02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a581a88a6607d1db4f95dc7b7db9b0ed0"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">OpenLog::OpenLog </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>rst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_u_s_a_r_t_class.html">USARTClass</a> &amp;&#160;</td>
+          <td class="paramname"><em>Ser</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>baud</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor to set up hardware connections to the <a class="el" href="class_open_log.html">OpenLog</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rst</td><td>Reset pin </td></tr>
+    <tr><td class="paramname">Ser</td><td>Connected Serial port </td></tr>
+    <tr><td class="paramname">baud</td><td>Baud rate (<em>must match</em> setting in <a href="https://github.com/sparkfun/OpenLog/wiki/Config-File">CONFIG.TXT</a> on the SD card) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a4da3a163f0d5f389a6d663717a6d46ce"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenLog::enable </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>flag</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Start / stop logging data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">flag</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a04f97d33a57652367b526d90dad8bc82"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OpenLog::init </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>header</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>fmt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>packetSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>check</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reset <a class="el" href="class_open_log.html">OpenLog</a> and start a new log. </p>
+<p>Waits till <a class="el" href="class_open_log.html">OpenLog</a> is connected (timeout is 3 seconds). Note that this will fail if an SD card is not plugged into the socket.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">header</td><td>ASCII string containing a comma-separated list of <em>short</em> data column names </td></tr>
+    <tr><td class="paramname">fmt</td><td>ASCII string containing a <a href="https://docs.python.org/2/library/struct.html#format-characters">python struct format string</a> corresponding to a data row </td></tr>
+    <tr><td class="paramname">packetSize</td><td>Size of the entire packet </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if connected, false if failed </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ae9c1a384229172d46c16adcfbdbb0a02"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OpenLog::write </td>
+          <td>(</td>
+          <td class="paramtype">const uint8_t *&#160;</td>
+          <td class="paramname"><em>bytes</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Write a data buffer of size <code>packetSize</code> specified during <a class="el" href="class_open_log.html#a04f97d33a57652367b526d90dad8bc82" title="Reset OpenLog and start a new log. ">init()</a> </p>
+<p>Only writes the data if the Serial TX buffer is empty (i.e. if the previous write operation finished).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bytes</td><td>Pointer to data buffer </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li><a class="el" href="_open_log_8h_source.html">OpenLog.h</a></li>
+<li>OpenLog.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 31 2017 22:17:14 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 22 2017 19:54:51 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

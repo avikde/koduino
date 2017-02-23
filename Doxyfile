@@ -44,7 +44,7 @@ PROJECT_NUMBER         =
 # for a project that appears at the top of each page and should give viewer a
 # quick idea about the purpose of the project. Keep the description short.
 
-PROJECT_BRIEF          = " Arduino core for STM32"
+PROJECT_BRIEF          = 
 
 # With the PROJECT_LOGO tag one can specify an logo or icon that is included in
 # the documentation. The maximum height of the logo should not exceed 55 pixels
@@ -772,23 +772,24 @@ INPUT                  = .
 # INPUT += /Applications/Arduino.app/Contents/Resources/Java/hardware/koduino/stm32/libraries/Robot
 
 # Windows
+# MBLIBS_DIR = ""
 INPUT += "$(KODUINO_DIR)\cores\arduino"
 INPUT += "$(KODUINO_DIR)\libraries\Wire"
 INPUT += "$(KODUINO_DIR)\libraries\SPI"
 INPUT += "$(KODUINO_DIR)\libraries\EEPROM"
-INPUT += "$(KODUINO_DIR)\libraries\Encoder"
-INPUT += "$(KODUINO_DIR)\libraries\IMU"
-INPUT += "$(KODUINO_DIR)\libraries\MotorController"
-INPUT += "$(KODUINO_DIR)\libraries\OpenLog"
-INPUT += "$(KODUINO_DIR)\libraries\Dxl"
-INPUT += "$(KODUINO_DIR)\libraries\DxlMotor"
-INPUT += "$(KODUINO_DIR)\libraries\Brushless"
+INPUT += "C:\Users\avik\Documents\mainboard-libraries\libraries\Encoder"
+INPUT += "C:\Users\avik\Documents\mainboard-libraries\libraries\IMU"
+INPUT += "C:\Users\avik\Documents\mainboard-libraries\libraries\MotorController"
+INPUT += "C:\Users\avik\Documents\mainboard-libraries\libraries\OpenLog"
+# INPUT += "$(KODUINO_DIR)\libraries\Dxl"
+# INPUT += "$(KODUINO_DIR)\libraries\DxlMotor"
+INPUT += "C:\Users\avik\Documents\mainboard-libraries\libraries\Brushless"
 INPUT += "$(KODUINO_DIR)\libraries\RTC"
 INPUT += "$(KODUINO_DIR)\libraries\FatLog"
-INPUT += "$(KODUINO_DIR)\libraries\Nunchuck"
-INPUT += "$(KODUINO_DIR)\libraries\Robot"
-INPUT += "$(KODUINO_DIR)\libraries\VectorNav"
-INPUT += "$(KODUINO_DIR)\libraries\BulkSerial"
+INPUT += "C:\Users\avik\Documents\mainboard-libraries\libraries\Nunchuck"
+INPUT += "C:\Users\avik\Documents\mainboard-libraries\libraries\Robot"
+INPUT += "C:\Users\avik\Documents\mainboard-libraries\libraries\VectorNav"
+INPUT += "C:\Users\avik\Documents\mainboard-libraries\libraries\BulkSerial"
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['openlog',['OpenLog',['../class_open_log.html',1,'']]]
+  ['gaitrunner',['GaitRunner',['../class_gait_runner.html',1,'']]]
 ];

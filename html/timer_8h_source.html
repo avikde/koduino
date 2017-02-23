@@ -31,7 +31,6 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">Koduino
    </div>
-   <div id="projectbrief">Arduino core for STM32</div>
   </td>
  </tr>
  </tbody>
@@ -46,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -142,7 +142,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;</div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;</div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="comment">// Helper for each channel</span></div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> timerCCxISR(TIM_TypeDef *TIMx, TimerChannelData *C, <span class="keywordtype">int</span> current, uint32_t currRollover) __attribute__((always_inline, unused));</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> timerCCxISR(TIM_TypeDef *TIMx, TimerChannelData *C, <span class="keywordtype">int</span> current, uint32_t currRollover) <a class="code" href="struct____attribute____.html">__attribute__</a>((always_inline, unused));</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> timerCCxISR(TIM_TypeDef *TIMx, TimerChannelData *C, <span class="keywordtype">int</span> current, uint32_t currRollover) {</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;  <span class="comment">// Is this a pwmIn pin?</span></div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;  <span class="keywordflow">if</span> (C-&gt;bPwmIn == 1) {</div>
@@ -176,7 +176,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;</div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="comment">// Main GP timer ISR</span></div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="preprocessor">#if defined(KODUINO_ISRS_INLINE)</span></div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> timerISR(uint8_t timer) __attribute__((always_inline, unused));</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> timerISR(uint8_t timer) <a class="code" href="struct____attribute____.html">__attribute__</a>((always_inline, unused));</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> timerISR(uint8_t timer);</div>
 <div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<span class="preprocessor">#endif</span></div>
@@ -221,6 +221,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;</div>
 <div class="ttc" id="group___p_w_m_html_ga4978918346876528b54add5619f7dadd"><div class="ttname"><a href="group___p_w_m.html#ga4978918346876528b54add5619f7dadd">pwmIn</a></div><div class="ttdeci">float pwmIn(uint8_t pin)</div><div class="ttdoc">Read a PWM signal (non-blocking) </div><div class="ttdef"><b>Definition:</b> timer.c:129</div></div>
+<div class="ttc" id="struct____attribute_____html"><div class="ttname"><a href="struct____attribute____.html">__attribute__</a></div><div class="ttdef"><b>Definition:</b> types.h:108</div></div>
 <div class="ttc" id="group___digital_html_ga9a2ae9e13f0de4cc01fbd535849c4696"><div class="ttname"><a href="group___digital.html#ga9a2ae9e13f0de4cc01fbd535849c4696">digitalRead</a></div><div class="ttdeci">static uint8_t digitalRead(uint8_t pin) __attribute__((always_inline</div><div class="ttdoc">Read a digital pin. </div><div class="ttdef"><b>Definition:</b> gpio.h:57</div></div>
 <div class="ttc" id="group___p_w_m_html_gafe9db0c90e4ce40d5784d714cd1b3bd4"><div class="ttname"><a href="group___p_w_m.html#gafe9db0c90e4ce40d5784d714cd1b3bd4">analogWriteFloat</a></div><div class="ttdeci">void analogWriteFloat(uint8_t pin, float duty)</div><div class="ttdoc">Change the PWM duty cycle on a pin. </div><div class="ttdef"><b>Definition:</b> timer.c:106</div></div>
 <div class="ttc" id="group___p_w_m_html_ga8a3b649ade67e04bc2144658989bf5e7"><div class="ttname"><a href="group___p_w_m.html#ga8a3b649ade67e04bc2144658989bf5e7">analogWriteResolution</a></div><div class="ttdeci">void analogWriteResolution(uint8_t nbits)</div><div class="ttdoc">Set the resolution for the analogWrite() function. </div><div class="ttdef"><b>Definition:</b> timer.c:69</div></div>
@@ -231,7 +232,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 31 2017 22:17:13 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 22 2017 19:54:48 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

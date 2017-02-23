@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>Koduino: MotorController</title>
+<title>Koduino: Motor controller library</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -31,7 +31,6 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">Koduino
    </div>
-   <div id="projectbrief">Arduino core for STM32</div>
   </td>
  </tr>
  </tbody>
@@ -46,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -81,20 +81,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">MotorController</div>  </div>
+<div class="title">Motor controller library</div>  </div>
 </div><!--header-->
 <div class="contents">
-<p>This class is to control a single motor. In robots with multi-DOF appendages, the <a class="el" href="class_abstract_motor.html">AbstractMotor</a> class and its derived classes (<a class="el" href="class_minitaur_leg.html">MinitaurLeg</a>, SagittalPair, etc.) are useful. If you need to use <a class="el" href="class_minitaur_leg.html">MinitaurLeg</a>, be sure to look at its help page.</p>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p>This class is to control a single motor. In robots with multi-DOF appendages, the <a class="el" href="class_abstract_motor.html" title="Class for coordinating N motors in parallel. ">AbstractMotor</a> class and its derived classes (<a class="el" href="class_minitaur_leg.html" title="Class for coordinating two parallel coaxial motors in the Minitaur config. ">MinitaurLeg</a>, <a class="el" href="class_sagittal_pair.html" title="Coordinates a pair of motors (for instance for sagittal plane behaviors) ">SagittalPair</a>, etc.) are useful. If you need to use <a class="el" href="class_minitaur_leg.html" title="Class for coordinating two parallel coaxial motors in the Minitaur config. ">MinitaurLeg</a>, be sure to look at its help page.</p>
 <h3>Single motor</h3>
 <p>Basic control of a single motor:</p><ol type="1">
-<li>Call initialization function, like BlCon34::init() or DxlMotor::init()</li>
-<li>Call Motor::enable()</li>
-<li>Call Motor::setOpenLoop() with an argument between -1 and 1 to spin freely</li>
-<li>Call Motor::setGain() and Motor::setPosition() to command a position</li>
-<li>Call Motor::getPosition(), Motor::getVelocity() to get back data</li>
-<li>To get back proprioceptive torque estimates, call Motor::setTorqueEstParams() during initialization, and Motor::getTorque()</li>
-<li>Motor::update() must be called frequently, preferably through a timer interrupt (<a class="el" href="group___timebase.html#ga5bf1468dbfe70bf8a0a511df76075992" title="Begin a timer interrupt. ">attachTimerInterrupt()</a>) for BlCon34, or just as often as possible for DxlMotor</li>
+<li>Call initialization function, like <a class="el" href="class_bl_con34.html#aae0df02b2a2a7b948eafcf3e1c873283" title="Initialize a motor for PWM communication. ">BlCon34::init()</a> or DxlMotor::init()</li>
+<li>Call <a class="el" href="class_motor.html#a3674d10b8a8e59bc54fedd73c8bc458c" title="Enable the motor. ">Motor::enable()</a></li>
+<li>Call <a class="el" href="class_motor.html#ae6f4b739d3bfbcd4d07c70f9a1976e26" title="Set an open loop PWM command for the motor. ">Motor::setOpenLoop()</a> with an argument between -1 and 1 to spin freely</li>
+<li>Call <a class="el" href="class_motor.html#a92651f68c98907bc111bfef6a34965eb" title="Set gain for position control. ">Motor::setGain()</a> and <a class="el" href="class_motor.html#a7494377351ccb26b43fd1971c15aca30" title="Set a desired position for the motor in radians. ">Motor::setPosition()</a> to command a position</li>
+<li>Call <a class="el" href="class_motor.html#a93ea58e6b68d4c791376f94e0e86bbe5" title="Get position after direction and zero are taken into account. ">Motor::getPosition()</a>, <a class="el" href="class_motor.html#a3c0f019abe39b8f7a5110ff3366d5fc9" title="Get motor velocity after direction and zero are taken into account. ">Motor::getVelocity()</a> to get back data</li>
+<li>To get back proprioceptive torque estimates, call <a class="el" href="class_motor.html#aa82703cdb3acb79c54ea540d07e81f63" title="Details for torque estimate in getTorque(). Not used elsewhere. ">Motor::setTorqueEstParams()</a> during initialization, and <a class="el" href="class_motor.html#acc47360642e78ce4cf5a740e3a66edf4" title="Returns an estimate of torque assuming quasistatic. ">Motor::getTorque()</a></li>
+<li><a class="el" href="class_motor.html#a1aed5249d7e088b34bf5e45da6c7f21e" title="Function that communicates with the motor controller (including getting position, commanding PWM) ...">Motor::update()</a> must be called frequently, preferably through a timer interrupt (<a class="el" href="group___timebase.html#ga5bf1468dbfe70bf8a0a511df76075992" title="Begin a timer interrupt. ">attachTimerInterrupt()</a>) for <a class="el" href="class_bl_con34.html" title="Derived class for communicating with PWM-controlled boards. ">BlCon34</a>, or just as often as possible for DxlMotor</li>
 </ol>
 <h4>Example: single motor test</h4>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Motor.h&gt;</span></div>
@@ -114,7 +117,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><span class="comment">// const uint8_t inPin[] = {PB8, PB9, PB3, PA8, PA11, PA15, PB14, PB15};</span></div>
 <div class="line"></div>
 <div class="line"><span class="keyword">const</span> <span class="keywordtype">int</span> CONTROL_RATE = 1000;</div>
-<div class="line">BlCon34 M[NMOT];</div>
+<div class="line"><a class="code" href="class_bl_con34.html">BlCon34</a> M[NMOT];</div>
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> controlLoop() {</div>
 <div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=0; i&lt;NMOT; ++i)</div>
@@ -124,17 +127,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><span class="keywordtype">void</span> setup() {</div>
 <div class="line">  Serial1.begin(115200);</div>
 <div class="line"></div>
-<div class="line">  Motor::updateRate = CONTROL_RATE;</div>
-<div class="line">  Motor::velSmooth = 0.55;</div>
+<div class="line">  <a class="code" href="class_motor.html#a89362d8b2dd1b125576cff1c08428072">Motor::updateRate</a> = CONTROL_RATE;</div>
+<div class="line">  <a class="code" href="class_motor.html#aaf7ec1963f7a56e500a2ad35cb886293">Motor::velSmooth</a> = 0.55;</div>
 <div class="line"></div>
 <div class="line">  <span class="comment">// Arguments are pwmPin, pulsePin, zero(rad), direction(+/- 1)</span></div>
 <div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=0; i&lt;NMOT; ++i) {</div>
-<div class="line">    M[i].init(outPin[i], inPin[i], 0, 1);</div>
+<div class="line">    M[i].<a class="code" href="class_bl_con34.html#aae0df02b2a2a7b948eafcf3e1c873283">init</a>(outPin[i], inPin[i], 0, 1);</div>
 <div class="line">    <span class="comment">// Also can specify a gear ratio (e.g. 23)</span></div>
 <div class="line">    <span class="comment">// M[i].init(outPin[i], inPin[i], 0, 1, 23);</span></div>
 <div class="line"></div>
 <div class="line">    <span class="comment">// set P-gain of 1.0/rad. This can be called as often as needed.</span></div>
-<div class="line">    M[i].setGain(1.0);</div>
+<div class="line">    M[i].<a class="code" href="class_motor.html#a92651f68c98907bc111bfef6a34965eb">setGain</a>(1.0);</div>
 <div class="line">    <span class="comment">// can also set D-gain like the following:</span></div>
 <div class="line">    <span class="comment">// M[i].setGain(1.0, 0.01);</span></div>
 <div class="line">  }</div>
@@ -144,37 +147,57 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"></div>
 <div class="line"><span class="keywordtype">void</span> loop() {</div>
 <div class="line">  <span class="comment">// Must call this to enable motor controller</span></div>
-<div class="line">  M[0].enable(<span class="keyword">true</span>);</div>
+<div class="line">  M[0].<a class="code" href="class_bl_con34.html#ac294cec048f4ef08b75cafb49802fdb6">enable</a>(<span class="keyword">true</span>);</div>
 <div class="line"></div>
 <div class="line">  <span class="comment">// go to 0 radians</span></div>
-<div class="line">  M[0].setPosition(0);</div>
+<div class="line">  M[0].<a class="code" href="class_motor.html#a7494377351ccb26b43fd1971c15aca30">setPosition</a>(0);</div>
 <div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(1000);</div>
 <div class="line"></div>
 <div class="line">  <span class="comment">// go to 1 radians</span></div>
-<div class="line">  M[0].setPosition(1);</div>
+<div class="line">  M[0].<a class="code" href="class_motor.html#a7494377351ccb26b43fd1971c15aca30">setPosition</a>(1);</div>
 <div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(1000);</div>
 <div class="line"></div>
 <div class="line">  <span class="comment">// spin freely in the + direction (gains are ignored in open loop mode)</span></div>
-<div class="line">  M[0].setOpenLoop(0.5);</div>
+<div class="line">  M[0].<a class="code" href="class_motor.html#ae6f4b739d3bfbcd4d07c70f9a1976e26">setOpenLoop</a>(0.5);</div>
 <div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(1000);</div>
 <div class="line"></div>
 <div class="line">  <span class="comment">// spin freely in the - direction</span></div>
-<div class="line">  M[0].setOpenLoop(-0.5);</div>
+<div class="line">  M[0].<a class="code" href="class_motor.html#ae6f4b739d3bfbcd4d07c70f9a1976e26">setOpenLoop</a>(-0.5);</div>
 <div class="line">  <a class="code" href="group___time.html#ga3194c3cfc86e8c279646fd44f3e2ee4d">delay</a>(1000);</div>
 <div class="line">}</div>
 </div><!-- fragment --><h3>Setting motor zero (independent of physical setup)</h3>
 <ol type="1">
 <li>Rotate the output shaft of the motor (or gearbox) to the desired zero location.</li>
-<li>Take the output of Motor::getRawPosition() (between 0 and 2 PI), and use that as the <code>zero</code> argument for the initialization function (BlCon34::init(), DxlMotor::init(), etc). The <code>direction</code> and <code>gearRatio</code> do not have any effect on the zeroing routine.</li>
+<li>Take the output of <a class="el" href="class_motor.html#aa57a20a89e0090b007a916868e4cfa35" title="Raw position read from the motor driver. ">Motor::getRawPosition()</a> (between 0 and 2 PI), and use that as the <code>zero</code> argument for the initialization function (<a class="el" href="class_bl_con34.html#aae0df02b2a2a7b948eafcf3e1c873283" title="Initialize a motor for PWM communication. ">BlCon34::init()</a>, DxlMotor::init(), etc). The <code>direction</code> and <code>gearRatio</code> do not have any effect on the zeroing routine.</li>
 <li>For robot startup, the motor's output shaft must be within (-PI, PI)/gearRatio of the calibrated zero position. This means that in direct drive, the motor can be at an arbitrary position, but when using a gearbox the startup angle is decreased since there are no absolute enocders.</li>
-<li>If the motor driver setup takes some time (i.e. Motor::getRawPosition() returns garbage during init), then make sure to call Motor::resetOffset() after there is non-garbage data. This should not be an issue in PWM controlled motor controllers.</li>
-<li>For any gearbox with an integer ratio, the leg can recirculate and still work correctly. However, for gearboxes with non-integer ratios, the motor/gearbox assembly should NOT be allowed to recirculate ever because one full rotation of the output shaft results in a different Motor::getRawPosition() value. </li>
+<li>If the motor driver setup takes some time (i.e. <a class="el" href="class_motor.html#aa57a20a89e0090b007a916868e4cfa35" title="Raw position read from the motor driver. ">Motor::getRawPosition()</a> returns garbage during init), then make sure to call <a class="el" href="class_motor.html#a7b52be740ffa84f78d9877e1dc001be2" title="Run this after you are sure there is non-garbage rawPosition data. ">Motor::resetOffset()</a> after there is non-garbage data. This should not be an issue in PWM controlled motor controllers.</li>
+<li>For any gearbox with an integer ratio, the leg can recirculate and still work correctly. However, for gearboxes with non-integer ratios, the motor/gearbox assembly should NOT be allowed to recirculate ever because one full rotation of the output shaft results in a different <a class="el" href="class_motor.html#aa57a20a89e0090b007a916868e4cfa35" title="Raw position read from the motor driver. ">Motor::getRawPosition()</a> value.</li>
 </ol>
+<p>Copyright (C) Ghost Robotics - All Rights Reserved Unauthorized copying of this file, via any medium is strictly prohibited Proprietary and confidential Written by Avik De <a href="#" onclick="location.href='mai'+'lto:'+'avi'+'k@'+'gho'+'st'+'rob'+'ot'+'ics'+'.i'+'o'; return false;">avik@<span style="display: none;">.nosp@m.</span>ghos<span style="display: none;">.nosp@m.</span>trobo<span style="display: none;">.nosp@m.</span>tics<span style="display: none;">.nosp@m.</span>.io</a> </p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_abstract_motor.html">AbstractMotor&lt; N &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class for coordinating N motors in parallel.  <a href="class_abstract_motor.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_minitaur_leg.html">MinitaurLeg</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class for coordinating two parallel coaxial motors in the Minitaur config.  <a href="class_minitaur_leg.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_motor.html">Motor</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base single-motor class.  <a href="class_motor.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bl_con34.html">BlCon34</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Derived class for communicating with PWM-controlled boards.  <a href="class_bl_con34.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sagittal_pair.html">SagittalPair</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coordinates a pair of motors (for instance for sagittal plane behaviors)  <a href="class_sagittal_pair.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 31 2017 22:17:14 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 22 2017 19:54:50 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

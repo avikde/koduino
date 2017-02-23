@@ -31,7 +31,6 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">Koduino
    </div>
-   <div id="projectbrief">Arduino core for STM32</div>
   </td>
  </tr>
  </tbody>
@@ -46,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -111,14 +111,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">extern</span> <span class="keyword">volatile</span> uint32_t <a class="code" href="group___time.html#ga0bb05d587e9ae8ca649e21681ba13d18">_millis</a>;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> microsDivider;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> uint32_t <a class="code" href="group___time.html#ga1c63eb57e58bbf89c28c992ad3fe42b8">millis</a>() __attribute__((always_inline, unused));</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> uint32_t <a class="code" href="group___time.html#ga1c63eb57e58bbf89c28c992ad3fe42b8">millis</a>() <a class="code" href="struct____attribute____.html">__attribute__</a>((always_inline, unused));</div>
 <div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="group___time.html#ga1c63eb57e58bbf89c28c992ad3fe42b8">   50</a></span>&#160;static inline uint32_t <a class="code" href="group___time.html#ga1c63eb57e58bbf89c28c992ad3fe42b8">millis</a>() {</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keyword">volatile</span> uint32_t ret = <a class="code" href="group___time.html#ga0bb05d587e9ae8ca649e21681ba13d18">_millis</a>;</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordflow">return</span> ret;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;}</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> uint32_t <a class="code" href="group___time.html#ga1cf44df892da65a01dd99a39f87f9243">micros</a>() __attribute__((always_inline, unused));</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> uint32_t <a class="code" href="group___time.html#ga1cf44df892da65a01dd99a39f87f9243">micros</a>() <a class="code" href="struct____attribute____.html">__attribute__</a>((always_inline, unused));</div>
 <div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="group___time.html#ga1cf44df892da65a01dd99a39f87f9243">   62</a></span>&#160;static inline uint32_t <a class="code" href="group___time.html#ga1cf44df892da65a01dd99a39f87f9243">micros</a>()</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;{</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <span class="comment">// OLD--using timer</span></div>
@@ -143,6 +143,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="group___time_html_ga1ca1758040a4581015e74b8371edfcea"><div class="ttname"><a href="group___time.html#ga1ca1758040a4581015e74b8371edfcea">delayNB</a></div><div class="ttdeci">void delayNB(uint32_t nTime, ISRType iterate)</div><div class="ttdoc">Non-blocking delay. </div><div class="ttdef"><b>Definition:</b> system_clock.c:70</div></div>
+<div class="ttc" id="struct____attribute_____html"><div class="ttname"><a href="struct____attribute____.html">__attribute__</a></div><div class="ttdef"><b>Definition:</b> types.h:108</div></div>
 <div class="ttc" id="group___time_html_ga3ff9db8978fbc49767c96b3ccd7b9a68"><div class="ttname"><a href="group___time.html#ga3ff9db8978fbc49767c96b3ccd7b9a68">delayMicroseconds</a></div><div class="ttdeci">void delayMicroseconds(uint32_t nTime)</div><div class="ttdoc">Blocks execution for a specified number of microseconds. </div><div class="ttdef"><b>Definition:</b> system_clock.c:56</div></div>
 <div class="ttc" id="group___time_html_ga1c63eb57e58bbf89c28c992ad3fe42b8"><div class="ttname"><a href="group___time.html#ga1c63eb57e58bbf89c28c992ad3fe42b8">millis</a></div><div class="ttdeci">static uint32_t millis() __attribute__((always_inline</div><div class="ttdef"><b>Definition:</b> system_clock.h:50</div></div>
 <div class="ttc" id="group___time_html_ga1cf44df892da65a01dd99a39f87f9243"><div class="ttname"><a href="group___time.html#ga1cf44df892da65a01dd99a39f87f9243">micros</a></div><div class="ttdeci">static uint32_t micros() __attribute__((always_inline</div><div class="ttdef"><b>Definition:</b> system_clock.h:62</div></div>
@@ -152,7 +153,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 31 2017 22:17:13 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 22 2017 19:54:48 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

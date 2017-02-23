@@ -31,7 +31,6 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">Koduino
    </div>
-   <div id="projectbrief">Arduino core for STM32</div>
   </td>
  </tr>
  </tbody>
@@ -46,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -207,7 +207,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;<span class="keywordtype">void</span> busHandlerRX(<span class="keywordtype">void</span> *busObject, uint8_t byte) WEAK;</div>
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;<span class="comment">// Regular USART handlers</span></div>
 <div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> ringBufferStore(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> c, RingBuffer *buffer) __attribute__((always_inline, unused));</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> ringBufferStore(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> c, RingBuffer *buffer) <a class="code" href="struct____attribute____.html">__attribute__</a>((always_inline, unused));</div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> ringBufferStore(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> c, RingBuffer *buffer) {</div>
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;  uint8_t next = (uint8_t)(buffer-&gt;head + 1) % SERIAL_BUFFER_SIZE;</div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;</div>
@@ -219,7 +219,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;}</div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;</div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> wirishUSARTInterruptHandler(USARTInfo *usartMap) __attribute__((always_inline, unused));</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> wirishUSARTInterruptHandler(USARTInfo *usartMap) <a class="code" href="struct____attribute____.html">__attribute__</a>((always_inline, unused));</div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> wirishUSARTInterruptHandler(USARTInfo *usartMap)</div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;{</div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;  <span class="keywordflow">if</span>(USART_GetITStatus(usartMap-&gt;USARTx, USART_IT_RXNE) != RESET) {</div>
@@ -264,6 +264,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="class_stream_html"><div class="ttname"><a href="class_stream.html">Stream</a></div><div class="ttdoc">Stream library inherited by Wire, Serial, etc. </div><div class="ttdef"><b>Definition:</b> Stream.h:46</div></div>
 <div class="ttc" id="class_u_s_a_r_t_class_html_a9a04a523e13cd614d65298de8c1ddb3d"><div class="ttname"><a href="class_u_s_a_r_t_class.html#a9a04a523e13cd614d65298de8c1ddb3d">USARTClass::peek</a></div><div class="ttdeci">virtual int peek(void)</div><div class="ttdoc">Reads a single byte from the receive buffer. </div><div class="ttdef"><b>Definition:</b> USARTClass.cpp:135</div></div>
 <div class="ttc" id="class_u_s_a_r_t_class_html_a4556d342bafdc54cd3f9b3957593e5fe"><div class="ttname"><a href="class_u_s_a_r_t_class.html#a4556d342bafdc54cd3f9b3957593e5fe">USARTClass::setPins</a></div><div class="ttdeci">void setPins(uint8_t tx, uint8_t rx)</div><div class="ttdoc">Change the default RX and TX pins. </div><div class="ttdef"><b>Definition:</b> USARTClass.cpp:126</div></div>
+<div class="ttc" id="struct____attribute_____html"><div class="ttname"><a href="struct____attribute____.html">__attribute__</a></div><div class="ttdef"><b>Definition:</b> types.h:108</div></div>
 <div class="ttc" id="class_u_s_a_r_t_class_html_ae1657d0b30cd3063854a330cc5a91b85"><div class="ttname"><a href="class_u_s_a_r_t_class.html#ae1657d0b30cd3063854a330cc5a91b85">USARTClass::read</a></div><div class="ttdeci">virtual int read(void)</div><div class="ttdoc">Reads a single byte from the receive buffer. </div><div class="ttdef"><b>Definition:</b> USARTClass.cpp:143</div></div>
 <div class="ttc" id="class_u_s_a_r_t_class_html_ab703331e88e9627b23eb9464c16b7502"><div class="ttname"><a href="class_u_s_a_r_t_class.html#ab703331e88e9627b23eb9464c16b7502">USARTClass::begin</a></div><div class="ttdeci">void begin(uint32_t baud, uint8_t mode)</div><div class="ttdoc">Opens a serial connection and configures the RX and TX pins. </div><div class="ttdef"><b>Definition:</b> USARTClass.cpp:83</div></div>
 <div class="ttc" id="class_u_s_a_r_t_class_html_a40cee922977d845eacf20a2f565b7a2b"><div class="ttname"><a href="class_u_s_a_r_t_class.html#a40cee922977d845eacf20a2f565b7a2b">USARTClass::write</a></div><div class="ttdeci">virtual size_t write(uint8_t c)</div><div class="ttdoc">Write a single character. </div><div class="ttdef"><b>Definition:</b> USARTClass.cpp:177</div></div>
@@ -276,7 +277,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 31 2017 22:17:13 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 22 2017 19:54:48 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

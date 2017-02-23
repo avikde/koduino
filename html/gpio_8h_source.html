@@ -31,7 +31,6 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">Koduino
    </div>
-   <div id="projectbrief">Arduino core for STM32</div>
   </td>
  </tr>
  </tbody>
@@ -46,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -109,7 +109,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7">digitalWrite</a>(uint8_t pin, LogicValue val);</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> uint8_t <a class="code" href="group___digital.html#ga9a2ae9e13f0de4cc01fbd535849c4696">digitalRead</a>(uint8_t pin) __attribute__((always_inline, unused));</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> uint8_t <a class="code" href="group___digital.html#ga9a2ae9e13f0de4cc01fbd535849c4696">digitalRead</a>(uint8_t pin) <a class="code" href="struct____attribute____.html">__attribute__</a>((always_inline, unused));</div>
 <div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="group___digital.html#ga9a2ae9e13f0de4cc01fbd535849c4696">   57</a></span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> uint8_t <a class="code" href="group___digital.html#ga9a2ae9e13f0de4cc01fbd535849c4696">digitalRead</a>(uint8_t pin) {</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keywordflow">return</span> GPIO_ReadInputDataBit(PIN_MAP[pin].port, 1&lt;&lt;PIN_MAP[pin].pin);</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;}</div>
@@ -137,13 +137,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
+<div class="ttc" id="struct____attribute_____html"><div class="ttname"><a href="struct____attribute____.html">__attribute__</a></div><div class="ttdef"><b>Definition:</b> types.h:108</div></div>
 <div class="ttc" id="group___digital_html_ga9a2ae9e13f0de4cc01fbd535849c4696"><div class="ttname"><a href="group___digital.html#ga9a2ae9e13f0de4cc01fbd535849c4696">digitalRead</a></div><div class="ttdeci">static uint8_t digitalRead(uint8_t pin) __attribute__((always_inline</div><div class="ttdoc">Read a digital pin. </div><div class="ttdef"><b>Definition:</b> gpio.h:57</div></div>
 <div class="ttc" id="group___digital_html_ga83a60de700245d1262ec6bb1c6f54cb7"><div class="ttname"><a href="group___digital.html#ga83a60de700245d1262ec6bb1c6f54cb7">digitalWrite</a></div><div class="ttdeci">void digitalWrite(uint8_t pin, LogicValue val)</div><div class="ttdoc">Set a digital pin to a given logic level. </div><div class="ttdef"><b>Definition:</b> gpio.c:26</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 31 2017 22:17:12 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 22 2017 19:54:48 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

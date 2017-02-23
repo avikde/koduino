@@ -3,19 +3,14 @@
 The repository associated with this library is at https://github.com/avikde/koduino.
 
 This is a library of code for boards developed using the STM32 F3/F4 series of microcontrollers, chosen for their FPU's and friendly built-in bootloaders.
-The microcontrollers currently targeted are:
-
-* [F301](http://www.st.com/stm32f301-pr)
-* [F302](http://www.st.com/stm32f302-pr1)
-* [F373](http://www.st.com/web/catalog/mmc/FM141/SC1169/SS1576/LN10)
-* [F405](http://www.st.com/web/en/catalog/mmc/FM141/SC1169/SS1577/LN1035)
+The microcontrollers currently being used are (see [porting guide](Porting.md) for details) F301, F302, F303, F373, F405, F446.
 
 The API functions here are in general optimized for speed and concurrency, at the expense of being slightly less fool-proof than Arduino (e.g. see [pin configuration](@ref Pins), [PWM output and input](@ref PWM)).
 
 ## Quick links
 
 * [Installation & Setup Guide](Installation.md)
-* [Porting to new chips](Porting.md) - **Not completed yet**
+* [Porting to new chips](Porting.md)
 
 <!-- 
 * [Writing your first program](Guide.md)

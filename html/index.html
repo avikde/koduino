@@ -31,7 +31,6 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">Koduino
    </div>
-   <div id="projectbrief">Arduino core for STM32</div>
   </td>
  </tr>
  </tbody>
@@ -46,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li class="current"><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -86,13 +86,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>The repository associated with this library is at <a href="https://github.com/avikde/koduino">https://github.com/avikde/koduino</a>.</p>
-<p>This is a library of code for boards developed using the STM32 F3/F4 series of microcontrollers, chosen for their FPU's and friendly built-in bootloaders. The microcontrollers currently targeted are:</p>
-<ul>
-<li><a href="http://www.st.com/stm32f301-pr">F301</a></li>
-<li><a href="http://www.st.com/stm32f302-pr1">F302</a></li>
-<li><a href="http://www.st.com/web/catalog/mmc/FM141/SC1169/SS1576/LN10">F373</a></li>
-<li><a href="http://www.st.com/web/en/catalog/mmc/FM141/SC1169/SS1577/LN1035">F405</a></li>
-</ul>
+<p>This is a library of code for boards developed using the STM32 F3/F4 series of microcontrollers, chosen for their FPU's and friendly built-in bootloaders. The microcontrollers currently being used are (see <a class="el" href="md__porting.html">porting guide</a> for details) F301, F302, F303, F373, F405, F446.</p>
 <p>The API functions here are in general optimized for speed and concurrency, at the expense of being slightly less fool-proof than Arduino (e.g. see <a class="el" href="group___pins.html">pin configuration</a>, <a class="el" href="group___p_w_m.html">PWM output and input</a>).</p>
 <h2>Quick links</h2>
 <ul>
@@ -116,14 +110,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li><a class="el" href="class_u_s_a_r_t_class.html">Serial / USART</a> &mdash; FTDI (USB/Serial), XBee, ...</li>
 <li><a class="el" href="class_bulk_serial.html">Serial with DMA</a> &mdash; for when packet sizes are known apriori</li>
 <li><a class="el" href="class_s_p_i_class.html">SPI</a> &mdash; MPU-6000, ...</li>
-<li><a class="el" href="class_two_wire.html">Wire / I2C / SMBus</a> &mdash; <a class="el" href="class_nunchuck.html">Nunchuck</a>, MPU-6050, ...</li>
+<li><a class="el" href="class_two_wire.html">Wire / I2C / SMBus</a> &mdash; <a class="el" href="class_nunchuck.html" title="Nunchuck class. ">Nunchuck</a>, MPU-6050, ...</li>
 <li><a class="el" href="class_dxl.html">Dxl real-time bus (TODO)</a></li>
 </ul>
 <h3>Peripheral device drivers</h3>
 <ul>
 <li><a class="el" href="class_encoder.html">Reading a quadrature encoder</a></li>
 <li><a class="el" href="class_open_log.html">Data logging: OpenLog driver</a> &mdash; on Sparkfun <a class="el" href="class_open_log.html">OpenLog</a>, MBLC, or Mainboard v1</li>
-<li><a class="el" href="group___i_m_u.html">IMU drivers and orientation filter</a> &mdash; MPU6000 drivers, complementary filter, EKF</li>
+<li><a class="el" href="group___i_m_u.html">IMU drivers and orientation filter</a> &mdash; <a class="el" href="class_m_p_u6000.html" title="MPU6000 hardware interface library. ">MPU6000</a> drivers, complementary filter, <a class="el" href="class_e_k_f.html" title="EKF implementation. ">EKF</a></li>
 <li><a class="el" href="class_v_n100.html">Vectornav IMU driver</a></li>
 <li><a class="el" href="class_fat_log.html">Data logging: FatLog over SDIO (TODO)</a> &mdash; on Mainboard v2 only</li>
 <li><a class="el" href="class_nunchuck.html">Wii Nunchuck (TODO)</a></li>
@@ -140,7 +134,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 31 2017 22:17:15 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 22 2017 19:54:52 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>

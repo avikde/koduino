@@ -17,10 +17,12 @@ In the language of the Koduino libraries (and the Arduino 1.5+ hardware spec) th
 
 | Variant (in Koduino libraries) | Series | MCU | Chip IDs |
 |---|---|---|---|
-| f10x (not working yet) | - | - |  |
-| f30x (not working yet) | STM32F30x | STM32F30x | F303, ... |
+| f301 | STM32F30x | STM32F302x8 | F301, F302 |
+| f303v | STM32F30x | STM32F303xC | F303V |
 | f37x | STM32F37x | STM32F37x | F373, F378 |
+| f446 | STM32F4xx | STM32F446xx | F446V |
 | f40_41x | STM32F4xx | STM32F40_41xxx | F405, F407, F417 |
+| f10x (not working yet) | - | - |  |
 | f411 (not working yet) | STM32F4xx | STM32F411xE | F411 |
 | f429_439 (not working yet) | STM32F4xx | STM32F429_439xx | F429, F439 |
 

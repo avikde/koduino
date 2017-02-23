@@ -1,6 +1,5 @@
  /* The standard CSS for doxygen 1.8.4 */
 @import url(http://fonts.googleapis.com/css?family=Lato);
-@import url(http://fonts.googleapis.com/css?family=Roboto+Slab:300);
 @import url(http://fonts.googleapis.com/css?family=PT+Mono);
 body{
 	background-color: #fff;
@@ -10,7 +9,7 @@ body{
 body, table, div, p, dl,
 table.directory, #nav-tree,#nav-tree .label {
 font-family: "Lato", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
-color: #111;
+color: #333;
 font-size: 1.0rem;
 }
 .arrow,
@@ -24,28 +23,28 @@ pre.fragment, div.line,
 .memname,
 .params .paramdir {
 	font-family: 'PT Mono', 'Courier New', courier, Courier, monospace;
-  background-color: #F0F4F8;
+  background-color: #F0F0F0;
 }
 .title,
 .fieldtable th{
-	font-family: "Roboto Slab", serif;
+	font-family: "Lato", serif;
 }
 #projectname,#projectbrief,
 h1, h2, h3 {
-	font-family: "Roboto Slab", "Segoe UI", sans-serif;
+	font-family: "Lato", "Segoe UI", sans-serif;
 	/*margin: 1.75em 0 .2em 0;*/
 	font-weight: 400;
 }
-#projectname{color:rgb(23,161,165);font-weight:700;}
+#projectname{color:#56d;font-weight:700;}
 #projectbrief{color:rgb(0,151,156);}
 h1,h2,h3{color: #000;}
 /* @group Heading Levels */
 .title {
-	color: #333;
+	color: #34a;
 	letter-spacing: 0.00em;
 	font-size: 2rem;
 	line-height: 2.1rem;
-	font-weight: 500;
+	font-weight: 700;
 	margin: 10px 2px;
 }
 h1, h1.groupheader {
@@ -118,8 +117,8 @@ h3.version {
   text-align: center;
 }
 div.qindex, div.navtab{
-	background-color: rgb(0,151,156);/*blue*/
-	border: 1px solid rgb(0,151,156);/*blue*/
+	background-color: rgb(100,100,100);/*blue*/
+	border: 1px solid rgb(100,100,100);/*blue*/
 	text-align: center;
 }
 div.qindex, div.navpath {
@@ -131,7 +130,7 @@ div.navtab {
 }
 /* @group Link Styling */
 a {
-	color: rgb(0,100,104);/*darkBlue*/
+	color: rgb(50,50,200);/*darkBlue*/
 	font-weight: normal;
 	text-decoration: none;
 }
@@ -139,7 +138,7 @@ a:hover {
 	text-decoration: underline;
 }
 .contents a, .contents a:visited {
-	color: rgb(0,100,104);/*darkBlue*/
+	color: rgb(50,50,200);/*darkBlue*/
 }
 a.qindex, a.qindex:visited  {
 	color: #fff;
@@ -160,18 +159,18 @@ a.el{
 a.elRef {
 }
 a.code, a.code:visited {
-	color: rgb(0,100,104);/*darkBlue*/
+	color: rgb(50,50,200);/*darkBlue*/
 }
 a.codeRef, a.codeRef:visited {
-	color: rgb(0,100,104);/*darkBlue*/
+	color: rgb(50,50,200);/*darkBlue*/
 }
 /* @end */
 dl.el {
 	margin-left: -1cm;
 }
 pre.fragment {
-  border: 1px solid #C4CFE5;
-  background-color: #F0F4F8;
+  border: 1px solid #eef;
+  background-color: #eef;
   padding: 4px 6px;
   margin: 4px 8px 4px 2px;
   overflow: auto;
@@ -182,9 +181,9 @@ pre.fragment {
 div.fragment {
 	padding: 6px 10px;
 	margin: 15px 0px;
-	border: solid 1px rgb(221, 221, 221);
+	border: solid 1px #dde;
 	border-radius: 3px;
-	background-color: #F0F4F8;
+	background-color: #eef;
 }
 div.line {
 	min-height: 11pt;
@@ -198,6 +197,7 @@ div.line {
 	text-indent: -53px;
 	padding-left: 53px;
 	padding-bottom: 0px;
+  background-color: #eef;
 	margin: 0px;
 	-webkit-transition-property: background-color, box-shadow;
 	-webkit-transition-duration: 0.5s;
@@ -228,9 +228,9 @@ span.lineno a:hover {
 	background-color: #C8C8C8;
 }
 div.ah {
-	background-color: rgb(0,100,104);/*darkBlue*/
+	background-color: #eff;/*darkBlue*/
 	font-weight: lighter;
-	color: #fff;/*white*/
+	color: #333;/*white*/
 	margin-bottom: 3px;
 	margin-top: 3px;
 	padding: 0.2em;
@@ -474,6 +474,7 @@ table.memberdecls {
 .memname {
 	font-weight: normal;
   margin-left: 0px;
+  background-color:#eef;
 }
 .memname a.el{
 font-weight: normal;
@@ -490,7 +491,7 @@ font-weight: normal;
   font-weight: normal;
   text-shadow:none;
   background-image:none;
-  background-color: #f0f4f8;
+  background-color: #eef;
   /* opera specific markup */
   box-shadow:  none;
   /* firefox specific markup */
@@ -1037,21 +1038,21 @@ tr.heading h2 {
 }
 .tabs, .tabs2, .tabs3 {
 	background-image: none;
-	background-color: rgb(0,100,104); /*darkBlue*/
+	background-color: rgb(150,150,150); /*darkBlue*/
 	color: white;
 }
 .tablist li.current a{
 	text-shadow: none;
 }
 .tabs2 {
-	background-color: rgb(0,151,156); /*blue*/
+	background-color: rgb(100,100,100); /*blue*/
 	font-size:11pt;
 }
 #navrow3{background-color: #ddd;}
-#navrow3 a{color: rgb(0,100,104);}
+#navrow3 a{color: rgb(50,50,50);}
 #navrow4{background-color:#eee; }
 #navrow4 li{border: 1px solid #e8e8e8;}
-#navrow4 a{color:rgb(0,151,156);font-weight: normal;}
+#navrow4 a{color:rgb(50,50,50);font-weight: normal;}
 .tablist li {
 	background-image: none;
 	font-size:14px;
@@ -1063,9 +1064,9 @@ tr.heading h2 {
 	text-shadow:none;
 }
 .tablist a:hover {
-	background-image: none;
+  background-image: none;
+	background-color: rgb(100,100,100);
 	text-shadow:none;
-  color: lightyellow;
 }
 .tablist li.current a {
 	background-image: none;
@@ -1078,18 +1079,18 @@ tr.heading h2 {
   text-shadow:none;
 }
 .tabs li.current {
-	background-color: rgb(0,151,156); /*blue*/
+	background-color: rgb(80,80,80); /*blue*/
 	color: #fff;
 }
 .tabs2 li.current {
-	background-color: lightskyblue;/* #f0a30a;amber*/
+	background-color: rgb(80,80,80);/* #f0a30a;amber*/
 }
 .navpath {
 	border: none;
 }
 .navpath ul {
 	background-image: none;
-	background-color: rgb(0,100,104); /*darkblue*/
+	background-color: rgb(80,80,80); /*darkblue*/
 	border: none;
 }
 .navpath li {
@@ -1097,12 +1098,12 @@ tr.heading h2 {
 }
 .navpath li.navelem a {
 	background-image: none;
-	color: white;
+	color: #333;
 	text-shadow:none;/*: none;*/
 }
 .navpath li.navelem a:hover {
 	background-image: none;
-	color: white;
+	color: #333;
 	text-shadow:none;/*: none;*/
 }
 .icona {

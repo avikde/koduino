@@ -31,7 +31,6 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">Koduino
    </div>
-   <div id="projectbrief">Arduino core for STM32</div>
   </td>
  </tr>
  </tbody>
@@ -46,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -109,7 +109,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">extern</span> <span class="keyword">const</span> uint32_t extiLines[];</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">// This function is called by any of the interrupt handlers. It essentially fetches the user function pointer from the array and calls it.</span></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#if defined(KODUINO_ISRS_INLINE)</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> wirishExternalInterruptHandler(uint8_t i) __attribute__((always_inline, unused));</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> wirishExternalInterruptHandler(uint8_t i) <a class="code" href="struct____attribute____.html">__attribute__</a>((always_inline, unused));</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> wirishExternalInterruptHandler(uint8_t i);</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#endif</span></div>
@@ -176,6 +176,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="group___e_x_t_i_html_ga10e6193b0f9d7fc1ea6342ca38b1402f"><div class="ttname"><a href="group___e_x_t_i.html#ga10e6193b0f9d7fc1ea6342ca38b1402f">noInterrupts</a></div><div class="ttdeci">void noInterrupts()</div><div class="ttdoc">Disable external interrupts. </div><div class="ttdef"><b>Definition:</b> exti.c:173</div></div>
+<div class="ttc" id="struct____attribute_____html"><div class="ttname"><a href="struct____attribute____.html">__attribute__</a></div><div class="ttdef"><b>Definition:</b> types.h:108</div></div>
 <div class="ttc" id="group___digital_html_ga9a2ae9e13f0de4cc01fbd535849c4696"><div class="ttname"><a href="group___digital.html#ga9a2ae9e13f0de4cc01fbd535849c4696">digitalRead</a></div><div class="ttdeci">static uint8_t digitalRead(uint8_t pin) __attribute__((always_inline</div><div class="ttdoc">Read a digital pin. </div><div class="ttdef"><b>Definition:</b> gpio.h:57</div></div>
 <div class="ttc" id="group___time_html_ga1c63eb57e58bbf89c28c992ad3fe42b8"><div class="ttname"><a href="group___time.html#ga1c63eb57e58bbf89c28c992ad3fe42b8">millis</a></div><div class="ttdeci">static uint32_t millis() __attribute__((always_inline</div><div class="ttdef"><b>Definition:</b> system_clock.h:50</div></div>
 <div class="ttc" id="group___e_x_t_i_html_ga4d6f04e458d226b547767b1d62278ad9"><div class="ttname"><a href="group___e_x_t_i.html#ga4d6f04e458d226b547767b1d62278ad9">detachInterrupt</a></div><div class="ttdeci">void detachInterrupt(uint8_t pinName)</div><div class="ttdoc">Disable an interrupt. </div><div class="ttdef"><b>Definition:</b> exti.c:155</div></div>
@@ -185,7 +186,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 31 2017 22:17:12 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 22 2017 19:54:48 for Koduino by &#160;<a href="http://www.doxygen.org/index.html">
 Doxygen
 </a> 1.8.10
 </small></address>
