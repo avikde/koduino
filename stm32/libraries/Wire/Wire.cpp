@@ -26,6 +26,12 @@ uint8_t SCL1 = PA15;
 uint8_t SDA2 = PF7;
 uint8_t SCL2 = PF1;
 #define WIRE_TIMEOUT 1000
+#elif defined(STM32F446xx)
+uint8_t SDA1 = PB7;
+uint8_t SCL1 = PB6;
+uint8_t SDA2 = 0xff;
+uint8_t SCL2 = 0xff;
+#define WIRE_TIMEOUT 1000
 #elif defined(STM32F40_41xxx)
 uint8_t SDA1 = PB7;
 uint8_t SCL1 = PB6;

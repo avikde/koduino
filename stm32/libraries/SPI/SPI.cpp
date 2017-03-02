@@ -76,6 +76,16 @@ SPIClass::SPIClass(SPI_TypeDef *SPIx) : SPIx(SPIx), SPI_Bit_Order_Set(false), SP
 	else if (SPIx == SPI3) {
 		// TODO
 	}
+#elif defined(STM32F446xx)
+	if (SPIx == SPI2) {
+		// Mainboard default (MPU6000 on that board)
+		SCK = PB13;
+		afSCK = 5;
+		MISO = PC2;
+		afMISO = 5;
+		MOSI = PC3;
+		afMOSI = 5;
+	} // TODO rest
 #elif defined(SERIES_STM32F4xx)
 	// Initialize default pin config
 	if (SPIx == SPI1) {
