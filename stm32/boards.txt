@@ -244,7 +244,7 @@ f446.build.board=STM32_F446
 # HSE choices
 f446.build.hse_value=8000000UL
 f446.build.f_cpu=180000000L
-# f446.build.clksrc=HSE_8M
+f446.build.clksrc=
 
 # Upload
 f446.upload.maximum_size=524288

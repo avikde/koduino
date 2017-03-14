@@ -46,7 +46,7 @@ compiler.S.cmd=arm-none-eabi-as
 compiler.S.flags=-mlittle-endian -mthumb
 
 compiler.cpp.cmd=arm-none-eabi-g++
-compiler.cpp.flags=-std=c++0x -felide-constructors -fno-rtti {compiler.bflags} {compiler.incflags}
+compiler.cpp.flags=-std=c++11 -felide-constructors -fno-rtti {compiler.bflags} {compiler.incflags}
 
 compiler.ar.cmd=arm-none-eabi-ar
 compiler.ar.flags=rcs
