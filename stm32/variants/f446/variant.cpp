@@ -40,66 +40,67 @@ const uint8_t PA14 = 14;
 const uint8_t PA15 = 15;
 const uint8_t PB0 = 16;
 const uint8_t PB1 = 17;
-const uint8_t PB3 = 18;
-const uint8_t PB4 = 19;
-const uint8_t PB5 = 20;
-const uint8_t PB6 = 21;
-const uint8_t PB7 = 22;
-const uint8_t PB8 = 23;
-const uint8_t PB9 = 24;
-const uint8_t PB10 = 25;
-const uint8_t PB12 = 26;
-const uint8_t PB13 = 27;
-const uint8_t PB14 = 28;
-const uint8_t PB15 = 29;
-const uint8_t PC0 = 30;
-const uint8_t PC1 = 31;
-const uint8_t PC2 = 32;
-const uint8_t PC3 = 33;
-const uint8_t PC4 = 34;
-const uint8_t PC5 = 35;
-const uint8_t PC6 = 36;
-const uint8_t PC7 = 37;
-const uint8_t PC8 = 38;
-const uint8_t PC9 = 39;
-const uint8_t PC10 = 40;
-const uint8_t PC11 = 41;
-const uint8_t PC12 = 42;
-const uint8_t PC13 = 43;
-const uint8_t PC14 = 44;
-const uint8_t PC15 = 45;
-const uint8_t PD0 = 46;
-const uint8_t PD1 = 47;
-const uint8_t PD2 = 48;
-const uint8_t PD3 = 49;
-const uint8_t PD4 = 50;
-const uint8_t PD5 = 51;
-const uint8_t PD6 = 52;
-const uint8_t PD7 = 53;
-const uint8_t PD8 = 54;
-const uint8_t PD9 = 55;
-const uint8_t PD10 = 56;
-const uint8_t PD11 = 57;
-const uint8_t PD12 = 58;
-const uint8_t PD13 = 59;
-const uint8_t PD14 = 60;
-const uint8_t PD15 = 61;
-const uint8_t PE0 = 62;
-const uint8_t PE1 = 63;
-const uint8_t PE2 = 64;
-const uint8_t PE3 = 65;
-const uint8_t PE4 = 66;
-const uint8_t PE5 = 67;
-const uint8_t PE6 = 68;
-const uint8_t PE7 = 69;
-const uint8_t PE8 = 70;
-const uint8_t PE9 = 71;
-const uint8_t PE10 = 72;
-const uint8_t PE11 = 73;
-const uint8_t PE12 = 74;
-const uint8_t PE13 = 75;
-const uint8_t PE14 = 76;
-const uint8_t PE15 = 77;
+const uint8_t PB2 = 18;
+const uint8_t PB3 = 19;
+const uint8_t PB4 = 20;
+const uint8_t PB5 = 21;
+const uint8_t PB6 = 22;
+const uint8_t PB7 = 23;
+const uint8_t PB8 = 24;
+const uint8_t PB9 = 25;
+const uint8_t PB10 = 26;
+const uint8_t PB12 = 27;
+const uint8_t PB13 = 28;
+const uint8_t PB14 = 29;
+const uint8_t PB15 = 30;
+const uint8_t PC0 = 31;
+const uint8_t PC1 = 32;
+const uint8_t PC2 = 33;
+const uint8_t PC3 = 34;
+const uint8_t PC4 = 35;
+const uint8_t PC5 = 36;
+const uint8_t PC6 = 37;
+const uint8_t PC7 = 38;
+const uint8_t PC8 = 39;
+const uint8_t PC9 = 40;
+const uint8_t PC10 = 41;
+const uint8_t PC11 = 42;
+const uint8_t PC12 = 43;
+const uint8_t PC13 = 44;
+const uint8_t PC14 = 45;
+const uint8_t PC15 = 46;
+const uint8_t PD0 = 47;
+const uint8_t PD1 = 48;
+const uint8_t PD2 = 49;
+const uint8_t PD3 = 50;
+const uint8_t PD4 = 51;
+const uint8_t PD5 = 52;
+const uint8_t PD6 = 53;
+const uint8_t PD7 = 54;
+const uint8_t PD8 = 55;
+const uint8_t PD9 = 56;
+const uint8_t PD10 = 57;
+const uint8_t PD11 = 58;
+const uint8_t PD12 = 59;
+const uint8_t PD13 = 60;
+const uint8_t PD14 = 61;
+const uint8_t PD15 = 62;
+const uint8_t PE0 = 63;
+const uint8_t PE1 = 64;
+const uint8_t PE2 = 65;
+const uint8_t PE3 = 66;
+const uint8_t PE4 = 67;
+const uint8_t PE5 = 68;
+const uint8_t PE6 = 69;
+const uint8_t PE7 = 70;
+const uint8_t PE8 = 71;
+const uint8_t PE9 = 72;
+const uint8_t PE10 = 73;
+const uint8_t PE11 = 74;
+const uint8_t PE12 = 75;
+const uint8_t PE13 = 76;
+const uint8_t PE14 = 77;
+const uint8_t PE15 = 78;
 
 PinInfo PIN_MAP[] = {
   {GPIOA, 0, 0, 2, TIMER5, 1, NOT_SET, NOT_SET},
@@ -120,6 +121,7 @@ PinInfo PIN_MAP[] = {
   {GPIOA, 15, NOT_SET, 1, TIMER2, 1, NOT_SET, NOT_SET},
   {GPIOB, 0, 8, 2, TIMER3, 3, NOT_SET, NOT_SET},
   {GPIOB, 1, 9, 2, TIMER3, 4, NOT_SET, NOT_SET},
+  {GPIOB, 2, NOT_SET, 1, TIMER2, 4, NOT_SET, NOT_SET},
   {GPIOB, 3, NOT_SET, 1, TIMER2, 2, NOT_SET, NOT_SET},
   {GPIOB, 4, NOT_SET, 2, TIMER3, 1, NOT_SET, NOT_SET},
   {GPIOB, 5, NOT_SET, 2, TIMER3, 2, NOT_SET, NOT_SET},
@@ -128,7 +130,7 @@ PinInfo PIN_MAP[] = {
   {GPIOB, 8, NOT_SET, 3, TIMER10, 1, NOT_SET, NOT_SET},
   {GPIOB, 9, NOT_SET, 3, TIMER11, 1, NOT_SET, NOT_SET},
   {GPIOB, 10, NOT_SET, 1, TIMER2, 3, NOT_SET, NOT_SET},
-  {GPIOB, 12, NOT_SET, 1, TIMER2, 4, NOT_SET, NOT_SET},
+  {GPIOB, 12, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET},
   {GPIOB, 13, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET, NOT_SET},
   {GPIOB, 14, NOT_SET, 9, TIMER12, 1, NOT_SET, NOT_SET},
   {GPIOB, 15, NOT_SET, 9, TIMER12, 2, NOT_SET, NOT_SET},
