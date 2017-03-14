@@ -137,5 +137,8 @@ public:
 
 extern SPIClass SPI;
 extern SPIClass SPI_2;
+#if defined(STM32F446xx)
+extern SPIClass SPI_3;
+#endif
 
 #endif

@@ -85,7 +85,16 @@ SPIClass::SPIClass(SPI_TypeDef *SPIx) : SPIx(SPIx), SPI_Bit_Order_Set(false), SP
 		afMISO = 5;
 		MOSI = PC3;
 		afMOSI = 5;
-	} // TODO rest
+	}
+	else if (SPIx == SPI3) {
+		// Mainboard default (W5500 or other)
+		SCK = PC10;
+		afSCK = 6;
+		MISO = PC11;
+		afMISO = 6;
+		MOSI = PC12;
+		afMOSI = 6;
+	}
 #elif defined(SERIES_STM32F4xx)
 	// Initialize default pin config
 	if (SPIx == SPI1) {
@@ -317,4 +326,6 @@ SPIClass SPI(SPI1);
 #endif
 SPIClass SPI_2(SPI2);
 
-
+#if defined(STM32F446xx)
+SPIClass SPI_3(SPI3);
+#endif
