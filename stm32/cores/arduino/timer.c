@@ -24,41 +24,65 @@
 
 // Globals ---------------------------------------------------------
 
-// PWM period needed for a certain PWM frequency
-// assuming prescaler=1 => TIMER_PERIPH_CLOCK / 2
-#if defined(SERIES_STM32F37x)
-#define TIMER_BASE_CLOCK 36000000
-#elif defined(SERIES_STM32F30x)
-#define TIMER_BASE_CLOCK (SystemCoreClock/2)
-#elif defined(STM32F446xx)
-#define TIMER_BASE_CLOCK (SystemCoreClock/4)//APB1
-// #define TIMER_BASE_CLOCK2 (SystemCoreClock/2)//APB2
-// #define TIMER_PERIOD2(freq_hz) ((int)TIMER_BASE_CLOCK2/(freq_hz) - 1)
-#else
-#define TIMER_BASE_CLOCK 42000000
-#endif
-#define TIMER_PERIOD(freq_hz) ((int)TIMER_BASE_CLOCK/(freq_hz) - 1)
 
 uint8_t TIMER_IC_PRIORITY = 0;
+// Re-used to init PWM channels
+TIM_OCInitTypeDef  TIM_OCInitStructure;
+uint8_t _analogWriteResolution = 8;
+
+
+// Helper function that calculates the PWM period needed for a certain PWM frequency
+// assuming prescaler=1
+uint32_t timerCalculatePeriod(int freqHz, TIM_TypeDef *TIMx) {
+#if defined(STM32F446xx)
+  // New: calculate properly
+  RCC_ClocksTypeDef RCC_Clocks;
+  RCC_GetClocksFreq(&RCC_Clocks);
+  uint32_t PCLK = RCC_Clocks.PCLK1_Frequency;// Frequency in Hz
+  // For timers on APB2 use PCLK2
+  if (TIMx == TIM1 || TIMx == TIM8 || TIMx == TIM9 || TIMx == TIM10 || TIMx == TIM11)
+    PCLK = RCC_Clocks.PCLK2_Frequency;
+  return PCLK/(freqHz) - 1;
+#else
+#if defined(SERIES_STM32F37x)
+  uint32_t TIMER_BASE_CLOCK = 36000000;
+#elif defined(SERIES_STM32F30x)
+  uint32_t TIMER_BASE_CLOCK = SystemCoreClock/2;
+#else
+  // F405
+  uint32_t TIMER_BASE_CLOCK = 42000000;
+#endif
+  // Old: use macro
+  return (TIMER_BASE_CLOCK/freqHz - 1);
+#endif
+}
+
 
 void pwmInExpectedPeriod(int expectedUs) {
   PWM_IN_EXTI_MAXPERIOD = SysTick->LOAD/1000*((int)(1.8 * expectedUs));
   PWM_IN_EXTI_MINPERIOD = SysTick->LOAD/1000*((int)(0.2 * expectedUs));
   // different units for PWM_IN
-  PWM_IN_MAXPERIOD = (int)(1.8 * TIMER_PERIOD(1000000/expectedUs));
-  PWM_IN_MINPERIOD = (int)(0.2 * TIMER_PERIOD(1000000/expectedUs));
+  // NOTE just using TIM2 here assuming it exists and the code will compile on all chips
+  PWM_IN_MAXPERIOD = (int)(1.8 * timerCalculatePeriod(1000000/expectedUs, TIM2));
+  PWM_IN_MINPERIOD = (int)(0.2 * timerCalculatePeriod(1000000/expectedUs, TIM2));
 }
 
-// Re-used to init PWM channels
-TIM_OCInitTypeDef  TIM_OCInitStructure;
-uint8_t _analogWriteResolution = 8;
 
 //------------------------------------------------------------------
 
 void timerInitHelper(uint8_t timer, uint16_t prescaler, uint32_t period) {
   TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
-  TIM_TimeBaseStructure.TIM_Prescaler = prescaler;
-  TIM_TimeBaseStructure.TIM_Period = period;
+  // Update event period = TIM_CLK/((PSC + 1)*(ARR + 1)*(RCR + 1))
+  // For 16 bit timers, period (ARR) must be <= 0xffff
+  // Usually use PSC=1, but if TIM_CLK is high, for low frequencies ARR would overflow. 
+  // Just one quick hack for those situations: go from PSC=1 -> PSC=3. Then period should be halved
+  if (period >= 0xffff && prescaler == 1) {
+    TIM_TimeBaseStructure.TIM_Prescaler = 3;
+    TIM_TimeBaseStructure.TIM_Period = period/2;
+  } else {
+    TIM_TimeBaseStructure.TIM_Prescaler = prescaler;
+    TIM_TimeBaseStructure.TIM_Period = period;
+  }
   TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
   TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
   
@@ -77,15 +101,7 @@ void analogWriteResolution(uint8_t nbits) {
 void timerInit(uint8_t timer, int freqHz) {
   // Enable interrupts for the timer (but not any of the timer updates yet)
   nvicEnable(TIMER_MAP[timer].IRQn, TIMER_IC_PRIORITY);
-
-// #if defined(STM32F446xx)
-//   if (TIMER_MAP[timer].TIMx == TIM9)// timers clocked from APB2
-//     timerInitHelper(timer, 1, TIMER_PERIOD2(freqHz));
-//   else
-//     timerInitHelper(timer, 1, TIMER_PERIOD(freqHz));
-// #else
-  timerInitHelper(timer, 1, TIMER_PERIOD(freqHz));
-// #endif
+  timerInitHelper(timer, 1, timerCalculatePeriod(freqHz, TIMER_MAP[timer].TIMx));
   TIM_Cmd(TIMER_MAP[timer].TIMx, ENABLE);
 }
 
@@ -95,7 +111,7 @@ void pinTimerInit(uint8_t pin) {
 
   nvicEnable(TIMER_MAP[timer].IRQn, TIMER_IC_PRIORITY);
   // Use the frequency set using analogWriteFrequency
-  timerInitHelper(timer, 1, TIMER_PERIOD(TIMER_MAP[timer].freqHz));
+  timerInitHelper(timer, 1, timerCalculatePeriod(TIMER_MAP[timer].freqHz, TIMER_MAP[timer].TIMx));
   TIM_Cmd(TIMER_MAP[timer].TIMx, ENABLE);
   
   // FIXME: Advanced timers need to be specified in variant.cpp
