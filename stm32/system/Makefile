@@ -1,6 +1,8 @@
 
+# ONLY DO make lib
+
 # VARIANT = f10x
-VARIANT = f37x
+VARIANT = f446
 
 # VARIANT = f40_41x
 # VARIANT = f301
