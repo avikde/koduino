@@ -35,13 +35,20 @@
 #define SPI_CLOCK_DIV128	SPI_BaudRatePrescaler_128
 #define SPI_CLOCK_DIV256	SPI_BaudRatePrescaler_256
 
+// Account for SPL discrepancy: make F4 functions look like F3 functions
+#if defined(SERIES_STM32F4xx)
+#define SPI_ReceiveData8        SPI_I2S_ReceiveData
+#define SPI_I2S_ReceiveData16   SPI_I2S_ReceiveData
+#define SPI_SendData8           SPI_I2S_SendData
+#define SPI_I2S_SendData16      SPI_I2S_SendData
+#endif
+
 /**
  * @brief SPI library (call with global object `SPI`)
  * @details 
  */
 class SPIClass {
 protected:
-	SPI_TypeDef *SPIx;
 
 	SPI_InitTypeDef SPI_InitStructure;
 
@@ -59,6 +66,7 @@ protected:
   void spiTX(uint16_t cmd);
 
 public:
+  SPI_TypeDef *SPIx;
 	SPIClass(SPI_TypeDef *SPIx);
 
 	/**

@@ -32,7 +32,7 @@
 // }
 
 
-SPIClass::SPIClass(SPI_TypeDef *SPIx) : SPIx(SPIx), SPI_Bit_Order_Set(false), SPI_Data_Mode_Set(false), SPI_Clock_Divider_Set(false), SPI_Enabled(false), dataSize(SPI_DataSize_8b) {
+SPIClass::SPIClass(SPI_TypeDef *SPIx) : SPI_Bit_Order_Set(false), SPI_Data_Mode_Set(false), SPI_Clock_Divider_Set(false), SPI_Enabled(false), dataSize(SPI_DataSize_8b),SPIx(SPIx) {
 #if defined(SERIES_STM32F30x)
 	// Initialize default pin config
 	if (SPIx == SPI1) {
