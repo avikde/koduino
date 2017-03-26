@@ -35,6 +35,15 @@
 SPIClass::SPIClass(SPI_TypeDef *SPIx) : SPIx(SPIx), SPI_Bit_Order_Set(false), SPI_Data_Mode_Set(false), SPI_Clock_Divider_Set(false), SPI_Enabled(false), dataSize(SPI_DataSize_8b) {
 #if defined(SERIES_STM32F30x)
 	// Initialize default pin config
+	if (SPIx == SPI1) {
+		// Mainboard default (3x2 header on that board)
+		SCK = PA5;
+		afSCK = 5;
+		MISO = PA6;
+		afMISO = 5;
+		MOSI = PA7;
+		afMOSI = 5;
+	}
 	if (SPIx == SPI2) {
 		// Mainboard default (MPU6000 on that board)
 		SCK = PB13;
@@ -239,41 +248,29 @@ void SPIClass::setClockDivider(uint8_t rate)
 	SPI_Clock_Divider_Set = true;
 }
 
-// Helper functions
-#if defined(SERIES_STM32F37x) || defined(SERIES_STM32F30x)
-uint16_t SPIClass::spiRX() {
-  if (dataSize == SPI_DataSize_16b)
-    return SPI_I2S_ReceiveData16(SPIx);
-  else
-    return SPI_ReceiveData8(SPIx);
-}
-void SPIClass::spiTX(uint16_t cmd) {
-	if (dataSize == SPI_DataSize_16b)
-    SPI_I2S_SendData16(SPIx, cmd);
-  else
-    SPI_SendData8(SPIx, (uint8_t)cmd);
-}
-#else
-uint16_t SPIClass::spiRX() {
-	return SPI_I2S_ReceiveData(SPIx);
-}
-void SPIClass::spiTX(uint16_t cmd) {
-	SPI_I2S_SendData(SPIx, cmd);
-}
-#endif
+// // Helper functions
+// #if defined(SERIES_STM32F37x) || defined(SERIES_STM32F30x)
+// uint16_t SPIClass::spiRX() {
+//   if (dataSize == SPI_DataSize_16b)
+//     return SPI_I2S_ReceiveData16(SPIx);
+//   else
+//     return SPI_ReceiveData8(SPIx);
+// }
+// void SPIClass::spiTX(uint16_t cmd) {
+// 	if (dataSize == SPI_DataSize_16b)
+//     SPI_I2S_SendData16(SPIx, cmd);
+//   else
+//     SPI_SendData8(SPIx, (uint8_t)cmd);
+// }
+// #else
+// uint16_t SPIClass::spiRX() {
+// 	return SPI_I2S_ReceiveData(SPIx);
+// }
+// void SPIClass::spiTX(uint16_t cmd) {
+// 	SPI_I2S_SendData(SPIx, cmd);
+// }
+// #endif
 
-uint8_t SPIClass::transfer(uint8_t cmd) {
-  //read off any remaining bytes
-  while(SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_RXNE))
-    spiRX();
-
-  //wait until TX buffer is empty
-  while(!SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_TXE));
-
-  spiTX(cmd);  //send the command
-  while(!SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_RXNE));
-  return (uint8_t)spiRX();
-}
 
 // uint16_t SPIClass::transfer16(uint16_t cmd) {
 //   //read off any remaining bytes

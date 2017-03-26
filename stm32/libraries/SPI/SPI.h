@@ -122,10 +122,35 @@ public:
 	 * @brief Transfers one byte over the SPI bus, both sending and receiving
 	 * @details Make sure you drive chip select low before calling this
 	 * 
-	 * @param _data Byte to send
+	 * @param cmd Byte to send
 	 * @return Returns the byte received from the slave
 	 */
-	uint8_t transfer(uint8_t _data);
+	inline uint8_t transfer(uint8_t cmd) {
+    // discard any remaining bytes in the RX register
+    while(SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_RXNE)) {
+      #if defined(SERIES_STM32F37x) || defined(SERIES_STM32F30x)
+      SPI_ReceiveData8(SPIx);
+      #else
+      SPI_I2S_ReceiveData(SPIx);
+      #endif
+    }
+
+    //wait until TX buffer is empty -- doesn't seem like any need to
+    // while(!SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_TXE));
+
+    #if defined(SERIES_STM32F37x) || defined(SERIES_STM32F30x)
+    SPI_SendData8(SPIx, cmd);  //send the command
+    #else
+    SPI_I2S_SendData(SPIx, cmd);
+    #endif
+    // wait till data in
+    while(!SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_RXNE));
+    #if defined(SERIES_STM32F37x) || defined(SERIES_STM32F30x)
+    return SPI_ReceiveData8(SPIx);
+    #else
+    return SPI_I2S_ReceiveData(SPIx);
+    #endif
+  }
 
   // uint16_t transfer16(uint16_t _data);
 
