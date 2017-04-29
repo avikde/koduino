@@ -49,7 +49,6 @@
  */
 class SPIClass {
 protected:
-
 	SPI_InitTypeDef SPI_InitStructure;
 
 	bool SPI_Bit_Order_Set;
@@ -64,6 +63,10 @@ protected:
 
   uint16_t spiRX();
   void spiTX(uint16_t cmd);
+
+  // DMA
+  DMA_Channel_TypeDef *DMA_Channel_Tx, *DMA_Channel_Rx;
+  uint32_t DMA_FLAG_Tx_TC, DMA_FLAG_Rx_TC;
 
 public:
   SPI_TypeDef *SPIx;
@@ -160,7 +163,17 @@ public:
     #endif
   }
 
-  // uint16_t transfer16(uint16_t _data);
+  // DMA functions ---------------------
+
+#if defined(SERIES_STM32F37x) || defined(SERIES_STM32F30x)
+  void initDMA(uint32_t RCC_AHBPeriph, DMA_Channel_TypeDef *DMA_Channel_Tx, DMA_Channel_TypeDef *DMA_Channel_Rx, uint32_t DMA_FLAG_Tx_TC, uint32_t DMA_FLAG_Rx_TC);
+
+  void writeDMA(uint16_t nbytes, const uint8_t *ibuf);
+
+  void readDMA(uint16_t nbytes, uint8_t *obuf);
+#endif
+
+  // -----------------
 
 	void attachInterrupt();
 	void detachInterrupt();

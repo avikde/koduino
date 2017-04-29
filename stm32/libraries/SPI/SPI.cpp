@@ -297,6 +297,95 @@ bool SPIClass::isEnabled() {
 	return SPI_Enabled;
 }
 
+// DMA functions ----------------------
+
+#if defined(SERIES_STM32F37x) || defined(SERIES_STM32F30x)
+void SPIClass::initDMA(uint32_t RCC_AHBPeriph, DMA_Channel_TypeDef *DMA_Channel_Tx, DMA_Channel_TypeDef *DMA_Channel_Rx, uint32_t DMA_FLAG_Tx_TC, uint32_t DMA_FLAG_Rx_TC) {
+  this->DMA_Channel_Tx = DMA_Channel_Tx;
+  this->DMA_Channel_Rx = DMA_Channel_Rx;
+  this->DMA_FLAG_Tx_TC = DMA_FLAG_Tx_TC;
+  this->DMA_FLAG_Rx_TC = DMA_FLAG_Rx_TC;
+
+  RCC_AHBPeriphClockCmd(RCC_AHBPeriph, ENABLE);
+  DMA_DeInit(DMA_Channel_Tx);
+  DMA_DeInit(DMA_Channel_Rx);
+  DMA_InitTypeDef     DMA_InitStructure;
+  // DMA init
+  // Configure SPI_BUS RX Channel
+  DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&SPIx->DR;
+  DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
+  DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+  DMA_InitStructure.DMA_MemoryBaseAddr = 0; // To be set later
+  DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_Byte;
+  DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
+  DMA_InitStructure.DMA_BufferSize = 1; // To be set later
+  DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;// not circular
+  DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;
+  DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC; // From SPI to memory
+  DMA_InitStructure.DMA_Priority = DMA_Priority_High;
+  DMA_Init(DMA_Channel_Rx, &DMA_InitStructure);
+  // Configure SPI_BUS TX Channel
+  DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralDST; // From memory to SPI
+  DMA_InitStructure.DMA_Priority = DMA_Priority_Low;
+  DMA_Init(DMA_Channel_Tx, &DMA_InitStructure);
+  // NOTE: could put these in the read/write functions
+  SPI_I2S_DMACmd(SPIx, SPI_I2S_DMAReq_Tx, ENABLE);
+  SPI_I2S_DMACmd(SPIx, SPI_I2S_DMAReq_Rx, ENABLE);
+}
+
+void SPIClass::writeDMA(uint16_t nbytes, const uint8_t *ibuf) {
+  DMA_Channel_Tx->CCR |= DMA_MemoryInc_Enable;// increment memory
+  DMA_Channel_Tx->CNDTR = nbytes;
+  DMA_Channel_Tx->CMAR = (uint32_t)ibuf;
+  // enable DMA which will start SPI
+  // SPI_I2S_DMACmd(SPIx, SPI_I2S_DMAReq_Tx, ENABLE);
+  DMA_Cmd(DMA_Channel_Tx, ENABLE);
+  // Wait until complete
+  while (DMA_GetFlagStatus(DMA_FLAG_Tx_TC) == RESET);
+  // The BSY flag can be monitored to ensure that the SPI communication is complete.
+  // This is required to avoid corrupting the last transmission before disabling 
+  // the SPI or entering the Stop mode. The software must first wait until TXE=1
+  // and then until BSY=0.
+  while (SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_TXE) == RESET);
+  while (SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_BSY) == SET);
+  // Disable everything
+  DMA_Cmd(DMA_Channel_Tx, DISABLE);
+  // SPI_I2S_DMACmd(SPIx, SPI_I2S_DMAReq_Tx, DISABLE);
+}
+
+void SPIClass::readDMA(uint16_t nbytes, uint8_t *obuf) {
+  // clear any remaining data in RX by reading DR
+  while(SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_RXNE))
+    SPI_I2S_ReceiveData16(SPIx);
+
+  uint8_t dummy = 0;
+  // set up DMA for RX
+  DMA_Channel_Rx->CNDTR = nbytes;
+  DMA_Channel_Rx->CMAR = (uint32_t)obuf;
+  // want to send dummy=0, don't increment
+  DMA_Channel_Tx->CCR &= ~DMA_MemoryInc_Enable;
+  DMA_Channel_Tx->CNDTR = nbytes;
+  DMA_Channel_Tx->CMAR = (uint32_t)&dummy;
+  // Enable the DMAs - They will await signals from the SPI hardware
+  DMA_Cmd(DMA_Channel_Tx, ENABLE);
+  DMA_Cmd(DMA_Channel_Rx, ENABLE);
+  // Wait until complete
+  while (DMA_GetFlagStatus(DMA_FLAG_Tx_TC) == RESET);
+  while (DMA_GetFlagStatus(DMA_FLAG_Rx_TC) == RESET);
+  // The BSY flag can be monitored to ensure that the SPI communication is complete.
+  // This is required to avoid corrupting the last transmission before disabling 
+  // the SPI or entering the Stop mode. The software must first wait until TXE=1
+  // and then until BSY=0.
+  while (SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_TXE) == RESET);
+  while (SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_BSY) == SET);
+  // Disable everything
+  DMA_Cmd(DMA_Channel_Tx, DISABLE);
+  DMA_Cmd(DMA_Channel_Rx, DISABLE);
+  // SPI_I2S_DMACmd(SPIx, SPI_I2S_DMAReq_Tx, DISABLE);
+  // SPI_I2S_DMACmd(SPIx, SPI_I2S_DMAReq_Rx, DISABLE);
+}
+#endif
+
 
 
 #ifdef __cplusplus
