@@ -30,6 +30,7 @@
 // 		.RCC_x = 
 // 	}
 // }
+const uint8_t SPI_READ_DUMMY = 0;
 
 
 SPIClass::SPIClass(SPI_TypeDef *SPIx) : SPI_Bit_Order_Set(false), SPI_Data_Mode_Set(false), SPI_Clock_Divider_Set(false), SPI_Enabled(false), dataSize(SPI_DataSize_8b),SPIx(SPIx) {
@@ -329,8 +330,7 @@ void SPIClass::initDMA(uint32_t RCC_AHBPeriph, DMA_Channel_TypeDef *DMA_Channel_
   DMA_InitStructure.DMA_Priority = DMA_Priority_Low;
   DMA_Init(DMA_Channel_Tx, &DMA_InitStructure);
   // NOTE: could put these in the read/write functions
-  SPI_I2S_DMACmd(SPIx, SPI_I2S_DMAReq_Tx, ENABLE);
-  SPI_I2S_DMACmd(SPIx, SPI_I2S_DMAReq_Rx, ENABLE);
+  SPI_I2S_DMACmd(SPIx, SPI_I2S_DMAReq_Tx | SPI_I2S_DMAReq_Rx, ENABLE);
 }
 
 void SPIClass::writeDMA(uint16_t nbytes, const uint8_t *ibuf) {
@@ -347,28 +347,40 @@ void SPIClass::writeDMA(uint16_t nbytes, const uint8_t *ibuf) {
   // the SPI or entering the Stop mode. The software must first wait until TXE=1
   // and then until BSY=0.
   while (SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_TXE) == RESET);
-  while (SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_BSY) == SET);
+  // while (SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_BSY) == SET);
   // Disable everything
   DMA_Cmd(DMA_Channel_Tx, DISABLE);
   // SPI_I2S_DMACmd(SPIx, SPI_I2S_DMAReq_Tx, DISABLE);
 }
 
-void SPIClass::readDMA(uint16_t nbytes, uint8_t *obuf) {
-  // clear any remaining data in RX by reading DR
-  while(SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_RXNE))
-    SPI_I2S_ReceiveData16(SPIx);
-
-  uint8_t dummy = 0;
+void SPIClass::readDMA(uint16_t nbytes, uint8_t *obuf, const uint8_t *ibuf, bool polling) {
   // set up DMA for RX
   DMA_Channel_Rx->CNDTR = nbytes;
   DMA_Channel_Rx->CMAR = (uint32_t)obuf;
-  // want to send dummy=0, don't increment
-  DMA_Channel_Tx->CCR &= ~DMA_MemoryInc_Enable;
   DMA_Channel_Tx->CNDTR = nbytes;
-  DMA_Channel_Tx->CMAR = (uint32_t)&dummy;
+  if (ibuf == NULL) {
+    // want to send dummy=0, don't increment
+    DMA_Channel_Tx->CCR &= ~DMA_MemoryInc_Enable;
+    DMA_Channel_Tx->CMAR = (uint32_t)&SPI_READ_DUMMY;
+  } else {
+    DMA_Channel_Tx->CCR |= DMA_MemoryInc_Enable;// increment memory
+    DMA_Channel_Tx->CMAR = (uint32_t)ibuf;
+  }
+  // clear any remaining data in RX by reading DR
+  do {
+    SPI_I2S_ReceiveData16(SPIx);
+  } while(SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_RXNE));
+
+  // if not polling, must be using interrupts
+  DMA_ITConfig(DMA_Channel_Tx, DMA_IT_TC, polling ? DISABLE : ENABLE);
+
   // Enable the DMAs - They will await signals from the SPI hardware
   DMA_Cmd(DMA_Channel_Tx, ENABLE);
   DMA_Cmd(DMA_Channel_Rx, ENABLE);
+
+  if (!polling)
+    return;
+
   // Wait until complete
   while (DMA_GetFlagStatus(DMA_FLAG_Tx_TC) == RESET);
   while (DMA_GetFlagStatus(DMA_FLAG_Rx_TC) == RESET);

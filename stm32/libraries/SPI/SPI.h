@@ -64,9 +64,11 @@ protected:
   uint16_t spiRX();
   void spiTX(uint16_t cmd);
 
+#if defined(SERIES_STM32F37x) || defined(SERIES_STM32F30x)
   // DMA
   DMA_Channel_TypeDef *DMA_Channel_Tx, *DMA_Channel_Rx;
   uint32_t DMA_FLAG_Tx_TC, DMA_FLAG_Rx_TC;
+#endif
 
 public:
   SPI_TypeDef *SPIx;
@@ -170,7 +172,7 @@ public:
 
   void writeDMA(uint16_t nbytes, const uint8_t *ibuf);
 
-  void readDMA(uint16_t nbytes, uint8_t *obuf);
+  void readDMA(uint16_t nbytes, uint8_t *obuf, const uint8_t *ibuf=NULL, bool polling=true);
 #endif
 
   // -----------------
