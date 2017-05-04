@@ -96,7 +96,7 @@ recipe.S.o.pattern="{compiler.path}{compiler.c.cmd}" -c {compiler.c.flags} "{sou
 recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} {compiler.ar.extra_flags} "{build.path}/{archive_file}" "{object_file}"
 
 ## Combine gc-sections, archives, and objects
-recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} {compiler.c.elf.extra_flags} {object_files} -Wl,-whole-archive "{build.system.path}/lib{build.series}.a" "{build.path}/{archive_file}" -Wl,-no-whole-archive -o "{build.path}/{build.project_name}.elf" -larm_cortexM4lf_math
+recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} {compiler.c.elf.extra_flags} {object_files} -Wl,-whole-archive "{build.variant.path}/spl.a" "{build.path}/{archive_file}" -Wl,-no-whole-archive -o "{build.path}/{build.project_name}.elf" -larm_cortexM4lf_math
 
 ## Create eeprom
 recipe.objcopy.eep.pattern=

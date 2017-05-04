@@ -167,7 +167,7 @@ endif
 
 $(BUILDDIR)/$(PROJNAME).bin: $(OBJS)
 	@echo "[LD] $(@F)"
-	@$(LD) $(LDFLAGS) $(OBJS) $(KODUINO_DIR)/system/lib$(SERIES).a -o $(BUILDDIR)/$(PROJNAME).elf $(LDFLAGSMCU)
+	@$(LD) $(LDFLAGS) $(OBJS) $(VARIANT_DIR)/spl.a -o $(BUILDDIR)/$(PROJNAME).elf $(LDFLAGSMCU)
 	@arm-none-eabi-objcopy --output-target=binary $(BUILDDIR)/$(PROJNAME).elf $(BUILDDIR)/$(PROJNAME).bin
 	@$(SZ) $(BUILDDIR)/$(PROJNAME).elf | tail -n 1 | awk '{print "Flash: ", $$1+$$2, "\tRAM: ", $$2+$$3}'
 
@@ -182,7 +182,7 @@ disassemble: $(BUILDDIR)/$(PROJNAME).bin
 # wrong if the HSE value is changed
 lib: $(STD_PERIPH_OBJS)
 	@echo "[AR] $(@F)"
-	@$(AR) -rcs $(KODUINO_DIR)/system/lib$(SERIES).a $(STD_PERIPH_OBJS)
+	@$(AR) -rcs $(VARIANT_DIR)/spl.a $(STD_PERIPH_OBJS)
 
 clean:
 	$(shell rm -f $(OBJS) $(BUILDDIR)/main.elf $(BUILDDIR)/main.bin)
