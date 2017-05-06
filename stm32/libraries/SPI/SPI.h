@@ -65,10 +65,14 @@ protected:
   void spiTX(uint16_t cmd);
 
 #if defined(SERIES_STM32F37x) || defined(SERIES_STM32F30x)
-  // DMA
-  DMA_Channel_TypeDef *DMA_Channel_Tx, *DMA_Channel_Rx;
-  uint32_t DMA_FLAG_Tx_TC, DMA_FLAG_Rx_TC;
+  #define DMA_x_TypeDef DMA_Channel_TypeDef
+// #elif defined(SERIES_STM32F4xx)
+#else
+  #define DMA_x_TypeDef DMA_Stream_TypeDef
 #endif
+  // DMA
+  DMA_x_TypeDef *DMA_Tx, *DMA_Rx;
+  uint32_t DMA_FLAG_Tx_TC, DMA_FLAG_Rx_TC;
 
 public:
   SPI_TypeDef *SPIx;
@@ -167,13 +171,11 @@ public:
 
   // DMA functions ---------------------
 
-#if defined(SERIES_STM32F37x) || defined(SERIES_STM32F30x)
-  void initDMA(uint32_t RCC_AHBPeriph, DMA_Channel_TypeDef *DMA_Channel_Tx, DMA_Channel_TypeDef *DMA_Channel_Rx, uint32_t DMA_FLAG_Tx_TC, uint32_t DMA_FLAG_Rx_TC);
+  void initDMA(uint32_t RCC_AHBPeriph, DMA_x_TypeDef *DMA_Tx, DMA_x_TypeDef *DMA_Rx, uint32_t DMA_FLAG_Tx_TC, uint32_t DMA_FLAG_Rx_TC, uint32_t F4ChannelTx=0, uint32_t F4ChannelRx=0);
 
   void writeDMA(uint16_t nbytes, const uint8_t *ibuf);
 
   void readDMA(uint16_t nbytes, uint8_t *obuf, const uint8_t *ibuf=NULL, bool polling=true);
-#endif
 
   // -----------------
 
