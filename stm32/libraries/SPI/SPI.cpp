@@ -375,7 +375,7 @@ void SPIClass::writeDMA(uint16_t nbytes, const uint8_t *ibuf) {
   // the SPI or entering the Stop mode. The software must first wait until TXE=1
   // and then until BSY=0.
   while (SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_TXE) == RESET);
-  // while (SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_BSY) == SET);
+  while (SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_BSY) == SET);
 #endif
   // Disable everything
   DMA_Cmd(DMA_Tx, DISABLE);
