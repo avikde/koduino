@@ -25,6 +25,13 @@
 #ifdef __cplusplus
 extern "C"{
 #endif // __cplusplus
+  
+#if defined(SERIES_STM32F37x) || defined(SERIES_STM32F30x)
+  #define DMA_x_TypeDef DMA_Channel_TypeDef
+// #elif defined(SERIES_STM32F4xx)
+#else
+  #define DMA_x_TypeDef DMA_Stream_TypeDef
+#endif
 
 // Types needed by variant.h are in here
 #define NOT_SET 0xff

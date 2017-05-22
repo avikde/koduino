@@ -64,12 +64,6 @@ protected:
   uint16_t spiRX();
   void spiTX(uint16_t cmd);
 
-#if defined(SERIES_STM32F37x) || defined(SERIES_STM32F30x)
-  #define DMA_x_TypeDef DMA_Channel_TypeDef
-// #elif defined(SERIES_STM32F4xx)
-#else
-  #define DMA_x_TypeDef DMA_Stream_TypeDef
-#endif
   // DMA
   DMA_x_TypeDef *DMA_Tx, *DMA_Rx;
   uint32_t DMA_FLAG_Tx_TC, DMA_FLAG_Rx_TC;
