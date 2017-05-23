@@ -151,12 +151,12 @@ void USARTClass::useDMA(bool flag) {
     DMA_Cmd(DMA_Rx, DISABLE);
     USART_ITConfig(usartMap->USARTx, USART_IT_RXNE, DISABLE);
     USART_ITConfig(usartMap->USARTx, USART_IT_TXE, DISABLE);
-    USART_DMACmd(usartMap->USARTx, USART_DMAReq_Tx | USART_DMAReq_Rx, ENABLE);
   } else if (!flag && bUseDMA) {
     // Use interrupts and ringbuffer
     DMA_Cmd(DMA_Tx, DISABLE);
     DMA_Cmd(DMA_Rx, DISABLE);
-    USART_DMACmd(usartMap->USARTx, USART_DMAReq_Tx | USART_DMAReq_Rx, DISABLE);
+    USART_DMACmd(usartMap->USARTx, USART_DMAReq_Tx, DISABLE);
+    USART_DMACmd(usartMap->USARTx, USART_DMAReq_Rx, DISABLE);
     USART_ClearFlag(usartMap->USARTx, USART_FLAG_RXNE);
     USART_ClearITPendingBit(usartMap->USARTx, USART_IT_RXNE);
     USART_ITConfig(usartMap->USARTx, USART_IT_RXNE, ENABLE);
@@ -170,15 +170,11 @@ void USARTClass::writeDMA(uint16_t nbytes, const uint8_t *ibuf) {
 
   // Disable to change settings
   DMA_Cmd(DMA_Tx, DISABLE);
-#if defined(SERIES_STM32F4xx)
+  DMA_ClearFlag(DMA_Tx, DMA_FLAG_Tx_TC);
   DMA_Tx->NDTR = nbytes;
   DMA_Tx->M0AR = (uint32_t)ibuf;
-#else
-  DMA_Tx->CNDTR = nbytes;
-  DMA_Tx->CMAR = (uint32_t)ibuf;
-#endif
-  // enable DMA which will start USART
   DMA_Cmd(DMA_Tx, ENABLE);
+  USART_DMACmd(usartMap->USARTx, USART_DMAReq_Tx, ENABLE);
 }
 
 // void USARTClass::readDMA(uint16_t nbytes, uint8_t *obuf) {

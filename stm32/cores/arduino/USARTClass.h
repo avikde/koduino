@@ -207,6 +207,17 @@ public:
   void readDMA(uint16_t nbytes, uint8_t *obuf);
   // -----------------
   
+  
+  /**
+   * @brief Send a single byte in polling mode (no interrupts or DMA)
+   * @param c Byte to send
+   * @return 1
+   */
+  inline size_t writePolling(uint8_t c) {
+    USART_SendData(usartMap->USARTx, c);
+    while (USART_GetFlagStatus(usartMap->USARTx, USART_FLAG_TXE) == RESET);
+    return 1;
+  }
 
   // new for RS485
   void attachBus(void *busObject) {usartMap->busObject = busObject;}
