@@ -67,6 +67,8 @@ void configUSARTPins(USART_TypeDef *USARTx, uint8_t txPin, uint8_t rxPin);
  * @details 
  */
 class USARTClass : public Stream {
+
+  bool bUseDMA;  
 public:
   // should this be static? i would think one per instance
   static USART_InitTypeDef USART_InitStructure;
@@ -166,6 +168,45 @@ public:
   // // Expose RX interrupt for PacketParser
   // virtual void attachInterrupt(ByteFunc);
   // virtual void detachInterrupt();
+
+  // DMA ---------------
+  DMA_x_TypeDef *DMA_Tx, *DMA_Rx;
+  uint32_t DMA_FLAG_Tx_TC, DMA_FLAG_Rx_TC;
+
+  void useDMA(bool flag);
+  /**
+   * @brief [brief description]
+   * @details [long description]
+   * 
+   * @param RCC_AHBPeriph [description]
+   * @param DMA_Tx [description]
+   * @param DMA_Rx [description]
+   * @param DMA_FLAG_Tx_TC [description]
+   * @param DMA_FLAG_Rx_TC [description]
+   * @param F4ChannelTx [description]
+   * @param F4ChannelRx [description]
+   */
+  void initDMA(uint32_t RCC_AHBPeriph, DMA_x_TypeDef *DMA_Tx, DMA_x_TypeDef *DMA_Rx, uint32_t DMA_FLAG_Tx_TC, uint32_t DMA_FLAG_Rx_TC, uint32_t F4ChannelTx=0, uint32_t F4ChannelRx=0);
+  /**
+   * @brief [brief description]
+   * @details [long description]
+   * 
+   * @param nbytes [description]
+   * @param ibuf [description]
+   */
+  void writeDMA(uint16_t nbytes, const uint8_t *ibuf);
+  /**
+   * @brief [brief description]
+   * @details [long description]
+   * 
+   * @param nbytes [description]
+   * @param obuf [description]
+   * @param ibuf [description]
+   * @param polling [description]
+   */
+  void readDMA(uint16_t nbytes, uint8_t *obuf);
+  // -----------------
+  
 
   // new for RS485
   void attachBus(void *busObject) {usartMap->busObject = busObject;}

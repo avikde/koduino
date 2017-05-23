@@ -47,7 +47,7 @@ USART_InitTypeDef USARTClass::USART_InitStructure;
 
 // Constructors ////////////////////////////////////////////////////////////////
 
-USARTClass::USARTClass(USARTInfo *usartMapPtr) {
+USARTClass::USARTClass(USARTInfo *usartMapPtr) : bUseDMA(false) {
   usartMap = usartMapPtr;
 
   usartMap->rxBuf = &_rxBuf;
@@ -77,6 +77,176 @@ void USARTClass::init(uint32_t baud, uint32_t wordLength, uint32_t parity, uint3
 
   USART_Cmd(usartMap->USARTx, ENABLE);
 }
+
+// DMA functions =====================
+
+void USARTClass::initDMA(uint32_t RCC_AHBPeriph, DMA_x_TypeDef *DMA_Tx, DMA_x_TypeDef *DMA_Rx, uint32_t DMA_FLAG_Tx_TC, uint32_t DMA_FLAG_Rx_TC, uint32_t F4ChannelTx, uint32_t F4ChannelRx) {
+  this->DMA_Tx = DMA_Tx;
+  this->DMA_Rx = DMA_Rx;
+  this->DMA_FLAG_Tx_TC = DMA_FLAG_Tx_TC;
+  this->DMA_FLAG_Rx_TC = DMA_FLAG_Rx_TC;
+
+#if defined(SERIES_STM32F4xx)
+  RCC_AHB1PeriphClockCmd(RCC_AHBPeriph, ENABLE);
+#else
+  RCC_AHBPeriphClockCmd(RCC_AHBPeriph, ENABLE);
+#endif
+  DMA_DeInit(DMA_Tx);
+  DMA_DeInit(DMA_Rx);
+  DMA_InitTypeDef     DMA_InitStructure;
+  // DMA init
+  // Configure RX Channel
+#if defined(SERIES_STM32F4xx)
+  DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&usartMap->USARTx->DR;
+#else
+  DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&usartMap->USARTx->RDR;
+#endif
+  DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
+  DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+  DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_Byte;
+  DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
+  // RX buffer is circular
+  DMA_InitStructure.DMA_BufferSize = SERIAL_BUFFER_SIZE;
+  DMA_InitStructure.DMA_Mode = DMA_Mode_Circular;
+#if defined(SERIES_STM32F4xx)
+  DMA_InitStructure.DMA_FIFOMode = DMA_FIFOMode_Disable;
+  DMA_InitStructure.DMA_FIFOThreshold = DMA_FIFOThreshold_1QuarterFull;
+  DMA_InitStructure.DMA_MemoryBurst = DMA_MemoryBurst_Single;
+  DMA_InitStructure.DMA_PeripheralBurst = DMA_PeripheralBurst_Single;
+  DMA_InitStructure.DMA_Channel = F4ChannelRx;
+  DMA_InitStructure.DMA_Memory0BaseAddr = (uint32_t)&_rxBuf.buffer[0];
+  DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralToMemory;
+#else
+  DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;
+  DMA_InitStructure.DMA_MemoryBaseAddr = &_rxBuf.buffer[0]; // To be set later
+  DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC; // RX
+#endif
+  DMA_InitStructure.DMA_Priority = DMA_Priority_High;
+  DMA_Init(DMA_Rx, &DMA_InitStructure);
+  // Configure TX Channel
+#if defined(SERIES_STM32F4xx)
+  DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&usartMap->USARTx->DR;
+#else
+  DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&usartMap->USARTx->TDR;
+#endif
+  DMA_InitStructure.DMA_BufferSize = 1; // To be set later
+  DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;// not circular
+#if defined(SERIES_STM32F4xx)
+  DMA_InitStructure.DMA_Channel = F4ChannelTx;
+  DMA_InitStructure.DMA_DIR = DMA_DIR_MemoryToPeripheral;
+  DMA_InitStructure.DMA_Memory0BaseAddr = 0; // To be set later
+#else
+  DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralDST; // TX
+  DMA_InitStructure.DMA_MemoryBaseAddr = 0; // To be set later
+#endif
+  DMA_InitStructure.DMA_Priority = DMA_Priority_High;
+  DMA_Init(DMA_Tx, &DMA_InitStructure);
+}
+
+void USARTClass::useDMA(bool flag) {
+  // only do something if necessary
+  if (flag && !bUseDMA) {
+    // use DMA (no interrupts)
+    DMA_Cmd(DMA_Tx, DISABLE);
+    DMA_Cmd(DMA_Rx, DISABLE);
+    USART_ITConfig(usartMap->USARTx, USART_IT_RXNE, DISABLE);
+    USART_ITConfig(usartMap->USARTx, USART_IT_TXE, DISABLE);
+    USART_DMACmd(usartMap->USARTx, USART_DMAReq_Tx | USART_DMAReq_Rx, ENABLE);
+  } else if (!flag && bUseDMA) {
+    // Use interrupts and ringbuffer
+    DMA_Cmd(DMA_Tx, DISABLE);
+    DMA_Cmd(DMA_Rx, DISABLE);
+    USART_DMACmd(usartMap->USARTx, USART_DMAReq_Tx | USART_DMAReq_Rx, DISABLE);
+    USART_ClearFlag(usartMap->USARTx, USART_FLAG_RXNE);
+    USART_ClearITPendingBit(usartMap->USARTx, USART_IT_RXNE);
+    USART_ITConfig(usartMap->USARTx, USART_IT_RXNE, ENABLE);
+  }
+  bUseDMA = flag;
+}
+
+void USARTClass::writeDMA(uint16_t nbytes, const uint8_t *ibuf) {
+  if (!bUseDMA)
+    return;
+
+  // Disable to change settings
+  DMA_Cmd(DMA_Tx, DISABLE);
+#if defined(SERIES_STM32F4xx)
+  DMA_Tx->NDTR = nbytes;
+  DMA_Tx->M0AR = (uint32_t)ibuf;
+#else
+  DMA_Tx->CNDTR = nbytes;
+  DMA_Tx->CMAR = (uint32_t)ibuf;
+#endif
+  // enable DMA which will start USART
+  DMA_Cmd(DMA_Tx, ENABLE);
+}
+
+// void USARTClass::readDMA(uint16_t nbytes, uint8_t *obuf) {
+//   // set up DMA for RX
+// #if defined(SERIES_STM32F4xx)
+//   DMA_Rx->NDTR = nbytes;
+//   DMA_Rx->M0AR = (uint32_t)obuf;
+//   DMA_Tx->NDTR = nbytes;
+//   if (ibuf == NULL) {
+//     // want to send dummy=0, don't increment
+//     DMA_Tx->CR &= ~DMA_MemoryInc_Enable;
+//     DMA_Tx->M0AR = (uint32_t)&SPI_READ_DUMMY;
+//   } else {
+//     DMA_Tx->CR |= DMA_MemoryInc_Enable;// increment memory
+//     DMA_Tx->M0AR = (uint32_t)ibuf;
+//   }
+// #else
+//   // F3
+//   DMA_Rx->CNDTR = nbytes;
+//   DMA_Rx->CMAR = (uint32_t)obuf;
+//   DMA_Tx->CNDTR = nbytes;
+//   if (ibuf == NULL) {
+//     // want to send dummy=0, don't increment
+//     DMA_Tx->CCR &= ~DMA_MemoryInc_Enable;
+//     DMA_Tx->CMAR = (uint32_t)&SPI_READ_DUMMY;
+//   } else {
+//     DMA_Tx->CCR |= DMA_MemoryInc_Enable;// increment memory
+//     DMA_Tx->CMAR = (uint32_t)ibuf;
+//   }
+// #endif
+//   // clear any remaining data in RX by reading DR
+//   do {
+//     SPI_I2S_ReceiveData16(SPIx);
+//   } while(SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_RXNE));
+
+//   // if not polling, must be using interrupts
+//   DMA_ITConfig(DMA_Tx, DMA_IT_TC, polling ? DISABLE : ENABLE);
+
+//   // Enable the DMAs - They will await signals from the SPI hardware
+//   DMA_Cmd(DMA_Tx, ENABLE);
+//   DMA_Cmd(DMA_Rx, ENABLE);
+
+//   if (!polling)
+//     return;
+
+//   // Wait until complete
+// #if defined(SERIES_STM32F4xx)
+//   while (DMA_GetFlagStatus(DMA_Tx, DMA_FLAG_Tx_TC) == RESET);
+//   DMA_ClearFlag(DMA_Tx, DMA_FLAG_Tx_TC);
+//   while (DMA_GetFlagStatus(DMA_Rx, DMA_FLAG_Rx_TC) == RESET);
+//   DMA_ClearFlag(DMA_Rx, DMA_FLAG_Rx_TC);
+// #else
+//   while (DMA_GetFlagStatus(DMA_FLAG_Tx_TC) == RESET);
+//   while (DMA_GetFlagStatus(DMA_FLAG_Rx_TC) == RESET);
+//   // The BSY flag can be monitored to ensure that the SPI communication is complete.
+//   // This is required to avoid corrupting the last transmission before disabling 
+//   // the SPI or entering the Stop mode. The software must first wait until TXE=1
+//   // and then until BSY=0.
+//   while (SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_TXE) == RESET);
+//   while (SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_BSY) == SET);
+// #endif
+//   // Disable everything
+//   DMA_Cmd(DMA_Tx, DISABLE);
+//   DMA_Cmd(DMA_Rx, DISABLE);
+//   // SPI_I2S_DMACmd(SPIx, SPI_I2S_DMAReq_Tx, DISABLE);
+//   // SPI_I2S_DMACmd(SPIx, SPI_I2S_DMAReq_Rx, DISABLE);
+// }
+
 
 // Public Methods //////////////////////////////////////////////////////////////
 
@@ -175,6 +345,8 @@ void USARTClass::flushInput() {
 }
 
 size_t USARTClass::write(uint8_t c) {
+  if (bUseDMA)
+    return 0;
   // HACK: to stop bootloading problems, don't output to Serial1 for the first second
   if (usartMap->USARTx == USART1 && millis() < 1000)
     return 0;
