@@ -118,7 +118,7 @@ void USARTClass::initDMA(uint32_t RCC_AHBPeriph, DMA_x_TypeDef *DMA_Tx, DMA_x_Ty
   DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralToMemory;
 #else
   DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;
-  DMA_InitStructure.DMA_MemoryBaseAddr = &_rxBuf.buffer[0]; // To be set later
+  DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)&_rxBuf.buffer[0]; // To be set later
   DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC; // RX
 #endif
   DMA_InitStructure.DMA_Priority = DMA_Priority_High;
@@ -170,9 +170,16 @@ void USARTClass::writeDMA(uint16_t nbytes, const uint8_t *ibuf) {
 
   // Disable to change settings
   DMA_Cmd(DMA_Tx, DISABLE);
+#if defined(SERIES_STM32F4xx)
   DMA_ClearFlag(DMA_Tx, DMA_FLAG_Tx_TC);
   DMA_Tx->NDTR = nbytes;
   DMA_Tx->M0AR = (uint32_t)ibuf;
+#else
+  DMA_ClearFlag(DMA_FLAG_Tx_TC);
+  DMA_Tx->CNDTR = nbytes;
+  DMA_Tx->CMAR = (uint32_t)ibuf;
+#endif  
+
   DMA_Cmd(DMA_Tx, ENABLE);
   USART_DMACmd(usartMap->USARTx, USART_DMAReq_Tx, ENABLE);
 }
