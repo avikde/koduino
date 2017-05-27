@@ -151,12 +151,20 @@ void USARTClass::useDMA(bool flag) {
     DMA_Cmd(DMA_Rx, DISABLE);
     USART_ITConfig(usartMap->USARTx, USART_IT_RXNE, DISABLE);
     USART_ITConfig(usartMap->USARTx, USART_IT_TXE, DISABLE);
+    // 
+    memset(_rxBuf.buffer, 0, SERIAL_BUFFER_SIZE);
+    DMA_Cmd(DMA_Rx, ENABLE);
+    USART_DMACmd(usartMap->USARTx, USART_DMAReq_Rx, ENABLE);
   } else if (!flag && bUseDMA) {
     // Use interrupts and ringbuffer
     DMA_Cmd(DMA_Tx, DISABLE);
     DMA_Cmd(DMA_Rx, DISABLE);
     USART_DMACmd(usartMap->USARTx, USART_DMAReq_Tx, DISABLE);
     USART_DMACmd(usartMap->USARTx, USART_DMAReq_Rx, DISABLE);
+    // reset buffers
+    _rxBuf.head = _rxBuf.tail = 0;
+    _txBuf.head = _txBuf.tail = 0;
+    // start interrupts
     USART_ClearFlag(usartMap->USARTx, USART_FLAG_RXNE);
     USART_ClearITPendingBit(usartMap->USARTx, USART_IT_RXNE);
     USART_ITConfig(usartMap->USARTx, USART_IT_RXNE, ENABLE);
@@ -165,90 +173,61 @@ void USARTClass::useDMA(bool flag) {
 }
 
 void USARTClass::writeDMA(uint16_t nbytes, const uint8_t *ibuf) {
-  if (!bUseDMA)
+  // Check if the buffer would run out of room
+  if (!bUseDMA || nbytes + _txBuf.tail >= SERIAL_BUFFER_SIZE)
     return;
 
+  memcpy(&_txBuf.buffer[_txBuf.tail], ibuf, nbytes);
+  _txBuf.tail += nbytes;
+}
+
+void USARTClass::flushDMA(bool waitForPreviousTransmit) {
+  // only proceed if there is anything to send
+  if (!bUseDMA || _txBuf.tail==0)
+    return;
+
+//   if (waitForPreviousTransmit) {
+//     // check to make sure previous transmit finished
+//     // This only blocks if the previous transmit didn't finish
+// #if defined(SERIES_STM32F4xx)
+//     while (DMA_GetFlagStatus(DMA_Tx, DMA_FLAG_Tx_TC) == RESET);
+//     DMA_ClearFlag(DMA_Tx, DMA_FLAG_Tx_TC);
+// #else
+//     while (DMA_GetFlagStatus(DMA_FLAG_Tx_TC) == RESET);
+// #endif
+//   }
   // Disable to change settings
   DMA_Cmd(DMA_Tx, DISABLE);
 #if defined(SERIES_STM32F4xx)
   DMA_ClearFlag(DMA_Tx, DMA_FLAG_Tx_TC);
-  DMA_Tx->NDTR = nbytes;
-  DMA_Tx->M0AR = (uint32_t)ibuf;
+  DMA_Tx->NDTR = _txBuf.tail;
+  DMA_Tx->M0AR = (uint32_t)&_txBuf.buffer;
 #else
   DMA_ClearFlag(DMA_FLAG_Tx_TC);
-  DMA_Tx->CNDTR = nbytes;
-  DMA_Tx->CMAR = (uint32_t)ibuf;
+  DMA_Tx->CNDTR = _txBuf.tail;
+  DMA_Tx->CMAR = (uint32_t)&_txBuf.buffer;
 #endif  
-
+  // reset TX buffer
+  _txBuf.tail = 0;
   DMA_Cmd(DMA_Tx, ENABLE);
   USART_DMACmd(usartMap->USARTx, USART_DMAReq_Tx, ENABLE);
 }
 
-// void USARTClass::readDMA(uint16_t nbytes, uint8_t *obuf) {
-//   // set up DMA for RX
-// #if defined(SERIES_STM32F4xx)
-//   DMA_Rx->NDTR = nbytes;
-//   DMA_Rx->M0AR = (uint32_t)obuf;
-//   DMA_Tx->NDTR = nbytes;
-//   if (ibuf == NULL) {
-//     // want to send dummy=0, don't increment
-//     DMA_Tx->CR &= ~DMA_MemoryInc_Enable;
-//     DMA_Tx->M0AR = (uint32_t)&SPI_READ_DUMMY;
-//   } else {
-//     DMA_Tx->CR |= DMA_MemoryInc_Enable;// increment memory
-//     DMA_Tx->M0AR = (uint32_t)ibuf;
-//   }
-// #else
-//   // F3
-//   DMA_Rx->CNDTR = nbytes;
-//   DMA_Rx->CMAR = (uint32_t)obuf;
-//   DMA_Tx->CNDTR = nbytes;
-//   if (ibuf == NULL) {
-//     // want to send dummy=0, don't increment
-//     DMA_Tx->CCR &= ~DMA_MemoryInc_Enable;
-//     DMA_Tx->CMAR = (uint32_t)&SPI_READ_DUMMY;
-//   } else {
-//     DMA_Tx->CCR |= DMA_MemoryInc_Enable;// increment memory
-//     DMA_Tx->CMAR = (uint32_t)ibuf;
-//   }
-// #endif
-//   // clear any remaining data in RX by reading DR
-//   do {
-//     SPI_I2S_ReceiveData16(SPIx);
-//   } while(SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_RXNE));
+void USARTClass::readLatestDMA(uint16_t nbytes, uint8_t *obuf) {
+  if (nbytes > SERIAL_BUFFER_SIZE)
+    nbytes = SERIAL_BUFFER_SIZE;
 
-//   // if not polling, must be using interrupts
-//   DMA_ITConfig(DMA_Tx, DMA_IT_TC, polling ? DISABLE : ENABLE);
-
-//   // Enable the DMAs - They will await signals from the SPI hardware
-//   DMA_Cmd(DMA_Tx, ENABLE);
-//   DMA_Cmd(DMA_Rx, ENABLE);
-
-//   if (!polling)
-//     return;
-
-//   // Wait until complete
-// #if defined(SERIES_STM32F4xx)
-//   while (DMA_GetFlagStatus(DMA_Tx, DMA_FLAG_Tx_TC) == RESET);
-//   DMA_ClearFlag(DMA_Tx, DMA_FLAG_Tx_TC);
-//   while (DMA_GetFlagStatus(DMA_Rx, DMA_FLAG_Rx_TC) == RESET);
-//   DMA_ClearFlag(DMA_Rx, DMA_FLAG_Rx_TC);
-// #else
-//   while (DMA_GetFlagStatus(DMA_FLAG_Tx_TC) == RESET);
-//   while (DMA_GetFlagStatus(DMA_FLAG_Rx_TC) == RESET);
-//   // The BSY flag can be monitored to ensure that the SPI communication is complete.
-//   // This is required to avoid corrupting the last transmission before disabling 
-//   // the SPI or entering the Stop mode. The software must first wait until TXE=1
-//   // and then until BSY=0.
-//   while (SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_TXE) == RESET);
-//   while (SPI_I2S_GetFlagStatus(SPIx, SPI_I2S_FLAG_BSY) == SET);
-// #endif
-//   // Disable everything
-//   DMA_Cmd(DMA_Tx, DISABLE);
-//   DMA_Cmd(DMA_Rx, DISABLE);
-//   // SPI_I2S_DMACmd(SPIx, SPI_I2S_DMAReq_Tx, DISABLE);
-//   // SPI_I2S_DMACmd(SPIx, SPI_I2S_DMAReq_Rx, DISABLE);
-// }
+  //atomic operation to save the latest counter
+#if defined(SERIES_STM32F4xx)
+  uint16_t _NDTR = DMA_Rx->NDTR;
+#else
+  uint16_t _NDTR = DMA_Rx->CNDTR;
+#endif
+  // latest data is at buffer[SERIAL_BUFFER_SIZE - _NDTR - 1]
+  for (uint16_t i=0; i<nbytes; ++i) {
+    obuf[i] = _rxBuf.buffer[(2*SERIAL_BUFFER_SIZE - _NDTR - nbytes + i)%SERIAL_BUFFER_SIZE];
+  }
+}
 
 
 // Public Methods //////////////////////////////////////////////////////////////

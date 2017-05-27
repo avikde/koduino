@@ -175,36 +175,40 @@ public:
 
   void useDMA(bool flag);
   /**
-   * @brief [brief description]
-   * @details [long description]
+   * @brief Set up DMA (need to refer to the RM to do this)
    * 
-   * @param RCC_AHBPeriph [description]
-   * @param DMA_Tx [description]
-   * @param DMA_Rx [description]
-   * @param DMA_FLAG_Tx_TC [description]
-   * @param DMA_FLAG_Rx_TC [description]
-   * @param F4ChannelTx [description]
-   * @param F4ChannelRx [description]
+   * @param RCC_AHBPeriph AHB peripheral name (for DMA1 or DMA2)
+   * @param DMA_Tx Channel if F3, Stream if F4
+   * @param DMA_Rx Channel if F3, Stream if F4
+   * @param DMA_FLAG_Tx_TC TC flag name
+   * @param DMA_FLAG_Rx_TC TC flag name
+   * @param F4ChannelTx Don't specify for F3
+   * @param F4ChannelRx Don't specify for F3
    */
   void initDMA(uint32_t RCC_AHBPeriph, DMA_x_TypeDef *DMA_Tx, DMA_x_TypeDef *DMA_Rx, uint32_t DMA_FLAG_Tx_TC, uint32_t DMA_FLAG_Rx_TC, uint32_t F4ChannelTx=0, uint32_t F4ChannelRx=0);
   /**
-   * @brief [brief description]
-   * @details [long description]
+   * @brief Append a sequence of bytes for transmission using DMA
+   * @details Returns immediately (just appends to a buffer)
    * 
-   * @param nbytes [description]
-   * @param ibuf [description]
+   * @param nbytes Number of bytes
+   * @param ibuf Pointer to buffer
    */
   void writeDMA(uint16_t nbytes, const uint8_t *ibuf);
   /**
-   * @brief [brief description]
-   * @details [long description]
+   * @brief Actually transmit the sequence of bytes from writeDMA using DMA
+   * @details Returns immediately (see waitForPreviousTransmit)
    * 
-   * @param nbytes [description]
-   * @param obuf [description]
-   * @param ibuf [description]
-   * @param polling [description]
+   * @param waitForPreviousTransmit TODO--for now this is always treated as false
    */
-  void readDMA(uint16_t nbytes, uint8_t *obuf);
+  void flushDMA(bool waitForPreviousTransmit=true);
+  /**
+   * @brief Read the latest bytes received from DMA
+   * @details Does not keep track of what was previously read (so call this often enough). If no new bytes were received, it will just return the previous data (including returning 0 if no data has been received yet).
+   * 
+   * @param nbytes Number of latest bytes to read
+   * @param obuf Buffer to store in
+   */
+  void readLatestDMA(uint16_t nbytes, uint8_t *obuf);
   // -----------------
   
   
