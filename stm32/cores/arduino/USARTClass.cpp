@@ -78,6 +78,158 @@ void USARTClass::init(uint32_t baud, uint32_t wordLength, uint32_t parity, uint3
   USART_Cmd(usartMap->USARTx, ENABLE);
 }
 
+// DMA functions =====================
+
+void USARTClass::initDMA(uint32_t RCC_AHBPeriph, DMA_x_TypeDef *DMA_Tx, DMA_x_TypeDef *DMA_Rx, uint32_t DMA_FLAG_Tx_TC, uint32_t DMA_FLAG_Rx_TC, uint32_t F4ChannelTx, uint32_t F4ChannelRx) {
+  this->DMA_Tx = DMA_Tx;
+  this->DMA_Rx = DMA_Rx;
+  this->DMA_FLAG_Tx_TC = DMA_FLAG_Tx_TC;
+  this->DMA_FLAG_Rx_TC = DMA_FLAG_Rx_TC;
+
+#if defined(SERIES_STM32F4xx)
+  RCC_AHB1PeriphClockCmd(RCC_AHBPeriph, ENABLE);
+#else
+  RCC_AHBPeriphClockCmd(RCC_AHBPeriph, ENABLE);
+#endif
+  DMA_DeInit(DMA_Tx);
+  DMA_DeInit(DMA_Rx);
+  DMA_InitTypeDef     DMA_InitStructure;
+  // DMA init
+  // Configure RX Channel
+#if defined(SERIES_STM32F4xx)
+  DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&usartMap->USARTx->DR;
+#else
+  DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&usartMap->USARTx->RDR;
+#endif
+  DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
+  DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+  DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_Byte;
+  DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
+  // RX buffer is circular
+  DMA_InitStructure.DMA_BufferSize = SERIAL_BUFFER_SIZE;
+  DMA_InitStructure.DMA_Mode = DMA_Mode_Circular;
+#if defined(SERIES_STM32F4xx)
+  DMA_InitStructure.DMA_FIFOMode = DMA_FIFOMode_Disable;
+  DMA_InitStructure.DMA_FIFOThreshold = DMA_FIFOThreshold_1QuarterFull;
+  DMA_InitStructure.DMA_MemoryBurst = DMA_MemoryBurst_Single;
+  DMA_InitStructure.DMA_PeripheralBurst = DMA_PeripheralBurst_Single;
+  DMA_InitStructure.DMA_Channel = F4ChannelRx;
+  DMA_InitStructure.DMA_Memory0BaseAddr = (uint32_t)&_rxBuf.buffer[0];
+  DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralToMemory;
+#else
+  DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;
+  DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)&_rxBuf.buffer[0]; // To be set later
+  DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC; // RX
+#endif
+  DMA_InitStructure.DMA_Priority = DMA_Priority_High;
+  DMA_Init(DMA_Rx, &DMA_InitStructure);
+  // Configure TX Channel
+#if defined(SERIES_STM32F4xx)
+  DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&usartMap->USARTx->DR;
+#else
+  DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&usartMap->USARTx->TDR;
+#endif
+  DMA_InitStructure.DMA_BufferSize = 1; // To be set later
+  DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;// not circular
+#if defined(SERIES_STM32F4xx)
+  DMA_InitStructure.DMA_Channel = F4ChannelTx;
+  DMA_InitStructure.DMA_DIR = DMA_DIR_MemoryToPeripheral;
+  DMA_InitStructure.DMA_Memory0BaseAddr = 0; // To be set later
+#else
+  DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralDST; // TX
+  DMA_InitStructure.DMA_MemoryBaseAddr = 0; // To be set later
+#endif
+  DMA_InitStructure.DMA_Priority = DMA_Priority_High;
+  DMA_Init(DMA_Tx, &DMA_InitStructure);
+}
+
+void USARTClass::useDMA(bool flag) {
+  // only do something if necessary
+  if (flag && !bUseDMA) {
+    // use DMA (no interrupts)
+    DMA_Cmd(DMA_Tx, DISABLE);
+    DMA_Cmd(DMA_Rx, DISABLE);
+    USART_ITConfig(usartMap->USARTx, USART_IT_RXNE, DISABLE);
+    USART_ITConfig(usartMap->USARTx, USART_IT_TXE, DISABLE);
+    // 
+    memset(_rxBuf.buffer, 0, SERIAL_BUFFER_SIZE);
+    DMA_Cmd(DMA_Rx, ENABLE);
+    USART_DMACmd(usartMap->USARTx, USART_DMAReq_Rx, ENABLE);
+  } else if (!flag && bUseDMA) {
+    // Use interrupts and ringbuffer
+    DMA_Cmd(DMA_Tx, DISABLE);
+    DMA_Cmd(DMA_Rx, DISABLE);
+    USART_DMACmd(usartMap->USARTx, USART_DMAReq_Tx, DISABLE);
+    USART_DMACmd(usartMap->USARTx, USART_DMAReq_Rx, DISABLE);
+    // reset buffers
+    _rxBuf.head = _rxBuf.tail = 0;
+    _txBuf.head = _txBuf.tail = 0;
+    // start interrupts
+    USART_ClearFlag(usartMap->USARTx, USART_FLAG_RXNE);
+    USART_ClearITPendingBit(usartMap->USARTx, USART_IT_RXNE);
+    USART_ITConfig(usartMap->USARTx, USART_IT_RXNE, ENABLE);
+  }
+  bUseDMA = flag;
+}
+
+void USARTClass::writeDMA(uint16_t nbytes, const uint8_t *ibuf) {
+  // Check if the buffer would run out of room
+  if (!bUseDMA || nbytes + _txBuf.tail >= SERIAL_BUFFER_SIZE)
+    return;
+
+  memcpy(&_txBuf.buffer[_txBuf.tail], ibuf, nbytes);
+  _txBuf.tail += nbytes;
+}
+
+void USARTClass::flushDMA(bool waitForPreviousTransmit) {
+  // only proceed if there is anything to send
+  if (!bUseDMA || _txBuf.tail==0)
+    return;
+
+//   if (waitForPreviousTransmit) {
+//     // check to make sure previous transmit finished
+//     // This only blocks if the previous transmit didn't finish
+// #if defined(SERIES_STM32F4xx)
+//     while (DMA_GetFlagStatus(DMA_Tx, DMA_FLAG_Tx_TC) == RESET);
+//     DMA_ClearFlag(DMA_Tx, DMA_FLAG_Tx_TC);
+// #else
+//     while (DMA_GetFlagStatus(DMA_FLAG_Tx_TC) == RESET);
+// #endif
+//   }
+  // Disable to change settings
+  DMA_Cmd(DMA_Tx, DISABLE);
+#if defined(SERIES_STM32F4xx)
+  DMA_ClearFlag(DMA_Tx, DMA_FLAG_Tx_TC);
+  DMA_Tx->NDTR = _txBuf.tail;
+  DMA_Tx->M0AR = (uint32_t)&_txBuf.buffer;
+#else
+  DMA_ClearFlag(DMA_FLAG_Tx_TC);
+  DMA_Tx->CNDTR = _txBuf.tail;
+  DMA_Tx->CMAR = (uint32_t)&_txBuf.buffer;
+#endif  
+  // reset TX buffer
+  _txBuf.tail = 0;
+  DMA_Cmd(DMA_Tx, ENABLE);
+  USART_DMACmd(usartMap->USARTx, USART_DMAReq_Tx, ENABLE);
+}
+
+void USARTClass::readLatestDMA(uint16_t nbytes, uint8_t *obuf) {
+  if (nbytes > SERIAL_BUFFER_SIZE)
+    nbytes = SERIAL_BUFFER_SIZE;
+
+  //atomic operation to save the latest counter
+#if defined(SERIES_STM32F4xx)
+  uint16_t _NDTR = DMA_Rx->NDTR;
+#else
+  uint16_t _NDTR = DMA_Rx->CNDTR;
+#endif
+  // latest data is at buffer[SERIAL_BUFFER_SIZE - _NDTR - 1]
+  for (uint16_t i=0; i<nbytes; ++i) {
+    obuf[i] = _rxBuf.buffer[(2*SERIAL_BUFFER_SIZE - _NDTR - nbytes + i)%SERIAL_BUFFER_SIZE];
+  }
+}
+
+
 // Public Methods //////////////////////////////////////////////////////////////
 
 void USARTClass::begin(uint32_t baud, uint8_t config) {
