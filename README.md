@@ -1,3 +1,5 @@
+[![Documentation Status](https://readthedocs.org/projects/koduino/badge/?version=latest)](http://koduino.readthedocs.io/en/latest/?badge=latest)
+
 Koduino
 =======
 
