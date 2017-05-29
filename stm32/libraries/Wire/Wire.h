@@ -202,6 +202,23 @@ public:
    * @param flag `true` to enable, `false` to disable.
    */
   void stretchClock(bool flag);
+
+  uint16_t readPolling(uint8_t kAddr, uint8_t reg, uint8_t numbytes, uint8_t *obuf) {
+    beginTransmission(kAddr);
+    write(reg);
+    endTransmission(false);
+    requestFrom(kAddr, 6);
+    for (int i=0; i<numbytes; ++i)
+      obuf[i] = read();
+    return numbytes;
+  }
+  uint16_t writePolling(uint8_t kAddr, uint8_t numbytes, const uint8_t *ibuf) {
+    beginTransmission(kAddr);
+    for (int i=0; i<numbytes; ++i)
+      write(ibuf[i]);
+    endTransmission();
+    return numbytes;
+  }
 };
 
 extern TwoWire Wire;
