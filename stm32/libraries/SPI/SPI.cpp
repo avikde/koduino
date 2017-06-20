@@ -347,8 +347,6 @@ void SPIClass::initDMA(uint32_t RCC_AHBPeriph, DMA_x_TypeDef *DMA_Tx, DMA_x_Type
 #endif
   DMA_InitStructure.DMA_Priority = DMA_Priority_Low;
   DMA_Init(DMA_Tx, &DMA_InitStructure);
-  // NOTE: could put these in the read/write functions
-  SPI_I2S_DMACmd(SPIx, SPI_I2S_DMAReq_Tx | SPI_I2S_DMAReq_Rx, ENABLE);
 }
 
 void SPIClass::writeDMA(uint16_t nbytes, const uint8_t *ibuf) {
@@ -364,6 +362,8 @@ void SPIClass::writeDMA(uint16_t nbytes, const uint8_t *ibuf) {
 #endif
   // enable DMA which will start SPI
   DMA_Cmd(DMA_Tx, ENABLE);
+  // Need to have these here otherwise there are occasional failures
+  SPI_I2S_DMACmd(SPIx, SPI_I2S_DMAReq_Tx | SPI_I2S_DMAReq_Rx, ENABLE);
   // Wait until complete
 #if defined(SERIES_STM32F4xx)
   while (DMA_GetFlagStatus(DMA_Tx, DMA_FLAG_Tx_TC) == RESET);
@@ -379,9 +379,18 @@ void SPIClass::writeDMA(uint16_t nbytes, const uint8_t *ibuf) {
 #endif
   // Disable everything
   DMA_Cmd(DMA_Tx, DISABLE);
+  // Need to have these here otherwise there are occasional failures
+  SPI_I2S_DMACmd(SPIx, SPI_I2S_DMAReq_Tx | SPI_I2S_DMAReq_Rx, DISABLE);
 }
 
 void SPIClass::readDMA(uint16_t nbytes, uint8_t *obuf, const uint8_t *ibuf, bool polling) {
+  // // make sure it's all disabled
+  // DMA_Cmd(DMA_Tx, DISABLE);
+  // DMA_Cmd(DMA_Rx, DISABLE);
+  // // wait till actually disabled
+  // while (DMA_Tx->CCR & DMA_CCR_EN);
+  // while (DMA_Rx->CCR & DMA_CCR_EN);
+
   // set up DMA for RX
 #if defined(SERIES_STM32F4xx)
   DMA_Rx->NDTR = nbytes;
@@ -420,6 +429,8 @@ void SPIClass::readDMA(uint16_t nbytes, uint8_t *obuf, const uint8_t *ibuf, bool
   // Enable the DMAs - They will await signals from the SPI hardware
   DMA_Cmd(DMA_Tx, ENABLE);
   DMA_Cmd(DMA_Rx, ENABLE);
+  // Need to have these here otherwise there are occasional failures
+  SPI_I2S_DMACmd(SPIx, SPI_I2S_DMAReq_Tx | SPI_I2S_DMAReq_Rx, ENABLE);
 
   if (!polling)
     return;
@@ -443,8 +454,8 @@ void SPIClass::readDMA(uint16_t nbytes, uint8_t *obuf, const uint8_t *ibuf, bool
   // Disable everything
   DMA_Cmd(DMA_Tx, DISABLE);
   DMA_Cmd(DMA_Rx, DISABLE);
-  // SPI_I2S_DMACmd(SPIx, SPI_I2S_DMAReq_Tx, DISABLE);
-  // SPI_I2S_DMACmd(SPIx, SPI_I2S_DMAReq_Rx, DISABLE);
+  // Need to have these here otherwise there are occasional failures
+  SPI_I2S_DMACmd(SPIx, SPI_I2S_DMAReq_Tx | SPI_I2S_DMAReq_Rx, DISABLE);
 }
 
 
