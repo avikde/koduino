@@ -67,6 +67,8 @@ void configUSARTPins(USART_TypeDef *USARTx, uint8_t txPin, uint8_t rxPin);
  * @details 
  */
 class USARTClass : public Stream {
+
+  bool bUseDMA;  
 public:
   // should this be static? i would think one per instance
   static USART_InitTypeDef USART_InitStructure;
