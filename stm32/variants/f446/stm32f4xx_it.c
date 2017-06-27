@@ -153,40 +153,40 @@ void PendSV_Handler(void)
 
 // General purpose timers
 void TIM1_CC_IRQHandler() {
-  timerISR(TIMER1);
+  timerISR(TIMER1, 0xff);
 }
 void TIM2_IRQHandler() {
-  timerISR(TIMER2);
+  timerISR(TIMER2, TIMER2);
 }
 void TIM3_IRQHandler() {
-  timerISR(TIMER3);
+  timerISR(TIMER3, TIMER3);
 }
 void TIM4_IRQHandler() {
-  timerISR(TIMER4);
+  timerISR(TIMER4, TIMER4);
 }
 void TIM5_IRQHandler() {
-  timerISR(TIMER5);
+  timerISR(TIMER5, TIMER5);
 }
 void TIM8_CC_IRQHandler() {
-  timerISR(TIMER8);
+  timerISR(TIMER8, 0xff);
 }
 void TIM1_BRK_TIM9_IRQHandler() {
-  timerISR(TIMER9);
+  timerISR(TIMER9, TIMER9);
 }
 void TIM8_BRK_TIM12_IRQHandler() {
-  timerISR(TIMER12);
+  timerISR(TIMER12, TIMER12);
 }
 void TIM1_UP_TIM10_IRQHandler() {
-  timerISR(TIMER10);
+  timerISR(TIMER10, TIMER1);
 }
 void TIM1_TRG_COM_TIM11_IRQHandler() {
-  timerISR(TIMER11);
+  timerISR(TIMER11, TIMER11);
 }
 void TIM8_UP_TIM13_IRQHandler() {
-  timerISR(TIMER13);
+  timerISR(TIMER13, TIMER8);
 }
 void TIM8_TRG_COM_TIM14_IRQHandler() {
-  timerISR(TIMER14);
+  timerISR(TIMER14, TIMER14);
 }
 
 // Timebase

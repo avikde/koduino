@@ -165,36 +165,57 @@ static inline void timerCCxISR(TIM_TypeDef *TIMx, TimerChannelData *C, int curre
 
 // Main GP timer ISR
 #if defined(KODUINO_ISRS_INLINE)
-static inline void timerISR(uint8_t timer) __attribute__((always_inline, unused));
+static inline void timerISR(uint8_t timerCC, uint8_t timerUP) __attribute__((always_inline, unused));
 #else
-static inline void timerISR(uint8_t timer);
+static inline void timerISR(uint8_t timerCC, uint8_t timerUP);
 #endif
-static inline void timerISR(uint8_t timer) {
-  TIM_TypeDef *TIMx = TIMER_MAP[timer].TIMx;
-  TimerInfo *cfg = &TIMER_MAP[timer];
+static inline void timerISR(uint8_t timerCC, uint8_t timerUP) {
+  // For some timers update is in a different IRQHandler than CC
+  // specifying 0xff will skip either up or cc
+  TIM_TypeDef *TIMx;
+  TimerInfo *cfg;
 
-  // Update for rollover
-  if (TIM_GetITStatus(TIMx, TIM_IT_Update) != RESET) {
-    TIM_ClearITPendingBit(TIMx, TIM_IT_Update);
-    cfg->numRollovers++;
+  if (timerUP != 0xff) {
+    TIMx = TIMER_MAP[timerUP].TIMx;
+    cfg = &TIMER_MAP[timerUP];
+
+    // Update for rollover
+    if (TIM_GetITStatus(TIMx, TIM_IT_Update) != RESET) {
+      TIM_ClearITPendingBit(TIMx, TIM_IT_Update);
+      cfg->numRollovers++;
+    }
   }
 
-  // CCx for pwmIn
-  if (TIM_GetITStatus(TIMx, TIM_IT_CC1) != RESET) {
-    TIM_ClearITPendingBit(TIMx, TIM_IT_CC1);
-    timerCCxISR(TIMx, &cfg->channelData[0], TIM_GetCapture1(TIMx), cfg->numRollovers);
-  }
-  if (TIM_GetITStatus(TIMx, TIM_IT_CC2) != RESET) {
-    TIM_ClearITPendingBit(TIMx, TIM_IT_CC2);
-    timerCCxISR(TIMx, &cfg->channelData[1], TIM_GetCapture2(TIMx), cfg->numRollovers);
-  }
-  if (TIM_GetITStatus(TIMx, TIM_IT_CC3) != RESET) {
-    TIM_ClearITPendingBit(TIMx, TIM_IT_CC3);
-    timerCCxISR(TIMx, &cfg->channelData[2], TIM_GetCapture3(TIMx), cfg->numRollovers);
-  }
-  if (TIM_GetITStatus(TIMx, TIM_IT_CC4) != RESET) {
-    TIM_ClearITPendingBit(TIMx, TIM_IT_CC4);
-    timerCCxISR(TIMx, &cfg->channelData[3], TIM_GetCapture4(TIMx), cfg->numRollovers);
+  if (timerCC != 0xff) {
+    TIMx = TIMER_MAP[timerCC].TIMx;
+    cfg = &TIMER_MAP[timerCC];
+
+    if (timerUP != 0xff && timerUP != timerCC) {
+      // unless it's timer 1 or 8 (in which case timerUP==0xff) the timerCC also has its update here
+      // trying to account for e.g. timerISR(TIMER13, TIMER8)
+      // Update for rollover
+      if (TIM_GetITStatus(TIMx, TIM_IT_Update) != RESET) {
+        TIM_ClearITPendingBit(TIMx, TIM_IT_Update);
+        cfg->numRollovers++;
+      }
+    }
+    // CCx for pwmIn
+    if (TIM_GetITStatus(TIMx, TIM_IT_CC1) != RESET) {
+      TIM_ClearITPendingBit(TIMx, TIM_IT_CC1);
+      timerCCxISR(TIMx, &cfg->channelData[0], TIM_GetCapture1(TIMx), cfg->numRollovers);
+    }
+    if (TIM_GetITStatus(TIMx, TIM_IT_CC2) != RESET) {
+      TIM_ClearITPendingBit(TIMx, TIM_IT_CC2);
+      timerCCxISR(TIMx, &cfg->channelData[1], TIM_GetCapture2(TIMx), cfg->numRollovers);
+    }
+    if (TIM_GetITStatus(TIMx, TIM_IT_CC3) != RESET) {
+      TIM_ClearITPendingBit(TIMx, TIM_IT_CC3);
+      timerCCxISR(TIMx, &cfg->channelData[2], TIM_GetCapture3(TIMx), cfg->numRollovers);
+    }
+    if (TIM_GetITStatus(TIMx, TIM_IT_CC4) != RESET) {
+      TIM_ClearITPendingBit(TIMx, TIM_IT_CC4);
+      timerCCxISR(TIMx, &cfg->channelData[3], TIM_GetCapture4(TIMx), cfg->numRollovers);
+    }
   }
 }
 
