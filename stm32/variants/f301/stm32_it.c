@@ -157,9 +157,9 @@ void PendSV_Handler(void)
 }*/
 
 // General purpose timers
-// void TIM1_CC_IRQHandler() {
-//   timerISR(TIMER1, 0xff);
-// }
+void TIM1_CC_IRQHandler() {
+  timerISR(TIMER1, 0xff);
+}
 void TIM2_IRQHandler() {
   timerISR(TIMER2, TIMER2);
 }

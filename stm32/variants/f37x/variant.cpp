@@ -170,22 +170,22 @@ TimerChannelData timer19ch[4] = {
 
 // Constant timer info
 TimerInfo TIMER_MAP[] = {
-  {TIM2, TIM2_IRQn, 1000, 0, timer2ch},
-  {TIM5, TIM5_IRQn, 1000, 0, timer5ch},
-  {TIM3, TIM3_IRQn, 1000, 0, timer3ch},
-  {TIM4, TIM4_IRQn, 1000, 0, timer4ch},
-  {TIM19, TIM19_IRQn, 1000, 0, timer19ch},
+  {TIM2, TIM2_IRQn, 1000, 0, timer2ch, 0},
+  {TIM5, TIM5_IRQn, 1000, 0, timer5ch, 0},
+  {TIM3, TIM3_IRQn, 1000, 0, timer3ch, 0},
+  {TIM4, TIM4_IRQn, 1000, 0, timer4ch, 0},
+  {TIM19, TIM19_IRQn, 1000, 0, timer19ch, 0},
 
-  {TIM12, TIM12_IRQn, 1000, 0, timer12ch},
-  {TIM15, TIM15_IRQn, 1000, 0, timer15ch},
-  {TIM13, TIM13_IRQn, 1000, 0, (TimerChannelData *)0},
-  {TIM14, TIM14_IRQn, 1000, 0, (TimerChannelData *)0},
-  {TIM16, TIM16_IRQn, 1000, 0, (TimerChannelData *)0},
-  {TIM17, TIM17_IRQn, 1000, 0, (TimerChannelData *)0},
+  {TIM12, TIM12_IRQn, 1000, 0, timer12ch, 0},
+  {TIM15, TIM15_IRQn, 1000, 0, timer15ch, 0},
+  {TIM13, TIM13_IRQn, 1000, 0, (TimerChannelData *)0, 0},
+  {TIM14, TIM14_IRQn, 1000, 0, (TimerChannelData *)0, 0},
+  {TIM16, TIM16_IRQn, 1000, 0, (TimerChannelData *)0, 0},
+  {TIM17, TIM17_IRQn, 1000, 0, (TimerChannelData *)0, 0},
 
-  {TIM6, TIM6_DAC1_IRQn, 1000, 0, (TimerChannelData *)0},
-  {TIM7, TIM7_IRQn, 1000, 0, (TimerChannelData *)0},
-  {TIM18, TIM18_DAC2_IRQn, 1000, 0, (TimerChannelData *)0}
+  {TIM6, TIM6_DAC1_IRQn, 1000, 0, (TimerChannelData *)0, 0},
+  {TIM7, TIM7_IRQn, 1000, 0, (TimerChannelData *)0, 0},
+  {TIM18, TIM18_DAC2_IRQn, 1000, 0, (TimerChannelData *)0, 0}
 };
 
 // Use the 3 basic timers and two others

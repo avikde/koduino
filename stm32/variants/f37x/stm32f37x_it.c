@@ -140,27 +140,27 @@ void PendSV_Handler(void)
 // See timer.c
 
 void TIM2_IRQHandler() {
-  timerISR(TIMER2);
+  timerISR(TIMER2, TIMER2);
 }
 
 void TIM3_IRQHandler() {
-  timerISR(TIMER3);
+  timerISR(TIMER3, TIMER3);
 }
 
 void TIM4_IRQHandler() {
-  timerISR(TIMER4);
+  timerISR(TIMER4, TIMER4);
 }
 
 void TIM5_IRQHandler() {
-  timerISR(TIMER5);
+  timerISR(TIMER5, TIMER5);
 }
 
 void TIM12_IRQHandler() {
-  timerISR(TIMER12);
+  timerISR(TIMER12, TIMER12);
 }
 
 void TIM19_IRQHandler() {
-  timerISR(TIMER19);
+  timerISR(TIMER19, TIMER19);
 }
 
 // TIMEBASE TIMERS
