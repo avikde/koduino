@@ -206,6 +206,12 @@ void pwmInRaw(uint8_t name, int *period, int *pulseWidth) {
   }
 }
 
+void attachGPTimerUpdateInterrupt(uint8_t timer, ISRType isr) {
+  TimerInfo *cfg = &TIMER_MAP[timer];
+  cfg->isr = isr;
+  TIM_ITConfig(cfg->TIMx, TIM_IT_Update, ENABLE);
+}
+
 // Main ISR =============================================
 
 

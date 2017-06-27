@@ -134,6 +134,7 @@ with open(TIMER_MAP, 'rb') as csvfile:
           print('timer'+tim+'ch},')
         else:
           print('(TimerChannelData *)0},')
+        print('0,')
 print('  // ^^^ Look up IRQn names from CMSIS device header ^^^')
 print('};')
 

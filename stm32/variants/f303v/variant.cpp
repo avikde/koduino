@@ -254,16 +254,16 @@ TimerChannelData timer17ch[1] = {
 };
 
 TimerInfo TIMER_MAP[] = {
-  {TIM1, TIM1_CC_IRQn, 1000, 0, timer1ch},
-  {TIM2, TIM2_IRQn, 1000, 0, timer2ch},
-  {TIM3, TIM3_IRQn, 1000, 0, timer3ch},
-  {TIM4, TIM4_IRQn, 1000, 0, timer4ch},
-  {TIM8, TIM8_CC_IRQn, 1000, 0, timer8ch},
-  {TIM15, TIM1_BRK_TIM15_IRQn, 1000, 0, timer15ch},
-  {TIM16, TIM1_UP_TIM16_IRQn, 1000, 0, timer16ch},
-  {TIM17, TIM1_TRG_COM_TIM17_IRQn, 1000, 0, timer17ch},
-  {TIM6, TIM6_DAC_IRQn, 1000, 0, (TimerChannelData *)0},
-  {TIM7, TIM7_IRQn, 1000, 0, (TimerChannelData *)0},
+  {TIM1, TIM1_CC_IRQn, 1000, 0, timer1ch, 0},
+  {TIM2, TIM2_IRQn, 1000, 0, timer2ch, 0},
+  {TIM3, TIM3_IRQn, 1000, 0, timer3ch, 0},
+  {TIM4, TIM4_IRQn, 1000, 0, timer4ch, 0},
+  {TIM8, TIM8_CC_IRQn, 1000, 0, timer8ch, 0},
+  {TIM15, TIM1_BRK_TIM15_IRQn, 1000, 0, timer15ch, 0},
+  {TIM16, TIM1_UP_TIM16_IRQn, 1000, 0, timer16ch, 0},
+  {TIM17, TIM1_TRG_COM_TIM17_IRQn, 1000, 0, timer17ch, 0},
+  {TIM6, TIM6_DAC_IRQn, 1000, 0, (TimerChannelData *)0, 0},
+  {TIM7, TIM7_IRQn, 1000, 0, (TimerChannelData *)0, 0},
   // ^^^ Look up IRQn names from CMSIS device header ^^^
 };
 

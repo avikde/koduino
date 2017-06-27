@@ -82,6 +82,9 @@ typedef struct TimerChannelData {
   volatile uint32_t lastRollover;
 } TimerChannelData;
 
+// General prototype for a user callback (like from timer or external interrupts)
+typedef void (*ISRType)(void);
+
 // Timer info
 typedef struct TimerInfo {
   TIM_TypeDef * const TIMx;
@@ -93,6 +96,8 @@ typedef struct TimerInfo {
   volatile uint32_t numRollovers;
   // variable number of channels; assigned in variant.cpp
   TimerChannelData *channelData;
+  // custom update ISR
+  ISRType isr;
 } TimerInfo;
 
 // pinMode
@@ -107,9 +112,6 @@ typedef enum WiringPinMode {
 typedef enum LogicValue {
   LOW = 0, HIGH = 1, TOGGLE = 2
 } LogicValue;
-
-// General prototype for a user callback (like from timer or external interrupts)
-typedef void (*ISRType)(void);
 
 // Timebase
 typedef struct {

@@ -128,6 +128,8 @@ void pinTimerInit(uint8_t pin);
 // Timer init with period: mostly a helper function
 void timerInitHelper(uint8_t timer, uint16_t prescaler, uint32_t period);
 
+// add custom ISR to timer update
+void attachGPTimerUpdateInterrupt(uint8_t timer, ISRType isr);
 
 
 // Helper for each channel
@@ -182,7 +184,11 @@ static inline void timerISR(uint8_t timerCC, uint8_t timerUP) {
     // Update for rollover
     if (TIM_GetITStatus(TIMx, TIM_IT_Update) != RESET) {
       TIM_ClearITPendingBit(TIMx, TIM_IT_Update);
+      // for PWM_IN
       cfg->numRollovers++;
+      // custom ISR
+      if (cfg->isr != 0)
+        cfg->isr();
     }
   }
 
@@ -196,7 +202,11 @@ static inline void timerISR(uint8_t timerCC, uint8_t timerUP) {
       // Update for rollover
       if (TIM_GetITStatus(TIMx, TIM_IT_Update) != RESET) {
         TIM_ClearITPendingBit(TIMx, TIM_IT_Update);
+        // for PWM_IN
         cfg->numRollovers++;
+        // custom ISR
+        if (cfg->isr != 0)
+          cfg->isr();
       }
     }
     // CCx for pwmIn

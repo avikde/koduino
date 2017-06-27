@@ -257,20 +257,20 @@ TimerChannelData timer14ch[1] = {
 };
 
 TimerInfo TIMER_MAP[] = {
-  {TIM1, TIM1_CC_IRQn, 1000, 0, timer1ch},
-  {TIM2, TIM2_IRQn, 1000, 0, timer2ch},
-  {TIM3, TIM3_IRQn, 1000, 0, timer3ch},
-  {TIM4, TIM4_IRQn, 1000, 0, timer4ch},
-  {TIM5, TIM5_IRQn, 1000, 0, timer5ch},
-  {TIM8, TIM8_CC_IRQn, 1000, 0, timer8ch},
-  {TIM9, TIM1_BRK_TIM9_IRQn, 1000, 0, timer9ch},
-  {TIM12, TIM8_BRK_TIM12_IRQn, 1000, 0, timer12ch},
-  {TIM10, TIM1_UP_TIM10_IRQn, 1000, 0, timer10ch},
-  {TIM11, TIM1_TRG_COM_TIM11_IRQn, 1000, 0, timer11ch},
-  {TIM13, TIM8_UP_TIM13_IRQn, 1000, 0, timer13ch},
-  {TIM14, TIM8_TRG_COM_TIM14_IRQn, 1000, 0, timer14ch},
-  {TIM6, TIM6_DAC_IRQn, 1000, 0, (TimerChannelData *)0},
-  {TIM7, TIM7_IRQn, 1000, 0, (TimerChannelData *)0},
+  {TIM1, TIM1_CC_IRQn, 1000, 0, timer1ch, 0},
+  {TIM2, TIM2_IRQn, 1000, 0, timer2ch, 0},
+  {TIM3, TIM3_IRQn, 1000, 0, timer3ch, 0},
+  {TIM4, TIM4_IRQn, 1000, 0, timer4ch, 0},
+  {TIM5, TIM5_IRQn, 1000, 0, timer5ch, 0},
+  {TIM8, TIM8_CC_IRQn, 1000, 0, timer8ch, 0},
+  {TIM9, TIM1_BRK_TIM9_IRQn, 1000, 0, timer9ch, 0},
+  {TIM12, TIM8_BRK_TIM12_IRQn, 1000, 0, timer12ch, 0},
+  {TIM10, TIM1_UP_TIM10_IRQn, 1000, 0, timer10ch, 0},
+  {TIM11, TIM1_TRG_COM_TIM11_IRQn, 1000, 0, timer11ch, 0},
+  {TIM13, TIM8_UP_TIM13_IRQn, 1000, 0, timer13ch, 0},
+  {TIM14, TIM8_TRG_COM_TIM14_IRQn, 1000, 0, timer14ch, 0},
+  {TIM6, TIM6_DAC_IRQn, 1000, 0, (TimerChannelData *)0, 0},
+  {TIM7, TIM7_IRQn, 1000, 0, (TimerChannelData *)0, 0},
   // ^^^ Look up IRQn names from CMSIS device header ^^^
 };
 
