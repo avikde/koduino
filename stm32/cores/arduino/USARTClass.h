@@ -208,7 +208,7 @@ public:
    * @param nbytes Number of latest bytes to read
    * @param obuf Buffer to store in
    */
-  void readLatestDMA(uint16_t nbytes, uint8_t *obuf);
+  uint16_t readLatestDMA(uint16_t nbytes, uint8_t *obuf);
   // -----------------
   
   

@@ -213,7 +213,7 @@ void USARTClass::flushDMA(bool waitForPreviousTransmit) {
   USART_DMACmd(usartMap->USARTx, USART_DMAReq_Tx, ENABLE);
 }
 
-void USARTClass::readLatestDMA(uint16_t nbytes, uint8_t *obuf) {
+uint16_t USARTClass::readLatestDMA(uint16_t nbytes, uint8_t *obuf) {
   if (nbytes > SERIAL_BUFFER_SIZE)
     nbytes = SERIAL_BUFFER_SIZE;
 
@@ -223,10 +223,13 @@ void USARTClass::readLatestDMA(uint16_t nbytes, uint8_t *obuf) {
 #else
   uint16_t _NDTR = DMA_Rx->CNDTR;
 #endif
-  // latest data is at buffer[SERIAL_BUFFER_SIZE - _NDTR - 1]
-  for (uint16_t i=0; i<nbytes; ++i) {
-    obuf[i] = _rxBuf.buffer[(2*SERIAL_BUFFER_SIZE - _NDTR - nbytes + i)%SERIAL_BUFFER_SIZE];
+  if (nbytes > 0 && obuf!=NULL) {
+    // latest data is at buffer[SERIAL_BUFFER_SIZE - _NDTR - 1]
+    for (uint16_t i=0; i<nbytes; ++i) {
+      obuf[i] = _rxBuf.buffer[(2*SERIAL_BUFFER_SIZE - _NDTR - nbytes + i)%SERIAL_BUFFER_SIZE];
+    }
   }
+  return _NDTR;
 }
 
 
