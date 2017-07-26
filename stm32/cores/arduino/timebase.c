@@ -74,6 +74,44 @@ void attachTimerInterrupt(uint8_t i, ISRType ISR, int freqHz) {
   }
 }
 
+
+uint32_t attachTimerCallback(uint8_t timer, ISRType ISR, uint32_t usDelay) {
+  // Get the correct PCLK
+  RCC_ClocksTypeDef RCC_Clocks;
+  RCC_GetClocksFreq(&RCC_Clocks);
+  uint32_t PCLK = RCC_Clocks.PCLK1_Frequency;// Frequency in Hz
+  TIM_TypeDef *TIMx = TIMER_MAP[timer].TIMx;
+  // For timers on APB2 use PCLK2
+#if defined(STM32F446xx)
+  if (TIMx == TIM1 || TIMx == TIM8 || TIMx == TIM9 || TIMx == TIM10 || TIMx == TIM11)
+    PCLK = RCC_Clocks.PCLK2_Frequency;
+#elif defined(SERIES_STM32F30x)
+  if (TIMx == TIM1 || TIMx == TIM8 || TIMx == TIM15 || TIMx == TIM16 || TIMx == TIM17)
+    PCLK = RCC_Clocks.PCLK2_Frequency;
+#endif
+
+  // Set the update ISR
+  TimerInfo *cfg = &TIMER_MAP[timer];
+  cfg->isr = ISR;
+
+  // Start interrupts with low priority
+  uint8_t priority = 0xd;
+  nvicEnable(TIMER_MAP[timer].IRQn, priority);
+
+  // Start 1MHz timebase
+  TIM_Cmd(TIMx, DISABLE);
+  TIM_DeInit(TIMx);
+  // FIXME always getting half of what expected...
+  timerInitHelper(timer, PCLK/(1000000)-1, usDelay-1);
+  TIMx->CNT = 0;
+  TIM_ClearITPendingBit(TIMx, TIM_IT_Update);
+  TIM_ITConfig(TIMx, TIM_IT_Update, ENABLE);
+  TIM_Cmd(TIMx, ENABLE);
+
+  return PCLK;
+}
+
+
 void detachTimerInterrupt(uint8_t i)
 {
   TIMEBASE_MAP[i].isr = 0;

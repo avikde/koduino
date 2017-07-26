@@ -91,6 +91,17 @@ static inline void timebaseISR(uint8_t i, uint8_t timer) {
 // Highest resolution for PWM in
 // TIM_TypeDef *attachHighResClkUpdate(ISRType ISR);
 
+/**
+ * @brief Doesn't work quite right...mysterious multiples
+ * @details [long description]
+ * 
+ * @param timer [description]
+ * @param ISR [description]
+ * @param usDelay [description]
+ * @return [description]
+ */
+uint32_t attachTimerCallback(uint8_t timer, ISRType ISR, uint32_t usDelay);
+
 
 #ifdef __cplusplus
 } // extern "C"
