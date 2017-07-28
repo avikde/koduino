@@ -207,7 +207,7 @@ public:
     beginTransmission(kAddr);
     write(reg);
     endTransmission(false);
-    requestFrom(kAddr, 6);
+    requestFrom(kAddr, numbytes);
     for (int i=0; i<numbytes; ++i)
       obuf[i] = read();
     return numbytes;
