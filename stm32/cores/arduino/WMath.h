@@ -19,6 +19,7 @@
 #ifndef WMath_h
 #define WMath_h
 
+#include <arm_math.h>
 
 /** @addtogroup Math Basic and advanced math
  *  @{
@@ -110,8 +111,23 @@ extern void setOutPtrSafe(float *out, float val);
  * @param m2 Pointer to contents of M2 (row major)
  * @param mout Preallocated array (nr1*nc2) for contents of M1*M2
  */
-void matMult(uint16_t nr1, uint16_t nc1, uint16_t nc2, float *m1, float *m2, float *mout);
-void matMult(uint16_t nr1, uint16_t nc1, uint16_t nc2, const float *m1, const float *m2, float *mout);
+inline arm_status matMult(uint16_t nr1, uint16_t nc1, uint16_t nc2, float *m1, float *m2, float *mout) {
+  arm_matrix_instance_f32 S1, S2, Sout;
+  arm_mat_init_f32(&S1, nr1, nc1, m1);
+  arm_mat_init_f32(&S2, nc1, nc2, m2);
+  arm_mat_init_f32(&Sout, nr1, nc2, mout);
+  return arm_mat_mult_f32(&S1, &S2, &Sout);
+}
+inline arm_status matMult(uint16_t nr1, uint16_t nc1, uint16_t nc2, const float *m1, const float *m2, float *mout) {
+  return matMult(nr1, nc1, nc2, (float *)m1, (float *)m2, mout);
+}
+// Takes ~5us for 2x2, 10us for 3x3 on F446
+inline arm_status matInv(uint16_t nr1, uint16_t nc1, float *m1, float *mout) {
+  arm_matrix_instance_f32 S1, Sout;
+  arm_mat_init_f32(&S1, nr1, nc1, m1);
+  arm_mat_init_f32(&Sout, nr1, nc1, mout);
+  return arm_mat_inverse_f32(&S1, &Sout);
+}
 
 // Digital low pass filter
 

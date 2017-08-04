@@ -146,20 +146,6 @@ extern void setOutPtrSafe(float *out, float val)
   if (out) *out = val;
 }
 
-// Matrix operations
-
-void matMult(uint16_t nr1, uint16_t nc1, uint16_t nc2, float *m1, float *m2, float *mout)
-{
-  arm_matrix_instance_f32 S1, S2, Sout;
-  arm_mat_init_f32(&S1, nr1, nc1, m1);
-  arm_mat_init_f32(&S2, nc1, nc2, m2);
-  arm_mat_init_f32(&Sout, nr1, nc2, mout);
-  arm_mat_mult_f32(&S1, &S2, &Sout);
-}
-
-void matMult(uint16_t nr1, uint16_t nc1, uint16_t nc2, const float *m1, const float *m2, float *mout) {
-  matMult(nr1, nc1, nc2, (float *)m1, (float *)m2, mout);
-}
 
 //
 
