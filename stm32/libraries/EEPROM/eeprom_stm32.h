@@ -36,7 +36,7 @@ extern "C" {
 #elif defined(SERIES_STM32F30x)
   #define PAGE_SIZE  (uint16_t)0x800 // 2K
   #define EEPROM_START_ADDRESS    ((uint32_t)(0x08000000 + MAX_PROGRAM_SIZE)) // specified in boards.txt (end of flash - 2*page size)
-#elif defined(STM32F40_41xxx) || defined(STM32F411xE)
+#elif defined(STM32F40_41xxx) || defined(STM32F411xE) || defined(STM32F446xx)
 
   // EEPROM moved to first two 128k sectors (slowest place for it)
   // #define PAGE_SIZE (uint32_t) 0x20000 // 128K
