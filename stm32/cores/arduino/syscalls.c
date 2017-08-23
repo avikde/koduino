@@ -49,50 +49,50 @@ extern int link( char *cOld, char *cNew )
     return -1 ;
 }
 
-extern int _write(int file, char *ptr, int len)
-{
-  // if(bDeviceState == CONFIGURED) {
-  //   uint32_t timeout=180000;
+// extern int _write(int file, char *ptr, int len)
+// {
+//   // if(bDeviceState == CONFIGURED) {
+//   //   uint32_t timeout=180000;
 
-  //   while((!packet_sent) && timeout--) {}
+//   //   while((!packet_sent) && timeout--) {}
 
-  //   // if loop quit without timeout, success
-  //   if(timeout) {
+//   //   // if loop quit without timeout, success
+//   //   if(timeout) {
 
-  //     if(len>63) {
-  //       uint8_t packetNo, finalPacket, i;
-  //       packetNo    = len/64;
-  //       finalPacket = len;
-  //       for(i=0;i<packetNo;i++) {
-  //         CDC_Send_DATA((uint8_t*)ptr, 63);
-  //         finalPacket -= 63;
-  //         ptr += 63;
-  //         timeout=180000;
-  //         while(packet_sent==0 && timeout--);
-  //         if(timeout==0)
-  //         {
-  //           bDeviceState = UNCONNECTED;
-  //           return len;
-  //         }
-  //       }
-  //       CDC_Send_DATA((uint8_t*)ptr,finalPacket);
-  //       return len;
-  //     }
-  //     else {
-  //       CDC_Send_DATA((uint8_t*)ptr,len);
-  //       return len;
-  //     }
-  //   }
-  //   // loop quit because of timeout, fail
-  //   else {
-  //     return -1;
-  //   }
-  // }
-  // else {
-  //   return len;
-  // }
-  return 0;
-}
+//   //     if(len>63) {
+//   //       uint8_t packetNo, finalPacket, i;
+//   //       packetNo    = len/64;
+//   //       finalPacket = len;
+//   //       for(i=0;i<packetNo;i++) {
+//   //         CDC_Send_DATA((uint8_t*)ptr, 63);
+//   //         finalPacket -= 63;
+//   //         ptr += 63;
+//   //         timeout=180000;
+//   //         while(packet_sent==0 && timeout--);
+//   //         if(timeout==0)
+//   //         {
+//   //           bDeviceState = UNCONNECTED;
+//   //           return len;
+//   //         }
+//   //       }
+//   //       CDC_Send_DATA((uint8_t*)ptr,finalPacket);
+//   //       return len;
+//   //     }
+//   //     else {
+//   //       CDC_Send_DATA((uint8_t*)ptr,len);
+//   //       return len;
+//   //     }
+//   //   }
+//   //   // loop quit because of timeout, fail
+//   //   else {
+//   //     return -1;
+//   //   }
+//   // }
+//   // else {
+//   //   return len;
+//   // }
+//   return 0;
+// }
 
 
 extern caddr_t _sbrk(int incr) {
@@ -104,7 +104,7 @@ extern caddr_t _sbrk(int incr) {
   char * stack = (char*) __get_MSP();
   if (heap_end+incr >  stack)
   {
-    _write(1, (char *)"Heap and stack collision\n", 25);
+    // _write(1, (char *)"Heap and stack collision\n", 25);
     return  (caddr_t) -1;
   }
   heap_end += incr;
