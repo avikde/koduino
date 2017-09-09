@@ -528,7 +528,8 @@ if __name__ == "__main__":
     elif o == '-l':
       conf['len'] = eval(a)
     elif o == '-E':
-      conf['eepstart'] = eval(a)
+      # add the base flash address
+      conf['eepstart'] = 0x08000000+eval(a)
     elif o == '-L':
       conf['eeplen'] = eval(a)
     elif o == '-y':

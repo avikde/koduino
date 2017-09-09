@@ -61,8 +61,8 @@ SPACE := $(null) $(null)
 CURDIR_NOSP  = $(subst $(SPACE),\ ,$(CURDIR))
 BUILDDIR  = $(CURDIR_NOSP)/build
 # Create obj directory
-$(shell   mkdir -p $(BUILDDIR))
-PROJNAME  = $(subst $(SPACE),_,$(shell basename $(CURDIR_NOSP)))
+$(shell   mkdir -p "$(BUILDDIR)")
+PROJNAME  = $(subst $(SPACE),_,$(shell basename "$(CURDIR_NOSP)"))
 
 # Print some stuff
 $(info Compiling for $(VARIANT), MCU = $(MCU), project = $(PROJNAME), upload method is $(UPLOAD_METHOD))
@@ -190,18 +190,18 @@ clean:
 # Project
 $(BUILDDIR)/%.proj.o: $(CURDIR_NOSP)/%.c
 	@echo "[CC] $(@F)"
-	@$(CC) $(CFLAGS) -c -o "$(PREF)$@" "$(PREF)$^"
+	@$(CC) $(CFLAGS) -c -o "$(subst $(SPACE),\ ,$(PREF)$@)" "$(PREF)$^"
 $(BUILDDIR)/%.proj.o: $(CURDIR_NOSP)/%.cpp
 	@echo "[CXX] $(@F)"
-	@$(CXX) $(CXXFLAGS) -c -o "$(PREF)$@" "$(PREF)$^"
+	@$(CXX) $(CXXFLAGS) -c -o "$(subst $(SPACE),\ ,$(PREF)$@)" "$(PREF)$^"
 
 # Libraries
 $(BUILDDIR)/%.o: $(KODUINO_DIR)/libraries/*/%.c
 	@echo "[CC] $(@F)"
-	@$(CC) $(CFLAGS) -c -o "$(PREF)$@" "$(PREF)$^"
+	@$(CC) $(CFLAGS) -c -o "$(subst $(SPACE),\ ,$(PREF)$@)" "$(PREF)$^"
 $(BUILDDIR)/%.o: $(KODUINO_DIR)/libraries/*/%.cpp
 	@echo "[CXX] $(@F)"
-	@$(CXX) $(CXXFLAGS) -c -o "$(PREF)$@" "$(PREF)$^"
+	@$(CXX) $(CXXFLAGS) -c -o "$(subst $(SPACE),\ ,$(PREF)$@)" "$(PREF)$^"
 
 # Std peripheral libs
 $(BUILDDIR)/%.o: $(STD_PERIPH_DIR)/src/%.c
@@ -211,20 +211,20 @@ $(BUILDDIR)/%.o: $(STD_PERIPH_DIR)/src/%.c
 # Variant
 $(BUILDDIR)/%.o: $(VARIANT_DIR)/%.c
 	@echo "[CC] $(^F)"
-	@$(CC) $(CFLAGS) -c -o "$@" "$^"
+	@$(CC) $(CFLAGS) -c -o "$(subst $(SPACE),\ ,$@)" "$^"
 $(BUILDDIR)/%.o: $(VARIANT_DIR)/%.cpp
 	@echo "[CXX] $(^F)"
-	@$(CXX) $(CXXFLAGS) -c -o "$@" "$^"
+	@$(CXX) $(CXXFLAGS) -c -o "$(subst $(SPACE),\ ,$@)" "$^"
 $(BUILDDIR)/%.o: $(VARIANT_DIR)/%.S
 	@echo "[AS] $(@F)"
-	@$(CC) $(CFLAGS) -c -o "$@" "$^"
+	@$(CC) $(CFLAGS) -c -o "$(subst $(SPACE),\ ,$@)" "$^"
 
 # Arduino core
 $(BUILDDIR)/%.o: $(CORE_DIR)/%.c
 	@echo "[CC] $(^F)"
-	@$(CC) $(CFLAGS) -c -o "$@" "$^"
+	@$(CC) $(CFLAGS) -c -o "$(subst $(SPACE),\ ,$@)" "$^"
 $(BUILDDIR)/%.o: $(CORE_DIR)/%.cpp
 	@echo "[CXX] $(^F)"
-	@$(CXX) $(CXXFLAGS) -c -o "$@" "$^"
+	@$(CXX) $(CXXFLAGS) -c -o "$(subst $(SPACE),\ ,$@)" "$^"
 
 

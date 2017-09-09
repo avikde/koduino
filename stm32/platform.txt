@@ -136,7 +136,7 @@ tools.stm32loader.cmd=stm32loader.py
 tools.stm32loader.path={runtime.ide.path}/hardware/koduino/stm32/system
 tools.stm32loader.upload.params.verbose=
 tools.stm32loader.upload.params.quiet=
-tools.stm32loader.upload.pattern=python "{path}/{cmd}" -p {serial.port} -b {upload.baud} -y {upload.options} -ew "{build.path}/{build.project_name}.bin"
+tools.stm32loader.upload.pattern=python "{path}/{cmd}" -p {serial.port} -b {upload.baud} -y {upload.options} -E {upload.maximum_size} -L {upload.eeplen} -ew "{build.path}/{build.project_name}.bin"
 
 # ST-LINK (Windows)
 tools.stlink.cmd=ST-LINK_CLI.exe

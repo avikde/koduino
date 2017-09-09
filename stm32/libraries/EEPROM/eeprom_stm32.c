@@ -21,14 +21,9 @@
 
 uint16_t DataVar = 0;
 
-// Totally made up
-#define NB_OF_VAR 32
-uint16_t VirtAddVarTab[NB_OF_VAR] = {
-  0,1,2,3,4,5,6,7,8,9,
-  10,11,12,13,14,15,16,17,18,19,
-  20,21,22,23,24,25,26,27,28,29,
-  30,31
-};
+// 2k of space standard, and each is size 2
+#define NB_OF_VAR 1000
+uint16_t VirtAddVarTab[NB_OF_VAR];
 
 static FLASH_Status EE_Format(void);
 static uint16_t EE_VerifyPageFullWriteVariable(uint16_t VirtAddress, uint16_t Data);
@@ -58,6 +53,11 @@ FLASH_Status eraseHelper(uint32_t pageAddress)
   */
 uint16_t EE_Init(void)
 {
+  // fill in virtual address table
+  for (int i=0; i<NB_OF_VAR; ++i)
+    VirtAddVarTab[i] = i;
+
+  // 
   uint16_t PageStatus0 = 6, PageStatus1 = 6;
   uint16_t VarIdx = 0;
   uint16_t EepromStatus = 0, ReadStatus = 0;

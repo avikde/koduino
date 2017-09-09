@@ -35,9 +35,11 @@ f301.build.board=STM32_F301
 # Flash size choices
 f301.menu.flashsize.64k = 64KB (F30**8)
 f301.menu.flashsize.64k.upload.maximum_size=61440
+f301.menu.flashsize.64k.upload.eeplen=4096
 
 f301.menu.flashsize.32k = 32KB (F30**6)
 f301.menu.flashsize.32k.upload.maximum_size=28672
+f301.menu.flashsize.32k.upload.eeplen=4096
 
 # HSE choices
 # f301.build.hse_value=8000000UL
@@ -106,6 +108,15 @@ f303v.build.variant=f303v
 f303v.build.isrs=INLINE
 f303v.build.board=STM32_F303V
 
+# To save EEPROM?
+# Flash size choices
+f303v.menu.flashsize.256ke = 252KB (2k EEPROM)
+f303v.menu.flashsize.256ke.upload.maximum_size=258048
+f303v.menu.flashsize.256ke.upload.eeplen=4096
+# f303v.menu.flashsize.256k = 256KB (no EEPROM)
+# f303v.menu.flashsize.256k.upload.maximum_size=262144
+# f303v.menu.flashsize.256k.upload.eeplen=0
+
 # HSE choices
 f303v.menu.hse.8m=72MHz (from 8MHz HSE)
 f303v.menu.hse.8m.build.hse_value=8000000UL
@@ -122,14 +133,11 @@ f303v.menu.hse.8m_oc112.build.hse_value=8000000UL
 f303v.menu.hse.8m_oc112.build.f_cpu=112000000L
 f303v.menu.hse.8m_oc112.build.clksrc=HSE_8M_OC112
 
-# Upload
-f303v.upload.maximum_size=262144
-
-f303v.menu.bootloader.stm32ld=Serial (stm32ld)
-f303v.menu.bootloader.stm32ld.upload.tool=stm32ld
-f303v.menu.bootloader.stm32ld.upload.baud=230400
-f303v.menu.bootloader.stm32ld.upload.protocol=serial
-f303v.menu.bootloader.stm32ld.upload.options=mblc
+# f303v.menu.bootloader.stm32ld=Serial (stm32ld)
+# f303v.menu.bootloader.stm32ld.upload.tool=stm32ld
+# f303v.menu.bootloader.stm32ld.upload.baud=230400
+# f303v.menu.bootloader.stm32ld.upload.protocol=serial
+# f303v.menu.bootloader.stm32ld.upload.options=mblc
 
 f303v.menu.bootloader.stm32loader=Serial (stm32loader)
 f303v.menu.bootloader.stm32loader.upload.tool=stm32loader
@@ -174,6 +182,7 @@ f37x.menu.hse.16m.build.clksrc=HSE_16M
 
 
 f37x.upload.maximum_size=262144
+f37x.upload.eeplen=0
 
 # Upload choices
 f37x.menu.bootloader.stm32loader=Serial (no pulse)
@@ -217,6 +226,7 @@ f40_41x.build.isrs=INLINE
 # Upload common
 f40_41x.upload.baud=115200
 f40_41x.upload.maximum_size=65536
+f40_41x.upload.eeplen=0
 f40_41x.upload.tool=stm32ld
 f40_41x.upload.protocol=serial
 
@@ -248,6 +258,7 @@ f446.build.clksrc=
 
 # Upload
 f446.upload.maximum_size=524288
+f446.upload.eeplen=0
 
 f446.menu.bootloader.stm32ld=Serial (stm32ld)
 f446.menu.bootloader.stm32ld.upload.tool=stm32ld
